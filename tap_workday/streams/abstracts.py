@@ -28,8 +28,8 @@ class BaseStream(ABC):
 
     url_endpoint = ""
     path = ""
-    page_size = 100
-    next_page_key = "next_page"
+    page_size = 0
+    next_page_key = ""
     headers = {}
     children = []
     parent = ""
@@ -98,7 +98,7 @@ class BaseStream(ABC):
 
     def get_records(self) -> Iterator:
         """Interacts with api client interaction and pagination."""
-        self.params["page"] = self.page_size
+        self.params[""] = self.page_size
         next_page = 1
         while next_page:
             response = self.client.make_request(
@@ -302,6 +302,7 @@ class ChildBaseStream(IncrementalStream):
     def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
         """Singleton bookmark value for child streams."""
         if not self.bookmark_value:
+
             self.bookmark_value = super().get_bookmark(state, stream)
 
         return self.bookmark_value

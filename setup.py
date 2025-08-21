@@ -9,7 +9,12 @@ setup(
     url="http://singer.io",
     classifiers=["Programming Language :: Python :: 3 :: Only"],
     py_modules=["tap_workday"],
-    install_requires=["singer-python==6.1.1", "requests==2.32.5", "parameterized"],
+    install_requires=[
+        "singer-python==6.1.1",
+        "requests==2.32.5",
+        "zeep==4.3.1",
+        "parameterized"
+    ],
     entry_points="""
           [console_scripts]
           tap-workday=tap_workday:main
