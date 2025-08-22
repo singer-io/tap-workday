@@ -14,6 +14,7 @@ REQUIRED_CONFIG_KEYS = [
     "refresh_token",
     "client_id",
     "client_secret",
+    "start_date"
 ]
 
 
