@@ -8,7 +8,7 @@ This tap:
 
 - Pulls raw data from the [workday API].
 - Extracts the following resources:
-    - [GetOrganizations](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Get_Organizations.html)
+    - [Organizations](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Get_Organizations.html)
 
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state

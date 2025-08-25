@@ -1,4 +1,3 @@
-
 from datetime import datetime, date
 from decimal import Decimal
 
@@ -66,7 +65,9 @@ def my_pre_hook(data, typ, schema):
 
 
 # ---- Zeep client factory ----
-def get_workday_client(tenant: str, username: str, password: str, service: str, version: str):
+def get_workday_client(
+    tenant: str, username: str, password: str, service: str, version: str
+):
     """Create a Zeep SOAP client for a given Workday service & version."""
     wsdl = f"https://wd2-impl-services1.workday.com/ccx/service/{tenant}/{service}/{version}?wsdl"
     return Client(wsdl=wsdl, wsse=UsernameToken(username, password))
@@ -75,7 +76,7 @@ def get_workday_client(tenant: str, username: str, password: str, service: str, 
 # ---- Emit helper for FULL_TABLE streams ----
 def emit_full_table(stream, records):
     """Write schema, transform with shared hook, and emit records."""
-    write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
+    # write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
 
     transformer = Transformer(
         integer_datetime_fmt=UNIX_SECONDS_INTEGER_DATETIME_PARSING,
