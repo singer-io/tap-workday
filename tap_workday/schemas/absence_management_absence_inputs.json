@@ -1,0 +1,361 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Absence_Input_Reference": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "ID": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "_value_1": { "type": "string" },
+              "type": { "type": "string" }
+            }
+          }
+        },
+        "Descriptor": { "type": ["string", "null"] }
+      }
+    },
+    "Absence_Input_Data": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Absence_Input_ID": { "type": ["string", "null"] },
+        "Batch_ID": { "type": ["string", "null"] },
+
+        "Worker_Reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+
+        "Position_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+
+        "Absence_Component_Reference": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+
+        "Start_Date": { "type": ["string", "null"], "format": "date" },
+        "End_Date": { "type": ["string", "null"], "format": "date" },
+        "Reference_Date": { "type": ["string", "null"], "format": "date" },
+
+        "Hours": { "type": ["number", "null"] },
+        "Adjustment": { "type": ["boolean", "null"] },
+
+        "Allocation_Pool_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Appropriation_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Business_Unit_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Cost_Center_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+
+        "Custom_Organization_01_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_02_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_03_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_04_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_05_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_06_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_07_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_08_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_09_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Organization_10_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+
+        "Custom_Worktag_01_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_02_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_03_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_04_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_05_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_06_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_07_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_08_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_09_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_10_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_11_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_12_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_13_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_14_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+        "Custom_Worktag_15_Reference": { "type": ["object", "null"], "additionalProperties": false, "properties": { "ID": { "type": ["array", "null"], "items": { "type": "object", "additionalProperties": false, "properties": { "_value_1": { "type": "string" }, "type": { "type": "string" } } } }, "Descriptor": { "type": ["string", "null"] } } },
+
+        "Fund_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Gift_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Grant_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Job_Profile_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Location_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Program_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Region_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Project_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+        "Project_Task_Reference": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "_value_1": { "type": "string" },
+                  "type": { "type": "string" }
+                }
+              }
+            },
+            "Descriptor": { "type": ["string", "null"] }
+          }
+        },
+
+        "Comment": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

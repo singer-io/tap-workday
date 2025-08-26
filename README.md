@@ -7,23 +7,9 @@ spec](https://github.com/singer-io/getting-started/blob/master/docs/SPEC.md).
 This tap:
 
 - Pulls raw data from the [workday API].
-- Extracts the following resources:
-    - [Organizations](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Get_Organizations.html)
-
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
 
-
-## Streams
-
-
-**[get_organizations](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Get_Organizations.html)**
-- Primary keys: ['Organization_ID.value']
-- Replication strategy: FULL_TABLE
-
-
-
-## Authentication
 
 ## Quick Start
 

@@ -13,7 +13,7 @@ setup(
         "singer-python==6.1.1",
         "requests==2.32.5",
         "zeep==4.3.1",
-        "parameterized",
+        "parameterized==0.9.0",
     ],
     entry_points="""
           [console_scripts]
