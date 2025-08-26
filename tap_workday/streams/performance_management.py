@@ -28,30 +28,6 @@ class CertificationIssuers(FullTableStream):
         return emit_full_table(self, records)
 
 
-class Certifications(FullTableStream):
-    tap_stream_id = "certifications"
-    replication_method = "FULL_TABLE"
-    key_properties = ["ID"]
-    data_key = "Certification"
-
-    def get_client(self):
-        cfg = self.client.config
-        return get_workday_client(
-            tenant=cfg["tenant"],
-            username=cfg["username"],
-            password=cfg["password"],
-            service="Performance_Management",
-            version="v44.2",
-        )
-
-    def sync(self, state, transformer, parent_obj=None):
-        client = self.get_client()
-        response = client.service.Get_Certifications()
-        serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
-        return emit_full_table(self, records)
-
-
 class Competencies(FullTableStream):
     tap_stream_id = "competencies"
     replication_method = "FULL_TABLE"
