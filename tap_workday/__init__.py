@@ -11,10 +11,6 @@ REQUIRED_CONFIG_KEYS = [
     "tenant",
     "username",
     "password",
-    "refresh_token",
-    "client_id",
-    "client_secret",
-    "start_date",
 ]
 
 
