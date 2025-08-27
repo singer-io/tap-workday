@@ -1,0 +1,1310 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Request_References": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Organization_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Request_Criteria": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Organization_Type_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "Include_Inactive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Enable_Transaction_Log_Lite": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Transaction_Log_Criteria": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Transaction_Date_Range_Data": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Updated_From": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Updated_Through": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Effective_From": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Effective_Through": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Field_And_Parameter_Criteria_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Provider_Reference": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Response_Filter": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "As_Of_Effective_Date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "As_Of_Entry_DateTime": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Page": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "Count": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "Response_Group": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Include_Roles_Data": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Include_Hierarchy_Data": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Include_Supervisory_Data": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Include_Staffing_Restrictions_Data": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    },
+    "Response_Results": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Total_Results": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "Total_Pages": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "Page_Results": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "Page": {
+          "type": [
+            "object",
+            "null"
+          ]
+        }
+      }
+    },
+    "Response_Data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Organization": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "Organization_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {}
+                    }
+                  }
+                }
+              },
+              "Organization_Data": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Reference_ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Name": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Description": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Organization_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Include_Manager_in_Name": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Include_Organization_Code_in_Name": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Organization_Type_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Subtype_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "Availibility_Date": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Last_Updated_DateTime": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Inactive": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Inactive_Date": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Manager_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "Leadership_Reference": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "ID": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {}
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Owner_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Visibility_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "External_URL_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "External_IDs_Data": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {}
+                        }
+                      }
+                    }
+                  },
+                  "Roles_Data": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Organization_Role_Data": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "Role_Reference": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            },
+                            "Worker_Reference": {
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "additionalProperties": false,
+                                      "properties": {}
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Hierarchy_Data": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Top-Level_Organization_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {}
+                            }
+                          }
+                        }
+                      },
+                      "Superior_Organization_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {}
+                            }
+                          }
+                        }
+                      },
+                      "Subordinate_Organization_Reference": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Included_Organization_Reference": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Included_In_Organization_Reference": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {}
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Supervisory_Data": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Staffing_Model": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "Location_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {}
+                            }
+                          }
+                        }
+                      },
+                      "Organization_Assignments_Data": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "Organization_Type_Reference": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            },
+                            "Organization_Reference": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Staffing_Restrictions_Data": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "Availability_Date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "Earliest_Hire_Date": {
+                            "type": [
+                              "string",
+                              "null"
+                            ]
+                          },
+                          "Job_Family_Reference": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Job_Profile_Restriction_Summary_Data": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "Job_Profile_Reference": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "ID": {
+                                      "type": [
+                                        "array",
+                                        "null"
+                                      ],
+                                      "items": {
+                                        "type": [
+                                          "object",
+                                          "null"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {}
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Profile_Name": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "Management_Level_Reference": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "ID": {
+                                      "type": [
+                                        "array",
+                                        "null"
+                                      ],
+                                      "items": {
+                                        "type": [
+                                          "object",
+                                          "null"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {}
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Category_Reference": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "ID": {
+                                      "type": [
+                                        "array",
+                                        "null"
+                                      ],
+                                      "items": {
+                                        "type": [
+                                          "object",
+                                          "null"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {}
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Family_Reference": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "ID": {
+                                        "type": [
+                                          "array",
+                                          "null"
+                                        ],
+                                        "items": {
+                                          "type": [
+                                            "object",
+                                            "null"
+                                          ],
+                                          "additionalProperties": false,
+                                          "properties": {}
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Work_Shift_Required": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                "Job_Profile_Exempt_Data": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "Location_Context_Reference": {
+                                        "type": [
+                                          "object",
+                                          "null"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "ID": {
+                                            "type": [
+                                              "array",
+                                              "null"
+                                            ],
+                                            "items": {
+                                              "type": [
+                                                "object",
+                                                "null"
+                                              ],
+                                              "additionalProperties": false,
+                                              "properties": {}
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "Job_Exempt": {
+                                        "type": [
+                                          "boolean",
+                                          "null"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "Critical_Job": {
+                                  "type": [
+                                    "boolean",
+                                    "null"
+                                  ]
+                                },
+                                "Difficulty_to_Fill_Reference": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "ID": {
+                                      "type": [
+                                        "array",
+                                        "null"
+                                      ],
+                                      "items": {
+                                        "type": [
+                                          "object",
+                                          "null"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {}
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Location_Reference": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Worker_Type_Reference": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {}
+                                }
+                              }
+                            }
+                          },
+                          "Time_Type_Reference": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {}
+                                }
+                              }
+                            }
+                          },
+                          "Position_Worker_Type_Reference": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "additionalProperties": false,
+                                    "properties": {}
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Available_For_Hire": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      },
+                      "Hiring_Freeze": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Integration_Field_Override_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "additionalProperties": false,
+                      "properties": {
+                        "Field_Reference": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "array",
+                                "null"
+                              ],
+                              "items": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "additionalProperties": false,
+                                "properties": {}
+                              }
+                            }
+                          }
+                        },
+                        "Value": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

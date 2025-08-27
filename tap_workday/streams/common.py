@@ -65,6 +65,29 @@ def my_pre_hook(data, typ, schema):
 
 
 # ---- Zeep client factory ----
+
+# ---- Safe extractor for Response_Data.* when Response_Data can be None ----
+def safe_get_records(serialized: dict, data_key: str):
+    """Return a list of records from a Workday SOAP response.
+
+    Handles cases where `Response_Data` is None or missing, and when the
+    leaf at `data_key` is a single object instead of a list.
+    """
+    if not isinstance(serialized, dict):
+        return []
+    resp = serialized.get("Response_Data")
+    if not isinstance(resp, dict):
+        return []
+    records = resp.get(data_key)
+    if records is None:
+        return []
+    if isinstance(records, list):
+        return records
+    if isinstance(records, dict):
+        return [records]
+    return []
+
+
 def get_workday_client(
     tenant: str, username: str, password: str, service: str, version: str
 ):
@@ -76,7 +99,8 @@ def get_workday_client(
 # ---- Emit helper for FULL_TABLE streams ----
 def emit_full_table(stream, records):
     """Write schema, transform with shared hook, and emit records."""
-    # write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
+    # Always announce the schema before records so targets accept writes
+    write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
 
     transformer = Transformer(
         integer_datetime_fmt=UNIX_SECONDS_INTEGER_DATETIME_PARSING,

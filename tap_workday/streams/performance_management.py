@@ -1,7 +1,7 @@
 from zeep.helpers import serialize_object
 
 from tap_workday.streams.abstracts import FullTableStream
-from tap_workday.streams.common import get_workday_client, emit_full_table
+from tap_workday.streams.common import get_workday_client, emit_full_table, safe_get_records
 
 
 class CertificationIssuers(FullTableStream):
@@ -24,7 +24,7 @@ class CertificationIssuers(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Certification_Issuers()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -48,7 +48,7 @@ class Competencies(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Competencies()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -72,7 +72,7 @@ class CompetencyCategories(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Competency_Categories()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -96,5 +96,5 @@ class Degrees(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Degrees()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)

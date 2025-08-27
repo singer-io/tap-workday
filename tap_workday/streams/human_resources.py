@@ -1,7 +1,7 @@
 from zeep.helpers import serialize_object
 
 from tap_workday.streams.abstracts import FullTableStream
-from tap_workday.streams.common import get_workday_client, emit_full_table
+from tap_workday.streams.common import get_workday_client, emit_full_table, safe_get_records
 
 
 class Organizations(FullTableStream):
@@ -24,7 +24,7 @@ class Organizations(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Organizations()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -48,7 +48,7 @@ class JobCategories(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Job_Categories()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -72,7 +72,7 @@ class JobFamilyGroups(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Job_Family_Groups()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -96,7 +96,7 @@ class JobProfiles(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Job_Profiles()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
 
 
@@ -120,5 +120,5 @@ class Locations(FullTableStream):
         client = self.get_client()
         response = client.service.Get_Locations()
         serialized = serialize_object(response)
-        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)

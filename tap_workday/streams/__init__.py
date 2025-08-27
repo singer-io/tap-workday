@@ -12,6 +12,10 @@ from tap_workday.streams.performance_management import (
     CompetencyCategories,
     Degrees,
 )
+from tap_workday.streams.financial_management import (
+    CostCenters,
+    Organizations as FmOrganizations,
+)
 
 
 STREAMS = {
@@ -31,4 +35,8 @@ STREAMS = {
     "performance_management_competencies": Competencies,
     "performance_management_competency_categories": CompetencyCategories,
     "performance_management_degrees": Degrees,
+
+    # Financial_Management
+    "financial_management_cost_centers": CostCenters,
+    "financial_management_organizations": FmOrganizations,
 }
