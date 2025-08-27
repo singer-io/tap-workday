@@ -12,7 +12,6 @@ class Organizations(FullTableStream):
 
     def get_client(self):
         cfg = self.client.config
-        # Keeping original version v42.0 to match the source file; change if needed
         return get_workday_client(
             tenant=cfg["tenant"],
             username=cfg["username"],
@@ -48,6 +47,78 @@ class JobCategories(FullTableStream):
     def sync(self, state, transformer, parent_obj=None):
         client = self.get_client()
         response = client.service.Get_Job_Categories()
+        serialized = serialize_object(response)
+        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        return emit_full_table(self, records)
+
+
+class JobFamilyGroups(FullTableStream):
+    tap_stream_id = "job_family_groups"
+    replication_method = "FULL_TABLE"
+    key_properties = ["Job_Family_Group_Data.ID"]
+    data_key = "Job_Family_Group"
+
+    def get_client(self):
+        cfg = self.client.config
+        return get_workday_client(
+            tenant=cfg["tenant"],
+            username=cfg["username"],
+            password=cfg["password"],
+            service="Human_Resources",
+            version="v44.2",
+        )
+
+    def sync(self, state, transformer, parent_obj=None):
+        client = self.get_client()
+        response = client.service.Get_Job_Family_Groups()
+        serialized = serialize_object(response)
+        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        return emit_full_table(self, records)
+
+
+class JobProfiles(FullTableStream):
+    tap_stream_id = "job_profiles"
+    replication_method = "FULL_TABLE"
+    key_properties = ["Job_Profile_Data.Job_Code"]
+    data_key = "Job_Profile"
+
+    def get_client(self):
+        cfg = self.client.config
+        return get_workday_client(
+            tenant=cfg["tenant"],
+            username=cfg["username"],
+            password=cfg["password"],
+            service="Human_Resources",
+            version="v44.2",
+        )
+
+    def sync(self, state, transformer, parent_obj=None):
+        client = self.get_client()
+        response = client.service.Get_Job_Profiles()
+        serialized = serialize_object(response)
+        records = serialized.get("Response_Data", {}).get(self.data_key, [])
+        return emit_full_table(self, records)
+
+
+class Locations(FullTableStream):
+    tap_stream_id = "locations"
+    replication_method = "FULL_TABLE"
+    key_properties = ["Location_Data.Location_ID"]
+    data_key = "Location"
+
+    def get_client(self):
+        cfg = self.client.config
+        return get_workday_client(
+            tenant=cfg["tenant"],
+            username=cfg["username"],
+            password=cfg["password"],
+            service="Human_Resources",
+            version="v44.2",
+        )
+
+    def sync(self, state, transformer, parent_obj=None):
+        client = self.get_client()
+        response = client.service.Get_Locations()
         serialized = serialize_object(response)
         records = serialized.get("Response_Data", {}).get(self.data_key, [])
         return emit_full_table(self, records)
