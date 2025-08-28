@@ -1,4 +1,3 @@
-
 from zeep.helpers import serialize_object
 
 from tap_workday.streams.abstracts import FullTableStream
@@ -9,14 +8,16 @@ class Organizations(FullTableStream):
     """Staffing.Get_Organizations stream.
 
     Reuses centralized helpers from `common.py` and `abstracts.py` to keep logic
-    consistent with Human_Resources.Get_Organizations.
+    consistent with other Workday streams.
     """
 
-    tap_stream_id = "staffing_get_organizations"
+    # Match catalog stream id used in __init__.py
+    tap_stream_id = "staffing_organizations"
     replication_method = "FULL_TABLE"
-    # Workday Organization reference commonly exposes Organization_ID.value
-    key_properties = ["Organization_ID.value"]
-    # In both HR and Staffing responses, the leaf array/object is typically "Organization"
+    # Use the standard Workday reference id as the primary key
+    key_properties = ["Organization_Reference.ID"]
+
+    # In the Staffing response, the leaf array/object is "Organization" under Response_Data
     data_key = "Organization"
 
     def get_client(self):
@@ -34,8 +35,7 @@ class Organizations(FullTableStream):
     def sync(self, state, transformer, parent_obj=None):
         client = self.get_client()
 
-        # The Staffing service exposes Get_Organizations with similar request/response
-        # shapes. We call it without filters to pull a full snapshot.
+        # The Staffing service exposes Get_Organizations
         response = client.service.Get_Organizations()
         serialized = serialize_object(response)
 
