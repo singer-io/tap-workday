@@ -1,0 +1,1918 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Get_Organizations_Response",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Request_References": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Skip_Non_Existing_Instances": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Organization_Reference": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Request_Criteria": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Organization_Type_Reference": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Include_Inactive": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Enable_Transaction_Log_Lite": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Transaction_Log_Criteria": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Transaction_Date_Range_Data": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Updated_From": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  },
+                  "Updated_Through": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  },
+                  "Effective_From": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  },
+                  "Effective_Through": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  }
+                }
+              },
+              "Transaction_Type_References": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Transaction_Type_Reference": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "Descriptor": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "ID": {
+                          "type": [
+                            "null",
+                            "array"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "_value_1": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              },
+                              "type": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Subscriber_Reference": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Descriptor": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "ID": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Field_And_Parameter_Criteria_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Provider_Reference": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Descriptor": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "ID": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Response_Filter": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "As_Of_Effective_Date": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "As_Of_Entry_DateTime": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date-time"
+        },
+        "Page": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Count": {
+          "type": [
+            "null",
+            "number"
+          ]
+        }
+      }
+    },
+    "Response_Group": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Include_Roles_Data": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Include_Hierarchy_Data": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Include_Supervisory_Data": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Include_Staffing_Restrictions_Data": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        }
+      }
+    },
+    "Response_Results": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Total_Results": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Total_Pages": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Page_Results": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Page": {
+          "type": [
+            "null",
+            "number"
+          ]
+        }
+      }
+    },
+    "Response_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Organization": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Organization_Reference": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Descriptor": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "ID": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "Organization_Data": {
+                "type": [
+                  "null",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "Reference_ID": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "Name": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "Description": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "Organization_Code": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "Include_Manager_in_Name": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Include_Organization_Code_in_Name": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Organization_Type_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Subtype_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Availibility_Date": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  },
+                  "Last_Updated_DateTime": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date-time"
+                  },
+                  "Inactive": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Inactive_Date": {
+                    "type": [
+                      "null",
+                      "string"
+                    ],
+                    "format": "date"
+                  },
+                  "Manager_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Leadership_Reference": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "Descriptor": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "ID": {
+                          "type": [
+                            "null",
+                            "array"
+                          ],
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                              "_value_1": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              },
+                              "type": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Owner_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Organization_Visibility_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "External_URL_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "External_IDs_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "System_ID": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Roles_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Organization_Role_Data": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Role_Reference": {
+                              "type": [
+                                "null",
+                                "object"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "Worker_Reference": {
+                              "type": [
+                                "null",
+                                "object"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Hierarchy_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Top-Level_Organization_Reference": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "Descriptor": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "ID": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Superior_Organization_Reference": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "Descriptor": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "ID": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Subordinate_Organization_Reference": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "_value_1": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Included_Organization_Reference": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "_value_1": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Included_In_Organization_Reference": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "_value_1": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Supervisory_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Staffing_Model": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "Location_Reference": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "Descriptor": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "ID": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Organization_Assignments_Data": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "Organization_Type_Reference": {
+                              "type": [
+                                "null",
+                                "object"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "Organization_Reference": {
+                              "type": [
+                                "null",
+                                "object"
+                              ],
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Staffing_Restrictions_Data": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "Availability_Date": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "Earliest_Hire_Date": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "Job_Family_Reference": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Job_Profile_Restriction_Summary_Data": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "Job_Profile_Reference": {
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "Descriptor": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "ID": {
+                                      "type": [
+                                        "null",
+                                        "array"
+                                      ],
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "_value_1": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          },
+                                          "type": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Profile_Name": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "Management_Level_Reference": {
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "Descriptor": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "ID": {
+                                      "type": [
+                                        "null",
+                                        "array"
+                                      ],
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "_value_1": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          },
+                                          "type": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Category_Reference": {
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "Descriptor": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "ID": {
+                                      "type": [
+                                        "null",
+                                        "array"
+                                      ],
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "_value_1": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          },
+                                          "type": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Job_Family_Reference": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "Descriptor": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "ID": {
+                                        "type": [
+                                          "null",
+                                          "array"
+                                        ],
+                                        "items": {
+                                          "type": "object",
+                                          "additionalProperties": false,
+                                          "properties": {
+                                            "_value_1": {
+                                              "type": [
+                                                "null",
+                                                "string"
+                                              ]
+                                            },
+                                            "type": {
+                                              "type": [
+                                                "null",
+                                                "string"
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                },
+                                "Work_Shift_Required": {
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                "Job_Profile_Exempt_Data": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "Location_Context_Reference": {
+                                        "type": [
+                                          "null",
+                                          "object"
+                                        ],
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "Descriptor": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          },
+                                          "ID": {
+                                            "type": [
+                                              "null",
+                                              "array"
+                                            ],
+                                            "items": {
+                                              "type": "object",
+                                              "additionalProperties": false,
+                                              "properties": {
+                                                "_value_1": {
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ]
+                                                },
+                                                "type": {
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ]
+                                                },
+                                                "parent_id": {
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ]
+                                                },
+                                                "parent_type": {
+                                                  "type": [
+                                                    "null",
+                                                    "string"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "Job_Exempt": {
+                                        "type": [
+                                          "null",
+                                          "boolean"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "Critical_Job": {
+                                  "type": [
+                                    "null",
+                                    "boolean"
+                                  ]
+                                },
+                                "Difficulty_to_Fill_Reference": {
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "Descriptor": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "ID": {
+                                      "type": [
+                                        "null",
+                                        "array"
+                                      ],
+                                      "items": {
+                                        "type": "object",
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "_value_1": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          },
+                                          "type": {
+                                            "type": [
+                                              "null",
+                                              "string"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Location_Reference": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Worker_Type_Reference": {
+                            "type": [
+                              "null",
+                              "object"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "Descriptor": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              },
+                              "ID": {
+                                "type": [
+                                  "null",
+                                  "array"
+                                ],
+                                "items": {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Time_Type_Reference": {
+                            "type": [
+                              "null",
+                              "object"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "Descriptor": {
+                                "type": [
+                                  "null",
+                                  "string"
+                                ]
+                              },
+                              "ID": {
+                                "type": [
+                                  "null",
+                                  "array"
+                                ],
+                                "items": {
+                                  "type": "object",
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "Position_Worker_Type_Reference": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "Descriptor": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "ID": {
+                                  "type": [
+                                    "null",
+                                    "array"
+                                  ],
+                                  "items": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "null",
+                                          "string"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Available_For_Hire": {
+                        "type": [
+                          "null",
+                          "boolean"
+                        ]
+                      },
+                      "Hiring_Freeze": {
+                        "type": [
+                          "null",
+                          "boolean"
+                        ]
+                      }
+                    }
+                  },
+                  "Integration_Field_Override_Data": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "Field_Reference": {
+                          "type": [
+                            "null",
+                            "object"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "_value_1": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_id": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "Value": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
