@@ -7,7 +7,7 @@ from tap_workday.streams.common import get_workday_client, emit_full_table, safe
 class CostCenters(FullTableStream):
     tap_stream_id = "cost_centers"
     replication_method = "FULL_TABLE"
-    key_properties = []
+    key_properties = ["Cost_Center_Data.Organization_Data.ID"]
     data_key = "Cost_Center"
 
     def get_client(self):
@@ -31,7 +31,7 @@ class CostCenters(FullTableStream):
 class Organizations(FullTableStream):
     tap_stream_id = "fm_organizations"
     replication_method = "FULL_TABLE"
-    key_properties = []
+    key_properties = ["Organization_Data.Reference_ID"]
     data_key = "Organization"
 
     def get_client(self):
