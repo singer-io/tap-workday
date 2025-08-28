@@ -15,6 +15,7 @@ from tap_workday.streams.performance_management import (
 from tap_workday.streams.financial_management import (
     CostCenters,
     Organizations as FmOrganizations,
+    PositionBudgets
 )
 from tap_workday.streams.staffing import Organizations as StaffingOrganizations
 
@@ -40,7 +41,8 @@ STREAMS = {
     # Financial_Management
     "financial_management_cost_centers": CostCenters,
     "financial_management_organizations": FmOrganizations,
-    
+    "financial_management_position_budgets": PositionBudgets,
+
     # Staffing
     "staffing_organizations": StaffingOrganizations,
 }

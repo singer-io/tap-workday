@@ -50,3 +50,27 @@ class Organizations(FullTableStream):
         serialized = serialize_object(response)
         records = safe_get_records(serialized, self.data_key)
         return emit_full_table(self, records)
+
+
+class PositionBudgets(FullTableStream):
+    tap_stream_id = "position_budgets"
+    replication_method = "FULL_TABLE"
+    key_properties = ["Position_Budget_Data.Position_Reference.Descriptor"]
+    data_key = "Position_Budget"
+
+    def get_client(self):
+        cfg = self.client.config
+        return get_workday_client(
+            tenant=cfg["tenant"],
+            username=cfg["username"],
+            password=cfg["password"],
+            service="Financial_Management",
+            version="v44.2",
+        )
+
+    def sync(self, state, transformer, parent_obj=None):
+        client = self.get_client()
+        response = client.service.Get_Position_Budgets()
+        serialized = serialize_object(response)
+        records = safe_get_records(serialized, self.data_key)
+        return emit_full_table(self, records)
