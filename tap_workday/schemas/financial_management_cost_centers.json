@@ -2,37 +2,568 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
-    "Request_References": {
+    "Cost_Center_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "additionalProperties": false,
       "properties": {
-        "Cost_Center_Reference": {
+        "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Cost_Center_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Effective_Date": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date"
+        },
+        "Restricted_To_Company_or_Company_Hierarchy_Reference": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
             "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "additionalProperties": false,
-                  "properties": {}
+                  "properties": {
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "value": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Organization_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "Include_Organization_ID_in_Name": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Organization_Name": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "Phonetic_Name": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "Organization_Code": {
+              "type": [
+                "null",
+                "string"
+              ]
+            },
+            "Include_Organization_Code_in_Name": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Organization_Active": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Availability_Date": {
+              "type": [
+                "null",
+                "string"
+              ],
+              "format": "date"
+            },
+            "Organization_Visibility_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "value": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "External_URL_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "value": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "Integration_ID_Data": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "System_ID": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "value": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Organization_Subtype_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Organization_Container_Reference": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "value": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Related_Worktags_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Replace_All": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Related_Worktags_by_Type_Data": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "Worktag_Type_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "value": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  },
+                  "Required_On_Transaction": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Required_On_Transaction_For_Validation": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Default_Worktag_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "Delete_Default_Value": {
+                        "type": [
+                          "null",
+                          "boolean"
+                        ]
+                      },
+                      "Default_Worktag_Reference": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "parent_id": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "parent_type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "value": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Replace_All_Allowed_Values": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Allowed_Worktag_Data": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "Delete_Allowed_Value": {
+                          "type": [
+                            "null",
+                            "boolean"
+                          ]
+                        },
+                        "Allowed_Worktag_Reference": {
+                          "type": [
+                            "null",
+                            "object"
+                          ],
+                          "additionalProperties": false,
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "additionalProperties": false,
+                                "properties": {
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_id": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "value": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -40,620 +571,151 @@
         }
       }
     },
-    "Request_Criteria": {
+    "Simple_Cost_Center_Data": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "additionalProperties": false,
       "properties": {
-        "Updated_From_Date": {
+        "Processing_Effective_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
+          ],
+          "format": "date"
+        },
+        "ID": {
+          "type": [
+            "null",
+            "string"
           ]
         },
-        "Updated_To_Date": {
+        "Organization_Name": {
           "type": [
-            "string",
-            "null"
-          ]
-        }
-      }
-    },
-    "Response_Filter": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "As_Of_Effective_Date": {
-          "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
-        "As_Of_Entry_DateTime": {
+        "Organization_Subtype_Reference": {
           "type": [
-            "string",
-            "null"
-          ]
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
         },
-        "Page": {
+        "Organization_Container_Reference": {
           "type": [
-            "object",
-            "null"
-          ]
-        },
-        "Count": {
-          "type": [
-            "object",
-            "null"
-          ]
-        }
-      }
-    },
-    "Response_Group": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "Include_Reference": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "Include_Cost_Center_Data": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        },
-        "Include_Simple_Cost_Center_Data": {
-          "type": [
-            "boolean",
-            "null"
-          ]
-        }
-      }
-    },
-    "Response_Results": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "Total_Results": {
-          "type": [
-            "object",
-            "null"
-          ]
-        },
-        "Total_Pages": {
-          "type": [
-            "object",
-            "null"
-          ]
-        },
-        "Page_Results": {
-          "type": [
-            "object",
-            "null"
-          ]
-        },
-        "Page": {
-          "type": [
-            "object",
-            "null"
-          ]
-        }
-      }
-    },
-    "Response_Data": {
-      "type": [
-        "object",
-        "null"
-      ],
-      "additionalProperties": false,
-      "properties": {
-        "Cost_Center": {
-          "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "additionalProperties": false,
             "properties": {
-              "Cost_Center_Reference": {
+              "ID": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "array"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "ID": {
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
                       "type": [
-                        "object",
-                        "null"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {}
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "value": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
-              "Cost_Center_Data": {
+              "Descriptor": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Restricted_To_Company_or_Company_Hierarchy_Reference": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
                 ],
-                "additionalProperties": false,
-                "properties": {
-                  "Restricted_To_Company_or_Company_Hierarchy_Reference": {
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "type": {
                       "type": [
-                        "object",
-                        "null"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "ID": {
-                          "type": [
-                            "array",
-                            "null"
-                          ],
-                          "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
-                            "additionalProperties": false,
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Organization_Data": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "ID": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "Include_Organization_ID_in_Name": {
-                        "type": [
-                          "boolean",
-                          "null"
-                        ]
-                      },
-                      "Organization_Name": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "Phonetic_Name": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "Organization_Code": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "Include_Organization_Code_in_Name": {
-                        "type": [
-                          "boolean",
-                          "null"
-                        ]
-                      },
-                      "Organization_Active": {
-                        "type": [
-                          "boolean",
-                          "null"
-                        ]
-                      },
-                      "Availability_Date": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      },
-                      "Organization_Visibility_Reference": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "ID": {
-                            "type": [
-                              "array",
-                              "null"
-                            ],
-                            "items": {
-                              "type": [
-                                "object",
-                                "null"
-                              ],
-                              "additionalProperties": false,
-                              "properties": {}
-                            }
-                          }
-                        }
-                      },
-                      "External_URL_Reference": {
-                        "type": [
-                          "object",
-                          "null"
-                        ],
-                        "additionalProperties": false,
-                        "properties": {
-                          "ID": {
-                            "type": [
-                              "array",
-                              "null"
-                            ],
-                            "items": {
-                              "type": [
-                                "object",
-                                "null"
-                              ],
-                              "additionalProperties": false,
-                              "properties": {}
-                            }
-                          }
-                        }
-                      },
-                      "Integration_ID_Data": {
-                        "type": [
-                          "array",
-                          "null"
-                        ],
-                        "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
-                          "additionalProperties": false,
-                          "properties": {
-                            "ID": {
-                              "type": [
-                                "array",
-                                "null"
-                              ],
-                              "items": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
-                                "additionalProperties": false,
-                                "properties": {}
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Organization_Subtype_Reference": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "ID": {
-                        "type": [
-                          "array",
-                          "null"
-                        ],
-                        "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
-                          "additionalProperties": false,
-                          "properties": {}
-                        }
-                      }
-                    }
-                  },
-                  "Organization_Container_Reference": {
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "value": {
                       "type": [
-                        "object",
-                        "null"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "ID": {
-                          "type": [
-                            "array",
-                            "null"
-                          ],
-                          "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
-                            "additionalProperties": false,
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Related_Worktags_Data": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "Related_Worktags_by_Type_Data": {
-                        "type": [
-                          "array",
-                          "null"
-                        ],
-                        "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
-                          "additionalProperties": false,
-                          "properties": {
-                            "Worktag_Type_Reference": {
-                              "type": [
-                                "object",
-                                "null"
-                              ],
-                              "additionalProperties": false,
-                              "properties": {
-                                "ID": {
-                                  "type": [
-                                    "array",
-                                    "null"
-                                  ],
-                                  "items": {
-                                    "type": [
-                                      "object",
-                                      "null"
-                                    ],
-                                    "additionalProperties": false,
-                                    "properties": {}
-                                  }
-                                }
-                              }
-                            },
-                            "Required_On_Transaction": {
-                              "type": [
-                                "boolean",
-                                "null"
-                              ]
-                            },
-                            "Required_On_Transaction_For_Validation": {
-                              "type": [
-                                "boolean",
-                                "null"
-                              ]
-                            },
-                            "Default_Worktag_Data": {
-                              "type": [
-                                "object",
-                                "null"
-                              ],
-                              "additionalProperties": false,
-                              "properties": {
-                                "Default_Worktag_Reference": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
-                                  "additionalProperties": false,
-                                  "properties": {
-                                    "ID": {
-                                      "type": [
-                                        "array",
-                                        "null"
-                                      ],
-                                      "items": {
-                                        "type": [
-                                          "object",
-                                          "null"
-                                        ],
-                                        "additionalProperties": false,
-                                        "properties": {}
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            },
-                            "Replace_All_Allowed_Values": {
-                              "type": [
-                                "boolean",
-                                "null"
-                              ]
-                            },
-                            "Allowed_Worktag_Data": {
-                              "type": [
-                                "array",
-                                "null"
-                              ],
-                              "items": {
-                                "type": [
-                                  "object",
-                                  "null"
-                                ],
-                                "additionalProperties": false,
-                                "properties": {
-                                  "Allowed_Worktag_Reference": {
-                                    "type": [
-                                      "object",
-                                      "null"
-                                    ],
-                                    "additionalProperties": false,
-                                    "properties": {
-                                      "ID": {
-                                        "type": [
-                                          "array",
-                                          "null"
-                                        ],
-                                        "items": {
-                                          "type": [
-                                            "object",
-                                            "null"
-                                          ],
-                                          "additionalProperties": false,
-                                          "properties": {}
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
-              "Simple_Cost_Center_Data": {
+              "Descriptor": {
                 "type": [
-                  "object",
-                  "null"
-                ],
-                "additionalProperties": false,
-                "properties": {
-                  "ID": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Organization_Name": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Organization_Subtype_Reference": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
-                    "additionalProperties": false,
-                    "properties": {
-                      "ID": {
-                        "type": [
-                          "array",
-                          "null"
-                        ],
-                        "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
-                          "additionalProperties": false,
-                          "properties": {}
-                        }
-                      }
-                    }
-                  },
-                  "Organization_Container_Reference": {
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "ID": {
-                          "type": [
-                            "array",
-                            "null"
-                          ],
-                          "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
-                            "additionalProperties": false,
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "Restricted_To_Company_or_Company_Hierarchy_Reference": {
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
-                      "additionalProperties": false,
-                      "properties": {
-                        "ID": {
-                          "type": [
-                            "array",
-                            "null"
-                          ],
-                          "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
-                            "additionalProperties": false,
-                            "properties": {}
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
+                  "null",
+                  "string"
+                ]
               }
             }
           }

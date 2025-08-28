@@ -16,6 +16,7 @@ from tap_workday.streams.financial_management import (
     CostCenters,
     Organizations as FmOrganizations,
 )
+from tap_workday.streams.staffing import Organizations as StaffingOrganizations
 
 
 STREAMS = {
@@ -39,4 +40,7 @@ STREAMS = {
     # Financial_Management
     "financial_management_cost_centers": CostCenters,
     "financial_management_organizations": FmOrganizations,
+    
+    # Staffing
+    "staffing_organizations": StaffingOrganizations,
 }
