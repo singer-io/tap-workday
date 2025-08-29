@@ -110,5 +110,3 @@ get_catalog.py
 persist/
 configs/
 current_state/
-
-temp/
