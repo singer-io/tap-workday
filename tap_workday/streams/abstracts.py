@@ -29,7 +29,7 @@ class BaseStream(ABC):
     url_endpoint = ""
     path = ""
     page_size = 100
-    next_page_key = "next_page"
+    next_page_key = ""
     headers = {}
     children = []
     parent = ""

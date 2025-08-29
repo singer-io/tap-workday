@@ -8,11 +8,6 @@ from tap_workday.sync import sync
 LOGGER = singer.get_logger()
 
 REQUIRED_CONFIG_KEYS = [
-    "username",
-    "password",
-    "refresh_token",
-    "client_id",
-    "client_secret",
 ]
 
 
