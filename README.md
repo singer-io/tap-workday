@@ -7,7 +7,6 @@ spec](https://github.com/singer-io/getting-started/blob/master/docs/SPEC.md).
 This tap:
 
 - Pulls raw data from the [workday API].
-
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
 
