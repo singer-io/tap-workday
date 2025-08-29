@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Certification_Issuer_Reference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ID": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null"
+          ]
+        }
+      }
+    },
+    "Certification_Issuer_Data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ID": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Issuer_Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Issuer_Description": {
+          "type": [
+            "null"
+          ]
+        },
+        "Inactive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

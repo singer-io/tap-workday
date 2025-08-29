@@ -1,0 +1,349 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Ledger_Account_Summary_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "parent_id": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "parent_type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Ledger_Account_Summary_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Ledger_Account_Summary_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Effective_Date": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date"
+        },
+        "Ledger_Account_Summary_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Account_Set_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Hierarchy_Level_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Ledger_Account_Summary_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_id": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Included_Ledger_Account_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_id": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Included_Ledger_Account_Range_Data": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "From_Value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "To_Value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "All_Ledger_Account_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Ledger_Account_Included_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_id": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "parent_type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

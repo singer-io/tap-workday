@@ -1,0 +1,348 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "Actuals_Ledger_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Ledger_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Actuals_Ledger_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Company_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Actuals_Ledger_Type_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Can_View_Budget_Date": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Commitment_Ledger_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Commitment_Ledger_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "value": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "Enable_Commitment_Ledger": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Spend_Transaction_Data": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "Create_Journal_Entries_for_Procurement": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Create_Journal_Entries_for_Expenses": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Ledger_Period_Roll_Forward_for_Procurement": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                }
+              }
+            },
+            "Payroll_Transaction_Data": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "Create_Journal_Entries_for_Payroll_Transactions": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Create_Journal_Entries_for_Fringe_Benefits": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "Obligation_Ledger_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "Obligation_Ledger_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "value": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "Enable_Obligation_Ledger": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Spend_Transaction_Data": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "Create_Journal_Entries_for_Procurement": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Create_Journal_Entries_for_Expenses": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Ledger_Period_Roll_Forward_for_Procurement": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                }
+              }
+            },
+            "Payroll_Transaction_Data": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "Create_Journal_Entries_for_Payroll_Transactions": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Create_Journal_Entries_for_Fringe_Benefits": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
