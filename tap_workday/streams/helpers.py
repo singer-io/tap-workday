@@ -8,11 +8,20 @@ from singer import (
     write_record,
     write_schema,
 )
-from zeep import Client
+from zeep import Client as SOAPClient
+from zeep.helpers import serialize_object
 from zeep.wsse.username import UsernameToken
 
 
 def normalize_ref_object(value):
+    """Normalize a Workday reference object to a standard dict format.
+
+    Args:
+        value: The object to normalize.
+
+    Returns:
+        dict: Normalized reference object with 'ID' and 'Descriptor'.
+    """
     if value is None or not isinstance(value, dict):
         return {"ID": [], "Descriptor": None}
 
@@ -32,12 +41,32 @@ def normalize_ref_object(value):
 
 
 def normalize_ref_array(value):
+    """Normalize a list of Workday reference objects.
+
+    Args:
+        value: The list to normalize.
+
+    Returns:
+        list: List of normalized reference objects.
+    """
     if not isinstance(value, list):
         return []
     return [normalize_ref_object(item) for item in value if isinstance(item, dict)]
 
 
 def pre_hook(data, typ, schema):
+    """Pre-processing hook for Singer Transformer.
+
+    Converts dates and decimals, and normalizes Workday reference objects.
+
+    Args:
+        data: The data value to process.
+        typ: The type (unused).
+        schema: The schema dict.
+
+    Returns:
+        The processed value.
+    """
     # Dates & datetimes -> ISO strings when the schema says so
     if isinstance(data, datetime) and schema.get("format") == "date-time":
         return data.isoformat()
@@ -67,6 +96,13 @@ def safe_get_records(serialized: dict, data_key: str):
 
     Handles cases where `Response_Data` is None or missing, and when the
     leaf at `data_key` is a single object instead of a list.
+
+    Args:
+        serialized (dict): The serialized SOAP response.
+        data_key (str): The key for the data leaf.
+
+    Returns:
+        list: List of records (dicts).
     """
     if not isinstance(serialized, dict):
         return []
@@ -83,16 +119,23 @@ def safe_get_records(serialized: dict, data_key: str):
     return []
 
 
-def get_workday_client(
-    tenant: str, hostname: str, username: str, password: str, service: str, version: str
-):
-    """Create a Zeep SOAP client for a given Workday service & version."""
-    wsdl = f"https://{hostname}/ccx/service/{tenant}/{service}/{version}?wsdl"
-    return Client(wsdl=wsdl, wsse=UsernameToken(username, password))
+def call_workday_operation(client, operation_name: str, data_key: str):
+    """Call a Workday SOAP operation and return extracted records."""
+    response = client.call(operation_name)
+    serialized = serialize_object(response)
+    return safe_get_records(serialized, data_key)
 
 
 def emit_full_table(stream, records):
-    """Write schema, transform with shared hook, and emit records."""
+    """Write schema, transform with shared hook, and emit records.
+
+    Args:
+        stream: The stream object with schema and metadata.
+        records: Iterable of records to emit.
+
+    Returns:
+        int: Number of records emitted.
+    """
     write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
 
     transformer = Transformer(

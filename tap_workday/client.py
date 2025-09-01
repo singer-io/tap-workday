@@ -5,6 +5,8 @@ import requests
 from requests import session
 from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
 from singer import get_logger, metrics
+from zeep import Client as ZeepClient
+from zeep.wsse.username import UsernameToken
 
 from tap_workday.exceptions import (
     ERROR_CODE_EXCEPTION_MAPPING,
@@ -128,3 +130,50 @@ class Client:
                 raise ValueError(f"Unsupported method: {method}")
 
         return response.json()
+
+
+class SOAPClient:
+    """
+    Wrapper for Workday SOAP API.
+    Handles:
+     - WSDL construction
+     - Zeep client creation
+     - Authentication with UsernameToken
+     - Request retries with backoff
+    """
+
+    def __init__(
+        self, config: Mapping[str, Any], service: str, version: str = "v44.2"
+    ) -> None:
+        self.config = config
+        self.tenant = config["tenant"]
+        self.hostname = config["hostname"]
+        self.username = config["username"]
+        self.password = config["password"]
+        self.service = service
+        self.version = version
+        config_request_timeout = config.get("request_timeout")
+        self.request_timeout = (
+            float(config_request_timeout) if config_request_timeout else REQUEST_TIMEOUT
+        )
+        self._client = self._create_client()
+
+    def _create_client(self):
+        wsdl = f"https://{self.hostname}/ccx/service/{self.tenant}/{self.service}/{self.version}?wsdl"
+        return ZeepClient(wsdl=wsdl, wsse=UsernameToken(self.username, self.password))
+
+    @property
+    def service_proxy(self):
+        """Expose the Zeep service proxy for operations."""
+        return self._client.service
+
+    @backoff.on_exception(
+        wait_gen=backoff.expo,
+        exception=(ConnectionError, Timeout, workdayBackoffError),
+        max_tries=5,
+        factor=2,
+    )
+    def call(self, operation_name: str, *args, **kwargs):
+        """Call a SOAP operation with retry and timeout."""
+        operation = getattr(self._client.service, operation_name)
+        return operation(*args, **kwargs)

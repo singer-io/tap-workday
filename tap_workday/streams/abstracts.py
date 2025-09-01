@@ -16,9 +16,10 @@ from singer import (
 )
 from zeep.helpers import serialize_object
 
+from tap_workday.client import SOAPClient
 from tap_workday.streams.helpers import (
+    call_workday_operation,
     emit_full_table,
-    get_workday_client,
     safe_get_records,
 )
 
@@ -306,6 +307,9 @@ class ChildBaseStream(IncrementalStream):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # bookmark_value is used to cache the bookmark for this child stream.
+        # It is initialized as None and set on first call to get_bookmark.
+        # After being set, it should remain unchanged for the stream's lifecycle.
         self.bookmark_value = None
 
     def get_url_endpoint(self, parent_obj=None):
@@ -313,10 +317,18 @@ class ChildBaseStream(IncrementalStream):
         return f"{self.client.base_url}/{self.path.format(parent_obj['id'])}"
 
     def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
-        """Singleton bookmark value for child streams."""
-        if not self.bookmark_value:
-            self.bookmark_value = super().get_bookmark(state, stream)
+        """
+        Get or cache the bookmark value for this child stream.
 
+        bookmark_value is initialized to None in __init__, and is set the first time
+        this method is called. After that, the cached value is returned for the lifetime
+        of the stream instance. This avoids repeated lookups for the same bookmark.
+
+        Returns:
+            int: The bookmark value for the stream.
+        """
+        if self.bookmark_value is None:
+            self.bookmark_value = super().get_bookmark(state, stream)
         return self.bookmark_value
 
 
@@ -341,20 +353,10 @@ class WorkdayFullTableStream(FullTableStream):
         # Allow per-service override via config, e.g. human_resources_version
         override_key = f"{self.service_name.lower()}_version"
         version = cfg.get(override_key, cfg.get("wsdl_version", self.wsdl_version))
-        return get_workday_client(
-            tenant=cfg["tenant"],
-            username=cfg["username"],
-            password=cfg["password"],
-            hostname=cfg["hostname"],
-            service=self.service_name,
-            version=version,
-        )
+        return SOAPClient(cfg, service=self.service_name, version=version)
 
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for WorkdayFullTableStream."""
+        """Synchronize records for WorkdayFullTableStream using centralized client."""
         client = self.get_client()
-        operation = getattr(client.service, self.operation_name)
-        response = operation()
-        serialized = serialize_object(response)
-        records = safe_get_records(serialized, self.data_key)
+        records = call_workday_operation(client, self.operation_name, self.data_key)
         return emit_full_table(self, records)
