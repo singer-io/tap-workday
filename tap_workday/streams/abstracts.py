@@ -1,15 +1,25 @@
-from abc import ABC, abstractmethod
+"""Abstract base classes for Workday Singer tap streams."""
+
 import json
-from typing import Any, Dict, Tuple, List, Iterator
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Iterator, List, Tuple
+
 from singer import (
     Transformer,
     get_bookmark,
     get_logger,
+    metadata,
     metrics,
     write_bookmark,
     write_record,
     write_schema,
-    metadata,
+)
+from zeep.helpers import serialize_object
+
+from tap_workday.streams.helpers import (
+    emit_full_table,
+    get_workday_client,
+    safe_get_records,
 )
 
 LOGGER = get_logger()
@@ -72,6 +82,7 @@ class BaseStream(ABC):
         """List of key properties for stream."""
 
     def is_selected(self):
+        """Check if the stream is selected in the catalog."""
         return metadata.get(self.metadata, (), "selected")
 
     @abstractmethod
@@ -122,9 +133,7 @@ class BaseStream(ABC):
         try:
             write_schema(self.tap_stream_id, self.schema, self.key_properties)
         except OSError as err:
-            LOGGER.error(
-                "OS Error while writing schema for: {}".format(self.tap_stream_id)
-            )
+            LOGGER.error("OS Error while writing schema for: %s", self.tap_stream_id)
             raise err
 
     def update_params(self, **kwargs) -> None:
@@ -139,7 +148,7 @@ class BaseStream(ABC):
         """
         self.data_payload.update(kwargs)
 
-    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
+    def modify_object(self, record: Dict, _parent_record: Dict = None) -> Dict:
         """
         Modify the record before writing to the stream
         """
@@ -281,7 +290,7 @@ class ParentBaseStream(IncrementalStream):
         """A wrapper for singer.get_bookmark to deal with compatibility for
         bookmark values or start values."""
         if self.is_selected():
-            super().write_bookmark(state, stream, value=value)
+            super().write_bookmark(state=state, stream=stream, value=value)
 
         for child in self.child_to_sync:
             bookmark_key = f"{self.tap_stream_id}_{self.replication_keys[0]}"
@@ -295,6 +304,10 @@ class ParentBaseStream(IncrementalStream):
 class ChildBaseStream(IncrementalStream):
     """Base Class for Child Stream."""
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.bookmark_value = None
+
     def get_url_endpoint(self, parent_obj=None):
         """Prepare URL endpoint for child streams."""
         return f"{self.client.base_url}/{self.path.format(parent_obj['id'])}"
@@ -305,3 +318,43 @@ class ChildBaseStream(IncrementalStream):
             self.bookmark_value = super().get_bookmark(state, stream)
 
         return self.bookmark_value
+
+
+class WorkdayFullTableStream(FullTableStream):
+    """Base for simple Workday FULL_TABLE SOAP streams.
+
+    Child classes should set:
+    - service_name: Workday service string (e.g., "Human_Resources")
+    - operation_name: SOAP operation to call (e.g., "Get_Organizations")
+    - data_key: leaf key inside Response_Data (e.g., "Organization")
+    - wsdl_version (optional): default "v44.2"
+    """
+
+    service_name: str = ""
+    operation_name: str = ""
+    data_key: str = ""
+    wsdl_version: str = "v44.2"
+
+    """Synchronize records for WorkdayFullTableStream."""
+    def get_client(self):
+        cfg = self.client.config
+        # Allow per-service override via config, e.g. human_resources_version
+        override_key = f"{self.service_name.lower()}_version"
+        version = cfg.get(override_key, cfg.get("wsdl_version", self.wsdl_version))
+        return get_workday_client(
+            tenant=cfg["tenant"],
+            username=cfg["username"],
+            password=cfg["password"],
+            hostname=cfg["hostname"],
+            service=self.service_name,
+            version=version,
+        )
+
+    def sync(self, state, transformer, parent_obj=None):
+        """Synchronize records for WorkdayFullTableStream."""
+        client = self.get_client()
+        operation = getattr(client.service, self.operation_name)
+        response = operation()
+        serialized = serialize_object(response)
+        records = safe_get_records(serialized, self.data_key)
+        return emit_full_table(self, records)

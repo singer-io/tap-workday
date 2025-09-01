@@ -1,4 +1,4 @@
-from tap_workday.streams.common import WorkdayFullTableStream
+from tap_workday.streams.abstracts import WorkdayFullTableStream
 
 
 class CertificationIssuers(WorkdayFullTableStream):

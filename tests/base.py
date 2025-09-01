@@ -7,8 +7,8 @@ from datetime import timedelta
 import dateutil.parser
 import pytz
 from tap_tester import connections, menagerie, runner
-from tap_tester.logger import LOGGER
 from tap_tester.base_suite_tests.base_case import BaseCase
+from tap_tester.logger import LOGGER
 
 
 class workdayBaseTest(BaseCase):

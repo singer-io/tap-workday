@@ -3,13 +3,13 @@ from typing import Any, Dict, Mapping, Optional, Tuple
 import backoff
 import requests
 from requests import session
-from requests.exceptions import Timeout, ConnectionError, ChunkedEncodingError
+from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
 from singer import get_logger, metrics
 
 from tap_workday.exceptions import (
     ERROR_CODE_EXCEPTION_MAPPING,
-    workdayError,
     workdayBackoffError,
+    workdayError,
 )
 
 LOGGER = get_logger()

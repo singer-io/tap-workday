@@ -1,11 +1,12 @@
 import unittest
-import requests
 from unittest.mock import patch
+
+import requests
 from parameterized import parameterized
-from requests.exceptions import Timeout, ConnectionError, ChunkedEncodingError
+from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
+
 from tap_workday.client import Client
 from tap_workday.exceptions import *
-
 
 default_config = {
     "base_url": "https://api.example.com",

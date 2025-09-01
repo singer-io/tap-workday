@@ -1,5 +1,4 @@
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 setup(
     name="tap-workday",
@@ -12,6 +11,7 @@ setup(
     install_requires=[
         "singer-python==6.1.1",
         "requests==2.32.5",
+        "backoff==2.2.1",
         "zeep==4.3.1",
         "parameterized==0.9.0",
     ],

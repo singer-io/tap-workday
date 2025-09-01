@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import patch, MagicMock
-from tap_workday.sync import write_schema, sync, update_currently_syncing
+from unittest.mock import MagicMock, patch
+
+from tap_workday.sync import sync, update_currently_syncing, write_schema
 
 
 class TestSync(unittest.TestCase):
