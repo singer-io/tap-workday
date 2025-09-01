@@ -6,7 +6,18 @@ spec](https://github.com/singer-io/getting-started/blob/master/docs/SPEC.md).
 
 This tap:
 
-- Pulls raw data from the [workday API].
+- Pulls raw data from the [Workday API].
+- Extracts the following resources:
+    - [Absence_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Absence_Management/v44.2/Absence_Management.html)
+
+    - [Financial_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Financial_Management/v44.2/Financial_Management.html)
+
+    - [Human_Resources](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Human_Resources.html)
+
+    - [Performance_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Performance_Management/v44.2/Performance_Management.html)
+
+    - [Staffing](https://community.workday.com/sites/default/files/file-hosting/productionapi/Staffing/v44.2/Staffing.html)
+
 - Outputs the schema for each resource
 - Incrementally pulls data based on the input state
 
@@ -36,15 +47,21 @@ This tap:
     - [target-stitch](https://github.com/singer-io/target-stitch)
 
 3. Create your tap's `config.json` file.  The tap config file for this tap should include these entries:
+   - `username` (string, `user@talend_1`): username of the workday account
+   - `password` (string, `TLND&01`): password of the workday account
+   - `tenant` (string, `talend_1`): tenant name of the workday account
+   - `hostname` (string, `wd1-impl-services1.workday.com`): hostname of the workday account
    - `start_date` - the default value to use if no bookmark exists for an endpoint (rfc3339 date string)
    - `user_agent` (string, optional): Process and email for API logging purposes. Example: `tap-workday <api_user_email@your_company.com>`
-   - `request_timeout` (integer, `300`): Max time for which request should wait to get a response. Default request_timeout is 300 seconds.
 
     ```json
     {
+        "username": "user@talend_1",
+        "password": "TLND&01",
+        "tenant": "talend_1",
+        "hostname": "wd1-impl-services1.workday.com",
         "start_date": "2019-01-01T00:00:00Z",
         "user_agent": "tap-workday <api_user_email@your_company.com>",
-        "request_timeout": 300
     }```
 
     Optionally, also create a `state.json` file. `currently_syncing` is an optional attribute used for identifying the last object to be synced in case the job is interrupted mid-stream. The next run would begin where the last job left off.

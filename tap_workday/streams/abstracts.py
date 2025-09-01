@@ -154,7 +154,7 @@ class BaseStream(ABC):
         """
         return record
 
-    def get_url_endpoint(self, parent_obj: Dict = None) -> str:
+    def get_url_endpoint(self, parent_obj: Dict = None) -> str:  # pylint: disable=W0613
         """
         Get the URL endpoint for the stream
         """
@@ -201,7 +201,7 @@ class IncrementalStream(BaseStream):
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
         self.update_params(updated_since=bookmark_date)
-        self.update_data_payload(parent_obj)
+        self.update_data_payload(parent_obj)  # pylint: disable=E1121
         self.url_endpoint = self.get_url_endpoint(parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
@@ -245,7 +245,7 @@ class FullTableStream(BaseStream):
     ) -> Dict:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
-        self.update_data_payload(parent_obj)
+        self.update_data_payload(parent_obj)  # pylint: disable=E1121
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 transformed_record = transformer.transform(
@@ -335,8 +335,8 @@ class WorkdayFullTableStream(FullTableStream):
     data_key: str = ""
     wsdl_version: str = "v44.2"
 
-    """Synchronize records for WorkdayFullTableStream."""
     def get_client(self):
+        """Client for WorkdayFullTableStream."""
         cfg = self.client.config
         # Allow per-service override via config, e.g. human_resources_version
         override_key = f"{self.service_name.lower()}_version"
