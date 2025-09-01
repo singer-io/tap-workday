@@ -168,11 +168,12 @@ class IncrementalStream(BaseStream):
     def get_bookmark(self, state: dict, stream: str, key: Any = None) -> int:
         """A wrapper for singer.get_bookmark to deal with compatibility for
         bookmark values or start values."""
+        start_date = self.client.config.get("start_date")
         return get_bookmark(
             state,
             stream,
             key or self.replication_keys[0],
-            self.client.config["start_date"],
+            start_date,
         )
 
     def write_bookmark(
@@ -183,11 +184,12 @@ class IncrementalStream(BaseStream):
         if not (key or self.replication_keys):
             return state
 
+        start_date = self.client.config.get("start_date")
         current_bookmark = get_bookmark(
             state,
             stream,
             key or self.replication_keys[0],
-            self.client.config["start_date"],
+            start_date,
         )
         value = max(current_bookmark, value)
         return write_bookmark(state, stream, key or self.replication_keys[0], value)
@@ -230,6 +232,8 @@ class IncrementalStream(BaseStream):
             state = self.write_bookmark(
                 state, self.tap_stream_id, value=current_max_bookmark_date
             )
+            from singer import write_state
+            write_state(state)
             return counter.value
 
 
@@ -356,7 +360,15 @@ class WorkdayFullTableStream(FullTableStream):
         return Client(cfg, service=self.service_name, version=version)
 
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for WorkdayFullTableStream using centralized client."""
+        """Synchronize records for WorkdayFullTableStream using centralized client, supporting incremental syncs."""
         client = self.get_client()
-        records = call_workday_operation(client, self.operation_name, self.data_key)
+        # Try to get bookmark/state for incremental syncs
+        updated_since = None
+        if hasattr(self, 'get_bookmark'):
+            # Use the same logic as IncrementalStream
+            try:
+                updated_since = self.get_bookmark(state, self.tap_stream_id)
+            except Exception:
+                updated_since = None
+        records = call_workday_operation(client, self.operation_name, self.data_key, updated_since=updated_since)
         return emit_full_table(self, records)

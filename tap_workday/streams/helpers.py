@@ -119,26 +119,46 @@ def safe_get_records(serialized: dict, data_key: str):
     return []
 
 
-def call_workday_operation(client, operation_name: str, data_key: str):
-    """Call a Workday SOAP operation and return all paginated records."""
+def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None):
+    """
+    Call a Workday SOAP operation and return all paginated records.
+    If updated_since is provided, it will be used to filter records (for incremental syncs).
+    The filter is passed as 'Updated_Since' in Request_Criteria or Response_Filter, depending on the API.
+    """
     all_records = []
     page = 1
     total_pages = 1  # Will be updated after first call
 
     while page <= total_pages:
+        # Build filter dicts
+        response_filter = {"Page": page}
+        if updated_since:
+            # Many Workday APIs use 'Updated_Since' or similar in Request_Criteria or Response_Filter
+            response_filter["Updated_Since"] = updated_since
+
         try:
-            # Most Workday SOAP APIs expect pagination in Response_Filter
+            # Try passing filter in Response_Filter
             response = client.call(
                 operation_name,
-                Response_Filter={"Page": page}
+                Response_Filter=response_filter
             )
         except TypeError:
-            # Fallback: try passing page directly if above fails
+            # Fallback: try passing filter in Request_Criteria
             try:
-                response = client.call(operation_name, page=page)
+                criteria = {"Page": page}
+                if updated_since:
+                    criteria["Updated_Since"] = updated_since
+                response = client.call(
+                    operation_name,
+                    Request_Criteria=criteria
+                )
             except TypeError:
-                # As a last resort, call with no pagination (single page)
-                response = client.call(operation_name)
+                # Fallback: try passing page only
+                try:
+                    response = client.call(operation_name, page=page)
+                except TypeError:
+                    # As a last resort, call with no pagination (single page)
+                    response = client.call(operation_name)
 
         serialized = serialize_object(response)
         records = safe_get_records(serialized, data_key)
