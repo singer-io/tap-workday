@@ -120,10 +120,49 @@ def safe_get_records(serialized: dict, data_key: str):
 
 
 def call_workday_operation(client, operation_name: str, data_key: str):
-    """Call a Workday SOAP operation and return extracted records."""
-    response = client.call(operation_name)
-    serialized = serialize_object(response)
-    return safe_get_records(serialized, data_key)
+    """Call a Workday SOAP operation and return all paginated records."""
+    all_records = []
+    page = 1
+    total_pages = 1  # Will be updated after first call
+
+    while page <= total_pages:
+        try:
+            # Most Workday SOAP APIs expect pagination in Response_Filter
+            response = client.call(
+                operation_name,
+                Response_Filter={"Page": page}
+            )
+        except TypeError:
+            # Fallback: try passing page directly if above fails
+            try:
+                response = client.call(operation_name, page=page)
+            except TypeError:
+                # As a last resort, call with no pagination (single page)
+                response = client.call(operation_name)
+
+        serialized = serialize_object(response)
+        records = safe_get_records(serialized, data_key)
+        all_records.extend(records)
+
+        # Extract pagination info
+        results = serialized.get("Response_Results", {})
+        # Defensive: handle missing or None values
+        total_pages_val = results.get("Total_Pages")
+        page_val = results.get("Page")
+        try:
+            total_pages = int(total_pages_val) if total_pages_val is not None else 1
+        except Exception:
+            total_pages = 1
+        try:
+            current_page = int(page_val) if page_val is not None else page
+        except Exception:
+            current_page = page
+        page = current_page + 1
+
+        if page > total_pages:
+            break
+
+    return all_records
 
 
 def emit_full_table(stream, records):
