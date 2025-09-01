@@ -64,8 +64,6 @@ This tap:
         "user_agent": "tap-workday <api_user_email@your_company.com>",
     }```
 
-    Optionally, also create a `state.json` file. `currently_syncing` is an optional attribute used for identifying the last object to be synced in case the job is interrupted mid-stream. The next run would begin where the last job left off.
-
     ```json
     {
         "currently_syncing": "engage",
