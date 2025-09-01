@@ -16,7 +16,7 @@ from singer import (
 )
 from zeep.helpers import serialize_object
 
-from tap_workday.client import SOAPClient
+from tap_workday.client import Client
 from tap_workday.streams.helpers import (
     call_workday_operation,
     emit_full_table,
@@ -353,7 +353,7 @@ class WorkdayFullTableStream(FullTableStream):
         # Allow per-service override via config, e.g. human_resources_version
         override_key = f"{self.service_name.lower()}_version"
         version = cfg.get(override_key, cfg.get("wsdl_version", self.wsdl_version))
-        return SOAPClient(cfg, service=self.service_name, version=version)
+        return Client(cfg, service=self.service_name, version=version)
 
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayFullTableStream using centralized client."""

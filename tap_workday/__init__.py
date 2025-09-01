@@ -37,16 +37,16 @@ def main():
     if parsed_args.state:
         state = parsed_args.state
 
-    with Client(parsed_args.config) as client:
-        if parsed_args.discover:
-            do_discover()
-        elif parsed_args.catalog:
-            sync(
-                client=client,
-                config=parsed_args.config,
-                catalog=parsed_args.catalog,
-                state=state,
-            )
+    client = Client(parsed_args.config)
+    if parsed_args.discover:
+        do_discover()
+    elif parsed_args.catalog:
+        sync(
+            client=client,
+            config=parsed_args.config,
+            catalog=parsed_args.catalog,
+            state=state,
+        )
 
 
 if __name__ == "__main__":

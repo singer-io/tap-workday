@@ -8,7 +8,7 @@ from singer import (
     write_record,
     write_schema,
 )
-from zeep import Client as SOAPClient
+from zeep import Client as Client
 from zeep.helpers import serialize_object
 from zeep.wsse.username import UsernameToken
 
@@ -136,8 +136,6 @@ def emit_full_table(stream, records):
     Returns:
         int: Number of records emitted.
     """
-    write_schema(stream.tap_stream_id, stream.schema, stream.key_properties)
-
     transformer = Transformer(
         integer_datetime_fmt=UNIX_SECONDS_INTEGER_DATETIME_PARSING,
         pre_hook=pre_hook,

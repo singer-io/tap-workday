@@ -43,10 +43,12 @@ STREAMS = {
     "human_resources_job_profiles": JobProfiles,
     "human_resources_locations": Locations,
     "human_resources_organizations": Organizations,
+
     # Financial_Management
     "financial_management_cost_centers": CostCenters,
     "financial_management_organizations": FmOrganizations,
     "financial_management_position_budgets": PositionBudgets,
+
     # Financial_Management_Auth_Error_Streams
     # "financial_management_customer_categories": CustomerCategories,
     # "financial_management_fund_hierarchies": FundHierarchies,
@@ -63,11 +65,14 @@ STREAMS = {
     # "financial_management_revenue_category_hierarchies": RevenueCategoryHierarchies,
     # "financial_management_spend_category_hierarchies": SpendCategoryHierarchies,
     # "financial_management_supplier_categories": SupplierCategories,
+
     # Staffing
     "staffing_organizations": StaffingOrganizations,
+
     # Absence_Management
     "absence_management_override_balances": OverrideBalances,
     "absence_management_absence_inputs": AbsenceInputs,
+
     # Performance_Management
     "performance_management_certification_issuers": CertificationIssuers,
     "performance_management_competencies": Competencies,
