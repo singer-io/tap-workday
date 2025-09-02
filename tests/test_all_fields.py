@@ -1,10 +1,10 @@
-from base import workdayBaseTest
+from .base import WorkdayBaseTest
 from tap_tester.base_suite_tests.all_fields_test import AllFieldsTest
 
 KNOWN_MISSING_FIELDS = {}
 
 
-class workdayAllFields(AllFieldsTest, workdayBaseTest):
+class WorkdayAllFields(AllFieldsTest, WorkdayBaseTest):
     """Ensure running the tap with all streams and fields selected results in
     the replication of all fields."""
 

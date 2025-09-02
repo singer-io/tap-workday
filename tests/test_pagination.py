@@ -1,8 +1,8 @@
-from base import workdayBaseTest
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.pagination_test import PaginationTest
 
 
-class workdayPaginationTest(PaginationTest, workdayBaseTest):
+class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
     """
     Ensure tap can replicate multiple pages of data for streams that use pagination.
     """

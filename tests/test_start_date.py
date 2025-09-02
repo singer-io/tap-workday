@@ -1,8 +1,8 @@
-from base import workdayBaseTest
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.start_date_test import StartDateTest
 
 
-class workdayStartDateTest(StartDateTest, workdayBaseTest):
+class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
     """Instantiate start date according to the desired data set and run the
     test."""
 

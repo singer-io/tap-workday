@@ -1,8 +1,8 @@
-from base import workdayBaseTest
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.interrupted_sync_test import InterruptedSyncTest
 
 
-class workdayInterruptedSyncTest(workdayBaseTest):
+class WorkdayInterruptedSyncTest(WorkdayBaseTest):
     """Test tap sets a bookmark and respects it for the next sync of a
     stream."""
 

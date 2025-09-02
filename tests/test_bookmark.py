@@ -1,8 +1,8 @@
-from base import workdayBaseTest
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.bookmark_test import BookmarkTest
 
 
-class workdayBookMarkTest(BookmarkTest, workdayBaseTest):
+class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
     """Test tap sets a bookmark and respects it for the next sync of a
     stream."""
 

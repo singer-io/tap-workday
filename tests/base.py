@@ -11,7 +11,7 @@ from tap_tester.base_suite_tests.base_case import BaseCase
 from tap_tester.logger import LOGGER
 
 
-class workdayBaseTest(BaseCase):
+class WorkdayBaseTest(BaseCase):
     """Setup expectations for test sub classes.
 
     Metadata describing streams. A bunch of shared methods that are used
