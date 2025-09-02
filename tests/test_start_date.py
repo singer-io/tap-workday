@@ -1,5 +1,6 @@
-from .base import WorkdayBaseTest
 from tap_tester.base_suite_tests.start_date_test import StartDateTest
+
+from .base import WorkdayBaseTest
 
 
 class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):

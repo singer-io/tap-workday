@@ -4,25 +4,20 @@ import json
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Iterator, List, Tuple
 
-from typing import Any, Dict, Iterator, List, Tuple
-
 from singer import (
     Transformer,
     get_bookmark,
     get_logger,
     metadata,
-    metadata,
     metrics,
     write_bookmark,
     write_record,
     write_schema,
+    write_state,
 )
 
 from tap_workday.client import Client
-from tap_workday.streams.helpers import (
-    call_workday_operation,
-    emit_full_table,
-)
+from tap_workday.streams.helpers import call_workday_operation, emit_full_table
 
 LOGGER = get_logger()
 
@@ -233,7 +228,6 @@ class IncrementalStream(BaseStream):
             state = self.write_bookmark(
                 state, self.tap_stream_id, value=current_max_bookmark_date
             )
-            from singer import write_state
 
             write_state(state)
             return counter.value

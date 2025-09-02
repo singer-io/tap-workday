@@ -1,10 +1,7 @@
 import json
 import sys
 
-import sys
-
 import singer
-
 
 from tap_workday.client import Client
 from tap_workday.discover import discover

@@ -7,7 +7,6 @@ from singer import (
     metrics,
     write_record,
 )
-from zeep import Client as Client
 from zeep.helpers import serialize_object
 
 
