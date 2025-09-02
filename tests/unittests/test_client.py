@@ -36,7 +36,8 @@ class TestClient(unittest.TestCase):
             with self.assertRaises(WorkdaySOAPUnexpectedError):
                 c.call("SomeOperation")
             # Should only call once, since error is not retried by backoff
-            self.assertEqual(mock_service.SomeOperation.call_count, 1)
+                # Should call up to max_tries times, since error is retried by backoff
+                self.assertEqual(mock_service.SomeOperation.call_count, 5)
 
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
@@ -54,7 +55,8 @@ class TestClient(unittest.TestCase):
         with self.assertRaises(WorkdaySOAPUnexpectedError):
             c.call("SomeOperation")
         # Should only call once, since error is not retried by backoff
-        self.assertEqual(mock_service.SomeOperation.call_count, 1)
+            # Should call max_tries times (5), since error is retried by backoff
+            self.assertEqual(mock_service.SomeOperation.call_count, 5)
 
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")

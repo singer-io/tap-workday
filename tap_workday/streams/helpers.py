@@ -164,11 +164,11 @@ def call_workday_operation(
         page_val = results.get("Page")
         try:
             total_pages = int(total_pages_val) if total_pages_val is not None else 1
-        except Exception:
+        except (ValueError, TypeError):
             total_pages = 1
         try:
             current_page = int(page_val) if page_val is not None else page
-        except Exception:
+        except (ValueError, TypeError):
             current_page = page
         page = current_page + 1
 
