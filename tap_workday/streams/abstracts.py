@@ -1,15 +1,16 @@
-from abc import ABC, abstractmethod
 import json
-from typing import Any, Dict, Tuple, List, Iterator
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Iterator, List, Tuple
+
 from singer import (
     Transformer,
     get_bookmark,
     get_logger,
+    metadata,
     metrics,
     write_bookmark,
     write_record,
     write_schema,
-    metadata,
 )
 
 LOGGER = get_logger()
