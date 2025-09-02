@@ -6,11 +6,9 @@ from singer import (
     Transformer,
     metrics,
     write_record,
-    write_schema,
 )
 from zeep import Client as Client
 from zeep.helpers import serialize_object
-from zeep.wsse.username import UsernameToken
 
 
 def normalize_ref_object(value):

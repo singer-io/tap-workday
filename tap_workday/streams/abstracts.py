@@ -14,13 +14,11 @@ from singer import (
     write_record,
     write_schema,
 )
-from zeep.helpers import serialize_object
 
 from tap_workday.client import Client
 from tap_workday.streams.helpers import (
     call_workday_operation,
     emit_full_table,
-    safe_get_records,
 )
 
 LOGGER = get_logger()
@@ -337,8 +335,8 @@ class ChildBaseStream(IncrementalStream):
         return self.bookmark_value
 
 
-class WorkdayFullTableStream(FullTableStream):
-    """Base for simple Workday FULL_TABLE SOAP streams.
+class WorkdayTableStream(FullTableStream):
+    """Base for simple Workday SOAP streams.
 
     Child classes should set:
     - service_name: Workday service string (e.g., "Human_Resources")
@@ -353,7 +351,7 @@ class WorkdayFullTableStream(FullTableStream):
     wsdl_version: str = "v44.2"
 
     def get_client(self):
-        """Client for WorkdayFullTableStream."""
+        """Client for WorkdayTableStream."""
         cfg = self.client.config
         # Allow per-service override via config, e.g. human_resources_version
         override_key = f"{self.service_name.lower()}_version"
@@ -361,7 +359,7 @@ class WorkdayFullTableStream(FullTableStream):
         return Client(cfg, service=self.service_name, version=version)
 
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for WorkdayFullTableStream using centralized client, supporting incremental syncs."""
+        """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""
         client = self.get_client()
         # Try to get bookmark/state for incremental syncs
         updated_since = None

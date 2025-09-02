@@ -1,7 +1,7 @@
-from tap_workday.streams.abstracts import WorkdayFullTableStream
+from tap_workday.streams.abstracts import WorkdayTableStream
 
 
-class Organizations(WorkdayFullTableStream):
+class Organizations(WorkdayTableStream):
     """Staffing.Get_Organizations stream."""
 
     tap_stream_id = "staffing_organizations"

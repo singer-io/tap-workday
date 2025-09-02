@@ -1,7 +1,7 @@
-from tap_workday.streams.abstracts import WorkdayFullTableStream
+from tap_workday.streams.abstracts import WorkdayTableStream
 
 
-class Organizations(WorkdayFullTableStream):
+class Organizations(WorkdayTableStream):
     tap_stream_id = "get_organizations"
     replication_method = "FULL_TABLE"
     key_properties = ["Organization_ID.value"]
@@ -10,7 +10,7 @@ class Organizations(WorkdayFullTableStream):
     data_key = "Organization"
 
 
-class JobCategories(WorkdayFullTableStream):
+class JobCategories(WorkdayTableStream):
     tap_stream_id = "job_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Category_ID.value"]
@@ -19,7 +19,7 @@ class JobCategories(WorkdayFullTableStream):
     data_key = "Job_Category"
 
 
-class JobFamilyGroups(WorkdayFullTableStream):
+class JobFamilyGroups(WorkdayTableStream):
     tap_stream_id = "job_family_groups"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Family_Group_Data.ID"]
@@ -28,7 +28,7 @@ class JobFamilyGroups(WorkdayFullTableStream):
     data_key = "Job_Family_Group"
 
 
-class JobProfiles(WorkdayFullTableStream):
+class JobProfiles(WorkdayTableStream):
     tap_stream_id = "job_profiles"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Profile_Data.Job_Code"]
@@ -37,7 +37,7 @@ class JobProfiles(WorkdayFullTableStream):
     data_key = "Job_Profile"
 
 
-class Locations(WorkdayFullTableStream):
+class Locations(WorkdayTableStream):
     tap_stream_id = "locations"
     replication_method = "FULL_TABLE"
     key_properties = ["Location_Data.Location_ID"]

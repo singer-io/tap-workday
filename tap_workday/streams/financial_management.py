@@ -1,7 +1,7 @@
-from tap_workday.streams.abstracts import WorkdayFullTableStream
+from tap_workday.streams.abstracts import WorkdayTableStream
 
 
-class CostCenters(WorkdayFullTableStream):
+class CostCenters(WorkdayTableStream):
     tap_stream_id = "cost_centers"
     replication_method = "FULL_TABLE"
     key_properties = ["Cost_Center_Data.Organization_Data.ID"]
@@ -10,7 +10,7 @@ class CostCenters(WorkdayFullTableStream):
     data_key = "Cost_Center"
 
 
-class Organizations(WorkdayFullTableStream):
+class Organizations(WorkdayTableStream):
     tap_stream_id = "fm_organizations"
     replication_method = "FULL_TABLE"
     key_properties = ["Organization_Data.Reference_ID"]
@@ -19,7 +19,7 @@ class Organizations(WorkdayFullTableStream):
     data_key = "Organization"
 
 
-class PositionBudgets(WorkdayFullTableStream):
+class PositionBudgets(WorkdayTableStream):
     tap_stream_id = "position_budgets"
     replication_method = "FULL_TABLE"
     key_properties = ["Position_Budget_Data.Position_Reference.Descriptor"]
@@ -28,7 +28,7 @@ class PositionBudgets(WorkdayFullTableStream):
     data_key = "Position_Budget"
 
 
-class CustomerCategories(WorkdayFullTableStream):
+class CustomerCategories(WorkdayTableStream):
     tap_stream_id = "customer_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Customer_Category_Data.Customer_Category_ID"]
@@ -37,7 +37,7 @@ class CustomerCategories(WorkdayFullTableStream):
     data_key = "Customer_Category"
 
 
-class FundHierarchies(WorkdayFullTableStream):
+class FundHierarchies(WorkdayTableStream):
     tap_stream_id = "fund_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Hierarchy_Data.Fund_Hierarchy_ID"]
@@ -46,7 +46,7 @@ class FundHierarchies(WorkdayFullTableStream):
     data_key = "Fund_Hierarchy"
 
 
-class FundTypes(WorkdayFullTableStream):
+class FundTypes(WorkdayTableStream):
     tap_stream_id = "fund_types"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Type_Data.Fund_Type_ID"]
@@ -55,7 +55,7 @@ class FundTypes(WorkdayFullTableStream):
     data_key = "Fund_Type"
 
 
-class FundingSources(WorkdayFullTableStream):
+class FundingSources(WorkdayTableStream):
     tap_stream_id = "funding_sources"
     replication_method = "FULL_TABLE"
     key_properties = ["Funding_Source_Data.Funding_Source_Name"]
@@ -64,7 +64,7 @@ class FundingSources(WorkdayFullTableStream):
     data_key = "Funding_Source"
 
 
-class Funds(WorkdayFullTableStream):
+class Funds(WorkdayTableStream):
     tap_stream_id = "funds"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Data.Fund_ID"]
@@ -73,7 +73,7 @@ class Funds(WorkdayFullTableStream):
     data_key = "Fund"
 
 
-class JournalSources(WorkdayFullTableStream):
+class JournalSources(WorkdayTableStream):
     tap_stream_id = "journal_sources"
     replication_method = "FULL_TABLE"
     key_properties = ["Journal_Source_Data.Journal_Source_ID"]
@@ -82,7 +82,7 @@ class JournalSources(WorkdayFullTableStream):
     data_key = "Journal_Source"
 
 
-class Journals(WorkdayFullTableStream):
+class Journals(WorkdayTableStream):
     tap_stream_id = "journals"
     replication_method = "FULL_TABLE"
     key_properties = ["Journal_Entry_Data.Journal_Number"]
@@ -91,7 +91,7 @@ class Journals(WorkdayFullTableStream):
     data_key = "Journal_Entry"
 
 
-class LedgerAccountSummaries(WorkdayFullTableStream):
+class LedgerAccountSummaries(WorkdayTableStream):
     tap_stream_id = "ledger_account_summaries"
     replication_method = "FULL_TABLE"
     key_properties = ["Ledger_Account_Summary_Data.Ledger_Account_Summary_ID"]
@@ -100,7 +100,7 @@ class LedgerAccountSummaries(WorkdayFullTableStream):
     data_key = "Ledger_Account_Summary"
 
 
-class Ledgers(WorkdayFullTableStream):
+class Ledgers(WorkdayTableStream):
     tap_stream_id = "ledgers"
     replication_method = "FULL_TABLE"
     key_properties = ["Ledger_Data.Actuals_Ledger_ID"]
@@ -109,7 +109,7 @@ class Ledgers(WorkdayFullTableStream):
     data_key = "Actuals_Ledger"
 
 
-class ProgramHierarchies(WorkdayFullTableStream):
+class ProgramHierarchies(WorkdayTableStream):
     tap_stream_id = "program_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Program_Hierarchy_Data.Program_Hierarchy_ID"]
@@ -118,7 +118,7 @@ class ProgramHierarchies(WorkdayFullTableStream):
     data_key = "Program_Hierarchy"
 
 
-class Programs(WorkdayFullTableStream):
+class Programs(WorkdayTableStream):
     tap_stream_id = "programs"
     replication_method = "FULL_TABLE"
     key_properties = ["Program_Data.Program_ID"]
@@ -127,7 +127,7 @@ class Programs(WorkdayFullTableStream):
     data_key = "Program"
 
 
-class RevenueCategories(WorkdayFullTableStream):
+class RevenueCategories(WorkdayTableStream):
     tap_stream_id = "revenue_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Revenue_Category_Data.Revenue_Category_ID"]
@@ -136,7 +136,7 @@ class RevenueCategories(WorkdayFullTableStream):
     data_key = "Revenue_Category"
 
 
-class RevenueCategoryHierarchies(WorkdayFullTableStream):
+class RevenueCategoryHierarchies(WorkdayTableStream):
     tap_stream_id = "revenue_category_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Revenue_Category_Hierarchy_Data.ID"]
@@ -145,7 +145,7 @@ class RevenueCategoryHierarchies(WorkdayFullTableStream):
     data_key = "Revenue_Category_Hierarchy"
 
 
-class SpendCategoryHierarchies(WorkdayFullTableStream):
+class SpendCategoryHierarchies(WorkdayTableStream):
     tap_stream_id = "spend_category_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Spend_Category_Hierarchy_Data.Spend_Category_Hierarchy_ID"]
@@ -154,7 +154,7 @@ class SpendCategoryHierarchies(WorkdayFullTableStream):
     data_key = "Spend_Category_Hierarchy"
 
 
-class SupplierCategories(WorkdayFullTableStream):
+class SupplierCategories(WorkdayTableStream):
     tap_stream_id = "supplier_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Supplier_Category_Data.Supplier_Category_ID"]

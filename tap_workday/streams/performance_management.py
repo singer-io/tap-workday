@@ -1,7 +1,7 @@
-from tap_workday.streams.abstracts import WorkdayFullTableStream
+from tap_workday.streams.abstracts import WorkdayTableStream
 
 
-class CertificationIssuers(WorkdayFullTableStream):
+class CertificationIssuers(WorkdayTableStream):
     tap_stream_id = "certification_issuers"
     replication_method = "FULL_TABLE"
     key_properties = ["ID"]
@@ -10,7 +10,7 @@ class CertificationIssuers(WorkdayFullTableStream):
     data_key = "Certification_Issuer"
 
 
-class Competencies(WorkdayFullTableStream):
+class Competencies(WorkdayTableStream):
     tap_stream_id = "competencies"
     replication_method = "FULL_TABLE"
     key_properties = ["Competency_ID"]
@@ -19,7 +19,7 @@ class Competencies(WorkdayFullTableStream):
     data_key = "Competency"
 
 
-class CompetencyCategories(WorkdayFullTableStream):
+class CompetencyCategories(WorkdayTableStream):
     tap_stream_id = "competency_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Code"]
@@ -28,7 +28,7 @@ class CompetencyCategories(WorkdayFullTableStream):
     data_key = "Competency_Category"
 
 
-class Degrees(WorkdayFullTableStream):
+class Degrees(WorkdayTableStream):
     tap_stream_id = "degrees"
     replication_method = "FULL_TABLE"
     key_properties = ["ID"]
