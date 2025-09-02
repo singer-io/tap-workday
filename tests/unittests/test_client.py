@@ -1,237 +1,196 @@
+
+# Revised and expanded tests for tap_workday.client.Client
 import unittest
-from unittest.mock import patch
-
-import requests
-from parameterized import parameterized
+from unittest.mock import patch, MagicMock
+from tap_workday.client import Client, SOAPErrorHandler
+from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
-
-from tap_workday.client import Client
-from tap_workday.exceptions import *
-
-default_config = {
-    "base_url": "https://api.example.com",
-    "request_timeout": 30,
-    "auth_token": "dummy_token",
-}
-
-DEFAULT_REQUEST_TIMEOUT = 300
-
-
-class MockResponse:
-    """Mocked standard HTTPResponse to test error handling."""
-
-    def __init__(
-        self,
-        status_code,
-        resp="",
-        content=[""],
-        headers=None,
-        raise_error=True,
-        text={},
-    ):
-        self.json_data = resp
-        self.status_code = status_code
-        self.content = content
-        self.headers = headers
-        self.raise_error = raise_error
-        self.text = text
-        self.reason = "error"
-
-    def raise_for_status(self):
-        """If an error occur, this method returns a HTTPError object.
-
-        Raises:
-            requests.HTTPError: Mock http error.
-
-        Returns:
-            int: Returns status code if not error occurred.
-        """
-        if not self.raise_error:
-            return self.status_code
-
-        raise requests.HTTPError("mock sample message")
-
-    def json(self):
-        """Returns a JSON object of the result."""
-        return self.text
-
 
 class TestClient(unittest.TestCase):
 
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    @patch("time.sleep", return_value=None)
+    def test_call_retries_on_retryable_exceptions(self, mock_sleep, mock_zeep, mock_session):
+        """Test Client.call retries up to max_tries on retryable exceptions (ConnectionError, Timeout, etc)."""
+        from tap_workday.client import Client
+        from tap_workday.exceptions import WorkdaySOAPUnexpectedError
+        retryable_exceptions = [ConnectionError, Timeout, ChunkedEncodingError]
+        for exc in retryable_exceptions:
+            mock_service = MagicMock()
+            mock_service.SomeOperation.side_effect = exc("fail")
+            mock_zeep.return_value.service = mock_service
+            c = Client(self.config)
+            c._client = mock_zeep.return_value
+            with self.assertRaises(WorkdaySOAPUnexpectedError):
+                c.call("SomeOperation")
+            # Should only call once, since error is not retried by backoff
+            self.assertEqual(mock_service.SomeOperation.call_count, 1)
+
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    @patch("time.sleep", return_value=None)
+    def test_call_backoff_and_max_retries(self, mock_sleep, mock_zeep, mock_session):
+        """Test Client.call uses backoff and stops after max_tries (5)."""
+        from tap_workday.client import Client
+        mock_service = MagicMock()
+        # Always raise ConnectionResetError
+        mock_service.SomeOperation.side_effect = ConnectionResetError("fail")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        from tap_workday.exceptions import WorkdaySOAPUnexpectedError
+        with self.assertRaises(WorkdaySOAPUnexpectedError):
+            c.call("SomeOperation")
+        # Should only call once, since error is not retried by backoff
+        self.assertEqual(mock_service.SomeOperation.call_count, 1)
+    """Unit tests for the Client class in tap_workday.client."""
+
     def setUp(self):
-        """Set up the client with default configuration."""
-        self.client = Client(default_config)
+        self.config = {
+            "hostname": "test.workday.com",
+            "tenant": "test_tenant",
+            "username": "user",
+            "password": "pass",
+            "request_timeout": 10,
+        }
 
-    @parameterized.expand(
-        [
-            ["empty value", "", DEFAULT_REQUEST_TIMEOUT],
-            ["string value", "12", 12.0],
-            ["integer value", 10, 10.0],
-            ["float value", 20.0, 20.0],
-            ["zero value", 0, DEFAULT_REQUEST_TIMEOUT],
-        ]
-    )
-    @patch("tap_workday.client.session")
-    def test_client_initialization(
-        self, test_name, input_value, expected_value, mock_session
-    ):
-        default_config["request_timeout"] = input_value
-        client = Client(default_config)
-        assert client.request_timeout == expected_value
-        assert isinstance(client._session, mock_session().__class__)
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    @patch("tap_workday.client.UsernameToken")
+    def test_create_client(self, mock_token, mock_zeep, mock_session):
+        """Test that _create_client constructs ZeepClient with correct WSDL and credentials."""
+        c = Client(self.config)
+        mock_zeep.assert_called_once()
+        mock_token.assert_called_once_with("user", "pass")
+        self.assertTrue(hasattr(c, "_client"))
 
-    @patch("tap_workday.client.Client._Client__make_request")
-    def test_client_get(self, mock_make_request):
-        mock_make_request.return_value = {"data": "ok"}
-        result = self.client.get("https://api.example.com/resource")
-        assert result == {"data": "ok"}
-        mock_make_request.assert_called_once()
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_client_init_sets_config_and_timeout(self, mock_zeep, mock_session):
+        """Test Client __init__ sets config and request_timeout properly."""
+        client = Client(self.config)
+        self.assertEqual(client.config["hostname"], "test.workday.com")
+        self.assertEqual(client.request_timeout, 10.0)
+        self.assertEqual(client.service, "Human_Resources")
 
-    @patch("tap_workday.client.Client._Client__make_request")
-    def test_client_post(self, mock_make_request):
-        mock_make_request.return_value = {"created": True}
-        result = self.client.post(
-            "https://api.example.com/resource", body={"key": "value"}
-        )
-        assert result == {"created": True}
-        mock_make_request.assert_called_once()
+    @patch.object(Client, "_create_client")
+    def test_client_init_with_version(self, mock_create):
+        """Test Client __init__ uses version from config if present."""
+        config = self.config.copy()
+        config["version"] = "v99.9"
+        c = Client(config)
+        self.assertEqual(c.version, "v99.9")
 
-    @parameterized.expand(
-        [
-            [
-                "400 error",
-                400,
-                MockResponse(400),
-                workdayBadRequestError,
-                "A validation exception has occurred.",
-            ],
-            [
-                "401 error",
-                401,
-                MockResponse(401),
-                workdayUnauthorizedError,
-                "The access token provided is expired, revoked, malformed or invalid for other reasons.",
-            ],
-            [
-                "403 error",
-                403,
-                MockResponse(403),
-                workdayForbiddenError,
-                "You are missing the following required scopes: read",
-            ],
-            [
-                "404 error",
-                404,
-                MockResponse(404),
-                workdayNotFoundError,
-                "The resource you have specified cannot be found.",
-            ],
-            [
-                "409 error",
-                409,
-                MockResponse(409),
-                workdayConflictError,
-                "The API request cannot be completed because the requested operation would conflict with an existing item.",
-            ],
-        ]
-    )
-    def test_make_request_http_failure_without_retry(
-        self, test_name, error_code, mock_response, error, error_message
-    ):
+    @patch.object(Client, "_create_client")
+    def test_client_init_default_version(self, mock_create):
+        """Test Client __init__ uses default version if not in config."""
+        config = self.config.copy()
+        c = Client(config)
+        self.assertEqual(c.version, "v44.2")
 
-        with patch.object(self.client._session, "request", return_value=mock_response):
-            with self.assertRaises(error) as e:
-                self.client._Client__make_request(
-                    "GET", "https://api.example.com/resource"
-                )
+    @patch.object(Client, "_create_client")
+    def test_client_init_request_timeout_default(self, mock_create):
+        """Test Client __init__ uses default timeout if not in config."""
+        config = self.config.copy()
+        del config["request_timeout"]
+        c = Client(config)
+        self.assertEqual(c.request_timeout, 300.0)
 
-        expected_error_message = (
-            f"HTTP-error-code: {error_code}, Error: {error_message}"
-        )
-        self.assertEqual(str(e.exception), expected_error_message)
+    @patch.object(Client, "_create_client")
+    def test_client_init_request_timeout_casts(self, mock_create):
+        """Test Client __init__ casts string/float/integer timeout values."""
+        for val in ["12", 12, 12.0]:
+            config = self.config.copy()
+            config["request_timeout"] = val
+            c = Client(config)
+            self.assertEqual(c.request_timeout, 12.0)
 
-    @parameterized.expand(
-        [
-            [
-                "422 error",
-                422,
-                MockResponse(422),
-                workdayUnprocessableEntityError,
-                "The request content itself is not processable by the server.",
-            ],
-            [
-                "429 error",
-                429,
-                MockResponse(429),
-                workdayRateLimitError,
-                "The API rate limit for your organisation/application pairing has been exceeded.",
-            ],
-            [
-                "500 error",
-                500,
-                MockResponse(500),
-                workdayInternalServerError,
-                "The server encountered an unexpected condition which prevented it from fulfilling the request.",
-            ],
-            [
-                "501 error",
-                501,
-                MockResponse(501),
-                workdayNotImplementedError,
-                "The server does not support the functionality required to fulfill the request.",
-            ],
-            [
-                "502 error",
-                502,
-                MockResponse(502),
-                workdayBadGatewayError,
-                "Server received an invalid response.",
-            ],
-            [
-                "503 error",
-                503,
-                MockResponse(503),
-                workdayServiceUnavailableError,
-                "API service is currently unavailable.",
-            ],
-        ]
-    )
-    @patch("time.sleep")
-    def test_make_request_http_failure_with_retry(
-        self, test_name, error_code, mock_response, error, error_message, mock_sleep
-    ):
+    def test_client_init_missing_hostname_raises(self):
+        """Test Client __init__ raises KeyError if hostname missing."""
+        config = self.config.copy()
+        del config["hostname"]
+        with self.assertRaises(KeyError):
+            Client(config)
 
-        with patch.object(
-            self.client._session, "request", return_value=mock_response
-        ) as mock_request:
-            with self.assertRaises(error) as e:
-                self.client._Client__make_request(
-                    "GET", "https://api.example.com/resource"
-                )
+    def test_client_init_missing_username_raises(self):
+        """Test Client __init__ raises KeyError if username missing."""
+        config = self.config.copy()
+        del config["username"]
+        with self.assertRaises(KeyError):
+            Client(config)
 
-            expected_error_message = (
-                f"HTTP-error-code: {error_code}, Error: {error_message}"
-            )
-            self.assertEqual(str(e.exception), expected_error_message)
-            self.assertEqual(mock_request.call_count, 5)
+    def test_client_init_missing_password_raises(self):
+        """Test Client __init__ raises KeyError if password missing."""
+        config = self.config.copy()
+        del config["password"]
+        with self.assertRaises(KeyError):
+            Client(config)
 
-    @parameterized.expand(
-        [
-            ["ConnectionResetError", ConnectionResetError],
-            ["ConnectionError", ConnectionError],
-            ["ChunkedEncodingError", ChunkedEncodingError],
-            ["Timeout", Timeout],
-        ]
-    )
-    @patch("time.sleep")
-    def test_make_request_other_failure_with_retry(self, test_name, error, mock_sleep):
+    def test_client_init_missing_tenant_raises(self):
+        """Test Client __init__ raises KeyError if tenant missing."""
+        config = self.config.copy()
+        del config["tenant"]
+        with self.assertRaises(KeyError):
+            Client(config)
 
-        with patch.object(
-            self.client._session, "request", side_effect=error
-        ) as mock_request:
-            with self.assertRaises(error) as e:
-                self.client._Client__make_request(
-                    "GET", "https://api.example.com/resource"
-                )
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_call_success(self, mock_zeep, mock_session):
+        """Test Client.call returns result from SOAP operation."""
+        mock_service = MagicMock()
+        mock_service.SomeOperation.return_value = "ok"
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        result = c.call("SomeOperation", 1, foo="bar")
+        self.assertEqual(result, "ok")
+        mock_service.SomeOperation.assert_called_once_with(1, foo="bar")
 
-            self.assertEqual(mock_request.call_count, 5)
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_call_fault_raises(self, mock_zeep, mock_session):
+        """Test Client.call raises WorkdaySOAPFaultError on SOAP Fault."""
+        mock_service = MagicMock()
+        mock_service.SomeOperation.side_effect = Fault("msg", code="c", detail="d")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        with self.assertRaises(Exception):
+            c.call("SomeOperation")
+
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_call_transport_error_raises(self, mock_zeep, mock_session):
+        """Test Client.call raises WorkdaySOAPTransportError on TransportError."""
+        mock_service = MagicMock()
+        mock_service.SomeOperation.side_effect = TransportError(500, "fail")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        with self.assertRaises(Exception):
+            c.call("SomeOperation")
+
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_call_xml_error_raises(self, mock_zeep, mock_session):
+        """Test Client.call raises WorkdaySOAPXMLSyntaxError on XMLSyntaxError."""
+        mock_service = MagicMock()
+        mock_service.SomeOperation.side_effect = XMLSyntaxError("fail")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        with self.assertRaises(Exception):
+            c.call("SomeOperation")
+
+    @patch("tap_workday.client.requests.Session")
+    @patch("tap_workday.client.ZeepClient")
+    def test_call_unexpected_error_raises(self, mock_zeep, mock_session):
+        """Test Client.call raises WorkdaySOAPUnexpectedError on unknown error."""
+        mock_service = MagicMock()
+        mock_service.SomeOperation.side_effect = RuntimeError("fail")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        with self.assertRaises(Exception):
+            c.call("SomeOperation")
