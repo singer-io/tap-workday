@@ -119,7 +119,9 @@ def safe_get_records(serialized: dict, data_key: str):
     return []
 
 
-def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None):
+def call_workday_operation(
+    client, operation_name: str, data_key: str, updated_since=None
+):
     """
     Call a Workday SOAP operation and return all paginated records.
     If updated_since is provided, it will be used to filter records (for incremental syncs).
@@ -138,20 +140,14 @@ def call_workday_operation(client, operation_name: str, data_key: str, updated_s
 
         try:
             # Try passing filter in Response_Filter
-            response = client.call(
-                operation_name,
-                Response_Filter=response_filter
-            )
+            response = client.call(operation_name, Response_Filter=response_filter)
         except TypeError:
             # Fallback: try passing filter in Request_Criteria
             try:
                 criteria = {"Page": page}
                 if updated_since:
                     criteria["Updated_Since"] = updated_since
-                response = client.call(
-                    operation_name,
-                    Request_Criteria=criteria
-                )
+                response = client.call(operation_name, Request_Criteria=criteria)
             except TypeError:
                 # Fallback: try passing page only
                 try:

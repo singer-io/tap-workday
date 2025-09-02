@@ -233,6 +233,7 @@ class IncrementalStream(BaseStream):
                 state, self.tap_stream_id, value=current_max_bookmark_date
             )
             from singer import write_state
+
             write_state(state)
             return counter.value
 
@@ -364,11 +365,13 @@ class WorkdayFullTableStream(FullTableStream):
         client = self.get_client()
         # Try to get bookmark/state for incremental syncs
         updated_since = None
-        if hasattr(self, 'get_bookmark'):
+        if hasattr(self, "get_bookmark"):
             # Use the same logic as IncrementalStream
             try:
                 updated_since = self.get_bookmark(state, self.tap_stream_id)
             except Exception:
                 updated_since = None
-        records = call_workday_operation(client, self.operation_name, self.data_key, updated_since=updated_since)
+        records = call_workday_operation(
+            client, self.operation_name, self.data_key, updated_since=updated_since
+        )
         return emit_full_table(self, records)
