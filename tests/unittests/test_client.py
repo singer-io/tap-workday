@@ -6,9 +6,18 @@ from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 
 from tap_workday.client import Client, SOAPErrorHandler
+from tap_workday.exceptions import WorkdaySOAPUnexpectedError
 
 
 class TestClient(unittest.TestCase):
+    def setUp(self):
+        self.config = {
+            "hostname": "test.workday.com",
+            "tenant": "test_tenant",
+            "username": "user",
+            "password": "pass",
+            "request_timeout": 10,
+        }
 
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
@@ -17,9 +26,6 @@ class TestClient(unittest.TestCase):
         self, mock_sleep, mock_zeep, mock_session
     ):
         """Test Client.call retries up to max_tries on retryable exceptions (ConnectionError, Timeout, etc)."""
-        from tap_workday.client import Client
-        from tap_workday.exceptions import WorkdaySOAPUnexpectedError
-
         retryable_exceptions = [ConnectionError, Timeout, ChunkedEncodingError]
         for exc in retryable_exceptions:
             mock_service = MagicMock()
@@ -37,8 +43,6 @@ class TestClient(unittest.TestCase):
     @patch("time.sleep", return_value=None)
     def test_call_backoff_and_max_retries(self, mock_sleep, mock_zeep, mock_session):
         """Test Client.call uses backoff and stops after max_tries (5)."""
-        from tap_workday.client import Client
-
         mock_service = MagicMock()
         # Always raise ConnectionResetError
         mock_service.SomeOperation.side_effect = ConnectionResetError("fail")
@@ -51,17 +55,6 @@ class TestClient(unittest.TestCase):
             c.call("SomeOperation")
         # Should only call once, since error is not retried by backoff
         self.assertEqual(mock_service.SomeOperation.call_count, 1)
-
-    """Unit tests for the Client class in tap_workday.client."""
-
-    def setUp(self):
-        self.config = {
-            "hostname": "test.workday.com",
-            "tenant": "test_tenant",
-            "username": "user",
-            "password": "pass",
-            "request_timeout": 10,
-        }
 
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
