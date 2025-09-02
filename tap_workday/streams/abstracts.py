@@ -4,10 +4,13 @@ import json
 from abc import ABC, abstractmethod
 from typing import Any, Dict, Iterator, List, Tuple
 
+from typing import Any, Dict, Iterator, List, Tuple
+
 from singer import (
     Transformer,
     get_bookmark,
     get_logger,
+    metadata,
     metadata,
     metrics,
     write_bookmark,
