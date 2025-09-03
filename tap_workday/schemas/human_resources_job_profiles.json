@@ -1,0 +1,1191 @@
+{
+  "type": "object",
+  "properties": {
+    "Job_Profile_Reference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null"
+          ]
+        }
+      }
+    },
+    "Job_Profile_Data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Job_Code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Effective_Date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Job_Profile_Basic_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Inactive": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Job_Title": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Include_Job_Code_in_Name": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Job_Profile_Private_Title": {
+              "type": [
+                "null"
+              ]
+            },
+            "Job_Profile_Summary": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Job_Description": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Additional_Job_Description": {
+              "type": [
+                "null"
+              ]
+            },
+            "Work_Shift_Required": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Public_Job": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Management_Level_Reference": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Job_Category_Reference": {
+              "type": [
+                "null"
+              ]
+            },
+            "Job_Level_Reference": {
+              "type": [
+                "null"
+              ]
+            },
+            "Job_Family_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Job_Family_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Delete": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Company_Insider_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Company_Insider_Type_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Delete": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Referral_Payment_Plan_Reference": {
+              "type": [
+                "null"
+              ]
+            },
+            "Critical_Job": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Difficulty_to_Fill_Reference": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Restrict_to_Country_Reference": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Job_Classification_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Job_Classifications_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "Delete": {
+                "type": [
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Job_Profile_Pay_Rate_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Country_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "Pay_Rate_Type_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "Delete": {
+                "type": [
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Job_Profile_Exempt_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Location_Context_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "parent_id": {
+                          "type": [
+                            "null"
+                          ]
+                        },
+                        "parent_type": {
+                          "type": [
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "Job_Exempt": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
+              },
+              "Delete": {
+                "type": [
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Workers_Compensation_Code_Replacement_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Workers_Compensation_Code_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Qualification_Replacement_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Responsibility_Qualification_Replacement": {
+              "type": [
+                "null"
+              ]
+            },
+            "Work_Experience_Qualification_Replacement": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Work_Experience_Qualification_Replacement_Data": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "Worker_Experience_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Work_Experience_Rating_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Required": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Delete": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Education_Qualification_Replacement": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Education_Qualification_Replacement_Data": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "Degree_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Field_Of_Study_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Required": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Delete": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Language_Qualification_Replacement": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Language_Qualification_Replacement_Data": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "Language_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Language_Ability_Profile_Data": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "Language_Ability_Type_Reference": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "string",
+                                          "null"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "string",
+                                          "null"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "Descriptor": {
+                                  "type": [
+                                    "null"
+                                  ]
+                                }
+                              }
+                            },
+                            "Language_Proficiency_Reference": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "ID": {
+                                  "type": [
+                                    "array",
+                                    "null"
+                                  ],
+                                  "items": {
+                                    "type": [
+                                      "object",
+                                      "null"
+                                    ],
+                                    "properties": {
+                                      "_value_1": {
+                                        "type": [
+                                          "string",
+                                          "null"
+                                        ]
+                                      },
+                                      "type": {
+                                        "type": [
+                                          "string",
+                                          "null"
+                                        ]
+                                      }
+                                    }
+                                  }
+                                },
+                                "Descriptor": {
+                                  "type": [
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "Required": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Delete": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Competency_Qualification_Replacement": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Competency_Qualification_Replacement_Data": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "Competency_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Proficiency_Rating_Reference": {
+                        "type": [
+                          "object",
+                          "null"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "array",
+                              "null"
+                            ],
+                            "items": {
+                              "type": [
+                                "object",
+                                "null"
+                              ],
+                              "properties": {
+                                "_value_1": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                },
+                                "type": {
+                                  "type": [
+                                    "string",
+                                    "null"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null"
+                            ]
+                          }
+                        }
+                      },
+                      "Required": {
+                        "type": [
+                          "boolean",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Delete": {
+                  "type": [
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Certification_Qualification_Replacement": {
+              "type": [
+                "null"
+              ]
+            },
+            "Training_Qualification_Replacement": {
+              "type": [
+                "null"
+              ]
+            },
+            "Skill_Qualification_Replacement": {
+              "type": [
+                "null"
+              ]
+            }
+          }
+        },
+        "Integration_Field_Override_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "Job_Profile_Compensation_Data": {
+          "type": [
+            "null"
+          ]
+        },
+        "Unions_Data": {
+          "type": [
+            "null"
+          ]
+        },
+        "Work-Study_Data": {
+          "type": [
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}

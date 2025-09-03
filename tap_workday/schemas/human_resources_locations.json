@@ -1,0 +1,2731 @@
+{
+  "type": "object",
+  "properties": {
+    "Location_Reference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Location_Data": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "Location_ID": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Effective_Date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Location_Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Location_Usage_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Location_Type_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Location_Attribute_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Superior_Location_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Inactive": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Allow_Duplicate_Coordinates": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "Latitude": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Longitude": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Altitude": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Time_Profile_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Locale_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Display_Language_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Time_Zone_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Default_Currency_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "External_Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Default_Job_Posting_Location_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Local_Minimum_Wage_Authority_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Trade_Name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Worksite_ID_Code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Global_Location_Number": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Location_Identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "Default_Ship-To_Location_Reference": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Associate_Deliver-To_Location_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Instructional_Site_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Academic_Unit_Reference": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            },
+            "Instructional_Site_Data_Capacity": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "Off-Site": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "Instructional_Use_Only": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        },
+        "Student_Housing_Assignment_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Academic_Unit_Reference": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "array",
+                    "null"
+                  ],
+                  "items": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "Location_Training_Room_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Link": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Capacity": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "Directions": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Equipment": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Reservation_Details": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Video_Conference_Details": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "Additional_Details": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "Contact_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "Address_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Country_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Last_Modified": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Address_Line_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Descriptor": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Municipality": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Country_City_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "parent_id": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "parent_type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Submunicipality_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Address_Component_Name": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Country_Region_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Country_Region_Descriptor": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Subregion_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Descriptor": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Postal_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Usage_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "Type_Data": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "Type_Reference": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "type": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Descriptor": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Tenanted_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Comments": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Public": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Number_of_Days": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "Municipality_Local": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Address_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Address_ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Formatted_Address": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Address_Format_Type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Defaulted_Business_Site_Address": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Delete": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Do_Not_Replace_All": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Effective_Date": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Phone_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Country_ISO_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "International_Phone_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Phone_Number": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Phone_Extension": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Phone_Device_Type_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Usage_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "Type_Data": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "Type_Reference": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "type": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Descriptor": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Tenanted_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Comments": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Public": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Phone_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Area_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Tenant_Formatted_Phone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "International_Formatted_Phone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Phone_Number_Without_Area_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "National_Formatted_Phone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "E164_Formatted_Phone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Workday_Traditional_Formatted_Phone": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Delete": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Do_Not_Replace_All": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Email_Address_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Email_Address": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Email_Comment": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Usage_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "Type_Data": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "Type_Reference": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "type": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Descriptor": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Tenanted_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Comments": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Public": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Email_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Delete": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Do_Not_Replace_All": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Instant_Messenger_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Instant_Messenger_Address": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Instant_Messenger_Type_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Instant_Messenger_Comment": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Usage_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "Type_Data": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "Type_Reference": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "type": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Descriptor": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Tenanted_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Comments": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Public": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Instant_Messenger_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Delete": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Do_Not_Replace_All": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            },
+            "Web_Address_Data": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "Web_Address": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Web_Address_Comment": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Usage_Data": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "Type_Data": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "Type_Reference": {
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "type": [
+                                      "array",
+                                      "null"
+                                    ],
+                                    "items": {
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
+                                      "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
+                                        "type": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "Descriptor": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  }
+                                }
+                              },
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Use_For_Tenanted_Reference": {
+                          "type": [
+                            "array",
+                            "null"
+                          ],
+                          "items": {
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "properties": {
+                              "ID": {
+                                "type": [
+                                  "array",
+                                  "null"
+                                ],
+                                "items": {
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
+                                  "properties": {
+                                    "_value_1": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "type": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    }
+                                  }
+                                }
+                              },
+                              "Descriptor": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Comments": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "Public": {
+                          "type": [
+                            "boolean",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Web_Address_Reference": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "array",
+                          "null"
+                        ],
+                        "items": {
+                          "type": [
+                            "object",
+                            "null"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Delete": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  },
+                  "Do_Not_Replace_All": {
+                    "type": [
+                      "boolean",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Integration_ID_Data": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "items": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "_value_1": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "type": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "System_ID": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Location_Hierarchy_Reference": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Integration_Field_Override_Data": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Field_Reference": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": [
+                      "array",
+                      "null"
+                    ],
+                    "items": {
+                      "type": [
+                        "object",
+                        "null"
+                      ],
+                      "properties": {
+                        "_value_1": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "parent_id": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "parent_type": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Descriptor": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                }
+              },
+              "Value": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Do_Not_Replace_Business_Site_And_Location_Details": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        }
+      }
+    }
+  }
+}
