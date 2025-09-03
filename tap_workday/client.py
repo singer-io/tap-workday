@@ -112,9 +112,23 @@ class Client:
     def call(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """
         Call a SOAP operation with retry, timeout, and centralized error handling.
+        Only non-retryable exceptions are handled here; retryable ones propagate for backoff.
         """
         try:
             result = getattr(self._client.service, operation_name)(*args, **kwargs)
             return result
+        except (
+            ConnectionResetError,
+            ConnectionError,
+            ChunkedEncodingError,
+            Timeout,
+            WorkdayBackoffError,
+            Fault,
+            TransportError,
+            XMLSyntaxError,
+        ) as exc:
+            # Let backoff handle retryable exceptions
+            raise
         except Exception as exc:
+            # Only handle truly unexpected errors here
             SOAPErrorHandler.handle_error(operation_name, exc)

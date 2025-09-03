@@ -143,15 +143,21 @@ class BaseStream(ABC):
         """
         self.data_payload.update(kwargs)
 
-    def modify_object(self, record: Dict, _parent_record: Dict = None) -> Dict:
+    def modify_object(self, record: Dict, parent_record: Dict = None) -> Dict:
         """
         Modify the record before writing to the stream
+
+        The `parent_obj` parameter is included for interface compatibility with
+        subclasses that may require it, even though it is unused in this base implementation.
         """
         return record
 
-    def get_url_endpoint(self, parent_obj: Dict = None) -> str:  # pylint: disable=W0613
+    def get_url_endpoint(self, parent_obj: Dict = None) -> str:
         """
         Get the URL endpoint for the stream
+
+        The `parent_obj` parameter is included for interface compatibility with
+        subclasses that may require it, even though it is unused in this base implementation.
         """
         return self.url_endpoint or f"{self.client.base_url}/{self.path}"
 
@@ -198,7 +204,7 @@ class IncrementalStream(BaseStream):
         bookmark_date = self.get_bookmark(state, self.tap_stream_id)
         current_max_bookmark_date = bookmark_date
         self.update_params(updated_since=bookmark_date)
-        self.update_data_payload(parent_obj)  # pylint: disable=E1121
+        self.update_data_payload(parent_obj=parent_obj)
         self.url_endpoint = self.get_url_endpoint(parent_obj)
 
         with metrics.record_counter(self.tap_stream_id) as counter:
@@ -244,7 +250,7 @@ class FullTableStream(BaseStream):
     ) -> Dict:
         """Abstract implementation for `type: Fulltable` stream."""
         self.url_endpoint = self.get_url_endpoint(parent_obj)
-        self.update_data_payload(parent_obj)  # pylint: disable=E1121
+        self.update_data_payload(parent_obj=parent_obj)
         with metrics.record_counter(self.tap_stream_id) as counter:
             for record in self.get_records():
                 transformed_record = transformer.transform(
