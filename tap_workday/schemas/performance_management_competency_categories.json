@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Competency_Category_Reference": {
       "type": [
         "object",
         "null"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -19,7 +17,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "_value_1": {
                 "type": [
@@ -53,7 +50,6 @@
           "object",
           "null"
         ],
-        "additionalProperties": false,
         "properties": {
           "Name": {
             "type": [

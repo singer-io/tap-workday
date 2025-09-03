@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Program_Reference": {
       "type": [
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -16,7 +14,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "type": {
                 "type": [
@@ -46,7 +43,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Program_ID": {
           "type": [
@@ -77,7 +73,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "Replace_All": {
               "type": [
@@ -92,14 +87,12 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "Worktag_Type_Reference": {
                     "type": [
                       "null",
                       "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -108,7 +101,6 @@
                         ],
                         "items": {
                           "type": "object",
-                          "additionalProperties": false,
                           "properties": {
                             "type": {
                               "type": [
@@ -150,7 +142,6 @@
                       "null",
                       "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Delete_Default_Value": {
                         "type": [
@@ -163,7 +154,6 @@
                           "null",
                           "object"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -172,7 +162,6 @@
                             ],
                             "items": {
                               "type": "object",
-                              "additionalProperties": false,
                               "properties": {
                                 "type": {
                                   "type": [
@@ -224,7 +213,6 @@
                     ],
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "Delete_Allowed_Value": {
                           "type": [
@@ -237,7 +225,6 @@
                             "null",
                             "object"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "ID": {
                               "type": [
@@ -246,7 +233,6 @@
                               ],
                               "items": {
                                 "type": "object",
-                                "additionalProperties": false,
                                 "properties": {
                                   "type": {
                                     "type": [

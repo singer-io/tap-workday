@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Spend_Category_Hierarchy_Reference": {
       "type": [
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -16,7 +14,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "type": {
                 "type": [
@@ -46,7 +43,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Spend_Category_Hierarchy_ID": {
           "type": [
@@ -65,7 +61,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -74,7 +69,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -104,7 +98,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -113,7 +106,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -154,7 +146,6 @@
               "null",
               "object"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -163,7 +154,6 @@
                 ],
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "type": {
                       "type": [
@@ -212,7 +202,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -221,7 +210,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [

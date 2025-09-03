@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Funding_Source_Reference": {
       "type": [
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -16,7 +14,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "type": {
                 "type": [
@@ -46,7 +43,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Funding_Source_Name": {
           "type": [
@@ -59,7 +55,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -68,7 +63,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -98,7 +92,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -107,7 +100,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -175,7 +167,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -184,7 +175,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -226,14 +216,12 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "Accounting_Worktag_Type_Reference": {
               "type": [
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -242,7 +230,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [
@@ -272,7 +259,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -281,7 +267,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [

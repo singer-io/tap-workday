@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Actuals_Ledger_Reference": {
       "type": [
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -16,7 +14,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "type": {
                 "type": [
@@ -46,7 +43,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Actuals_Ledger_ID": {
           "type": [
@@ -59,7 +55,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -68,7 +63,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -98,7 +92,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -107,7 +100,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -143,14 +135,12 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "Commitment_Ledger_Reference": {
               "type": [
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -159,7 +149,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [
@@ -195,7 +184,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Create_Journal_Entries_for_Procurement": {
                   "type": [
@@ -222,7 +210,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Create_Journal_Entries_for_Payroll_Transactions": {
                   "type": [
@@ -245,14 +232,12 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "Obligation_Ledger_Reference": {
               "type": [
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -261,7 +246,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [
@@ -297,7 +281,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Create_Journal_Entries_for_Procurement": {
                   "type": [
@@ -324,7 +307,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Create_Journal_Entries_for_Payroll_Transactions": {
                   "type": [

@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Location_Reference": {
       "type": [
         "object",
         "null"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -19,7 +17,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "_value_1": {
                 "type": [
@@ -49,7 +46,6 @@
         "object",
         "null"
       ],
-      "additionalProperties": false,
       "properties": {
         "Location_ID": {
           "type": [
@@ -79,7 +75,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -91,7 +86,6 @@
                     "object",
                     "null"
                   ],
-                  "additionalProperties": false,
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -127,7 +121,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -139,7 +132,6 @@
                     "object",
                     "null"
                   ],
-                  "additionalProperties": false,
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -175,7 +167,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -187,7 +178,6 @@
                     "object",
                     "null"
                   ],
-                  "additionalProperties": false,
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -218,7 +208,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -230,7 +219,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -290,7 +278,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -302,7 +289,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -332,7 +318,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -344,7 +329,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -374,7 +358,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -386,7 +369,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -416,7 +398,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -428,7 +409,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -458,7 +438,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -470,7 +449,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -506,7 +484,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -518,7 +495,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -548,7 +524,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -560,7 +535,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -614,7 +588,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -626,7 +599,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -661,7 +633,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -673,7 +644,6 @@
                     "object",
                     "null"
                   ],
-                  "additionalProperties": false,
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -704,14 +674,12 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Academic_Unit_Reference": {
               "type": [
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -723,7 +691,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -773,14 +740,12 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Academic_Unit_Reference": {
               "type": [
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -792,7 +757,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -824,7 +788,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Link": {
               "type": [
@@ -875,7 +838,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Address_Data": {
               "type": [
@@ -887,14 +849,12 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Country_Reference": {
                     "type": [
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -906,7 +866,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -947,7 +906,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -981,7 +939,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -993,7 +950,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -1040,7 +996,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -1068,7 +1023,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -1080,7 +1034,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -1121,7 +1074,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -1160,7 +1112,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1172,14 +1123,12 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "Type_Reference": {
                                 "type": [
                                   "object",
                                   "null"
                                 ],
-                                "additionalProperties": false,
                                 "properties": {
                                   "ID": {
                                     "type": [
@@ -1191,7 +1140,6 @@
                                         "object",
                                         "null"
                                       ],
-                                      "additionalProperties": false,
                                       "properties": {
                                         "_value_1": {
                                           "type": [
@@ -1235,7 +1183,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1247,7 +1194,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -1283,7 +1229,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1295,7 +1240,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -1353,7 +1297,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -1365,7 +1308,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -1445,7 +1387,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Country_ISO_Code": {
                     "type": [
@@ -1476,7 +1417,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -1488,7 +1428,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -1523,7 +1462,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1535,14 +1473,12 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "Type_Reference": {
                                 "type": [
                                   "object",
                                   "null"
                                 ],
-                                "additionalProperties": false,
                                 "properties": {
                                   "ID": {
                                     "type": [
@@ -1554,7 +1490,6 @@
                                         "object",
                                         "null"
                                       ],
-                                      "additionalProperties": false,
                                       "properties": {
                                         "_value_1": {
                                           "type": [
@@ -1598,7 +1533,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1610,7 +1544,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -1646,7 +1579,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1658,7 +1590,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -1704,7 +1635,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -1716,7 +1646,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -1814,7 +1743,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Email_Address": {
                     "type": [
@@ -1838,7 +1766,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1850,14 +1777,12 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "Type_Reference": {
                                 "type": [
                                   "object",
                                   "null"
                                 ],
-                                "additionalProperties": false,
                                 "properties": {
                                   "ID": {
                                     "type": [
@@ -1869,7 +1794,6 @@
                                         "object",
                                         "null"
                                       ],
-                                      "additionalProperties": false,
                                       "properties": {
                                         "_value_1": {
                                           "type": [
@@ -1913,7 +1837,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1925,7 +1848,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -1961,7 +1883,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1973,7 +1894,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -2019,7 +1939,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -2031,7 +1950,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -2087,7 +2005,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Instant_Messenger_Address": {
                     "type": [
@@ -2100,7 +2017,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -2112,7 +2028,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -2153,7 +2068,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -2165,14 +2079,12 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "Type_Reference": {
                                 "type": [
                                   "object",
                                   "null"
                                 ],
-                                "additionalProperties": false,
                                 "properties": {
                                   "ID": {
                                     "type": [
@@ -2184,7 +2096,6 @@
                                         "object",
                                         "null"
                                       ],
-                                      "additionalProperties": false,
                                       "properties": {
                                         "_value_1": {
                                           "type": [
@@ -2228,7 +2139,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2240,7 +2150,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -2276,7 +2185,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2288,7 +2196,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -2334,7 +2241,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -2346,7 +2252,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -2402,7 +2307,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Web_Address": {
                     "type": [
@@ -2426,7 +2330,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -2438,14 +2341,12 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "Type_Reference": {
                                 "type": [
                                   "object",
                                   "null"
                                 ],
-                                "additionalProperties": false,
                                 "properties": {
                                   "ID": {
                                     "type": [
@@ -2457,7 +2358,6 @@
                                         "object",
                                         "null"
                                       ],
-                                      "additionalProperties": false,
                                       "properties": {
                                         "_value_1": {
                                           "type": [
@@ -2501,7 +2401,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2513,7 +2412,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -2549,7 +2447,6 @@
                               "object",
                               "null"
                             ],
-                            "additionalProperties": false,
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2561,7 +2458,6 @@
                                     "object",
                                     "null"
                                   ],
-                                  "additionalProperties": false,
                                   "properties": {
                                     "_value_1": {
                                       "type": [
@@ -2607,7 +2503,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -2619,7 +2514,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -2672,7 +2566,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -2684,7 +2577,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -2719,7 +2611,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -2731,7 +2622,6 @@
                     "object",
                     "null"
                   ],
-                  "additionalProperties": false,
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -2767,14 +2657,12 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "Field_Reference": {
                 "type": [
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -2786,7 +2674,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [

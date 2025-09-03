@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Cost_Center_Reference": {
       "type": [
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -16,7 +14,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "type": {
                 "type": [
@@ -46,7 +43,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Effective_Date": {
           "type": [
@@ -62,7 +58,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -71,7 +66,6 @@
                 ],
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "type": {
                       "type": [
@@ -102,7 +96,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -158,7 +151,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -167,7 +159,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [
@@ -197,7 +188,6 @@
                 "null",
                 "object"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -206,7 +196,6 @@
                   ],
                   "items": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                       "type": {
                         "type": [
@@ -238,7 +227,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -247,7 +235,6 @@
                     ],
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "System_ID": {
                           "type": [
@@ -274,7 +261,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -283,7 +269,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -315,7 +300,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -324,7 +308,6 @@
                 ],
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "type": {
                       "type": [
@@ -355,7 +338,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "Replace_All": {
               "type": [
@@ -370,14 +352,12 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "Worktag_Type_Reference": {
                     "type": [
                       "null",
                       "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -386,7 +366,6 @@
                         ],
                         "items": {
                           "type": "object",
-                          "additionalProperties": false,
                           "properties": {
                             "type": {
                               "type": [
@@ -428,7 +407,6 @@
                       "null",
                       "object"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Delete_Default_Value": {
                         "type": [
@@ -441,7 +419,6 @@
                           "null",
                           "object"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -450,7 +427,6 @@
                             ],
                             "items": {
                               "type": "object",
-                              "additionalProperties": false,
                               "properties": {
                                 "type": {
                                   "type": [
@@ -502,7 +478,6 @@
                     ],
                     "items": {
                       "type": "object",
-                      "additionalProperties": false,
                       "properties": {
                         "Delete_Allowed_Value": {
                           "type": [
@@ -515,7 +490,6 @@
                             "null",
                             "object"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "ID": {
                               "type": [
@@ -524,7 +498,6 @@
                               ],
                               "items": {
                                 "type": "object",
-                                "additionalProperties": false,
                                 "properties": {
                                   "type": {
                                     "type": [
@@ -576,7 +549,6 @@
         "null",
         "object"
       ],
-      "additionalProperties": false,
       "properties": {
         "Processing_Effective_Date": {
           "type": [
@@ -602,7 +574,6 @@
             "null",
             "object"
           ],
-          "additionalProperties": false,
           "properties": {
             "ID": {
               "type": [
@@ -611,7 +582,6 @@
               ],
               "items": {
                 "type": "object",
-                "additionalProperties": false,
                 "properties": {
                   "type": {
                     "type": [
@@ -643,7 +613,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -652,7 +621,6 @@
                 ],
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "type": {
                       "type": [
@@ -685,7 +653,6 @@
           ],
           "items": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
               "ID": {
                 "type": [
@@ -694,7 +661,6 @@
                 ],
                 "items": {
                   "type": "object",
-                  "additionalProperties": false,
                   "properties": {
                     "type": {
                       "type": [

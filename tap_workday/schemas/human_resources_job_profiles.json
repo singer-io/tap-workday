@@ -1,13 +1,11 @@
 {
   "type": "object",
-  "additionalProperties": false,
   "properties": {
     "Job_Profile_Reference": {
       "type": [
         "object",
         "null"
       ],
-      "additionalProperties": false,
       "properties": {
         "ID": {
           "type": [
@@ -19,7 +17,6 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "_value_1": {
                 "type": [
@@ -48,7 +45,6 @@
         "object",
         "null"
       ],
-      "additionalProperties": false,
       "properties": {
         "Job_Code": {
           "type": [
@@ -67,7 +63,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Inactive": {
               "type": [
@@ -126,7 +121,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -138,7 +132,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -182,14 +175,12 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Job_Family_Reference": {
                     "type": [
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -201,7 +192,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -243,14 +233,12 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "Company_Insider_Type_Reference": {
                     "type": [
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "ID": {
                         "type": [
@@ -262,7 +250,6 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -310,7 +297,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "ID": {
                   "type": [
@@ -322,7 +308,6 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -373,14 +358,12 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "Job_Classifications_Reference": {
                 "type": [
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -392,7 +375,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -434,14 +416,12 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "Country_Reference": {
                 "type": [
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -453,7 +433,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -482,7 +461,6 @@
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -494,7 +472,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -536,14 +513,12 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "Location_Context_Reference": {
                 "type": [
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -555,7 +530,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -613,14 +587,12 @@
               "object",
               "null"
             ],
-            "additionalProperties": false,
             "properties": {
               "Workers_Compensation_Code_Reference": {
                 "type": [
                   "object",
                   "null"
                 ],
-                "additionalProperties": false,
                 "properties": {
                   "ID": {
                     "type": [
@@ -632,7 +604,6 @@
                         "object",
                         "null"
                       ],
-                      "additionalProperties": false,
                       "properties": {
                         "_value_1": {
                           "type": [
@@ -664,7 +635,6 @@
             "object",
             "null"
           ],
-          "additionalProperties": false,
           "properties": {
             "Responsibility_Qualification_Replacement": {
               "type": [
@@ -676,7 +646,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Work_Experience_Qualification_Replacement_Data": {
                   "type": [
@@ -688,14 +657,12 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Worker_Experience_Reference": {
                         "type": [
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -707,7 +674,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -736,7 +702,6 @@
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -748,7 +713,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -793,7 +757,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Education_Qualification_Replacement_Data": {
                   "type": [
@@ -805,14 +768,12 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Degree_Reference": {
                         "type": [
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -824,7 +785,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -853,7 +813,6 @@
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -865,7 +824,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -910,7 +868,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Language_Qualification_Replacement_Data": {
                   "type": [
@@ -922,14 +879,12 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Language_Reference": {
                         "type": [
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -941,7 +896,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -975,14 +929,12 @@
                             "object",
                             "null"
                           ],
-                          "additionalProperties": false,
                           "properties": {
                             "Language_Ability_Type_Reference": {
                               "type": [
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "ID": {
                                   "type": [
@@ -994,7 +946,6 @@
                                       "object",
                                       "null"
                                     ],
-                                    "additionalProperties": false,
                                     "properties": {
                                       "_value_1": {
                                         "type": [
@@ -1023,7 +974,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "ID": {
                                   "type": [
@@ -1035,7 +985,6 @@
                                       "object",
                                       "null"
                                     ],
-                                    "additionalProperties": false,
                                     "properties": {
                                       "_value_1": {
                                         "type": [
@@ -1083,7 +1032,6 @@
                 "object",
                 "null"
               ],
-              "additionalProperties": false,
               "properties": {
                 "Competency_Qualification_Replacement_Data": {
                   "type": [
@@ -1095,14 +1043,12 @@
                       "object",
                       "null"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "Competency_Reference": {
                         "type": [
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -1114,7 +1060,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
@@ -1143,7 +1088,6 @@
                           "object",
                           "null"
                         ],
-                        "additionalProperties": false,
                         "properties": {
                           "ID": {
                             "type": [
@@ -1155,7 +1099,6 @@
                                 "object",
                                 "null"
                               ],
-                              "additionalProperties": false,
                               "properties": {
                                 "_value_1": {
                                   "type": [
