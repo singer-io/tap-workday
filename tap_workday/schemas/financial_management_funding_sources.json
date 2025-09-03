@@ -143,14 +143,14 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Funding_Source_End_Date": {
           "type": [
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "On_Hold": {
           "type": [

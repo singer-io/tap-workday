@@ -7,7 +7,7 @@
         "null",
         "string"
       ],
-      "format": "date"
+      "format": "date-time"
     },
     "As_Of_Moment": {
       "type": [
@@ -73,7 +73,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Name": {
           "type": [

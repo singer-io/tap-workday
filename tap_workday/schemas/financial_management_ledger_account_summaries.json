@@ -71,7 +71,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Ledger_Account_Summary_Name": {
           "type": [

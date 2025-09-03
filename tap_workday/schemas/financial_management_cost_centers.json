@@ -53,7 +53,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Restricted_To_Company_or_Company_Hierarchy_Reference": {
           "type": [
@@ -151,7 +151,7 @@
                 "null",
                 "string"
               ],
-              "format": "date"
+              "format": "date-time"
             },
             "Organization_Visibility_Reference": {
               "type": [
@@ -583,7 +583,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "ID": {
           "type": [

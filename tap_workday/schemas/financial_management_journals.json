@@ -377,7 +377,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Journal_Source_Reference": {
           "type": [
@@ -513,7 +513,7 @@
             "null",
             "string"
           ],
-          "format": "date"
+          "format": "date-time"
         },
         "Operational_Transaction_Reference": {
           "type": [
@@ -1180,7 +1180,7 @@
                   "null",
                   "string"
                 ],
-                "format": "date"
+                "format": "date-time"
               },
               "Worktags_Reference": {
                 "type": [
@@ -1292,7 +1292,7 @@
                         "null",
                         "string"
                       ],
-                      "format": "date"
+                      "format": "date-time"
                     },
                     "Tax_Type_Reference": {
                       "type": [

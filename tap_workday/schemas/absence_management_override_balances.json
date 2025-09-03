@@ -187,7 +187,7 @@
                         "string",
                         "null"
                     ],
-                    "format": "date"
+                    "format": "date-time"
                 },
                 "Override_Balance_Units": {
                     "type": [

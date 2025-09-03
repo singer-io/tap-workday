@@ -84,9 +84,9 @@
           }
         },
 
-        "Start_Date": { "type": ["string", "null"], "format": "date" },
-        "End_Date": { "type": ["string", "null"], "format": "date" },
-        "Reference_Date": { "type": ["string", "null"], "format": "date" },
+        "Start_Date": { "type": ["string", "null"], "format": "date-time" },
+        "End_Date": { "type": ["string", "null"], "format": "date-time" },
+        "Reference_Date": { "type": ["string", "null"], "format": "date-time" },
 
         "Hours": { "type": ["number", "null"] },
         "Adjustment": { "type": ["boolean", "null"] },
