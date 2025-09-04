@@ -121,15 +121,59 @@ def call_workday_operation(
     client, operation_name: str, data_key: str, updated_since=None
 ):
     """
-    Call a Workday SOAP operation and return all paginated records.
-    If updated_since is provided, it will be used to filter records (for incremental syncs).
-    The filter is passed as 'Updated_Since' in Request_Criteria or Response_Filter, depending on the API.
+    Calls a Workday SOAP operation and retrieves all paginated records.
+    Attempts to handle pagination and filtering by 'Updated_Since' using different Workday API conventions.
+    Returns a list of all records found under the specified data_key.
+    Args:
+        client: The Workday SOAP client instance.
+        operation_name (str): The name of the Workday operation to call.
+        data_key (str): The key to extract records from the response.
+        updated_since (optional): If provided, filters records updated since this value.
+    Returns:
+        list: All records retrieved from the operation.
     """
     all_records = []
     page = 1
     total_pages = 1  # Will be updated after first call
 
+    # Try each pagination strategy in order of preference
+    def call_with_response_filter(page, updated_since):
+        response_filter = {"Page": page}
+        if updated_since:
+            response_filter["Updated_Since"] = updated_since
+        return client.call(operation_name, Response_Filter=response_filter)
+
+    def call_with_request_criteria(page, updated_since):
+        criteria = {"Page": page}
+        if updated_since:
+            criteria["Updated_Since"] = updated_since
+        return client.call(operation_name, Request_Criteria=criteria)
+
+    def call_with_page_arg(page, updated_since):
+        # updated_since is ignored here as not all APIs support it in this form
+        return client.call(operation_name, page=page)
+
+    def call_without_pagination():
+        return client.call(operation_name)
+
+    strategies = [
+        call_with_response_filter,
+        call_with_request_criteria,
+        call_with_page_arg,
+        lambda page, updated_since: call_without_pagination(),
+    ]
+
     while page <= total_pages:
+        for strategy in strategies:
+            try:
+                response = strategy(page, updated_since)
+                break
+            except TypeError:
+                continue
+        else:
+            # If all strategies fail, raise the last error
+            raise RuntimeError(f"All pagination strategies failed for {operation_name}")
+
         # Build filter dicts
         response_filter = {"Page": page}
         if updated_since:
