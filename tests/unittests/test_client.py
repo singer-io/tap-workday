@@ -6,8 +6,10 @@ Covers initialization, error handling, retry logic, and edge cases.
 import unittest
 from unittest.mock import MagicMock, patch
 
+
 from requests.exceptions import ChunkedEncodingError, ConnectionError, Timeout
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
+from parameterized import parameterized
 
 from tap_workday.client import Client
 from tap_workday.exceptions import WorkdaySOAPUnexpectedError
@@ -39,23 +41,38 @@ class TestClient(unittest.TestCase):
             "request_timeout": 10,
         }
 
+    @parameterized.expand([
+        (ConnectionError,),
+        (Timeout,),
+        (ChunkedEncodingError,),
+        (Fault,),
+        (TransportError,),
+        (XMLSyntaxError,),
+        (ConnectionResetError,),
+    ])
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
-    def test_call_retries_on_retryable_exceptions(self, mock_zeep, mock_session):
+    def test_call_retries_on_retryable_exceptions(self, exc_type, mock_zeep, mock_session):
         """
-        Test that Client.call retries up to max_tries on retryable exceptions
-        (ConnectionError, Timeout, ChunkedEncodingError) and raises the original exception.
+        Test that Client.call retries up to max_tries on retryable exceptions and raises the original exception.
+        Covers all retryable exceptions including SOAP and requests errors.
         """
-        retryable_exceptions = [ConnectionError, Timeout, ChunkedEncodingError]
-        for exc in retryable_exceptions:
-            mock_service = MagicMock()
-            mock_service.SomeOperation.side_effect = exc("fail")
-            mock_zeep.return_value.service = mock_service
-            c = Client(self.config)
-            c._client = mock_zeep.return_value
-            with self.assertRaises(exc):
-                c.call("SomeOperation")
-            self.assertEqual(mock_service.SomeOperation.call_count, 5)
+        mock_service = MagicMock()
+        # Fault and TransportError require special args
+        if exc_type is Fault:
+            mock_service.SomeOperation.side_effect = Fault("msg", code="c", detail="d")
+        elif exc_type is TransportError:
+            mock_service.SomeOperation.side_effect = TransportError(500, "fail")
+        elif exc_type is XMLSyntaxError:
+            mock_service.SomeOperation.side_effect = XMLSyntaxError("fail")
+        else:
+            mock_service.SomeOperation.side_effect = exc_type("fail")
+        mock_zeep.return_value.service = mock_service
+        c = Client(self.config)
+        c._client = mock_zeep.return_value
+        with self.assertRaises(exc_type):
+            c.call("SomeOperation")
+        self.assertEqual(mock_service.SomeOperation.call_count, 5)
 
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
@@ -72,15 +89,29 @@ class TestClient(unittest.TestCase):
             c.call("SomeOperation")
         self.assertEqual(mock_service.SomeOperation.call_count, 5)
 
+
+    @parameterized.expand([
+        ("operation_not_found", AttributeError, "SomeOperation"),
+        ("service_not_found", AttributeError, "service"),
+        ("unexpected_runtime_error", RuntimeError, None),
+    ])
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
-    def test_call_operation_not_found(self, mock_zeep, mock_session):
+    def test_call_unexpected_errors(self, case, exc_type, missing_attr, mock_zeep, mock_session):
         """
-        Test that calling a non-existent operation raises WorkdaySOAPUnexpectedError.
+        Test that Client.call raises WorkdaySOAPUnexpectedError on non-retryable/unexpected errors.
+        Covers missing operation, missing service, and unknown runtime error.
         """
         mock_service = MagicMock()
-        delattr(mock_service, "SomeOperation")
-        mock_zeep.return_value.service = mock_service
+        if case == "operation_not_found":
+            delattr(mock_service, "SomeOperation")
+            mock_zeep.return_value.service = mock_service
+        elif case == "service_not_found":
+            mock_zeep.return_value = MagicMock()
+            delattr(mock_zeep.return_value, "service")
+        elif case == "unexpected_runtime_error":
+            mock_service.SomeOperation.side_effect = RuntimeError("fail")
+            mock_zeep.return_value.service = mock_service
         c = Client(self.config)
         c._client = mock_zeep.return_value
         with self.assertRaises(WorkdaySOAPUnexpectedError):
@@ -234,19 +265,25 @@ class TestClient(unittest.TestCase):
         with self.assertRaises(KeyError):
             Client(config)
 
+    @parameterized.expand([
+        ("ok", "ok"),
+        ("empty", None),
+        ("dict", {"foo": "bar"}),
+        ("list", [1, 2, 3]),
+    ])
     @patch("tap_workday.client.requests.Session")
     @patch("tap_workday.client.ZeepClient")
-    def test_call_success(self, mock_zeep, mock_session):
+    def test_call_success(self, return_case, return_value, mock_zeep, mock_session):
         """
-        Test Client.call returns result from SOAP operation.
+        Test Client.call returns result from SOAP operation for various return types.
         """
         mock_service = MagicMock()
-        mock_service.SomeOperation.return_value = "ok"
+        mock_service.SomeOperation.return_value = return_value
         mock_zeep.return_value.service = mock_service
         c = Client(self.config)
         c._client = mock_zeep.return_value
         result = c.call("SomeOperation", 1, foo="bar")
-        self.assertEqual(result, "ok")
+        self.assertEqual(result, return_value)
         mock_service.SomeOperation.assert_called_once_with(1, foo="bar")
 
     @patch("tap_workday.client.requests.Session")
