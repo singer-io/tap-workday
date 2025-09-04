@@ -13,22 +13,13 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "_value_1": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": "string"
               },
               "type": {
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": "string"
               }
             }
           }
@@ -42,10 +33,7 @@
       }
     },
     "Location_Data": {
-      "type": [
-        "object",
-        "null"
-      ],
+      "type": "object",
       "properties": {
         "Location_ID": {
           "type": [
@@ -57,7 +45,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "format": "date-time"
         },
         "Location_Name": {
           "type": [
@@ -71,10 +60,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "ID": {
                 "type": [
@@ -82,22 +68,13 @@
                   "null"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "properties": {
                     "_value_1": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     },
                     "type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     }
                   }
                 }
@@ -117,10 +94,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "ID": {
                 "type": [
@@ -128,22 +102,13 @@
                   "null"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "properties": {
                     "_value_1": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     },
                     "type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     }
                   }
                 }
@@ -163,10 +128,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "ID": {
                 "type": [
@@ -174,22 +136,13 @@
                   "null"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "properties": {
                     "_value_1": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     },
                     "type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     }
                   }
                 }
@@ -215,22 +168,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -285,22 +229,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -325,22 +260,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -365,22 +291,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -405,22 +322,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -445,22 +353,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -491,22 +390,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -531,22 +421,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -595,22 +476,13 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   }
                 }
               }
@@ -629,10 +501,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "ID": {
                 "type": [
@@ -640,22 +509,13 @@
                   "null"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "properties": {
                     "_value_1": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     },
                     "type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     }
                   }
                 }
@@ -687,22 +547,13 @@
                     "null"
                   ],
                   "items": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": "object",
                     "properties": {
                       "_value_1": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": "string"
                       },
                       "type": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": "string"
                       }
                     }
                   }
@@ -753,22 +604,13 @@
                     "null"
                   ],
                   "items": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
+                    "type": "object",
                     "properties": {
                       "_value_1": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": "string"
                       },
                       "type": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
+                        "type": "string"
                       }
                     }
                   }
@@ -845,10 +687,7 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "Country_Reference": {
                     "type": [
@@ -862,22 +701,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -894,7 +724,8 @@
                     "type": [
                       "string",
                       "null"
-                    ]
+                    ],
+                    "format": "date-time"
                   },
                   "Address_Line_Data": {
                     "type": [
@@ -902,24 +733,18 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "_value_1": {
+                          "type": "string"
+                        },
+                        "Type": {
                           "type": [
                             "string",
                             "null"
                           ]
                         },
                         "Descriptor": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
-                        },
-                        "Type": {
                           "type": [
                             "string",
                             "null"
@@ -946,22 +771,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "parent_id": {
                               "type": [
@@ -992,24 +808,18 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "_value_1": {
+                          "type": "string"
+                        },
+                        "Type": {
                           "type": [
                             "string",
                             "null"
                           ]
                         },
                         "Address_Component_Name": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
-                        },
-                        "Type": {
                           "type": [
                             "string",
                             "null"
@@ -1030,22 +840,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -1070,24 +871,18 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "_value_1": {
+                          "type": "string"
+                        },
+                        "Type": {
                           "type": [
                             "string",
                             "null"
                           ]
                         },
                         "Descriptor": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
-                        },
-                        "Type": {
                           "type": [
                             "string",
                             "null"
@@ -1108,10 +903,7 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1119,11 +911,14 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "Type_Reference": {
                                 "type": [
                                   "object",
@@ -1136,22 +931,13 @@
                                       "null"
                                     ],
                                     "items": {
-                                      "type": [
-                                        "object",
-                                        "null"
-                                      ],
+                                      "type": "object",
                                       "properties": {
                                         "_value_1": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         },
                                         "type": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         }
                                       }
                                     }
@@ -1163,12 +949,6 @@
                                     ]
                                   }
                                 }
-                              },
-                              "Primary": {
-                                "type": [
-                                  "boolean",
-                                  "null"
-                                ]
                               }
                             }
                           }
@@ -1179,10 +959,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1190,22 +967,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1225,10 +993,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1236,22 +1001,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1304,22 +1060,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -1337,42 +1084,6 @@
                       "string",
                       "null"
                     ]
-                  },
-                  "Formatted_Address": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Address_Format_Type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Defaulted_Business_Site_Address": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Delete": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Do_Not_Replace_All": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Effective_Date": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
                   }
                 }
               }
@@ -1383,10 +1094,7 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "Country_ISO_Code": {
                     "type": [
@@ -1395,6 +1103,12 @@
                     ]
                   },
                   "International_Phone_Code": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "Area_Code": {
                     "type": [
                       "string",
                       "null"
@@ -1412,56 +1126,13 @@
                       "null"
                     ]
                   },
-                  "Phone_Device_Type_Reference": {
-                    "type": [
-                      "object",
-                      "null"
-                    ],
-                    "properties": {
-                      "ID": {
-                        "type": [
-                          "array",
-                          "null"
-                        ],
-                        "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
-                          "properties": {
-                            "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
-                            },
-                            "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
-                            }
-                          }
-                        }
-                      },
-                      "Descriptor": {
-                        "type": [
-                          "string",
-                          "null"
-                        ]
-                      }
-                    }
-                  },
                   "Usage_Data": {
                     "type": [
                       "array",
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1469,11 +1140,14 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "Type_Reference": {
                                 "type": [
                                   "object",
@@ -1486,22 +1160,13 @@
                                       "null"
                                     ],
                                     "items": {
-                                      "type": [
-                                        "object",
-                                        "null"
-                                      ],
+                                      "type": "object",
                                       "properties": {
                                         "_value_1": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         },
                                         "type": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         }
                                       }
                                     }
@@ -1513,12 +1178,6 @@
                                     ]
                                   }
                                 }
-                              },
-                              "Primary": {
-                                "type": [
-                                  "boolean",
-                                  "null"
-                                ]
                               }
                             }
                           }
@@ -1529,10 +1188,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1540,22 +1196,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1575,10 +1222,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1586,22 +1230,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1642,22 +1277,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -1675,60 +1301,6 @@
                       "string",
                       "null"
                     ]
-                  },
-                  "Area_Code": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Tenant_Formatted_Phone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "International_Formatted_Phone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Phone_Number_Without_Area_Code": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "National_Formatted_Phone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "E164_Formatted_Phone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Workday_Traditional_Formatted_Phone": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "Delete": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Do_Not_Replace_All": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
                   }
                 }
               }
@@ -1739,10 +1311,7 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "Email_Address": {
                     "type": [
@@ -1762,10 +1331,7 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -1773,11 +1339,14 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "Type_Reference": {
                                 "type": [
                                   "object",
@@ -1790,22 +1359,13 @@
                                       "null"
                                     ],
                                     "items": {
-                                      "type": [
-                                        "object",
-                                        "null"
-                                      ],
+                                      "type": "object",
                                       "properties": {
                                         "_value_1": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         },
                                         "type": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         }
                                       }
                                     }
@@ -1817,12 +1377,6 @@
                                     ]
                                   }
                                 }
-                              },
-                              "Primary": {
-                                "type": [
-                                  "boolean",
-                                  "null"
-                                ]
                               }
                             }
                           }
@@ -1833,10 +1387,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1844,22 +1395,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1879,10 +1421,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -1890,22 +1429,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -1946,22 +1476,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -1979,18 +1500,6 @@
                       "string",
                       "null"
                     ]
-                  },
-                  "Delete": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Do_Not_Replace_All": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
                   }
                 }
               }
@@ -2001,10 +1510,7 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "Instant_Messenger_Address": {
                     "type": [
@@ -2024,22 +1530,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -2064,10 +1561,7 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -2075,11 +1569,14 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "Type_Reference": {
                                 "type": [
                                   "object",
@@ -2092,22 +1589,13 @@
                                       "null"
                                     ],
                                     "items": {
-                                      "type": [
-                                        "object",
-                                        "null"
-                                      ],
+                                      "type": "object",
                                       "properties": {
                                         "_value_1": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         },
                                         "type": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         }
                                       }
                                     }
@@ -2119,12 +1607,6 @@
                                     ]
                                   }
                                 }
-                              },
-                              "Primary": {
-                                "type": [
-                                  "boolean",
-                                  "null"
-                                ]
                               }
                             }
                           }
@@ -2135,10 +1617,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2146,22 +1625,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -2181,10 +1651,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2192,22 +1659,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -2248,22 +1706,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -2281,18 +1730,6 @@
                       "string",
                       "null"
                     ]
-                  },
-                  "Delete": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Do_Not_Replace_All": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
                   }
                 }
               }
@@ -2303,10 +1740,7 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "Web_Address": {
                     "type": [
@@ -2326,10 +1760,7 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "Type_Data": {
                           "type": [
@@ -2337,11 +1768,14 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
+                              "Primary": {
+                                "type": [
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
                               "Type_Reference": {
                                 "type": [
                                   "object",
@@ -2354,22 +1788,13 @@
                                       "null"
                                     ],
                                     "items": {
-                                      "type": [
-                                        "object",
-                                        "null"
-                                      ],
+                                      "type": "object",
                                       "properties": {
                                         "_value_1": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         },
                                         "type": {
-                                          "type": [
-                                            "string",
-                                            "null"
-                                          ]
+                                          "type": "string"
                                         }
                                       }
                                     }
@@ -2381,12 +1806,6 @@
                                     ]
                                   }
                                 }
-                              },
-                              "Primary": {
-                                "type": [
-                                  "boolean",
-                                  "null"
-                                ]
                               }
                             }
                           }
@@ -2397,10 +1816,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2408,22 +1824,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -2443,10 +1850,7 @@
                             "null"
                           ],
                           "items": {
-                            "type": [
-                              "object",
-                              "null"
-                            ],
+                            "type": "object",
                             "properties": {
                               "ID": {
                                 "type": [
@@ -2454,22 +1858,13 @@
                                   "null"
                                 ],
                                 "items": {
-                                  "type": [
-                                    "object",
-                                    "null"
-                                  ],
+                                  "type": "object",
                                   "properties": {
                                     "_value_1": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     },
                                     "type": {
-                                      "type": [
-                                        "string",
-                                        "null"
-                                      ]
+                                      "type": "string"
                                     }
                                   }
                                 }
@@ -2510,22 +1905,13 @@
                           "null"
                         ],
                         "items": {
-                          "type": [
-                            "object",
-                            "null"
-                          ],
+                          "type": "object",
                           "properties": {
                             "_value_1": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             },
                             "type": {
-                              "type": [
-                                "string",
-                                "null"
-                              ]
+                              "type": "string"
                             }
                           }
                         }
@@ -2541,18 +1927,6 @@
                   "ID": {
                     "type": [
                       "string",
-                      "null"
-                    ]
-                  },
-                  "Delete": {
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  },
-                  "Do_Not_Replace_All": {
-                    "type": [
-                      "boolean",
                       "null"
                     ]
                   }
@@ -2573,22 +1947,10 @@
                 "null"
               ],
               "items": {
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "_value_1": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
-                  },
-                  "type": {
-                    "type": [
-                      "string",
-                      "null"
-                    ]
+                    "type": "string"
                   },
                   "System_ID": {
                     "type": [
@@ -2607,10 +1969,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "ID": {
                 "type": [
@@ -2618,22 +1977,13 @@
                   "null"
                 ],
                 "items": {
-                  "type": [
-                    "object",
-                    "null"
-                  ],
+                  "type": "object",
                   "properties": {
                     "_value_1": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     },
                     "type": {
-                      "type": [
-                        "string",
-                        "null"
-                      ]
+                      "type": "string"
                     }
                   }
                 }
@@ -2653,10 +2003,7 @@
             "null"
           ],
           "items": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "Field_Reference": {
                 "type": [
@@ -2670,22 +2017,13 @@
                       "null"
                     ],
                     "items": {
-                      "type": [
-                        "object",
-                        "null"
-                      ],
+                      "type": "object",
                       "properties": {
                         "_value_1": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
+                          "type": "string"
                         },
                         "type": {
-                          "type": [
-                            "string",
-                            "null"
-                          ]
+                          "type": "string"
                         },
                         "parent_id": {
                           "type": [
@@ -2718,12 +2056,6 @@
               }
             }
           }
-        },
-        "Do_Not_Replace_Business_Site_And_Location_Details": {
-          "type": [
-            "boolean",
-            "null"
-          ]
         }
       }
     }
