@@ -2,6 +2,7 @@ from typing import Dict
 
 import singer
 
+from tap_workday.client import Client
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
