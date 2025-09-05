@@ -10,6 +10,11 @@ from tap_workday.sync import sync
 LOGGER = singer.get_logger()
 
 REQUIRED_CONFIG_KEYS = [
+    "tenant",
+    "username",
+    "password",
+    "hostname",
+    "start_date",
 ]
 
 

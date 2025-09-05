@@ -1,0 +1,62 @@
+{
+  "type": "object",
+  "properties": {
+    "Customer_Category_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Customer_Category_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "Customer_Category_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Customer_Category_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    }
+  }
+}

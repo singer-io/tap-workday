@@ -1,0 +1,388 @@
+{
+  "type": "object",
+  "properties": {
+    "Revenue_Category_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "value": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Revenue_Category_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "Revenue_Category_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Revenue_Category_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Tax_Applicability_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Classification_Type_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Related_Worktags_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "Replace_All": {
+              "type": [
+                "null",
+                "boolean"
+              ]
+            },
+            "Related_Worktags_by_Type_Data": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "Worktag_Type_Reference": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "value": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  },
+                  "Required_On_Transaction": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Required_On_Transaction_For_Validation": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Default_Worktag_Data": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "properties": {
+                      "Delete_Default_Value": {
+                        "type": [
+                          "null",
+                          "boolean"
+                        ]
+                      },
+                      "Default_Worktag_Reference": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "properties": {
+                          "ID": {
+                            "type": [
+                              "null",
+                              "array"
+                            ],
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "value": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "parent_id": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                },
+                                "parent_type": {
+                                  "type": [
+                                    "null",
+                                    "string"
+                                  ]
+                                }
+                              }
+                            }
+                          },
+                          "Descriptor": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "Replace_All_Allowed_Values": {
+                    "type": [
+                      "null",
+                      "boolean"
+                    ]
+                  },
+                  "Allowed_Worktag_Data": {
+                    "type": [
+                      "null",
+                      "array"
+                    ],
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "Delete_Allowed_Value": {
+                          "type": [
+                            "null",
+                            "boolean"
+                          ]
+                        },
+                        "Allowed_Worktag_Reference": {
+                          "type": [
+                            "null",
+                            "object"
+                          ],
+                          "properties": {
+                            "ID": {
+                              "type": [
+                                "null",
+                                "array"
+                              ],
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "value": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_id": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  },
+                                  "parent_type": {
+                                    "type": [
+                                      "null",
+                                      "string"
+                                    ]
+                                  }
+                                }
+                              }
+                            },
+                            "Descriptor": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "Revenue_Category_Inactive": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Maps_to_Spend_Category_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
