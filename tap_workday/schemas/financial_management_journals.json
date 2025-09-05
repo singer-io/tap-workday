@@ -800,13 +800,15 @@
           "type": [
             "null",
             "string"
-          ]
+          ],
+          "format": "date-time"
         },
         "Last_Updated_Date": {
           "type": [
             "null",
             "string"
-          ]
+          ],
+          "format": "date-time"
         },
         "Journal_Entry_Line_Data": {
           "type": [
