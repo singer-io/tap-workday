@@ -189,7 +189,8 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "format": "date-time"
           },
           "Proficiency_Rating_Scale_Reference": {
             "type": [

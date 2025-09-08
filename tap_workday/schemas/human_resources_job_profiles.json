@@ -56,7 +56,8 @@
           "type": [
             "string",
             "null"
-          ]
+          ],
+          "format": "date-time"
         },
         "Job_Profile_Basic_Data": {
           "type": [
