@@ -71,7 +71,7 @@ class BaseStream(ABC):
     @property
     @abstractmethod
     def key_properties(self) -> Tuple[str, str]:
-        """List of key properties for stream."""
+        """Key properties for stream."""
 
     def is_selected(self):
         """Check if the stream is selected in the catalog."""
@@ -315,6 +315,9 @@ class ChildBaseStream(IncrementalStream):
 
     def get_url_endpoint(self, parent_obj=None):
         """Prepare URL endpoint for child streams."""
+        if not parent_obj or "id" not in parent_obj:
+            LOGGER.critical("Missing 'id' in parent_obj for ChildBaseStream URL endpoint.")
+            raise KeyError("parent_obj must contain an 'id' key for ChildBaseStream URL endpoint.")
         return f"{self.client.base_url}/{self.path.format(parent_obj['id'])}"
 
     def get_bookmark(self, state: Dict, stream: str, key: Any = None) -> int:
