@@ -2,41 +2,35 @@
   "type": "object",
   "properties": {
     "Ledger_Account_Summary_Reference": {
-      "type": [
-        "null",
-        "object"
-      ],
+      "type": "object",
       "properties": {
         "ID": {
-          "type": [
-            "null",
-            "array"
-          ],
+          "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
               "parent_id": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
               "parent_type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -44,228 +38,236 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Ledger_Account_Summary_Data": {
-      "type": [
-        "null",
-        "object"
-      ],
-      "properties": {
-        "Ledger_Account_Summary_ID": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Effective_Date": {
-          "type": [
-            "null",
-            "string"
-          ],
-          "format": "date-time"
-        },
-        "Ledger_Account_Summary_Name": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Account_Set_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Hierarchy_Level_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Ledger_Account_Summary_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_id": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Included_Ledger_Account_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_id": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Included_Ledger_Account_Range_Data": {
-          "type": [
-            "null",
-            "array"
-          ],
-          "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Ledger_Account_Summary_ID": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Effective_Date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Ledger_Account_Summary_Name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Account_Set_Reference": {
             "type": "object",
             "properties": {
-              "From_Value": {
-                "type": [
-                  "null",
-                  "string"
-                ]
+              "ID": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "parent_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "parent_type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
               },
-              "To_Value": {
+              "Descriptor": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
+              }
+            }
+          },
+          "Hierarchy_Level_Reference": {
+            "type": "object",
+            "properties": {
+              "ID": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "parent_id": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "parent_type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "Ledger_Account_Summary_Reference": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "Included_Ledger_Account_Reference": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "Included_Ledger_Account_Range_Data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Start_Account": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "End_Account": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
               }
             }
           }
@@ -273,58 +275,59 @@
       }
     },
     "All_Ledger_Account_Data": {
-      "type": [
-        "null",
-        "object"
-      ],
-      "properties": {
-        "Ledger_Account_Included_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_id": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "parent_type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Ledger_Account_Included_Reference": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ID": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_id": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "parent_type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
                   }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 }
               }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
             }
+          },
+          "Other_Fields": {
+            "type": "object",
+            "properties": {}
           }
         }
       }

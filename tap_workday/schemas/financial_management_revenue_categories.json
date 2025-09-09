@@ -2,29 +2,23 @@
   "type": "object",
   "properties": {
     "Revenue_Category_Reference": {
-      "type": [
-        "null",
-        "object"
-      ],
+      "type": "object",
       "properties": {
         "ID": {
-          "type": [
-            "null",
-            "array"
-          ],
+          "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -32,54 +26,48 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Revenue_Category_Data": {
-      "type": [
-        "null",
-        "object"
-      ],
+      "type": "object",
       "properties": {
         "Revenue_Category_ID": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         },
         "Revenue_Category_Name": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         },
         "Tax_Applicability_Reference": {
           "type": [
-            "null",
-            "object"
+            "object",
+            "null"
           ],
           "properties": {
             "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
+              "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "type": {
+                  "_value_1": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   },
-                  "value": {
+                  "type": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   }
                 }
@@ -87,36 +75,33 @@
             },
             "Descriptor": {
               "type": [
-                "null",
-                "string"
+                "string",
+                "null"
               ]
             }
           }
         },
         "Classification_Type_Reference": {
           "type": [
-            "null",
-            "object"
+            "object",
+            "null"
           ],
           "properties": {
             "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
+              "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "type": {
+                  "_value_1": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   },
-                  "value": {
+                  "type": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   }
                 }
@@ -124,56 +109,38 @@
             },
             "Descriptor": {
               "type": [
-                "null",
-                "string"
+                "string",
+                "null"
               ]
             }
           }
         },
         "Related_Worktags_Data": {
-          "type": [
-            "null",
-            "object"
-          ],
+          "type": "object",
           "properties": {
-            "Replace_All": {
-              "type": [
-                "null",
-                "boolean"
-              ]
-            },
             "Related_Worktags_by_Type_Data": {
-              "type": [
-                "null",
-                "array"
-              ],
+              "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
                   "Worktag_Type_Reference": {
-                    "type": [
-                      "null",
-                      "object"
-                    ],
+                    "type": "object",
                     "properties": {
                       "ID": {
-                        "type": [
-                          "null",
-                          "array"
-                        ],
+                        "type": "array",
                         "items": {
                           "type": "object",
                           "properties": {
-                            "type": {
+                            "_value_1": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             },
-                            "value": {
+                            "type": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             }
                           }
@@ -181,159 +148,160 @@
                       },
                       "Descriptor": {
                         "type": [
-                          "null",
-                          "string"
+                          "string",
+                          "null"
                         ]
                       }
                     }
                   },
                   "Required_On_Transaction": {
                     "type": [
-                      "null",
-                      "boolean"
+                      "boolean",
+                      "null"
                     ]
                   },
                   "Required_On_Transaction_For_Validation": {
                     "type": [
-                      "null",
-                      "boolean"
+                      "boolean",
+                      "null"
                     ]
                   },
                   "Default_Worktag_Data": {
                     "type": [
-                      "null",
-                      "object"
+                      "object",
+                      "null"
                     ],
                     "properties": {
-                      "Delete_Default_Value": {
-                        "type": [
-                          "null",
-                          "boolean"
-                        ]
-                      },
-                      "Default_Worktag_Reference": {
-                        "type": [
-                          "null",
-                          "object"
-                        ],
-                        "properties": {
-                          "ID": {
-                            "type": [
-                              "null",
-                              "array"
-                            ],
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "type": [
-                                    "null",
-                                    "string"
-                                  ]
-                                },
-                                "value": {
-                                  "type": [
-                                    "null",
-                                    "string"
-                                  ]
-                                },
-                                "parent_id": {
-                                  "type": [
-                                    "null",
-                                    "string"
-                                  ]
-                                },
-                                "parent_type": {
-                                  "type": [
-                                    "null",
-                                    "string"
-                                  ]
-                                }
-                              }
+                      "ID": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "string",
+                                "null"
+                              ]
                             }
-                          },
-                          "Descriptor": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
                           }
                         }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
                       }
                     }
                   },
                   "Replace_All_Allowed_Values": {
                     "type": [
-                      "null",
-                      "boolean"
-                    ]
-                  },
-                  "Allowed_Worktag_Data": {
-                    "type": [
-                      "null",
-                      "array"
+                      "object",
+                      "null"
                     ],
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "Delete_Allowed_Value": {
-                          "type": [
-                            "null",
-                            "boolean"
-                          ]
-                        },
-                        "Allowed_Worktag_Reference": {
-                          "type": [
-                            "null",
-                            "object"
-                          ],
+                    "properties": {
+                      "ID": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
                           "properties": {
-                            "ID": {
+                            "_value_1": {
                               "type": [
-                                "null",
-                                "array"
-                              ],
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  },
-                                  "value": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  },
-                                  "parent_id": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  },
-                                  "parent_type": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  }
-                                }
-                              }
+                                "string",
+                                "null"
+                              ]
                             },
-                            "Descriptor": {
+                            "type": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             }
                           }
                         }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  },
+                  "Allowed_Worktag_Data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ID": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "_value_1": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              },
+                              "type": {
+                                "type": [
+                                  "string",
+                                  "null"
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "Descriptor": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        }
                       }
                     }
                   }
+                }
+              }
+            },
+            "Replace_All": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "ID": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_value_1": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "type": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
                 }
               }
             }
@@ -341,34 +309,31 @@
         },
         "Revenue_Category_Inactive": {
           "type": [
-            "null",
-            "boolean"
+            "boolean",
+            "null"
           ]
         },
         "Maps_to_Spend_Category_Reference": {
           "type": [
-            "null",
-            "object"
+            "object",
+            "null"
           ],
           "properties": {
             "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
+              "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "type": {
+                  "_value_1": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   },
-                  "value": {
+                  "type": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   }
                 }
@@ -376,8 +341,8 @@
             },
             "Descriptor": {
               "type": [
-                "null",
-                "string"
+                "string",
+                "null"
               ]
             }
           }

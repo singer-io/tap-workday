@@ -2,29 +2,23 @@
   "type": "object",
   "properties": {
     "Customer_Category_Reference": {
-      "type": [
-        "null",
-        "object"
-      ],
+      "type": "object",
       "properties": {
         "ID": {
-          "type": [
-            "null",
-            "array"
-          ],
+          "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -32,29 +26,29 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Customer_Category_Data": {
-      "type": [
-        "null",
-        "object"
-      ],
-      "properties": {
-        "Customer_Category_ID": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Customer_Category_Name": {
-          "type": [
-            "null",
-            "string"
-          ]
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Customer_Category_ID": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Customer_Category_Name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
         }
       }
     }

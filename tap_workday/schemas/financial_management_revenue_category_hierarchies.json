@@ -3,28 +3,25 @@
   "properties": {
     "Revenue_Category_Hierarchy_Reference": {
       "type": [
-        "null",
-        "object"
+        "object",
+        "null"
       ],
       "properties": {
         "ID": {
-          "type": [
-            "null",
-            "array"
-          ],
+          "type": "array",
           "items": {
             "type": "object",
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -32,133 +29,53 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Revenue_Category_Hierarchy_Data": {
       "type": [
-        "null",
-        "object"
+        "array",
+        "null"
       ],
-      "properties": {
-        "ID": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Revenue_Category_Hierarchy_Name": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Hierarchy_Level_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Parent_Revenue_Category_Hierarchy_Reference": {
-          "type": [
-            "null",
-            "object"
-          ],
-          "properties": {
-            "ID": {
-              "type": [
-                "null",
-                "array"
-              ],
-              "items": {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "value": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  }
-                }
-              }
-            },
-            "Descriptor": {
-              "type": [
-                "null",
-                "string"
-              ]
-            }
-          }
-        },
-        "Revenue_Categories_Included_Reference": {
-          "type": [
-            "null",
-            "array"
-          ],
-          "items": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "ID": {
             "type": [
-              "null",
-              "object"
+              "string",
+              "null"
+            ]
+          },
+          "Revenue_Category_Hierarchy_Name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Hierarchy_Level_Reference": {
+            "type": [
+              "object",
+              "null"
             ],
             "properties": {
               "ID": {
-                "type": [
-                  "null",
-                  "array"
-                ],
+                "type": "array",
                 "items": {
                   "type": "object",
                   "properties": {
-                    "type": {
+                    "_value_1": {
                       "type": [
-                        "null",
-                        "string"
+                        "string",
+                        "null"
                       ]
                     },
-                    "value": {
+                    "type": {
                       "type": [
-                        "null",
-                        "string"
+                        "string",
+                        "null"
                       ]
                     }
                   }
@@ -166,10 +83,53 @@
               },
               "Descriptor": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
+            }
+          },
+          "Parent_Revenue_Category_Hierarchy_Reference": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "ID": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "Revenue_Categories_Included_Reference": {
+            "type": "array",
+            "items": {
+              "type": [
+                "object",
+                "null"
+              ]
             }
           }
         }
