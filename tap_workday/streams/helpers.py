@@ -204,7 +204,10 @@ def call_workday_operation(
 
         # Extract pagination info
         results = serialized.get("Response_Results", {})
-        # Defensive: handle missing or None values
+        # Defensive: handle dict or list
+        if isinstance(results, list):
+            # Use first element if list is not empty, else empty dict
+            results = results[0] if results else {}
         total_pages_val = results.get("Total_Pages")
         page_val = results.get("Page")
         try:
