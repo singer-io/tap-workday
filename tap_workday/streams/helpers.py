@@ -117,26 +117,8 @@ def safe_get_records(serialized: dict, data_key: str):
     return []
 
 
-def call_workday_operation(
-    client, operation_name: str, data_key: str, updated_since=None
-):
-    """
-    Calls a Workday SOAP operation and retrieves all paginated records.
-    Attempts to handle pagination and filtering by 'Updated_Since' using different Workday API conventions.
-    Returns a list of all records found under the specified data_key.
-    Args:
-        client: The Workday SOAP client instance.
-        operation_name (str): The name of the Workday operation to call.
-        data_key (str): The key to extract records from the response.
-        updated_since (optional): If provided, filters records updated since this value.
-    Returns:
-        list: All records retrieved from the operation.
-    """
-    all_records = []
-    page = 1
-    total_pages = 1  # Will be updated after first call
-
-    # Try each pagination strategy in order of preference
+def _workday_pagination_strategies(client, operation_name, page, updated_since):
+    """Try each pagination strategy in order of preference."""
     def call_with_response_filter(page, updated_since):
         response_filter = {"Page": page}
         if updated_since:
@@ -153,61 +135,42 @@ def call_workday_operation(
         # updated_since is ignored here as not all APIs support it in this form
         return client.call(operation_name, page=page)
 
-    def call_without_pagination():
+    def call_without_pagination(page, updated_since):
         return client.call(operation_name)
 
     strategies = [
         call_with_response_filter,
         call_with_request_criteria,
         call_with_page_arg,
-        lambda page, updated_since: call_without_pagination(),
+        call_without_pagination,
     ]
 
-    while page <= total_pages:
-        for strategy in strategies:
-            try:
-                response = strategy(page, updated_since)
-                break
-            except TypeError:
-                continue
-        else:
-            # If all strategies fail, raise the last error
-            raise RuntimeError(f"All pagination strategies failed for {operation_name}")
-
-        # Build filter dicts
-        response_filter = {"Page": page}
-        if updated_since:
-            # Many Workday APIs use 'Updated_Since' or similar in Request_Criteria or Response_Filter
-            response_filter["Updated_Since"] = updated_since
-
+    for strategy in strategies:
         try:
-            # Try passing filter in Response_Filter
-            response = client.call(operation_name, Response_Filter=response_filter)
+            return strategy(page, updated_since)
         except TypeError:
-            # Fallback: try passing filter in Request_Criteria
-            try:
-                criteria = {"Page": page}
-                if updated_since:
-                    criteria["Updated_Since"] = updated_since
-                response = client.call(operation_name, Request_Criteria=criteria)
-            except TypeError:
-                # Fallback: try passing page only
-                try:
-                    response = client.call(operation_name, page=page)
-                except TypeError:
-                    # As a last resort, call with no pagination (single page)
-                    response = client.call(operation_name)
+            continue
+    raise RuntimeError(f"All pagination strategies failed for {operation_name}")
 
+
+def _workday_paginate(client, operation_name, data_key, updated_since):
+    """Handles pagination and returns all records for a Workday operation."""
+    all_records = []
+    page = 1
+    total_pages = 1
+
+    while page <= total_pages:
+        response = _workday_pagination_strategies(client, operation_name, page, updated_since)
         serialized = serialize_object(response)
         records = safe_get_records(serialized, data_key)
         all_records.extend(records)
 
-        # Extract pagination info
         results = serialized.get("Response_Results", {})
         # Defensive: handle dict or list
         if isinstance(results, list):
             # Use first element if list is not empty, else empty dict
             results = results[0] if results else {}
+
         total_pages_val = results.get("Total_Pages")
         page_val = results.get("Page")
         try:
@@ -224,6 +187,22 @@ def call_workday_operation(
             break
 
     return all_records
+
+
+def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None):
+    """
+    Call a Workday SOAP operation and retrieve all paginated records.
+
+    Args:
+        client: Workday SOAP client instance.
+        operation_name (str): Name of the Workday operation to call.
+        data_key (str): Key to extract records from the response.
+        updated_since (optional): Filter records updated since this RFC 3339 value.
+
+    Returns:
+        list: All records retrieved from the operation under data_key.
+    """
+    return _workday_paginate(client, operation_name, data_key, updated_since)
 
 
 def emit_full_table(stream, records):

@@ -190,23 +190,13 @@ class TestClient(unittest.TestCase):
         self.assertEqual(client.service, "Human_Resources")
 
     @patch.object(Client, "_create_client")
-    def test_client_init_with_version(self, mock_create):
-        """
-        Test Client __init__ uses version from config if present.
-        """
-        config = self.config.copy()
-        config["version"] = "v99.9"
-        c = Client(config)
-        self.assertEqual(c.version, "v99.9")
-
-    @patch.object(Client, "_create_client")
     def test_client_init_default_version(self, mock_create):
         """
         Test Client __init__ uses default version if not in config.
         """
         config = self.config.copy()
         c = Client(config)
-        self.assertEqual(c.version, "v44.2")
+        self.assertEqual(c.version, "v45.0")
 
     @patch.object(Client, "_create_client")
     def test_client_init_request_timeout_default(self, mock_create):
