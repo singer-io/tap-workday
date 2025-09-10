@@ -1,13 +1,25 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Journal_Source_Reference": {
-      "type": "object",
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
         "ID": {
-          "type": "array",
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "_value_1": {
                 "type": [
@@ -33,9 +45,15 @@
       }
     },
     "Journal_Source_Data": {
-      "type": "array",
+      "type": [
+        "array",
+        "null"
+      ],
       "items": {
-        "type": "object",
+        "type": [
+          "object",
+          "null"
+        ],
         "properties": {
           "Journal_Source_ID": {
             "type": [

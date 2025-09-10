@@ -1,5 +1,8 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Revenue_Category_Hierarchy_Reference": {
       "type": [
@@ -8,9 +11,15 @@
       ],
       "properties": {
         "ID": {
-          "type": "array",
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "_value_1": {
                 "type": [
@@ -41,7 +50,10 @@
         "null"
       ],
       "items": {
-        "type": "object",
+        "type": [
+          "object",
+          "null"
+        ],
         "properties": {
           "ID": {
             "type": [
@@ -62,9 +74,15 @@
             ],
             "properties": {
               "ID": {
-                "type": "array",
+                "type": [
+                  "array",
+                  "null"
+                ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -96,9 +114,15 @@
             ],
             "properties": {
               "ID": {
-                "type": "array",
+                "type": [
+                  "array",
+                  "null"
+                ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -124,12 +148,16 @@
             }
           },
           "Revenue_Categories_Included_Reference": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": [
                 "object",
                 "null"
-              ]
+              ],
+              "properties": {}
             }
           }
         }

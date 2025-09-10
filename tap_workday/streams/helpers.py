@@ -166,7 +166,7 @@ def _workday_paginate(client, operation_name, data_key, updated_since):
         all_records.extend(records)
 
         results = serialized.get("Response_Results", {})
-        # Defensive: handle dict or list
+        # Defensive: handle missing, None values, or list format
         if isinstance(results, list):
             # Use first element if list is not empty, else empty dict
             results = results[0] if results else {}

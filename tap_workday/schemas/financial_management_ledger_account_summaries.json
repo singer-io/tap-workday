@@ -1,13 +1,25 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Ledger_Account_Summary_Reference": {
-      "type": "object",
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
         "ID": {
-          "type": "array",
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "_value_1": {
                 "type": [
@@ -45,9 +57,15 @@
       }
     },
     "Ledger_Account_Summary_Data": {
-      "type": "array",
+      "type": [
+        "array",
+        "null"
+      ],
       "items": {
-        "type": "object",
+        "type": [
+          "object",
+          "null"
+        ],
         "properties": {
           "Ledger_Account_Summary_ID": {
             "type": [
@@ -68,12 +86,21 @@
             ]
           },
           "Account_Set_Reference": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "ID": {
-                "type": "array",
+                "type": [
+                  "array",
+                  "null"
+                ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -111,12 +138,21 @@
             }
           },
           "Hierarchy_Level_Reference": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "ID": {
-                "type": "array",
+                "type": [
+                  "array",
+                  "null"
+                ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "object",
+                    "null"
+                  ],
                   "properties": {
                     "_value_1": {
                       "type": [
@@ -154,14 +190,26 @@
             }
           },
           "Ledger_Account_Summary_Reference": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
-              "type": "object",
+              "type": [
+                "object",
+                "null"
+              ],
               "properties": {
                 "ID": {
-                  "type": "array",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -200,14 +248,26 @@
             }
           },
           "Included_Ledger_Account_Reference": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
-              "type": "object",
+              "type": [
+                "object",
+                "null"
+              ],
               "properties": {
                 "ID": {
-                  "type": "array",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -246,9 +306,15 @@
             }
           },
           "Included_Ledger_Account_Range_Data": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
-              "type": "object",
+              "type": [
+                "object",
+                "null"
+              ],
               "properties": {
                 "Start_Account": {
                   "type": [
@@ -275,19 +341,37 @@
       }
     },
     "All_Ledger_Account_Data": {
-      "type": "array",
+      "type": [
+        "array",
+        "null"
+      ],
       "items": {
-        "type": "object",
+        "type": [
+          "object",
+          "null"
+        ],
         "properties": {
           "Ledger_Account_Included_Reference": {
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
-              "type": "object",
+              "type": [
+                "object",
+                "null"
+              ],
               "properties": {
                 "ID": {
-                  "type": "array",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -326,7 +410,10 @@
             }
           },
           "Other_Fields": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {}
           }
         }

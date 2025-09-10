@@ -1,13 +1,25 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Revenue_Category_Reference": {
-      "type": "object",
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
         "ID": {
-          "type": "array",
+          "type": [
+            "array",
+            "null"
+          ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "_value_1": {
                 "type": [
@@ -33,7 +45,10 @@
       }
     },
     "Revenue_Category_Data": {
-      "type": "object",
+      "type": [
+        "object",
+        "null"
+      ],
       "properties": {
         "Revenue_Category_ID": {
           "type": [
@@ -54,9 +69,15 @@
           ],
           "properties": {
             "ID": {
-              "type": "array",
+              "type": [
+                "array",
+                "null"
+              ],
               "items": {
-                "type": "object",
+                "type": [
+                  "object",
+                  "null"
+                ],
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -88,9 +109,15 @@
           ],
           "properties": {
             "ID": {
-              "type": "array",
+              "type": [
+                "array",
+                "null"
+              ],
               "items": {
-                "type": "object",
+                "type": [
+                  "object",
+                  "null"
+                ],
                 "properties": {
                   "_value_1": {
                     "type": [
@@ -116,20 +143,38 @@
           }
         },
         "Related_Worktags_Data": {
-          "type": "object",
+          "type": [
+            "object",
+            "null"
+          ],
           "properties": {
             "Related_Worktags_by_Type_Data": {
-              "type": "array",
+              "type": [
+                "array",
+                "null"
+              ],
               "items": {
-                "type": "object",
+                "type": [
+                  "object",
+                  "null"
+                ],
                 "properties": {
                   "Worktag_Type_Reference": {
-                    "type": "object",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "properties": {
                       "ID": {
-                        "type": "array",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -173,9 +218,15 @@
                     ],
                     "properties": {
                       "ID": {
-                        "type": "array",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -207,9 +258,15 @@
                     ],
                     "properties": {
                       "ID": {
-                        "type": "array",
+                        "type": [
+                          "array",
+                          "null"
+                        ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "object",
+                            "null"
+                          ],
                           "properties": {
                             "_value_1": {
                               "type": [
@@ -235,14 +292,26 @@
                     }
                   },
                   "Allowed_Worktag_Data": {
-                    "type": "array",
+                    "type": [
+                      "array",
+                      "null"
+                    ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
                       "properties": {
                         "ID": {
-                          "type": "array",
+                          "type": [
+                            "array",
+                            "null"
+                          ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
                             "properties": {
                               "_value_1": {
                                 "type": [
@@ -278,9 +347,15 @@
               ],
               "properties": {
                 "ID": {
-                  "type": "array",
+                  "type": [
+                    "array",
+                    "null"
+                  ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "object",
+                      "null"
+                    ],
                     "properties": {
                       "_value_1": {
                         "type": [
@@ -320,9 +395,15 @@
           ],
           "properties": {
             "ID": {
-              "type": "array",
+              "type": [
+                "array",
+                "null"
+              ],
               "items": {
-                "type": "object",
+                "type": [
+                  "object",
+                  "null"
+                ],
                 "properties": {
                   "_value_1": {
                     "type": [

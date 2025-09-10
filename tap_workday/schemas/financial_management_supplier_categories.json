@@ -1,5 +1,8 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Supplier_Category_Reference": {
       "type": [
@@ -13,7 +16,10 @@
             "null"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
               "_value_1": {
                 "type": [
@@ -44,7 +50,10 @@
         "null"
       ],
       "items": {
-        "type": "object",
+        "type": [
+          "object",
+          "null"
+        ],
         "properties": {
           "Supplier_Category_ID": {
             "type": [
