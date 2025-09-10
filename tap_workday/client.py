@@ -11,11 +11,7 @@ from zeep.wsse.username import UsernameToken
 
 from tap_workday.exceptions import (
     WorkdayBackoffError,
-    WorkdaySOAPError,
-    WorkdaySOAPFaultError,
-    WorkdaySOAPTransportError,
     WorkdaySOAPUnexpectedError,
-    WorkdaySOAPXMLSyntaxError,
 )
 
 LOGGER = get_logger()
@@ -28,41 +24,14 @@ class SOAPErrorHandler:
     @staticmethod
     def handle_error(operation_name: str, exc: Exception) -> None:
         """
-        Log SOAP errors and raise unified WorkdaySOAPError exceptions.
+        Log unexpected SOAP errors and raise unified WorkdaySOAPUnexpectedError exceptions.
         """
-        if isinstance(exc, Fault):
-            LOGGER.error(
-                f"[SOAP Fault] Operation='{operation_name}', "
-                f"faultcode='{exc.code}', faultstring='{exc.message}', detail='{exc.detail}'"
-            )
-            raise WorkdaySOAPFaultError(
-                f"SOAP Fault in '{operation_name}': {exc.message}"
-            ) from exc
-
-        elif isinstance(exc, TransportError):
-            LOGGER.error(
-                f"[Transport Error] Operation='{operation_name}', "
-                f"status_code={getattr(exc, 'status_code', 'N/A')}, message='{str(exc)}'"
-            )
-            raise WorkdaySOAPTransportError(
-                f"Transport error in '{operation_name}': {str(exc)}"
-            ) from exc
-
-        elif isinstance(exc, XMLSyntaxError):
-            LOGGER.error(
-                f"[XML Error] Operation='{operation_name}', Invalid SOAP XML response: {exc}"
-            )
-            raise WorkdaySOAPXMLSyntaxError(
-                f"Invalid SOAP XML in '{operation_name}': {exc}"
-            ) from exc
-
-        else:
-            LOGGER.exception(
-                f"[Unexpected Error] Operation='{operation_name}', Exception={exc}"
-            )
-            raise WorkdaySOAPUnexpectedError(
-                f"Unexpected error in '{operation_name}': {exc}"
-            ) from exc
+        LOGGER.critical(
+            f"[Unexpected Error] Operation='{operation_name}', Exception={exc}"
+        )
+        raise WorkdaySOAPUnexpectedError(
+            f"Unexpected error in '{operation_name}': {exc}"
+        ) from exc
 
 
 class Client:
@@ -72,11 +41,11 @@ class Client:
         self,
         config: Mapping[str, Any],
         service: str = "Human_Resources",
-        version: str = "v44.2",
+        version: str = "v45.0",
     ) -> None:
         self.config = config
         self.service = service
-        self.version = config.get("version") or version
+        self.version = version
         self.request_timeout = float(config.get("request_timeout", REQUEST_TIMEOUT))
         self._client = self._create_client()
 
@@ -126,7 +95,7 @@ class Client:
             Fault,
             TransportError,
             XMLSyntaxError,
-        ) as exc:
+        ):
             # Let backoff handle retryable exceptions
             raise
         except Exception as exc:

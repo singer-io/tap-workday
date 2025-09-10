@@ -346,21 +346,18 @@ class WorkdayTableStream(FullTableStream):
     - service_name: Workday service string (e.g., "Human_Resources")
     - operation_name: SOAP operation to call (e.g., "Get_Organizations")
     - data_key: leaf key inside Response_Data (e.g., "Organization")
-    - version (optional): default "v44.2"
+    - version (optional): default "v45.0"
     """
 
     service_name: str = ""
     operation_name: str = ""
     data_key: str = ""
-    version: str = "v44.2"
+    version: str = "v45.0"
 
     def get_client(self):
         """Client for WorkdayTableStream."""
         cfg = self.client.config
-        # Allow per-service override via config, e.g. human_resources_version
-        override_key = f"{self.service_name.lower()}_version"
-        version = cfg.get(override_key, cfg.get("version", self.version))
-        return Client(cfg, service=self.service_name, version=version)
+        return Client(cfg, service=self.service_name, version=self.version)
 
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""

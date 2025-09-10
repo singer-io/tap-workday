@@ -5,11 +5,11 @@ A [Singer](https://singer.io) tap for extracting data from Workday, outputting J
 **Features:**
 - Connects to the Workday API and retrieves data.
 - Supports extraction from these Workday modules:
-    - [Absence_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Absence_Management/v44.2/Absence_Management.html)
-    - [Financial_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Financial_Management/v44.2/Financial_Management.html)
-    - [Human_Resources](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v44.2/Human_Resources.html)
-    - [Performance_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Performance_Management/v44.2/Performance_Management.html)
-    - [Staffing](https://community.workday.com/sites/default/files/file-hosting/productionapi/Staffing/v44.2/Staffing.html)
+    - [Absence_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Absence_Management/v45.0/Absence_Management.html)
+    - [Financial_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Financial_Management/v45.0/Financial_Management.html)
+    - [Human_Resources](https://community.workday.com/sites/default/files/file-hosting/productionapi/Human_Resources/v45.0/Human_Resources.html)
+    - [Performance_Management](https://community.workday.com/sites/default/files/file-hosting/productionapi/Performance_Management/v45.0/Performance_Management.html)
+    - [Staffing](https://community.workday.com/sites/default/files/file-hosting/productionapi/Staffing/v45.0/Staffing.html)
 - Outputs schemas for each resource.
 - Handles incremental syncs using state.
 
