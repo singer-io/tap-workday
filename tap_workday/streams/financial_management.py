@@ -82,15 +82,6 @@ class JournalSources(WorkdayTableStream):
     data_key = "Journal_Source"
 
 
-class Journals(WorkdayTableStream):
-    tap_stream_id = "journals"
-    replication_method = "FULL_TABLE"
-    key_properties = ["Journal_Entry_Data.Journal_Number"]
-    service_name = "Financial_Management"
-    operation_name = "Get_Journals"
-    data_key = "Journal_Entry"
-
-
 class LedgerAccountSummaries(WorkdayTableStream):
     tap_stream_id = "ledger_account_summaries"
     replication_method = "FULL_TABLE"
@@ -98,15 +89,6 @@ class LedgerAccountSummaries(WorkdayTableStream):
     service_name = "Financial_Management"
     operation_name = "Get_Ledger_Account_Summaries"
     data_key = "Ledger_Account_Summary"
-
-
-class Ledgers(WorkdayTableStream):
-    tap_stream_id = "ledgers"
-    replication_method = "FULL_TABLE"
-    key_properties = ["Ledger_Data.Actuals_Ledger_ID"]
-    service_name = "Financial_Management"
-    operation_name = "Get_Ledgers"
-    data_key = "Actuals_Ledger"
 
 
 class ProgramHierarchies(WorkdayTableStream):
