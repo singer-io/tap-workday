@@ -14,7 +14,7 @@ from singer import (
     write_state,
 )
 
-from tap_workday.client import Client
+from tap_workday.client import Client, DefaultValues
 from tap_workday.streams.helpers import call_workday_operation, emit_full_table
 
 LOGGER = get_logger()
@@ -352,7 +352,7 @@ class WorkdayTableStream(FullTableStream):
     service_name: str = ""
     operation_name: str = ""
     data_key: str = ""
-    version: str = "v45.0"
+    version: str = DefaultValues.VERSION
 
     def get_client(self):
         """Client for WorkdayTableStream."""
