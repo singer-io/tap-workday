@@ -53,101 +53,42 @@ class TestSOAPErrorHandler(unittest.TestCase):
         """Set up common test data."""
         self.operation_name = "test_operation"
 
-    def test_get_exception_details_fault_error(self):
-        """Test _get_exception_details for Fault exception."""
-        exception = Fault("Server Error", "SOAP-ENV:Server", None)
+    @parameterized.expand([
+        # (exception_type, exception_instance, expected_details_fragment)
+        ("fault", Fault("Server Error", "SOAP-ENV:Server", None), "faultcode='SOAP-ENV:Server'"),
+        ("transport", TransportError("HTTP 500 Error"), "status_code=0"),
+        ("xml", XMLSyntaxError("Invalid XML"), "Invalid SOAP XML response: Invalid XML"),
+        ("generic", ValueError("Generic error"), "Exception=Generic error"),
+    ])
+    def test_get_exception_details(self, exception_type, exception, expected_fragment):
+        """Test _get_exception_details returns proper formatted details."""
         result = SOAPErrorHandler._get_exception_details(exception)
-        self.assertIn("faultcode='SOAP-ENV:Server'", result)
-        self.assertIn("faultstring='Server Error'", result)
+        self.assertIn(expected_fragment, result)
 
-    def test_get_exception_details_transport_error(self):
-        """Test _get_exception_details for TransportError exception."""
-        exception = TransportError("HTTP 500 Error")
-        result = SOAPErrorHandler._get_exception_details(exception)
-        self.assertIn("status_code=0", result)
-        self.assertIn("message='HTTP 500 Error'", result)
-
-    def test_get_exception_details_xml_error(self):
-        """Test _get_exception_details for XMLSyntaxError exception."""
-        exception = XMLSyntaxError("Invalid XML")
-        result = SOAPErrorHandler._get_exception_details(exception)
-        self.assertIn("Invalid SOAP XML response: Invalid XML", result)
-
-    def test_get_exception_details_generic_error(self):
-        """Test _get_exception_details for generic exception."""
-        exception = ValueError("Generic error")
-        result = SOAPErrorHandler._get_exception_details(exception)
-        self.assertIn("Exception=Generic error", result)
-
-    def test_get_error_message_fault_error(self):
-        """Test _get_error_message for Fault exception."""
-        exception = Fault("Server Error", "SOAP-ENV:Server", None)
+    @parameterized.expand([
+        # (exception_type, exception_instance, expected_message)
+        ("fault", Fault("Server Error", "SOAP-ENV:Server", None), "SOAP Fault in 'test_operation': Server Error"),
+        ("transport", TransportError("HTTP 500 Error"), "Transport error in 'test_operation': HTTP 500 Error"),
+        ("xml", XMLSyntaxError("Invalid XML"), "Invalid SOAP XML in 'test_operation': Invalid XML"),
+        ("generic", ValueError("Generic error"), "Unexpected error in 'test_operation': Generic error"),
+    ])
+    def test_get_error_message(self, exception_type, exception, expected_message):
+        """Test _get_error_message generates correct formatted messages."""
         result = SOAPErrorHandler._get_error_message(self.operation_name, exception)
-        expected = "SOAP Fault in 'test_operation': Server Error"
-        self.assertEqual(result, expected)
+        self.assertEqual(result, expected_message)
 
-    def test_get_error_message_transport_error(self):
-        """Test _get_error_message for TransportError exception."""
-        exception = TransportError("HTTP 500 Error")
-        result = SOAPErrorHandler._get_error_message(self.operation_name, exception)
-        expected = "Transport error in 'test_operation': HTTP 500 Error"
-        self.assertEqual(result, expected)
-
-    def test_get_error_message_xml_error(self):
-        """Test _get_error_message for XMLSyntaxError exception."""
-        exception = XMLSyntaxError("Invalid XML")
-        result = SOAPErrorHandler._get_error_message(self.operation_name, exception)
-        expected = "Invalid SOAP XML in 'test_operation': Invalid XML"
-        self.assertEqual(result, expected)
-
-    def test_get_error_message_generic_error(self):
-        """Test _get_error_message for generic exception."""
-        exception = ValueError("Generic error")
-        result = SOAPErrorHandler._get_error_message(self.operation_name, exception)
-        expected = "Unexpected error in 'test_operation': Generic error"
-        self.assertEqual(result, expected)
-
+    @parameterized.expand([
+        # (exception_type, exception_instance, expected_workday_exception_class)
+        ("fault", Fault("code", "message", None), WorkdaySOAPFaultError),
+        ("transport", TransportError("transport error"), WorkdaySOAPTransportError),
+        ("xml", XMLSyntaxError("xml error"), WorkdaySOAPXMLSyntaxError),
+        ("value", ValueError("unexpected error"), WorkdaySOAPUnexpectedError),
+        ("runtime", RuntimeError("runtime error"), WorkdaySOAPUnexpectedError),
+    ])
     @patch('tap_workday.client.LOGGER')
-    def test_handle_error_fault_error(self, mock_logger):
-        """Test handle_error with Fault exception."""
-        exception = Fault("code", "message", None)
-        with self.assertRaises(WorkdaySOAPFaultError) as context:
-            SOAPErrorHandler.handle_error(self.operation_name, exception)
-        self.assertIs(context.exception.__cause__, exception)
-        mock_logger.error.assert_called_once()
-
-    @patch('tap_workday.client.LOGGER')
-    def test_handle_error_transport_error(self, mock_logger):
-        """Test handle_error with TransportError exception."""
-        exception = TransportError("transport error")
-        with self.assertRaises(WorkdaySOAPTransportError) as context:
-            SOAPErrorHandler.handle_error(self.operation_name, exception)
-        self.assertIs(context.exception.__cause__, exception)
-        mock_logger.error.assert_called_once()
-
-    @patch('tap_workday.client.LOGGER')
-    def test_handle_error_xml_error(self, mock_logger):
-        """Test handle_error with XMLSyntaxError exception."""
-        exception = XMLSyntaxError("xml error")
-        with self.assertRaises(WorkdaySOAPXMLSyntaxError) as context:
-            SOAPErrorHandler.handle_error(self.operation_name, exception)
-        self.assertIs(context.exception.__cause__, exception)
-        mock_logger.error.assert_called_once()
-
-    @patch('tap_workday.client.LOGGER')
-    def test_handle_error_unexpected_error(self, mock_logger):
-        """Test handle_error with unexpected exception."""
-        exception = ValueError("unexpected error")
-        with self.assertRaises(WorkdaySOAPUnexpectedError) as context:
-            SOAPErrorHandler.handle_error(self.operation_name, exception)
-        self.assertIs(context.exception.__cause__, exception)
-        mock_logger.error.assert_called_once()
-
-    @patch('tap_workday.client.LOGGER')
-    def test_handle_error_runtime_error(self, mock_logger):
-        """Test handle_error with runtime exception."""
-        exception = RuntimeError("runtime error")
-        with self.assertRaises(WorkdaySOAPUnexpectedError) as context:
+    def test_handle_error_exception_mapping(self, exception_type, exception, expected_exception_class, mock_logger):
+        """Test handle_error raises correct Workday exception types."""
+        with self.assertRaises(expected_exception_class) as context:
             SOAPErrorHandler.handle_error(self.operation_name, exception)
         self.assertIs(context.exception.__cause__, exception)
         mock_logger.error.assert_called_once()
@@ -190,42 +131,33 @@ class TestClient(unittest.TestCase):
         self.mock_zeep_client = Mock(spec=ZeepClient)
         self.mock_zeep_client.service = Mock()
 
-    def test_client_initialization_defaults(self):
-        """Test Client initialization with default parameters."""
-        with patch('tap_workday.client.Client._create_client'):
-            client = Client(self.base_config)
-            self.assertEqual(client.config, self.base_config)
-            self.assertEqual(client.service, "Human_Resources")
-            self.assertEqual(client.version, "v45.0")
-            self.assertEqual(client.request_timeout, 300.0)
-
-    def test_client_initialization_custom_service(self):
-        """Test Client initialization with custom service."""
-        with patch('tap_workday.client.Client._create_client'):
-            client = Client(self.base_config, service="Custom_Service")
-            self.assertEqual(client.service, "Custom_Service")
-            self.assertEqual(client.version, "v45.0")
-
-    def test_client_initialization_custom_version(self):
-        """Test Client initialization with custom version."""
-        with patch('tap_workday.client.Client._create_client'):
-            client = Client(self.base_config, version="v50.0")
-            self.assertEqual(client.service, "Human_Resources")
-            self.assertEqual(client.version, "v50.0")
-
-    def test_client_initialization_custom_timeout(self):
-        """Test Client initialization with custom timeout."""
-        config = {**self.base_config, "request_timeout": 600}
-        with patch('tap_workday.client.Client._create_client'):
-            client = Client(config)
-            self.assertEqual(client.request_timeout, 600.0)
-
-    def test_client_initialization_string_timeout(self):
-        """Test Client initialization with string timeout."""
-        config = {**self.base_config, "request_timeout": "120"}
-        with patch('tap_workday.client.Client._create_client'):
-            client = Client(config)
-            self.assertEqual(client.request_timeout, 120.0)
+    @parameterized.expand([
+        # (config_override, service, version, expected_service, expected_version, expected_timeout)
+        ({}, None, None, "Human_Resources", "v45.0", 300.0),
+        ({}, "Custom_Service", None, "Custom_Service", "v45.0", 300.0),
+        ({}, None, "v50.0", "Human_Resources", "v50.0", 300.0),
+        ({"request_timeout": 600}, None, None, "Human_Resources", "v45.0", 600.0),
+        ({"request_timeout": "120"}, None, None, "Human_Resources", "v45.0", 120.0),
+    ])
+    @patch('tap_workday.client.Client._create_client')
+    def test_client_initialization(self, config_override, service, version, 
+                                 expected_service, expected_version, expected_timeout, mock_create_client):
+        """Test Client initialization with various configurations."""
+        config = {**self.base_config, **(config_override or {})}
+        
+        kwargs = {}
+        if service is not None:
+            kwargs['service'] = service
+        if version is not None:
+            kwargs['version'] = version
+            
+        client = Client(config, **kwargs)
+        
+        self.assertEqual(client.config, config)
+        self.assertEqual(client.service, expected_service)
+        self.assertEqual(client.version, expected_version)
+        self.assertEqual(client.request_timeout, expected_timeout)
+        mock_create_client.assert_called_once()
 
     @patch('tap_workday.client.ZeepClient')
     @patch('tap_workday.client.Transport')
@@ -268,30 +200,22 @@ class TestClient(unittest.TestCase):
         
         self.assertEqual(client._client, mock_zeep_client_instance)
 
+    @parameterized.expand([
+        # (hostname, tenant, service, version, expected_url)
+        ("test.workday.com", "test_tenant", "Human_Resources", "v45.0", 
+         "https://test.workday.com/ccx/service/test_tenant/Human_Resources/v45.0?wsdl"),
+        ("prod.workday.com", "prod_tenant", "Financial_Management", "v50.0", 
+         "https://prod.workday.com/ccx/service/prod_tenant/Financial_Management/v50.0?wsdl"),
+        ("impl.workday.com", "impl_tenant", "Staffing", "v44.0", 
+         "https://impl.workday.com/ccx/service/impl_tenant/Staffing/v44.0?wsdl"),
+    ])
     @patch('tap_workday.client.Client._create_client')
-    def test_build_wsdl_url(self, mock_create_client):
+    def test_build_wsdl_url(self, hostname, tenant, service, version, expected_url, mock_create_client):
         """Test _build_wsdl_url generates correct WSDL URLs."""
-        test_cases = [
-            ("test.workday.com", "test_tenant", "Human_Resources", "v45.0",
-             "https://test.workday.com/ccx/service/test_tenant/Human_Resources/v45.0?wsdl"),
-            ("prod.workday.com", "prod_tenant", "Financial_Management", "v50.0",
-             "https://prod.workday.com/ccx/service/prod_tenant/Financial_Management/v50.0?wsdl"),
-            ("impl.workday.com", "impl_tenant", "Staffing", "v44.0",
-             "https://impl.workday.com/ccx/service/impl_tenant/Staffing/v44.0?wsdl"),
-        ]
-        
-        for hostname, tenant, service, version, expected_url in test_cases:
-            with self.subTest(hostname=hostname, tenant=tenant, service=service, version=version):
-                config = {
-                    **self.base_config,
-                    "hostname": hostname,
-                    "tenant": tenant,
-                }
-                
-                client = Client(config, service=service, version=version)
-                result = client._build_wsdl_url()
-                
-                self.assertEqual(result, expected_url)
+        config = {**self.base_config, "hostname": hostname, "tenant": tenant}
+        client = Client(config, service=service, version=version)
+        result = client._build_wsdl_url()
+        self.assertEqual(result, expected_url)
 
     def test_retryable_exceptions_constant(self):
         """Test that RETRYABLE_EXCEPTIONS contains expected exception types."""
@@ -326,76 +250,36 @@ class TestClient(unittest.TestCase):
             "arg1", "arg2", kwarg1="value1"
         )
 
-    def test_call_error_handling_fault_error(self):
-        """Test that call method properly delegates Fault error handling to SOAPErrorHandler."""
-        with patch('tap_workday.client.Client._create_client') as mock_create_client:
-            with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
-                mock_create_client.return_value = self.mock_zeep_client
-                exception_to_raise = Fault("code", "message", None)
-                self.mock_zeep_client.service.test_operation.side_effect = exception_to_raise
-                mock_handle_error.side_effect = WorkdaySOAPFaultError("Mocked error")
-                
-                client = Client(self.base_config)
-                
-                with self.assertRaises(WorkdaySOAPFaultError):
-                    client.call("test_operation")
-                
-                # Should be called MAX_RETRIES times due to backoff (Fault is retryable)
-                self.assertEqual(mock_handle_error.call_count, DefaultValues.MAX_RETRIES.value)
-                mock_handle_error.assert_called_with("test_operation", exception_to_raise)
-
-    def test_call_error_handling_transport_error(self):
-        """Test that call method properly delegates TransportError error handling to SOAPErrorHandler."""
-        with patch('tap_workday.client.Client._create_client') as mock_create_client:
-            with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
-                mock_create_client.return_value = self.mock_zeep_client
-                exception_to_raise = TransportError("transport error")
-                self.mock_zeep_client.service.test_operation.side_effect = exception_to_raise
-                mock_handle_error.side_effect = WorkdaySOAPTransportError("Mocked error")
-                
-                client = Client(self.base_config)
-                
-                with self.assertRaises(WorkdaySOAPTransportError):
-                    client.call("test_operation")
-                
-                # Should be called MAX_RETRIES times due to backoff (TransportError is retryable)
-                self.assertEqual(mock_handle_error.call_count, DefaultValues.MAX_RETRIES.value)
-                mock_handle_error.assert_called_with("test_operation", exception_to_raise)
-
-    def test_call_error_handling_xml_error(self):
-        """Test that call method properly delegates XMLSyntaxError error handling to SOAPErrorHandler."""
-        with patch('tap_workday.client.Client._create_client') as mock_create_client:
-            with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
-                mock_create_client.return_value = self.mock_zeep_client
-                exception_to_raise = XMLSyntaxError("xml error")
-                self.mock_zeep_client.service.test_operation.side_effect = exception_to_raise
-                mock_handle_error.side_effect = WorkdaySOAPXMLSyntaxError("Mocked error")
-                
-                client = Client(self.base_config)
-                
-                with self.assertRaises(WorkdaySOAPXMLSyntaxError):
-                    client.call("test_operation")
-                
-                # Should be called MAX_RETRIES times due to backoff (XMLSyntaxError is retryable)
-                self.assertEqual(mock_handle_error.call_count, DefaultValues.MAX_RETRIES.value)
-                mock_handle_error.assert_called_with("test_operation", exception_to_raise)
-
-    def test_call_error_handling_unexpected_error(self):
-        """Test that call method properly delegates unexpected error handling to SOAPErrorHandler."""
-        with patch('tap_workday.client.Client._create_client') as mock_create_client:
-            with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
-                mock_create_client.return_value = self.mock_zeep_client
-                exception_to_raise = ValueError("unexpected")
-                self.mock_zeep_client.service.test_operation.side_effect = exception_to_raise
-                mock_handle_error.side_effect = WorkdaySOAPUnexpectedError("Mocked error")
-                
-                client = Client(self.base_config)
-                
-                with self.assertRaises(WorkdaySOAPUnexpectedError):
-                    client.call("test_operation")
-                
-                # Should be called only once (ValueError is not retryable)
-                mock_handle_error.assert_called_once_with("test_operation", exception_to_raise)
+    @parameterized.expand([
+        # (exception_type, exception_instance, expected_workday_exception, is_retryable)
+        ("fault", Fault("code", "message", None), WorkdaySOAPFaultError, True),
+        ("transport", TransportError("transport error"), WorkdaySOAPTransportError, True),
+        ("xml", XMLSyntaxError("xml error"), WorkdaySOAPXMLSyntaxError, True),
+        ("value", ValueError("unexpected"), WorkdaySOAPUnexpectedError, False),
+    ])
+    @patch('tap_workday.client.Client._create_client')
+    @patch('tap_workday.client.SOAPErrorHandler.handle_error')
+    @patch('time.sleep')  # Mock sleep to speed up tests
+    def test_call_error_handling(self, exception_type, exception_to_raise, expected_workday_exception, is_retryable,
+                               mock_sleep, mock_handle_error, mock_create_client):
+        """Test that call method properly delegates error handling to SOAPErrorHandler."""
+        mock_create_client.return_value = self.mock_zeep_client
+        self.mock_zeep_client.service.test_operation.side_effect = exception_to_raise
+        mock_handle_error.side_effect = expected_workday_exception("Mocked error")
+        
+        client = Client(self.base_config)
+        
+        with self.assertRaises(expected_workday_exception):
+            client.call("test_operation")
+        
+        if is_retryable:
+            # Should be called MAX_RETRIES times due to backoff
+            self.assertEqual(mock_handle_error.call_count, DefaultValues.MAX_RETRIES.value)
+        else:
+            # Should be called only once (not retryable)
+            mock_handle_error.assert_called_once()
+        
+        mock_handle_error.assert_called_with("test_operation", exception_to_raise)
 
     @patch('tap_workday.client.Client._create_client')
     def test_call_backoff_decorator_configuration(self, mock_create_client):
@@ -412,7 +296,8 @@ class TestClient(unittest.TestCase):
                        "call method should have backoff decorator applied")
 
     @patch('tap_workday.client.Client._create_client')
-    def test_call_backoff_retry_logic(self, mock_create_client):
+    @patch('time.sleep')  # Mock sleep to speed up tests
+    def test_call_backoff_retry_logic(self, mock_sleep, mock_create_client):
         """Test that retryable exceptions trigger backoff retries."""
         # Setup
         mock_create_client.return_value = self.mock_zeep_client
@@ -435,48 +320,45 @@ class TestClient(unittest.TestCase):
         self.assertEqual(result, {"success": True})
         self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 3)
 
-    @patch('tap_workday.client.Client._create_client')
-    def test_call_max_retries_exceeded(self, mock_create_client):
-        """Test that max retries are respected and final exception is raised."""
+    @parameterized.expand([
+        # (test_case_name, should_exhaust_retries)
+        ("max_retries_exhausted", True),
+        ("non_retryable_no_retry", False),
+    ])
+    @patch('tap_workday.client.Client._create_client') 
+    @patch('time.sleep')  # Mock sleep to speed up tests
+    def test_call_retry_scenarios(self, test_case_name, should_exhaust_retries, mock_sleep, mock_create_client):
+        """Test retry scenarios: max retries exhausted vs non-retryable exceptions."""
         # Setup
         mock_create_client.return_value = self.mock_zeep_client
-        
-        # Configure mock to always fail with retryable SOAP exception
-        persistent_error = Fault("Persistent Error", "SOAP-ENV:Server", None)
-        self.mock_zeep_client.service.test_operation.side_effect = persistent_error
-        
         client = Client(self.base_config)
         
-        # Execute and verify max retries exceeded
-        # Since Fault is retryable, backoff will convert it to WorkdaySOAPFaultError after max tries
-        with self.assertRaises(WorkdaySOAPFaultError):
-            client.call("test_operation")
-        
-        # Should be called MAX_RETRIES times (5)
-        self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 
-                        DefaultValues.MAX_RETRIES.value)
-
-    @patch('tap_workday.client.Client._create_client')
-    def test_call_non_retryable_exception_no_retry(self, mock_create_client):
-        """Test that non-retryable exceptions are not retried."""
-        # Setup
-        mock_create_client.return_value = self.mock_zeep_client
-        
-        # Configure mock to raise non-retryable exception
-        non_retryable_error = KeyError("Non-retryable error")
-        self.mock_zeep_client.service.test_operation.side_effect = non_retryable_error
-        
-        with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
-            mock_handle_error.side_effect = WorkdaySOAPUnexpectedError("Handled error")
+        if should_exhaust_retries:
+            # Configure mock to always fail with retryable SOAP exception
+            persistent_error = Fault("Persistent Error", "SOAP-ENV:Server", None)
+            self.mock_zeep_client.service.test_operation.side_effect = persistent_error
             
-            client = Client(self.base_config)
-            
-            # Execute and verify no retries
-            with self.assertRaises(WorkdaySOAPUnexpectedError):
+            # Execute and verify max retries exceeded
+            with self.assertRaises(WorkdaySOAPFaultError):
                 client.call("test_operation")
             
-            # Should only be called once (no retries)
-            self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 1)
+            # Should be called MAX_RETRIES times (5)
+            self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 
+                            DefaultValues.MAX_RETRIES.value)
+        else:
+            # Configure mock to raise non-retryable exception
+            non_retryable_error = KeyError("Non-retryable error")
+            self.mock_zeep_client.service.test_operation.side_effect = non_retryable_error
+            
+            with patch('tap_workday.client.SOAPErrorHandler.handle_error') as mock_handle_error:
+                mock_handle_error.side_effect = WorkdaySOAPUnexpectedError("Handled error")
+                
+                # Execute and verify no retries
+                with self.assertRaises(WorkdaySOAPUnexpectedError):
+                    client.call("test_operation")
+                
+                # Should only be called once (no retries)
+                self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 1)
 
 
 if __name__ == '__main__':
