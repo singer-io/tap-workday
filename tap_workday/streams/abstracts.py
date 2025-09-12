@@ -368,7 +368,11 @@ class WorkdayTableStream(FullTableStream):
             # Use the same logic as IncrementalStream
             try:
                 updated_since = self.get_bookmark(state, self.tap_stream_id)
-            except Exception:
+            except Exception as exc:
+                LOGGER.exception(
+                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
+                    self.tap_stream_id
+                )
                 updated_since = None
         records = call_workday_operation(
             client, self.operation_name, self.data_key, updated_since=updated_since
