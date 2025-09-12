@@ -352,7 +352,7 @@ class WorkdayTableStream(FullTableStream):
     service_name: str = ""
     operation_name: str = ""
     data_key: str = ""
-    version: str = DefaultValues.VERSION
+    version: str = DefaultValues.VERSION.value
 
     def get_client(self):
         """Client for WorkdayTableStream."""
