@@ -114,7 +114,7 @@ class Client:
     ) -> None:
         self.config = config
         self.service = service
-        self.version = version
+        self.version = 'v45.0'
         self.request_timeout = float(
             config.get("request_timeout", DefaultValues.REQUEST_TIMEOUT.value)
         )
