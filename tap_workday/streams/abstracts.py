@@ -14,6 +14,9 @@ from singer import (
     write_state,
 )
 
+from tap_workday.client import Client, DefaultValues
+from tap_workday.streams.helpers import call_workday_operation, emit_full_table
+
 LOGGER = get_logger()
 
 
@@ -235,7 +238,7 @@ class IncrementalStream(BaseStream):
 
 
 class FullTableStream(BaseStream):
-    """Base Class for Stream."""
+    """Base class for streams that replicate updates."""
 
     replication_keys = []
 
@@ -334,3 +337,44 @@ class ChildBaseStream(IncrementalStream):
         if self.bookmark_value is None:
             self.bookmark_value = super().get_bookmark(state, stream)
         return self.bookmark_value
+
+
+class WorkdayTableStream(FullTableStream):
+    """Base for simple Workday SOAP streams.
+
+    Child classes should set:
+    - service_name: Workday service string (e.g., "Human_Resources")
+    - operation_name: SOAP operation to call (e.g., "Get_Organizations")
+    - data_key: leaf key inside Response_Data (e.g., "Organization")
+    - version (optional): default "v45.0"
+    """
+
+    service_name: str = ""
+    operation_name: str = ""
+    data_key: str = ""
+    version: str = DefaultValues.VERSION.value
+
+    def get_client(self):
+        """Client for WorkdayTableStream."""
+        cfg = self.client.config
+        return Client(cfg, service=self.service_name, version=self.version)
+
+    def sync(self, state, transformer, parent_obj=None):
+        """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""
+        client = self.get_client()
+        # Try to get bookmark/state for incremental syncs
+        updated_since = None
+        if hasattr(self, "get_bookmark"):
+            # Use the same logic as IncrementalStream
+            try:
+                updated_since = self.get_bookmark(state, self.tap_stream_id)
+            except Exception as exc:
+                LOGGER.exception(
+                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
+                    self.tap_stream_id
+                )
+                updated_since = None
+        records = call_workday_operation(
+            client, self.operation_name, self.data_key, updated_since=updated_since
+        )
+        return emit_full_table(self, records)
