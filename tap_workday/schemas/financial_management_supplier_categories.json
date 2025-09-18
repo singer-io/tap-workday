@@ -1,30 +1,36 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
     "Supplier_Category_Reference": {
       "type": [
-        "null",
-        "object"
+        "object",
+        "null"
       ],
       "properties": {
         "ID": {
           "type": [
-            "null",
-            "array"
+            "array",
+            "null"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -32,29 +38,35 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Supplier_Category_Data": {
       "type": [
-        "null",
-        "object"
+        "array",
+        "null"
       ],
-      "properties": {
-        "Supplier_Category_ID": {
-          "type": [
-            "null",
-            "string"
-          ]
-        },
-        "Supplier_Category_Name": {
-          "type": [
-            "null",
-            "string"
-          ]
+      "items": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "Supplier_Category_ID": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Supplier_Category_Name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
         }
       }
     }
