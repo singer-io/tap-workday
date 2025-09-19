@@ -64,6 +64,9 @@ def get_schemas() -> Tuple[Dict, Dict]:
         )
         mdata = metadata.to_map(mdata)
 
+        if stream_name == "financial_management_customer_categories":
+            mdata[()]['inclusion'] = "unsupported"
+
         automatic_keys = getattr(stream_obj, "replication_keys") or []
         for field_name in schema.get("properties", {}).keys():
             if field_name in automatic_keys:
