@@ -5,6 +5,8 @@ from typing import Dict, Tuple
 import singer
 from singer import metadata
 
+from tap_workday.client import Client
+from tap_workday.exceptions import WorkdaySOAPFaultError
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
@@ -39,7 +41,7 @@ def load_schema_references() -> Dict:
     return refs
 
 
-def get_schemas() -> Tuple[Dict, Dict]:
+def get_schemas(config: Dict = None) -> Tuple[Dict, Dict]:
     """
     Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
     """
@@ -63,6 +65,26 @@ def get_schemas() -> Tuple[Dict, Dict]:
             replication_method=getattr(stream_obj, "replication_method"),
         )
         mdata = metadata.to_map(mdata)
+
+        # Check if stream is authorized by making a test API call
+        if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
+            try:
+                client = Client(config, service=stream_obj.service_name)
+                # Make a minimal test call to check authorization
+                client.call(stream_obj.operation_name)
+                LOGGER.info(f"Stream {stream_name} is authorized")
+            except WorkdaySOAPFaultError as e:
+                # Check for specific authorization error message
+                if 'Processing error occurred. The task submitted is not authorized.' in str(e):
+                    LOGGER.warning(f"Stream {stream_name} is not authorized, marking as unsupported")
+                    mdata[()]['inclusion'] = "unsupported"
+                else:
+                    # Re-raise other SOAP faults as they may indicate other issues
+                    LOGGER.warning(f"SOAP fault for stream {stream_name}: {e}")
+            except Exception as e:
+                # Log other exceptions but don't mark as unsupported
+                # as they might be temporary network issues
+                LOGGER.warning(f"Error testing authorization for stream {stream_name}: {e}")
 
         automatic_keys = getattr(stream_obj, "replication_keys") or []
         for field_name in schema.get("properties", {}).keys():
