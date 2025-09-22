@@ -83,7 +83,7 @@ class JournalSources(WorkdayTableStream):
 
 
 class Journals(WorkdayTableStream):
-    tap_stream_id = "journals"
+    tap_stream_id = "financial_management_journals"
     replication_method = "FULL_TABLE"
     key_properties = ["Journal_Entry_Data.Journal_Number"]
     service_name = "Financial_Management"
