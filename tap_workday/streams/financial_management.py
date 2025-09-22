@@ -2,7 +2,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 
 
 class CostCenters(WorkdayTableStream):
-    tap_stream_id = "cost_centers"
+    tap_stream_id = "financial_management_cost_centers"
     replication_method = "FULL_TABLE"
     key_properties = ["Cost_Center_Data.Organization_Data.ID"]
     service_name = "Financial_Management"
@@ -11,7 +11,7 @@ class CostCenters(WorkdayTableStream):
 
 
 class Organizations(WorkdayTableStream):
-    tap_stream_id = "fm_organizations"
+    tap_stream_id = "financial_management_organizations"
     replication_method = "FULL_TABLE"
     key_properties = ["Organization_Data.Reference_ID"]
     service_name = "Financial_Management"
@@ -20,7 +20,7 @@ class Organizations(WorkdayTableStream):
 
 
 class PositionBudgets(WorkdayTableStream):
-    tap_stream_id = "position_budgets"
+    tap_stream_id = "financial_management_position_budgets"
     replication_method = "FULL_TABLE"
     key_properties = ["Position_Budget_Data.Position_Reference.Descriptor"]
     service_name = "Financial_Management"
@@ -29,7 +29,7 @@ class PositionBudgets(WorkdayTableStream):
 
 
 class CustomerCategories(WorkdayTableStream):
-    tap_stream_id = "customer_categories"
+    tap_stream_id = "financial_management_customer_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Customer_Category_Data.Customer_Category_ID"]
     service_name = "Financial_Management"
@@ -38,7 +38,7 @@ class CustomerCategories(WorkdayTableStream):
 
 
 class FundHierarchies(WorkdayTableStream):
-    tap_stream_id = "fund_hierarchies"
+    tap_stream_id = "financial_management_fund_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Hierarchy_Data.Fund_Hierarchy_ID"]
     service_name = "Financial_Management"
@@ -47,7 +47,7 @@ class FundHierarchies(WorkdayTableStream):
 
 
 class FundTypes(WorkdayTableStream):
-    tap_stream_id = "fund_types"
+    tap_stream_id = "financial_management_fund_types"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Type_Data.Fund_Type_ID"]
     service_name = "Financial_Management"
@@ -56,7 +56,7 @@ class FundTypes(WorkdayTableStream):
 
 
 class FundingSources(WorkdayTableStream):
-    tap_stream_id = "funding_sources"
+    tap_stream_id = "financial_management_funding_sources"
     replication_method = "FULL_TABLE"
     key_properties = ["Funding_Source_Data.Funding_Source_Name"]
     service_name = "Financial_Management"
@@ -65,7 +65,7 @@ class FundingSources(WorkdayTableStream):
 
 
 class Funds(WorkdayTableStream):
-    tap_stream_id = "funds"
+    tap_stream_id = "financial_management_funds"
     replication_method = "FULL_TABLE"
     key_properties = ["Fund_Data.Fund_ID"]
     service_name = "Financial_Management"
@@ -74,7 +74,7 @@ class Funds(WorkdayTableStream):
 
 
 class JournalSources(WorkdayTableStream):
-    tap_stream_id = "journal_sources"
+    tap_stream_id = "financial_management_journal_sources"
     replication_method = "FULL_TABLE"
     key_properties = ["Journal_Source_Data.Journal_Source_ID"]
     service_name = "Financial_Management"
@@ -92,7 +92,7 @@ class Journals(WorkdayTableStream):
 
 
 class LedgerAccountSummaries(WorkdayTableStream):
-    tap_stream_id = "ledger_account_summaries"
+    tap_stream_id = "financial_management_ledger_account_summaries"
     replication_method = "FULL_TABLE"
     key_properties = ["Ledger_Account_Summary_Data.Ledger_Account_Summary_ID"]
     service_name = "Financial_Management"
@@ -101,7 +101,7 @@ class LedgerAccountSummaries(WorkdayTableStream):
 
 
 class ProgramHierarchies(WorkdayTableStream):
-    tap_stream_id = "program_hierarchies"
+    tap_stream_id = "financial_management_program_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Program_Hierarchy_Data.Program_Hierarchy_ID"]
     service_name = "Financial_Management"
@@ -110,7 +110,7 @@ class ProgramHierarchies(WorkdayTableStream):
 
 
 class Programs(WorkdayTableStream):
-    tap_stream_id = "programs"
+    tap_stream_id = "financial_management_programs"
     replication_method = "FULL_TABLE"
     key_properties = ["Program_Data.Program_ID"]
     service_name = "Financial_Management"
@@ -119,7 +119,7 @@ class Programs(WorkdayTableStream):
 
 
 class RevenueCategories(WorkdayTableStream):
-    tap_stream_id = "revenue_categories"
+    tap_stream_id = "financial_management_revenue_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Revenue_Category_Data.Revenue_Category_ID"]
     service_name = "Financial_Management"
@@ -128,7 +128,7 @@ class RevenueCategories(WorkdayTableStream):
 
 
 class RevenueCategoryHierarchies(WorkdayTableStream):
-    tap_stream_id = "revenue_category_hierarchies"
+    tap_stream_id = "financial_management_revenue_category_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Revenue_Category_Hierarchy_Data.ID"]
     service_name = "Financial_Management"
@@ -137,7 +137,7 @@ class RevenueCategoryHierarchies(WorkdayTableStream):
 
 
 class SpendCategoryHierarchies(WorkdayTableStream):
-    tap_stream_id = "spend_category_hierarchies"
+    tap_stream_id = "financial_management_spend_category_hierarchies"
     replication_method = "FULL_TABLE"
     key_properties = ["Spend_Category_Hierarchy_Data.Spend_Category_Hierarchy_ID"]
     service_name = "Financial_Management"
@@ -146,7 +146,7 @@ class SpendCategoryHierarchies(WorkdayTableStream):
 
 
 class SupplierCategories(WorkdayTableStream):
-    tap_stream_id = "supplier_categories"
+    tap_stream_id = "financial_management_supplier_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Supplier_Category_Data.Supplier_Category_ID"]
     service_name = "Financial_Management"
