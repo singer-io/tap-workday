@@ -41,6 +41,28 @@ def load_schema_references() -> Dict:
     return refs
 
 
+def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata) -> Dict:
+    """
+    Check if stream is authorized by making a test API call.
+    """
+    # Check if stream is authorized by making a test API call
+    if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
+        try:
+            client = Client(config, service=stream_obj.service_name)
+            client.call(stream_obj.operation_name)
+        except WorkdaySOAPFaultError as e:
+            # Check for specific authorization error message
+            if 'Processing error occurred. The task submitted is not authorized.' in str(e):
+                LOGGER.warning(f"Stream {stream_name} is not authorized, marking stream inclusion as unsupported")
+                mdata[()]['inclusion'] = "unsupported"
+            else:
+                LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
+        except Exception as e:
+            LOGGER.error(f"Error testing authorization for stream {stream_name}: {e}")
+
+    return mdata
+
+
 def get_schemas(config: Dict):
     """
     Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
@@ -66,22 +88,6 @@ def get_schemas(config: Dict):
         )
         mdata = metadata.to_map(mdata)
 
-        # Check if stream is authorized by making a test API call
-        if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
-            try:
-                client = Client(config, service=stream_obj.service_name)
-                client.call(stream_obj.operation_name)
-                LOGGER.info(f"Stream {stream_name} is authorized")
-            except WorkdaySOAPFaultError as e:
-                # Check for specific authorization error message
-                if 'Processing error occurred. The task submitted is not authorized.' in str(e):
-                    LOGGER.warning(f"Stream {stream_name} is not authorized, marking as unsupported")
-                    mdata[()]['inclusion'] = "unsupported"
-                else:
-                    LOGGER.warning(f"SOAP fault for stream {stream_name}: {e}")
-            except Exception as e:
-                LOGGER.warning(f"Error testing authorization for stream {stream_name}: {e}")
-
         automatic_keys = getattr(stream_obj, "replication_keys") or []
         for field_name in schema.get("properties", {}).keys():
             if field_name in automatic_keys:
@@ -89,6 +95,7 @@ def get_schemas(config: Dict):
                     mdata, ("properties", field_name), "inclusion", "automatic"
                 )
 
+        mdata = check_stream_authorization(config, stream_name, stream_obj, mdata)
         parent_tap_stream_id = getattr(stream_obj, "parent", None)
         if parent_tap_stream_id:
             mdata = metadata.write(mdata, (), 'parent-tap-stream-id', parent_tap_stream_id)
