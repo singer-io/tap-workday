@@ -41,7 +41,7 @@ def load_schema_references() -> Dict:
     return refs
 
 
-def get_schemas(config: Dict = None) -> Tuple[Dict, Dict]:
+def get_schemas(config: Dict):
     """
     Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
     """
@@ -70,7 +70,6 @@ def get_schemas(config: Dict = None) -> Tuple[Dict, Dict]:
         if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
             try:
                 client = Client(config, service=stream_obj.service_name)
-                # Make a minimal test call to check authorization
                 client.call(stream_obj.operation_name)
                 LOGGER.info(f"Stream {stream_name} is authorized")
             except WorkdaySOAPFaultError as e:
@@ -79,11 +78,8 @@ def get_schemas(config: Dict = None) -> Tuple[Dict, Dict]:
                     LOGGER.warning(f"Stream {stream_name} is not authorized, marking as unsupported")
                     mdata[()]['inclusion'] = "unsupported"
                 else:
-                    # Re-raise other SOAP faults as they may indicate other issues
                     LOGGER.warning(f"SOAP fault for stream {stream_name}: {e}")
             except Exception as e:
-                # Log other exceptions but don't mark as unsupported
-                # as they might be temporary network issues
                 LOGGER.warning(f"Error testing authorization for stream {stream_name}: {e}")
 
         automatic_keys = getattr(stream_obj, "replication_keys") or []
