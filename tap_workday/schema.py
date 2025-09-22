@@ -6,7 +6,7 @@ import singer
 from singer import metadata
 
 from tap_workday.client import Client
-from tap_workday.exceptions import WorkdaySOAPFaultError
+from tap_workday.exceptions import WorkdaySOAPFaultError, WORKDAY_AUTH_ERROR_PATTERNS
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
@@ -45,14 +45,13 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata
     """
     Check if stream is authorized by making a test API call.
     """
-    # Check if stream is authorized by making a test API call
     if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
         try:
             client = Client(config, service=stream_obj.service_name)
             client.call(stream_obj.operation_name)
         except WorkdaySOAPFaultError as e:
             # Check for specific authorization error message
-            if 'Processing error occurred. The task submitted is not authorized.' in str(e):
+            if any(pattern.lower() in str(e).lower() for pattern in WORKDAY_AUTH_ERROR_PATTERNS):
                 LOGGER.warning(f"Stream {stream_name} is not authorized, marking stream inclusion as unsupported")
                 mdata[()]['inclusion'] = "unsupported"
             else:
