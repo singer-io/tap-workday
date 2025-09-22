@@ -2,7 +2,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 
 
 class OverrideBalances(WorkdayTableStream):
-    tap_stream_id = "override_balances"
+    tap_stream_id = "absence_management_override_balances"
     replication_method = "FULL_TABLE"
     key_properties = ["Override_Balance_Reference.ID"]
     service_name = "Absence_Management"
@@ -11,7 +11,7 @@ class OverrideBalances(WorkdayTableStream):
 
 
 class AbsenceInputs(WorkdayTableStream):
-    tap_stream_id = "absence_inputs"
+    tap_stream_id = "absence_management_absence_inputs"
     replication_method = "FULL_TABLE"
     key_properties = ["Absence_Input_Reference.ID"]
     service_name = "Absence_Management"

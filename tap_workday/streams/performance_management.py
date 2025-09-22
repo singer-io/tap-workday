@@ -2,7 +2,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 
 
 class CertificationIssuers(WorkdayTableStream):
-    tap_stream_id = "certification_issuers"
+    tap_stream_id = "performance_management_certification_issuers"
     replication_method = "FULL_TABLE"
     key_properties = ["ID"]
     service_name = "Performance_Management"
@@ -11,7 +11,7 @@ class CertificationIssuers(WorkdayTableStream):
 
 
 class Competencies(WorkdayTableStream):
-    tap_stream_id = "competencies"
+    tap_stream_id = "performance_management_competencies"
     replication_method = "FULL_TABLE"
     key_properties = ["Competency_ID"]
     service_name = "Performance_Management"
@@ -20,7 +20,7 @@ class Competencies(WorkdayTableStream):
 
 
 class CompetencyCategories(WorkdayTableStream):
-    tap_stream_id = "competency_categories"
+    tap_stream_id = "performance_management_competency_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Code"]
     service_name = "Performance_Management"
@@ -29,7 +29,7 @@ class CompetencyCategories(WorkdayTableStream):
 
 
 class Degrees(WorkdayTableStream):
-    tap_stream_id = "degrees"
+    tap_stream_id = "performance_management_degrees"
     replication_method = "FULL_TABLE"
     key_properties = ["ID"]
     service_name = "Performance_Management"

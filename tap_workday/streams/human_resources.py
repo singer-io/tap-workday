@@ -2,7 +2,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 
 
 class Organizations(WorkdayTableStream):
-    tap_stream_id = "get_organizations"
+    tap_stream_id = "human_resources_organizations"
     replication_method = "FULL_TABLE"
     key_properties = ["Organization_ID.value"]
     service_name = "Human_Resources"
@@ -11,7 +11,7 @@ class Organizations(WorkdayTableStream):
 
 
 class JobCategories(WorkdayTableStream):
-    tap_stream_id = "job_categories"
+    tap_stream_id = "human_resources_job_categories"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Category_ID.value"]
     service_name = "Human_Resources"
@@ -20,7 +20,7 @@ class JobCategories(WorkdayTableStream):
 
 
 class JobFamilyGroups(WorkdayTableStream):
-    tap_stream_id = "job_family_groups"
+    tap_stream_id = "human_resources_job_family_groups"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Family_Group_Data.ID"]
     service_name = "Human_Resources"
@@ -29,7 +29,7 @@ class JobFamilyGroups(WorkdayTableStream):
 
 
 class JobProfiles(WorkdayTableStream):
-    tap_stream_id = "job_profiles"
+    tap_stream_id = "human_resources_job_profiles"
     replication_method = "FULL_TABLE"
     key_properties = ["Job_Profile_Data.Job_Code"]
     service_name = "Human_Resources"
@@ -38,7 +38,7 @@ class JobProfiles(WorkdayTableStream):
 
 
 class Locations(WorkdayTableStream):
-    tap_stream_id = "locations"
+    tap_stream_id = "human_resources_locations"
     replication_method = "FULL_TABLE"
     key_properties = ["Location_Data.Location_ID"]
     service_name = "Human_Resources"
