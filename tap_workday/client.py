@@ -9,6 +9,7 @@ from zeep import Client as ZeepClient
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 from zeep.transports import Transport
 from zeep.wsse.username import UsernameToken
+from zeep import Settings
 
 from tap_workday.exceptions import (
     WorkdayBackoffError,
@@ -125,10 +126,16 @@ class Client:
         session.verify = True
         transport = Transport(session=session, timeout=self.request_timeout)
         wsdl = self._build_wsdl_url()
+        
+        # Configure ZEEP settings for more flexible XML parsing
+        # This helps handle cases where element order differs from schema
+        settings = Settings(strict=False, xml_huge_tree=True)
+        
         return ZeepClient(
             wsdl=wsdl,
             wsse=UsernameToken(self.config["username"], self.config["password"]),
             transport=transport,
+            settings=settings,
         )
 
     def _build_wsdl_url(self) -> str:
@@ -146,5 +153,34 @@ class Client:
     def call(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         try:
             return getattr(self._client.service, operation_name)(*args, **kwargs)
+        except Exception as exc:
+            SOAPErrorHandler.handle_error(operation_name, exc)
+
+    def call_with_raw_response(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Alternative method to call SOAP operations with raw XML response handling.
+        Useful when strict schema validation causes issues with element ordering.
+        """
+        try:
+            # Get the operation binding
+            binding = self._client.service._binding._operations[operation_name]
+            
+            # Create the SOAP envelope
+            envelope, http_headers = binding.create(
+                *args, 
+                _soapheaders=self._client.wsse.create_header() if self._client.wsse else None,
+                **kwargs
+            )
+            
+            # Send the request
+            response = self._client.transport.post_xml(
+                binding.location,
+                envelope,
+                http_headers
+            )
+            
+            # Process the response with relaxed parsing
+            return binding.process_reply(self._client, operation_name, response.content)
+            
         except Exception as exc:
             SOAPErrorHandler.handle_error(operation_name, exc)

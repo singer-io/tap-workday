@@ -137,12 +137,23 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
 
     def call_without_pagination(page, updated_since):
         return client.call(operation_name)
+    
+    def call_with_raw_response_fallback(page, updated_since):
+        """Fallback strategy using raw response handling for problematic operations."""
+        response_filter = {"Page": page}
+        if updated_since:
+            response_filter["Updated_Since"] = updated_since
+        if hasattr(client, 'call_with_raw_response'):
+            return client.call_with_raw_response(operation_name, Response_Filter=response_filter)
+        else:
+            return client.call(operation_name, Response_Filter=response_filter)
 
     strategies = [
         call_with_response_filter,
         call_with_request_criteria,
         call_with_page_arg,
         call_without_pagination,
+        call_with_raw_response_fallback,
     ]
 
     for strategy in strategies:
@@ -151,8 +162,6 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
         except TypeError:
             continue
     raise RuntimeError(f"All pagination strategies failed for {operation_name}")
-
-
 def _workday_paginate(client, operation_name, data_key, updated_since):
     """Handles pagination and returns all records for a Workday operation."""
     all_records = []
