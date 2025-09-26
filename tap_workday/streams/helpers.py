@@ -92,8 +92,8 @@ def pre_hook(data, typ, schema):
 def safe_get_records(serialized: dict, data_key: str):
     """Return a list of records from a Workday SOAP response.
 
-    Handles cases where `Response_Data` is None or missing, and when the
-    leaf at `data_key` is a single object instead of a list.
+    Handles cases where `Response_Data` is None or missing, when it's a list,
+    and when the leaf at `data_key` is a single object instead of a list.
 
     Args:
         serialized (dict): The serialized SOAP response.
@@ -105,6 +105,20 @@ def safe_get_records(serialized: dict, data_key: str):
     if not isinstance(serialized, dict):
         return []
     resp = serialized.get("Response_Data")
+
+    if isinstance(resp, list):
+        all_records = []
+        for item in resp:
+            if isinstance(item, dict):
+                records = item.get(data_key)
+                if records is None:
+                    continue
+                if isinstance(records, list):
+                    all_records.extend(records)
+                elif isinstance(records, dict):
+                    all_records.append(records)
+        return all_records
+
     if not isinstance(resp, dict):
         return []
     records = resp.get(data_key)
