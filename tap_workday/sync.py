@@ -14,7 +14,7 @@ def update_currently_syncing(state: Dict, stream_name: str) -> None:
     """
     if not stream_name and singer.get_currently_syncing(state):
         del state["currently_syncing"]
-    elif stream_name and state:
+    else:
         singer.set_currently_syncing(state, stream_name)
     singer.write_state(state)
 
