@@ -5,6 +5,8 @@ from typing import Dict, Tuple
 import singer
 from singer import metadata
 
+from tap_workday.client import Client
+from tap_workday.exceptions import WorkdaySOAPFaultError, WORKDAY_AUTH_ERROR_PATTERNS
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
@@ -39,7 +41,28 @@ def load_schema_references() -> Dict:
     return refs
 
 
-def get_schemas() -> Tuple[Dict, Dict]:
+def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata) -> Dict:
+    """
+    Check if stream is authorized by making a test API call.
+    """
+    if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
+        try:
+            client = Client(config, service=stream_obj.service_name)
+            client.call(stream_obj.operation_name)
+        except WorkdaySOAPFaultError as e:
+            # Check for specific authorization error message
+            if any(pattern.lower() in str(e).lower() for pattern in WORKDAY_AUTH_ERROR_PATTERNS):
+                LOGGER.warning(f"Stream {stream_name} is not authorized, marking stream inclusion as unsupported")
+                mdata[()]['inclusion'] = "unsupported"
+            else:
+                LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
+        except Exception as e:
+            LOGGER.error(f"Error testing authorization for stream {stream_name}: {e}")
+
+    return mdata
+
+
+def get_schemas(config: Dict):
     """
     Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
     """
@@ -71,6 +94,7 @@ def get_schemas() -> Tuple[Dict, Dict]:
                     mdata, ("properties", field_name), "inclusion", "automatic"
                 )
 
+        mdata = check_stream_authorization(config, stream_name, stream_obj, mdata)
         parent_tap_stream_id = getattr(stream_obj, "parent", None)
         if parent_tap_stream_id:
             mdata = metadata.write(mdata, (), 'parent-tap-stream-id', parent_tap_stream_id)
