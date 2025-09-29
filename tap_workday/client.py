@@ -162,25 +162,20 @@ class Client:
         Useful when strict schema validation causes issues with element ordering.
         """
         try:
-            # Get the operation binding
             binding = self._client.service._binding._operations[operation_name]
-            
-            # Create the SOAP envelope
+
             envelope, http_headers = binding.create(
                 *args, 
                 _soapheaders=self._client.wsse.create_header() if self._client.wsse else None,
                 **kwargs
             )
-            
-            # Send the request
+
             response = self._client.transport.post_xml(
                 binding.location,
                 envelope,
                 http_headers
             )
-            
-            # Process the response with relaxed parsing
+
             return binding.process_reply(self._client, operation_name, response.content)
-            
         except Exception as exc:
             SOAPErrorHandler.handle_error(operation_name, exc)

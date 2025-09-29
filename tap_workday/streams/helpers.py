@@ -104,31 +104,34 @@ def safe_get_records(serialized: dict, data_key: str):
     """
     if not isinstance(serialized, dict):
         return []
+    
     resp = serialized.get("Response_Data")
+    if resp is None:
+        return []
+
+    def _extract_records_from_item(item):
+        """Extract records from a single response data item."""
+        if not isinstance(item, dict):
+            return []
+        
+        records = item.get(data_key)
+        if records is None:
+            return []
+        
+        if isinstance(records, list):
+            return records
+        elif isinstance(records, dict):
+            return [records]
+        
+        return []
 
     if isinstance(resp, list):
         all_records = []
         for item in resp:
-            if isinstance(item, dict):
-                records = item.get(data_key)
-                if records is None:
-                    continue
-                if isinstance(records, list):
-                    all_records.extend(records)
-                elif isinstance(records, dict):
-                    all_records.append(records)
+            all_records.extend(_extract_records_from_item(item))
         return all_records
-
-    if not isinstance(resp, dict):
-        return []
-    records = resp.get(data_key)
-    if records is None:
-        return []
-    if isinstance(records, list):
-        return records
-    if isinstance(records, dict):
-        return [records]
-    return []
+    
+    return _extract_records_from_item(resp)
 
 
 def _workday_pagination_strategies(client, operation_name, page, updated_since):
@@ -176,6 +179,8 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
         except TypeError:
             continue
     raise RuntimeError(f"All pagination strategies failed for {operation_name}")
+
+
 def _workday_paginate(client, operation_name, data_key, updated_since):
     """Handles pagination and returns all records for a Workday operation."""
     all_records = []
