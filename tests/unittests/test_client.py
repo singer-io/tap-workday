@@ -163,7 +163,8 @@ class TestClient(unittest.TestCase):
     @patch('tap_workday.client.Transport')
     @patch('tap_workday.client.requests.Session')
     @patch('tap_workday.client.UsernameToken')
-    def test_create_client(self, mock_username_token, mock_session, mock_transport, mock_zeep_client):
+    @patch('tap_workday.client.Settings')
+    def test_create_client(self, mock_settings, mock_username_token, mock_session, mock_transport, mock_zeep_client):
         """Test _create_client method creates proper ZeepClient instance."""
         # Setup mocks
         mock_session_instance = Mock()
@@ -172,6 +173,8 @@ class TestClient(unittest.TestCase):
         mock_transport.return_value = mock_transport_instance
         mock_username_token_instance = Mock()
         mock_username_token.return_value = mock_username_token_instance
+        mock_settings_instance = Mock()
+        mock_settings.return_value = mock_settings_instance
         mock_zeep_client_instance = Mock(spec=ZeepClient)
         mock_zeep_client.return_value = mock_zeep_client_instance
         
@@ -191,11 +194,15 @@ class TestClient(unittest.TestCase):
         # Verify username token setup
         mock_username_token.assert_called_once_with("test_user", "test_pass")
         
+        # Verify settings setup
+        mock_settings.assert_called_once_with(strict=False, xml_huge_tree=True)
+        
         # Verify ZeepClient setup
         mock_zeep_client.assert_called_once_with(
             wsdl='test_wsdl_url',
             wsse=mock_username_token_instance,
-            transport=mock_transport_instance
+            transport=mock_transport_instance,
+            settings=mock_settings_instance
         )
         
         self.assertEqual(client._client, mock_zeep_client_instance)
