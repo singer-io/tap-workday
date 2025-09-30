@@ -89,6 +89,24 @@ def pre_hook(data, typ, schema):
     return data
 
 
+def _normalize_records_to_list(records):
+    """Convert records to a list format, handling None, dict, or list inputs.
+    
+    Args:
+        records: Records data that can be None, dict, or list.
+        
+    Returns:
+        list: Normalized list of records.
+    """
+    if records is None:
+        return []
+    if isinstance(records, list):
+        return records
+    if isinstance(records, dict):
+        return [records]
+    return []
+
+
 def safe_get_records(serialized: dict, data_key: str):
     """Return a list of records from a Workday SOAP response.
 
@@ -104,30 +122,25 @@ def safe_get_records(serialized: dict, data_key: str):
     """
     if not isinstance(serialized, dict):
         return []
+    
     resp = serialized.get("Response_Data")
+    if resp is None:
+        return []
 
+    # Handle list of Response_Data items
     if isinstance(resp, list):
         all_records = []
         for item in resp:
             if isinstance(item, dict):
                 records = item.get(data_key)
-                if records is None:
-                    continue
-                if isinstance(records, list):
-                    all_records.extend(records)
-                elif isinstance(records, dict):
-                    all_records.append(records)
+                all_records.extend(_normalize_records_to_list(records))
         return all_records
 
-    if not isinstance(resp, dict):
-        return []
-    records = resp.get(data_key)
-    if records is None:
-        return []
-    if isinstance(records, list):
-        return records
-    if isinstance(records, dict):
-        return [records]
+    # Handle single Response_Data dict
+    if isinstance(resp, dict):
+        records = resp.get(data_key)
+        return _normalize_records_to_list(records)
+
     return []
 
 
@@ -176,6 +189,8 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
         except TypeError:
             continue
     raise RuntimeError(f"All pagination strategies failed for {operation_name}")
+
+
 def _workday_paginate(client, operation_name, data_key, updated_since):
     """Handles pagination and returns all records for a Workday operation."""
     all_records = []
