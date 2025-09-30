@@ -104,34 +104,31 @@ def safe_get_records(serialized: dict, data_key: str):
     """
     if not isinstance(serialized, dict):
         return []
-    
     resp = serialized.get("Response_Data")
-    if resp is None:
-        return []
-
-    def _extract_records_from_item(item):
-        """Extract records from a single response data item."""
-        if not isinstance(item, dict):
-            return []
-        
-        records = item.get(data_key)
-        if records is None:
-            return []
-        
-        if isinstance(records, list):
-            return records
-        elif isinstance(records, dict):
-            return [records]
-        
-        return []
 
     if isinstance(resp, list):
         all_records = []
         for item in resp:
-            all_records.extend(_extract_records_from_item(item))
+            if isinstance(item, dict):
+                records = item.get(data_key)
+                if records is None:
+                    continue
+                if isinstance(records, list):
+                    all_records.extend(records)
+                elif isinstance(records, dict):
+                    all_records.append(records)
         return all_records
-    
-    return _extract_records_from_item(resp)
+
+    if not isinstance(resp, dict):
+        return []
+    records = resp.get(data_key)
+    if records is None:
+        return []
+    if isinstance(records, list):
+        return records
+    if isinstance(records, dict):
+        return [records]
+    return []
 
 
 def _workday_pagination_strategies(client, operation_name, page, updated_since):
@@ -179,8 +176,6 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
         except TypeError:
             continue
     raise RuntimeError(f"All pagination strategies failed for {operation_name}")
-
-
 def _workday_paginate(client, operation_name, data_key, updated_since):
     """Handles pagination and returns all records for a Workday operation."""
     all_records = []
@@ -199,7 +194,7 @@ def _workday_paginate(client, operation_name, data_key, updated_since):
             # Use first element if list is not empty, else empty dict
             results = results[0] if results else {}
 
-        total_pages_val = results.get("Total_Pages")
+        total_pages_val = 15#results.get("Total_Pages")
         page_val = results.get("Page")
         try:
             total_pages = int(total_pages_val) if total_pages_val is not None else 1
