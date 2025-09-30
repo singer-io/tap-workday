@@ -194,7 +194,7 @@ def _workday_paginate(client, operation_name, data_key, updated_since):
             # Use first element if list is not empty, else empty dict
             results = results[0] if results else {}
 
-        total_pages_val = 15#results.get("Total_Pages")
+        total_pages_val = results.get("Total_Pages")
         page_val = results.get("Page")
         try:
             total_pages = int(total_pages_val) if total_pages_val is not None else 1
