@@ -51,9 +51,20 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata
             client.call(stream_obj.operation_name)
         except WorkdaySOAPFaultError as e:
             # Check for specific authorization error message
-            if any(pattern.lower() in str(e).lower() for pattern in WORKDAY_AUTH_ERROR_PATTERNS):
-                LOGGER.warning(f"Stream {stream_name} is not authorized, marking stream inclusion as unsupported")
-                mdata[()]['inclusion'] = "unsupported"
+            err_lower = str(e).lower()
+            matched_pattern = next(
+                (p for p in WORKDAY_AUTH_ERROR_PATTERNS if p.lower() in err_lower),
+                None
+            )
+            if matched_pattern:
+                LOGGER.warning(
+                    f"Authorization failure for stream: {stream_name}, "
+                    f"service={getattr(stream_obj, 'service_name', 'unknown')}, "
+                    f"operation={getattr(stream_obj, 'operation_name', 'unknown')}. "
+                    f"Error: '{matched_pattern}'. "
+                    "The Workday API user likely lacks required permissions for this operation. "
+                    "Update Workday domain/security group access and re-run."
+                )
             else:
                 LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
         except Exception as e:
