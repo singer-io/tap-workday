@@ -3,15 +3,16 @@ from singer import metadata
 from singer.catalog import Catalog, CatalogEntry, Schema
 
 from tap_workday.schema import get_schemas
+from typing import Dict
 
 LOGGER = singer.get_logger()
 
 
-def discover() -> Catalog:
+def discover(config: Dict) -> Catalog:
     """
     Run the discovery mode, prepare the catalog file and return the catalog.
     """
-    schemas, field_metadata = get_schemas()
+    schemas, field_metadata = get_schemas(config=config)
     catalog = Catalog([])
 
     for stream_name, schema_dict in schemas.items():

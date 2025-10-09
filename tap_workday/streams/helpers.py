@@ -89,11 +89,29 @@ def pre_hook(data, typ, schema):
     return data
 
 
+def _normalize_records_to_list(records):
+    """Convert records to a list format, handling None, dict, or list inputs.
+    
+    Args:
+        records: Records data that can be None, dict, or list.
+        
+    Returns:
+        list: Normalized list of records.
+    """
+    if records is None:
+        return []
+    if isinstance(records, list):
+        return records
+    if isinstance(records, dict):
+        return [records]
+    return []
+
+
 def safe_get_records(serialized: dict, data_key: str):
     """Return a list of records from a Workday SOAP response.
 
-    Handles cases where `Response_Data` is None or missing, and when the
-    leaf at `data_key` is a single object instead of a list.
+    Handles cases where `Response_Data` is None or missing, when it's a list,
+    and when the leaf at `data_key` is a single object instead of a list.
 
     Args:
         serialized (dict): The serialized SOAP response.
@@ -104,16 +122,25 @@ def safe_get_records(serialized: dict, data_key: str):
     """
     if not isinstance(serialized, dict):
         return []
+    
     resp = serialized.get("Response_Data")
-    if not isinstance(resp, dict):
+    if resp is None:
         return []
-    records = resp.get(data_key)
-    if records is None:
-        return []
-    if isinstance(records, list):
-        return records
-    if isinstance(records, dict):
-        return [records]
+
+    # Handle list of Response_Data items
+    if isinstance(resp, list):
+        all_records = []
+        for item in resp:
+            if isinstance(item, dict):
+                records = item.get(data_key)
+                all_records.extend(_normalize_records_to_list(records))
+        return all_records
+
+    # Handle single Response_Data dict
+    if isinstance(resp, dict):
+        records = resp.get(data_key)
+        return _normalize_records_to_list(records)
+
     return []
 
 
@@ -137,12 +164,23 @@ def _workday_pagination_strategies(client, operation_name, page, updated_since):
 
     def call_without_pagination(page, updated_since):
         return client.call(operation_name)
+    
+    def call_with_raw_response_fallback(page, updated_since):
+        """Fallback strategy using raw response handling for problematic operations."""
+        response_filter = {"Page": page}
+        if updated_since:
+            response_filter["Updated_Since"] = updated_since
+        if hasattr(client, 'call_with_raw_response'):
+            return client.call_with_raw_response(operation_name, Response_Filter=response_filter)
+        else:
+            return client.call(operation_name, Response_Filter=response_filter)
 
     strategies = [
         call_with_response_filter,
         call_with_request_criteria,
         call_with_page_arg,
         call_without_pagination,
+        call_with_raw_response_fallback,
     ]
 
     for strategy in strategies:

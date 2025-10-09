@@ -4,6 +4,13 @@ Centralized exception definitions for Workday SOAP API operations.
 
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 
+WORKDAY_AUTH_ERROR_PATTERNS = [
+    'Processing error occurred. The task submitted is not authorized.',
+    'not authorized',
+    'authorization failed',
+    'insufficient permissions'
+]
+
 
 class WorkdaySOAPError(Exception):
     """Base exception for all Workday SOAP errors."""
