@@ -4,7 +4,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 class Organizations(WorkdayTableStream):
     tap_stream_id = "human_resources_organizations"
     replication_method = "FULL_TABLE"
-    key_properties = ["Organization_ID.value"]
+    key_properties = ["Organization_Data.Reference_ID"]
     service_name = "Human_Resources"
     operation_name = "Get_Organizations"
     data_key = "Organization"
@@ -13,7 +13,7 @@ class Organizations(WorkdayTableStream):
 class JobCategories(WorkdayTableStream):
     tap_stream_id = "human_resources_job_categories"
     replication_method = "FULL_TABLE"
-    key_properties = ["Job_Category_ID.value"]
+    key_properties = ["Job_Category_Data.Job_Category_ID"]
     service_name = "Human_Resources"
     operation_name = "Get_Job_Categories"
     data_key = "Job_Category"
