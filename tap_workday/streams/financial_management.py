@@ -13,7 +13,7 @@ class CostCenters(WorkdayTableStream):
 class Organizations(WorkdayTableStream):
     tap_stream_id = "financial_management_organizations"
     replication_method = "FULL_TABLE"
-    key_properties = ["Organization_Data.Reference_ID"]
+    key_properties = ["Organization_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Organizations"
     data_key = "Organization"
