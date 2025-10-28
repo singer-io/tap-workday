@@ -4,7 +4,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 class Organizations(WorkdayTableStream):
     tap_stream_id = "human_resources_organizations"
     replication_method = "FULL_TABLE"
-    key_properties = ["Organization_Data.Reference_ID"]
+    key_properties = ["Organization_Reference__ID__0___value_1"]
     service_name = "Human_Resources"
     operation_name = "Get_Organizations"
     data_key = "Organization"
@@ -13,7 +13,7 @@ class Organizations(WorkdayTableStream):
 class JobCategories(WorkdayTableStream):
     tap_stream_id = "human_resources_job_categories"
     replication_method = "FULL_TABLE"
-    key_properties = ["Job_Category_Data.Job_Category_ID"]
+    key_properties = ["Job_Category_Reference__ID__0___value_1"]
     service_name = "Human_Resources"
     operation_name = "Get_Job_Categories"
     data_key = "Job_Category"
@@ -22,7 +22,7 @@ class JobCategories(WorkdayTableStream):
 class JobFamilyGroups(WorkdayTableStream):
     tap_stream_id = "human_resources_job_family_groups"
     replication_method = "FULL_TABLE"
-    key_properties = ["Job_Family_Group_Data.ID"]
+    key_properties = ["Job_Family_Group_Reference__ID__0___value_1"]
     service_name = "Human_Resources"
     operation_name = "Get_Job_Family_Groups"
     data_key = "Job_Family_Group"
@@ -31,7 +31,7 @@ class JobFamilyGroups(WorkdayTableStream):
 class JobProfiles(WorkdayTableStream):
     tap_stream_id = "human_resources_job_profiles"
     replication_method = "FULL_TABLE"
-    key_properties = ["Job_Profile_Data.Job_Code"]
+    key_properties = ["Job_Profile_Reference__ID__0___value_1"]
     service_name = "Human_Resources"
     operation_name = "Get_Job_Profiles"
     data_key = "Job_Profile"
@@ -40,7 +40,7 @@ class JobProfiles(WorkdayTableStream):
 class Locations(WorkdayTableStream):
     tap_stream_id = "human_resources_locations"
     replication_method = "FULL_TABLE"
-    key_properties = ["Location_Data.Location_ID"]
+    key_properties = ["Location_Reference__ID__0___value_1"]
     service_name = "Human_Resources"
     operation_name = "Get_Locations"
     data_key = "Location"

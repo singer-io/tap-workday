@@ -6,7 +6,7 @@ class Organizations(WorkdayTableStream):
 
     tap_stream_id = "staffing_organizations"
     replication_method = "FULL_TABLE"
-    key_properties = ["Organization_Data.Reference_ID"]
+    key_properties = ["Organization_Reference__ID__0___value_1"]
     service_name = "Staffing"
     operation_name = "Get_Organizations"
     data_key = "Organization"

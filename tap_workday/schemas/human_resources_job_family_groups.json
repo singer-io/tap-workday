@@ -1,44 +1,48 @@
 {
-  "type": "object",
+  "type": [
+    "object",
+    "null"
+  ],
   "properties": {
-    "As_Of_Date": {
-      "type": [
-        "null",
-        "string"
-      ],
-      "format": "date-time"
-    },
-    "As_Of_Moment": {
-      "type": [
-        "null",
-        "string"
-      ],
-      "format": "date-time"
-    },
     "Job_Family_Group_Reference": {
       "type": [
-        "null",
-        "object"
+        "object",
+        "null"
       ],
       "properties": {
         "ID": {
           "type": [
-            "null",
-            "array"
+            "array",
+            "null"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
-              "type": {
+              "_value_1": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
                 ]
               },
-              "value": {
+              "type": {
                 "type": [
-                  "null",
-                  "string"
+                  "string",
+                  "null"
+                ]
+              },
+              "parent_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "parent_type": {
+                "type": [
+                  "string",
+                  "null"
                 ]
               }
             }
@@ -46,87 +50,99 @@
         },
         "Descriptor": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         }
       }
     },
     "Job_Family_Group_Data": {
       "type": [
-        "null",
-        "object"
+        "object",
+        "null"
       ],
       "properties": {
         "ID": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         },
         "Effective_Date": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ],
           "format": "date-time"
         },
         "Name": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         },
         "Summary": {
           "type": [
-            "null",
-            "string"
+            "string",
+            "null"
           ]
         },
         "Inactive": {
           "type": [
-            "null",
-            "boolean"
+            "boolean",
+            "null"
           ]
         },
         "Job_Family_Data": {
           "type": [
-            "null",
-            "array"
+            "array",
+            "null"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "object",
+              "null"
+            ],
             "properties": {
-              "Delete": {
-                "type": [
-                  "null",
-                  "boolean"
-                ]
-              },
               "Job_Family_Reference": {
                 "type": [
-                  "null",
-                  "object"
+                  "object",
+                  "null"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "null",
-                      "array"
+                      "array",
+                      "null"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
                       "properties": {
-                        "type": {
+                        "_value_1": {
                           "type": [
-                            "null",
-                            "string"
+                            "string",
+                            "null"
                           ]
                         },
-                        "value": {
+                        "type": {
                           "type": [
-                            "null",
-                            "string"
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "parent_id": {
+                          "type": [
+                            "string",
+                            "null"
+                          ]
+                        },
+                        "parent_type": {
+                          "type": [
+                            "string",
+                            "null"
                           ]
                         }
                       }
@@ -134,80 +150,86 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   }
                 }
               },
               "Job_Family_Info_Data": {
                 "type": [
-                  "null",
-                  "object"
+                  "object",
+                  "null"
                 ],
                 "properties": {
                   "Job_Family_Name": {
                     "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "Occupational_Series": {
-                    "type": [
-                      "null",
-                      "string"
-                    ]
-                  },
-                  "Include_in_Display_Name": {
-                    "type": [
-                      "null",
-                      "boolean"
+                      "string",
+                      "null"
                     ]
                   },
                   "Job_Family_Summary": {
                     "type": [
-                      "null",
-                      "string"
+                      "string",
+                      "null"
                     ]
                   },
                   "Inactive": {
                     "type": [
-                      "null",
-                      "boolean"
+                      "boolean",
+                      "null"
                     ]
                   },
                   "Job_Profile_Info_Data": {
                     "type": [
-                      "null",
-                      "array"
+                      "array",
+                      "null"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "object",
+                        "null"
+                      ],
                       "properties": {
                         "Job_Profile_Reference": {
                           "type": [
-                            "null",
-                            "object"
+                            "object",
+                            "null"
                           ],
                           "properties": {
                             "ID": {
                               "type": [
-                                "null",
-                                "array"
+                                "array",
+                                "null"
                               ],
                               "items": {
-                                "type": "object",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
                                 "properties": {
-                                  "type": {
+                                  "_value_1": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
                                     ]
                                   },
-                                  "value": {
+                                  "type": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "parent_id": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "parent_type": {
+                                    "type": [
+                                      "string",
+                                      "null"
                                     ]
                                   }
                                 }
@@ -215,42 +237,57 @@
                             },
                             "Descriptor": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             }
                           }
                         },
                         "Job_Profile_Name": {
                           "type": [
-                            "null",
-                            "string"
+                            "string",
+                            "null"
                           ]
                         },
                         "Management_Level_Reference": {
                           "type": [
-                            "null",
-                            "object"
+                            "object",
+                            "null"
                           ],
                           "properties": {
                             "ID": {
                               "type": [
-                                "null",
-                                "array"
+                                "array",
+                                "null"
                               ],
                               "items": {
-                                "type": "object",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
                                 "properties": {
-                                  "type": {
+                                  "_value_1": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
                                     ]
                                   },
-                                  "value": {
+                                  "type": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "parent_id": {
+                                    "type": [
+                                      "string",
+                                      "null"
+                                    ]
+                                  },
+                                  "parent_type": {
+                                    "type": [
+                                      "string",
+                                      "null"
                                     ]
                                   }
                                 }
@@ -258,75 +295,63 @@
                             },
                             "Descriptor": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             }
                           }
                         },
                         "Job_Category_Reference": {
                           "type": [
-                            "null",
-                            "object"
-                          ],
-                          "properties": {
-                            "ID": {
-                              "type": [
-                                "null",
-                                "array"
-                              ],
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "type": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  },
-                                  "value": {
-                                    "type": [
-                                      "null",
-                                      "string"
-                                    ]
-                                  }
-                                }
-                              }
-                            },
-                            "Descriptor": {
-                              "type": [
-                                "null",
-                                "string"
-                              ]
-                            }
-                          }
+                            "object",
+                            "array",
+                            "null"
+                          ]
                         },
                         "Job_Family_Reference": {
                           "type": [
-                            "null",
-                            "array"
+                            "array",
+                            "null"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "null",
-                                  "array"
+                                  "array",
+                                  "null"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "object",
+                                    "null"
+                                  ],
                                   "properties": {
-                                    "type": {
+                                    "_value_1": {
                                       "type": [
-                                        "null",
-                                        "string"
+                                        "string",
+                                        "null"
                                       ]
                                     },
-                                    "value": {
+                                    "type": {
                                       "type": [
-                                        "null",
-                                        "string"
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "parent_id": {
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ]
+                                    },
+                                    "parent_type": {
+                                      "type": [
+                                        "string",
+                                        "null"
                                       ]
                                     }
                                   }
@@ -334,8 +359,8 @@
                               },
                               "Descriptor": {
                                 "type": [
-                                  "null",
-                                  "string"
+                                  "string",
+                                  "null"
                                 ]
                               }
                             }
@@ -343,54 +368,60 @@
                         },
                         "Work_Shift_Required": {
                           "type": [
-                            "null",
-                            "boolean"
+                            "boolean",
+                            "null"
                           ]
                         },
                         "Job_Profile_Exempt_Data": {
                           "type": [
-                            "null",
-                            "array"
+                            "array",
+                            "null"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
                             "properties": {
                               "Location_Context_Reference": {
                                 "type": [
-                                  "null",
-                                  "object"
+                                  "object",
+                                  "null"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "null",
-                                      "array"
+                                      "array",
+                                      "null"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "object",
+                                        "null"
+                                      ],
                                       "properties": {
+                                        "_value_1": {
+                                          "type": [
+                                            "string",
+                                            "null"
+                                          ]
+                                        },
                                         "type": {
                                           "type": [
-                                            "null",
-                                            "string"
+                                            "string",
+                                            "null"
                                           ]
                                         },
                                         "parent_id": {
                                           "type": [
-                                            "null",
-                                            "string"
+                                            "string",
+                                            "null"
                                           ]
                                         },
                                         "parent_type": {
                                           "type": [
-                                            "null",
-                                            "string"
-                                          ]
-                                        },
-                                        "value": {
-                                          "type": [
-                                            "null",
-                                            "string"
+                                            "string",
+                                            "null"
                                           ]
                                         }
                                       }
@@ -398,16 +429,22 @@
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
                                     ]
                                   }
                                 }
                               },
                               "Job_Exempt": {
                                 "type": [
-                                  "null",
-                                  "boolean"
+                                  "boolean",
+                                  "null"
+                                ]
+                              },
+                              "Delete": {
+                                "type": [
+                                  "boolean",
+                                  "null"
                                 ]
                               }
                             }
@@ -415,34 +452,37 @@
                         },
                         "Critical_Job": {
                           "type": [
-                            "null",
-                            "boolean"
+                            "boolean",
+                            "null"
                           ]
                         },
                         "Difficulty_to_Fill_Reference": {
                           "type": [
-                            "null",
-                            "object"
+                            "object",
+                            "null"
                           ],
                           "properties": {
                             "ID": {
                               "type": [
-                                "null",
-                                "array"
+                                "array",
+                                "null"
                               ],
                               "items": {
-                                "type": "object",
+                                "type": [
+                                  "object",
+                                  "null"
+                                ],
                                 "properties": {
-                                  "type": {
+                                  "_value_1": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
                                     ]
                                   },
-                                  "value": {
+                                  "type": {
                                     "type": [
-                                      "null",
-                                      "string"
+                                      "string",
+                                      "null"
                                     ]
                                   }
                                 }
@@ -450,8 +490,8 @@
                             },
                             "Descriptor": {
                               "type": [
-                                "null",
-                                "string"
+                                "string",
+                                "null"
                               ]
                             }
                           }
@@ -460,11 +500,31 @@
                     }
                   }
                 }
+              },
+              "Delete": {
+                "type": [
+                  "boolean",
+                  "null"
+                ]
               }
             }
           }
         }
       }
+    },
+    "As_Of_Date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "As_Of_Moment": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
     }
   }
 }
