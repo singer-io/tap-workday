@@ -4,7 +4,7 @@ from tap_workday.streams.abstracts import WorkdayTableStream
 class CostCenters(WorkdayTableStream):
     tap_stream_id = "financial_management_cost_centers"
     replication_method = "FULL_TABLE"
-    key_properties = ["Cost_Center_Data.Organization_Data.ID"]
+    key_properties = ["Cost_Center_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Cost_Centers"
     data_key = "Cost_Center"
