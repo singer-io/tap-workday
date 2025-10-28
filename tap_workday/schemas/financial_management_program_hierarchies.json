@@ -1,6 +1,12 @@
 {
   "type": "object",
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Program_Hierarchy_Reference": {
       "type": [
         "null",

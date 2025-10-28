@@ -4,6 +4,12 @@
     "null"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Job_Family_Group_Reference": {
       "type": [
         "object",

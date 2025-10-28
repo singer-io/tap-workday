@@ -4,6 +4,12 @@
     "null"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Override_Balance_Reference": {
       "type": [
         "object",

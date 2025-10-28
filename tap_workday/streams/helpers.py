@@ -227,7 +227,36 @@ def _workday_paginate(client, operation_name, data_key, updated_since):
     return all_records
 
 
-def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None):
+def _extract_key_value(record, wid_key):
+    """Extract the WID value from a Workday reference field.
+    
+    Args:
+        record (dict): The record containing the reference field.
+        wid_key (str): The key name for the reference field (e.g., "Absence_Input_Reference").
+    
+    Returns:
+        str or None: The WID value if found, None otherwise.
+    """
+    if not isinstance(record, dict) or not wid_key:
+        return None
+    
+    ref_field = record.get(wid_key)
+    if not isinstance(ref_field, dict):
+        return None
+    
+    id_list = ref_field.get("ID")
+    if not isinstance(id_list, list):
+        return None
+    
+    # Find the ID entry with type "WID"
+    for id_entry in id_list:
+        if isinstance(id_entry, dict) and id_entry.get("type") == "WID":
+            return id_entry.get("_value_1")
+    
+    return None
+
+
+def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None, wid_key=None):
     """
     Call a Workday SOAP operation and retrieve all paginated records.
 
@@ -236,11 +265,21 @@ def call_workday_operation(client, operation_name: str, data_key: str, updated_s
         operation_name (str): Name of the Workday operation to call.
         data_key (str): Key to extract records from the response.
         updated_since (optional): Filter records updated since this RFC 3339 value.
+        wid_key (str, optional): Key name for the reference field to extract key_value from.
 
     Returns:
         list: All records retrieved from the operation under data_key.
     """
-    return _workday_paginate(client, operation_name, data_key, updated_since)
+    records = _workday_paginate(client, operation_name, data_key, updated_since)
+    
+    # Add key_value to each record if wid_key is provided
+    if wid_key:
+        for record in records:
+            key_value = _extract_key_value(record, wid_key)
+            if key_value:
+                record["key_value"] = key_value
+    
+    return records
 
 
 def emit_full_table(stream, records):

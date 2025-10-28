@@ -1,6 +1,12 @@
 {
   "type": "object",
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Cost_Center_Reference": {
       "type": [
         "null",

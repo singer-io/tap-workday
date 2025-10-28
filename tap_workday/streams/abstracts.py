@@ -346,12 +346,14 @@ class WorkdayTableStream(FullTableStream):
     - service_name: Workday service string (e.g., "Human_Resources")
     - operation_name: SOAP operation to call (e.g., "Get_Organizations")
     - data_key: leaf key inside Response_Data (e.g., "Organization")
+    - wid_key: reference field key for extracting key_value (e.g., "Absence_Input_Reference")
     - version (optional): default "v45.0"
     """
 
     service_name: str = ""
     operation_name: str = ""
     data_key: str = ""
+    wid_key: str = ""
     version: str = DefaultValues.VERSION.value
 
     def get_client(self):
@@ -375,6 +377,6 @@ class WorkdayTableStream(FullTableStream):
                 )
                 updated_since = None
         records = call_workday_operation(
-            client, self.operation_name, self.data_key, updated_since=updated_since
+            client, self.operation_name, self.data_key, updated_since=updated_since, wid_key=self.wid_key
         )
         return emit_full_table(self, records)

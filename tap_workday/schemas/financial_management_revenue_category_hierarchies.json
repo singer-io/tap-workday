@@ -4,6 +4,12 @@
     "null"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Revenue_Category_Hierarchy_Reference": {
       "type": [
         "object",

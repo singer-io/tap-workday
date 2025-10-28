@@ -1,6 +1,12 @@
 {
   "type": "object",
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Actuals_Ledger_Reference": {
       "type": [
         "null",

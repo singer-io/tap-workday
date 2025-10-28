@@ -4,6 +4,12 @@
     "null"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Ledger_Account_Summary_Reference": {
       "type": [
         "object",

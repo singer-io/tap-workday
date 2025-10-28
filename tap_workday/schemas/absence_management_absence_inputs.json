@@ -1,6 +1,12 @@
 {
   "type": "object",
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Absence_Input_Reference": {
       "type": [
         "object",

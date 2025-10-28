@@ -4,6 +4,12 @@
     "object"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Journal_Entry_Reference": {
       "type": [
         "null",

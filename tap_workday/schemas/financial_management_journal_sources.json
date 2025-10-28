@@ -4,6 +4,12 @@
     "null"
   ],
   "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
     "Journal_Source_Reference": {
       "type": [
         "object",
