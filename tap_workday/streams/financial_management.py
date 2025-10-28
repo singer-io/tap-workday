@@ -31,7 +31,7 @@ class PositionBudgets(WorkdayTableStream):
 class CustomerCategories(WorkdayTableStream):
     tap_stream_id = "financial_management_customer_categories"
     replication_method = "FULL_TABLE"
-    key_properties = ["Customer_Category_Data.Customer_Category_ID"]
+    key_properties = ["Customer_Category_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Customer_Categories"
     data_key = "Customer_Category"
@@ -40,7 +40,7 @@ class CustomerCategories(WorkdayTableStream):
 class FundHierarchies(WorkdayTableStream):
     tap_stream_id = "financial_management_fund_hierarchies"
     replication_method = "FULL_TABLE"
-    key_properties = ["Fund_Hierarchy_Data.Fund_Hierarchy_ID"]
+    key_properties = ["Fund_Hierarchy_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Fund_Hierarchies"
     data_key = "Fund_Hierarchy"
@@ -49,7 +49,7 @@ class FundHierarchies(WorkdayTableStream):
 class FundTypes(WorkdayTableStream):
     tap_stream_id = "financial_management_fund_types"
     replication_method = "FULL_TABLE"
-    key_properties = ["Fund_Type_Data.Fund_Type_ID"]
+    key_properties = ["Fund_Type_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Fund_Types"
     data_key = "Fund_Type"
@@ -58,7 +58,7 @@ class FundTypes(WorkdayTableStream):
 class FundingSources(WorkdayTableStream):
     tap_stream_id = "financial_management_funding_sources"
     replication_method = "FULL_TABLE"
-    key_properties = ["Funding_Source_Data.Funding_Source_Name"]
+    key_properties = ["Funding_Source_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Funding_Sources"
     data_key = "Funding_Source"
@@ -67,7 +67,7 @@ class FundingSources(WorkdayTableStream):
 class Funds(WorkdayTableStream):
     tap_stream_id = "financial_management_funds"
     replication_method = "FULL_TABLE"
-    key_properties = ["Fund_Data.Fund_ID"]
+    key_properties = ["Fund_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Funds"
     data_key = "Fund"
@@ -76,7 +76,7 @@ class Funds(WorkdayTableStream):
 class JournalSources(WorkdayTableStream):
     tap_stream_id = "financial_management_journal_sources"
     replication_method = "FULL_TABLE"
-    key_properties = ["Journal_Source_Data.Journal_Source_ID"]
+    key_properties = ["Journal_Source_Reference__ID__0___value_1"]
     service_name = "Financial_Management"
     operation_name = "Get_Journal_Sources"
     data_key = "Journal_Source"
