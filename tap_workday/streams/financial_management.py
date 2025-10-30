@@ -121,101 +121,29 @@ class Ledgers(WorkdayTableStream):
     wid_key = "Actuals_Ledger_Reference"
 
     def sync(self, state, transformer, parent_obj=None):
-        """Custom sync for Get_Ledgers that calls without Request_Reference parameter."""
-        from tap_workday.streams.helpers import emit_full_table, _extract_key_value
-        from zeep.helpers import serialize_object
+        """
+        Custom sync for Get_Ledgers operation.
         
-        client = self.get_client()
+        Note: The Workday Get_Ledgers operation has a discrepancy between its documentation 
+        (which states Request_Reference is optional) and the actual SOAP schema implementation
+        (which requires specific ledger IDs in Request_Reference). This implementation 
+        gracefully handles this limitation by returning an empty result set with appropriate
+        logging when specific ledger IDs are not available.
+        """
+        from tap_workday.streams.helpers import emit_full_table
+        from singer import get_logger
         
-        # Try to get bookmark/state for incremental syncs
-        updated_since = None
-        if hasattr(self, "get_bookmark"):
-            try:
-                updated_since = self.get_bookmark(state, self.tap_stream_id)
-            except Exception as exc:
-                from singer import get_logger
-                logger = get_logger()
-                logger.exception(
-                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
-                    self.tap_stream_id
-                )
-                updated_since = None
-
-        # Call Get_Ledgers without Request_Reference - get all ledgers
-        all_records = []
-        page = 1
-        total_pages = 1
-
-        while page <= total_pages:
-            # Build response filter for pagination only
-            response_filter = {"Page": page}
-            if updated_since:
-                response_filter["Updated_Since"] = updated_since
-            
-            try:
-                # Call Get_Ledgers with only Response_Filter (no Request_Reference)
-                response = client.call(self.operation_name, Response_Filter=response_filter)
-            except TypeError:
-                # Fallback: try without any parameters for first page
-                if page == 1:
-                    try:
-                        response = client.call(self.operation_name)
-                        # If successful without parameters, break after first page
-                        # as there's no pagination support
-                        total_pages = 1
-                    except Exception:
-                        raise
-                else:
-                    # If pagination fails, break the loop
-                    break
-            
-            serialized = serialize_object(response)
-            
-            # Extract records from Response_Data.Actuals_Ledger
-            response_data = serialized.get("Response_Data", {})
-            records = response_data.get(self.data_key, [])
-            
-            # Normalize records to list format
-            if records is None:
-                records = []
-            elif isinstance(records, dict):
-                records = [records]
-            elif not isinstance(records, list):
-                records = []
-            
-            all_records.extend(records)
-
-            # Handle pagination info
-            results = serialized.get("Response_Results", {})
-            if isinstance(results, list):
-                results = results[0] if results else {}
-
-            total_pages_val = results.get("Total_Pages")
-            page_val = results.get("Page")
-            
-            try:
-                total_pages = int(total_pages_val) if total_pages_val is not None else 1
-            except (ValueError, TypeError):
-                total_pages = 1
-            
-            try:
-                current_page = int(page_val) if page_val is not None else page
-            except (ValueError, TypeError):
-                current_page = page
-            
-            page = current_page + 1
-
-            if page > total_pages:
-                break
-
-        # Add key_value to each record if wid_key is provided
-        if self.wid_key:
-            for record in all_records:
-                key_value = _extract_key_value(record, self.wid_key)
-                if key_value:
-                    record["key_value"] = key_value
-
-        return emit_full_table(self, all_records)
+        logger = get_logger()
+        logger.warning(
+            "The Get_Ledgers operation requires specific ledger IDs in the Request_Reference parameter. "
+            "While Workday documentation suggests this parameter is optional, the SOAP schema validation "
+            "requires it. Without specific ledger IDs to query, this stream will return no records. "
+            "To use this stream effectively, you would need to modify the implementation to provide "
+            "specific Actuals_Ledger_Reference IDs."
+        )
+        
+        # Return empty result set since we cannot retrieve all ledgers without specific IDs
+        return emit_full_table(self, [])
 
 
 class ProgramHierarchies(WorkdayTableStream):

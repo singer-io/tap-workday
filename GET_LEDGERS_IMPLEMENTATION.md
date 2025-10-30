@@ -4,15 +4,20 @@
 This document describes the changes made to support calling the Workday Get_Ledgers operation without the Request_Reference parameter, as specified in the Workday API documentation.
 
 ## Problem Statement
-The Workday Get_Ledgers operation supports an optional Request_Reference parameter that can be used to filter specific ledgers. When omitted, the operation returns all available ledgers for the company. The generic WorkdayTableStream implementation was potentially trying to include Request_Reference parameters automatically.
+The Workday Get_Ledgers operation has a discrepancy between its API documentation and SOAP schema implementation:
+
+- **API Documentation**: States that Request_Reference is optional and can be omitted to retrieve all ledgers
+- **SOAP Schema Reality**: Requires specific ledger IDs in the Request_Reference.Actuals_Ledger_Reference array (minOccurs=1)
+
+This creates a situation where the operation cannot be used to retrieve "all ledgers" without first knowing the specific ledger IDs to query.
 
 ## Solution
 Modified the `Ledgers` class in `tap_workday/streams/financial_management.py` to include a custom `sync()` method that:
 
-1. **Calls Get_Ledgers without Request_Reference**: The operation is called with only the Response_Filter parameter for pagination
-2. **Maintains pagination support**: Uses Response_Filter with Page parameter for proper pagination
-3. **Preserves existing functionality**: Maintains key_value extraction and record processing
-4. **Follows error handling patterns**: Includes fallback strategies and proper exception handling
+1. **Documents the limitation**: Clearly explains why the operation cannot retrieve all ledgers without specific IDs
+2. **Provides graceful handling**: Returns empty result set instead of crashing
+3. **Maintains stream interface**: Preserves compatibility with existing tap architecture
+4. **Logs clear explanation**: Informs users why no records are returned
 
 ## Changes Made
 
@@ -34,24 +39,33 @@ class Ledgers(WorkdayTableStream):
 
 ## Key Implementation Details
 
-### API Call Pattern
-```python
-# Primary call pattern - with Response_Filter only
-response = client.call("Get_Ledgers", Response_Filter={"Page": page, "Updated_Since": updated_since})
+### Technical Analysis
 
-# Fallback pattern - no parameters (gets all ledgers, first page only)  
-response = client.call("Get_Ledgers")
-```
-
-### Request Structure (per Workday documentation)
+**SOAP Schema Requirements:**
 ```xml
 <bsvc:Get_Ledgers_Request xmlns:bsvc="urn:com.workday/bsvc" bsvc:version="string">
-  <!-- Request_Reference is OPTIONAL - omitted to get all ledgers -->
+  <bsvc:Request_Reference> <!-- Required by schema -->
+    <bsvc:Actuals_Ledger_Reference> <!-- minOccurs=1, requires at least one -->
+      <bsvc:ID bsvc:type="WID">specific-ledger-wid</bsvc:ID>
+    </bsvc:Actuals_Ledger_Reference>
+  </bsvc:Request_Reference>
   <bsvc:Response_Filter> <!-- Optional -->
     <bsvc:Page>1</bsvc:Page>
-    <bsvc:Updated_Since>2024-01-01T00:00:00Z</bsvc:Updated_Since>
   </bsvc:Response_Filter>
 </bsvc:Get_Ledgers_Request>
+```
+
+**Error Messages Encountered:**
+1. `Missing element Request_Reference` - when omitting Request_Reference entirely
+2. `Expected at least 1 items (minOccurs check) 0 items found` - when providing empty Actuals_Ledger_Reference array
+3. `Cannot resolve instance from Workday Id if id is null` - when providing empty/null WID
+
+**Current Implementation:**
+```python
+def sync(self, state, transformer, parent_obj=None):
+    """Returns empty result set with explanatory logging."""
+    logger.warning("Get_Ledgers requires specific ledger IDs...")
+    return emit_full_table(self, [])
 ```
 
 ### Response Processing
@@ -61,23 +75,33 @@ response = client.call("Get_Ledgers")
 
 ## Benefits
 
-1. **Compliance with API**: Follows Workday documentation by making Request_Reference truly optional
-2. **Gets all ledgers**: Returns complete ledger dataset without needing specific references
-3. **Backward compatible**: Maintains existing stream interface and behavior
-4. **Robust error handling**: Includes fallback strategies for different API response patterns
-5. **Follows Singer.io patterns**: Maintains compliance with Singer specification and tap best practices
+1. **Prevents crashes**: Stream no longer fails with SOAP validation errors
+2. **Clear documentation**: Users understand why no records are returned  
+3. **Backward compatible**: No breaking changes to existing interface
+4. **Graceful degradation**: Returns empty result instead of failing
+5. **Singer.io compliant**: Follows all tap development best practices
+
+## Alternative Solutions
+
+To make this stream functional, implementers could:
+
+1. **Pre-populate ledger IDs**: Query ledger IDs from another source and modify the sync method to use them
+2. **Configuration-based approach**: Allow users to specify specific ledger IDs in the tap configuration
+3. **Discovery endpoint**: Use a different Workday operation to discover available ledgers first
+4. **Administrative access**: Use Workday administrative APIs that might have broader access patterns
 
 ## Testing
 
 The implementation can be tested by:
 1. Running the tap with the financial_management_ledgers stream selected
-2. Verifying that all ledgers are returned without filtering
-3. Confirming pagination works correctly for large datasets
-4. Checking that key_value extraction functions properly
+2. Verifying that the stream completes successfully without crashing
+3. Confirming that a warning message explains why no records are returned
+4. Checking that the stream follows Singer.io output format (schema, state messages)
 
 ## Notes
 
-- This change only affects the Get_Ledgers operation in the Financial_Management service
-- All other streams continue to use the generic WorkdayTableStream implementation
-- The change maintains full compatibility with existing configurations and state management
-- Error handling follows the established patterns in the codebase
+- This change affects only the Get_Ledgers operation in the Financial_Management service
+- All other streams continue to use the generic WorkdayTableStream implementation  
+- The implementation maintains full compatibility with existing configurations and state management
+- This solution prioritizes stability and clear communication over attempting unsupported API usage
+- Future enhancements could implement one of the alternative solutions mentioned above
