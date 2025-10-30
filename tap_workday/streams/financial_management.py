@@ -120,6 +120,103 @@ class Ledgers(WorkdayTableStream):
     data_key = "Actuals_Ledger"
     wid_key = "Actuals_Ledger_Reference"
 
+    def sync(self, state, transformer, parent_obj=None):
+        """Custom sync for Get_Ledgers that calls without Request_Reference parameter."""
+        from tap_workday.streams.helpers import emit_full_table, _extract_key_value
+        from zeep.helpers import serialize_object
+        
+        client = self.get_client()
+        
+        # Try to get bookmark/state for incremental syncs
+        updated_since = None
+        if hasattr(self, "get_bookmark"):
+            try:
+                updated_since = self.get_bookmark(state, self.tap_stream_id)
+            except Exception as exc:
+                from singer import get_logger
+                logger = get_logger()
+                logger.exception(
+                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
+                    self.tap_stream_id
+                )
+                updated_since = None
+
+        # Call Get_Ledgers without Request_Reference - get all ledgers
+        all_records = []
+        page = 1
+        total_pages = 1
+
+        while page <= total_pages:
+            # Build response filter for pagination only
+            response_filter = {"Page": page}
+            if updated_since:
+                response_filter["Updated_Since"] = updated_since
+            
+            try:
+                # Call Get_Ledgers with only Response_Filter (no Request_Reference)
+                response = client.call(self.operation_name, Response_Filter=response_filter)
+            except TypeError:
+                # Fallback: try without any parameters for first page
+                if page == 1:
+                    try:
+                        response = client.call(self.operation_name)
+                        # If successful without parameters, break after first page
+                        # as there's no pagination support
+                        total_pages = 1
+                    except Exception:
+                        raise
+                else:
+                    # If pagination fails, break the loop
+                    break
+            
+            serialized = serialize_object(response)
+            
+            # Extract records from Response_Data.Actuals_Ledger
+            response_data = serialized.get("Response_Data", {})
+            records = response_data.get(self.data_key, [])
+            
+            # Normalize records to list format
+            if records is None:
+                records = []
+            elif isinstance(records, dict):
+                records = [records]
+            elif not isinstance(records, list):
+                records = []
+            
+            all_records.extend(records)
+
+            # Handle pagination info
+            results = serialized.get("Response_Results", {})
+            if isinstance(results, list):
+                results = results[0] if results else {}
+
+            total_pages_val = results.get("Total_Pages")
+            page_val = results.get("Page")
+            
+            try:
+                total_pages = int(total_pages_val) if total_pages_val is not None else 1
+            except (ValueError, TypeError):
+                total_pages = 1
+            
+            try:
+                current_page = int(page_val) if page_val is not None else page
+            except (ValueError, TypeError):
+                current_page = page
+            
+            page = current_page + 1
+
+            if page > total_pages:
+                break
+
+        # Add key_value to each record if wid_key is provided
+        if self.wid_key:
+            for record in all_records:
+                key_value = _extract_key_value(record, self.wid_key)
+                if key_value:
+                    record["key_value"] = key_value
+
+        return emit_full_table(self, all_records)
+
 
 class ProgramHierarchies(WorkdayTableStream):
     tap_stream_id = "financial_management_program_hierarchies"
