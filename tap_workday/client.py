@@ -126,11 +126,11 @@ class Client:
         session.verify = True
         transport = Transport(session=session, timeout=self.request_timeout)
         wsdl = self._build_wsdl_url()
-        
+
         # Configure ZEEP settings for more flexible XML parsing
         # This helps handle cases where element order differs from schema
         settings = Settings(strict=False, xml_huge_tree=True)
-        
+
         return ZeepClient(
             wsdl=wsdl,
             wsse=UsernameToken(self.config["username"], self.config["password"]),
@@ -143,6 +143,15 @@ class Client:
             f"https://{self.config['hostname']}/ccx/service/"
             f"{self.config['tenant']}/{self.service}/{self.version}?wsdl"
         )
+
+    def check_access(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Check if the client can successfully connect to the Workday service.
+        """
+        try:
+            return getattr(self._client.service, operation_name)(*args, **kwargs)
+        except Exception as exc:
+            SOAPErrorHandler.handle_error(operation_name, exc)
 
     @backoff.on_exception(
         wait_gen=backoff.expo,
@@ -165,7 +174,7 @@ class Client:
             binding = self._client.service._binding._operations[operation_name]
 
             envelope, http_headers = binding.create(
-                *args, 
+                *args,
                 _soapheaders=self._client.wsse.create_header() if self._client.wsse else None,
                 **kwargs
             )

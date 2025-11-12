@@ -48,7 +48,7 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata
     if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
         try:
             client = Client(config, service=stream_obj.service_name)
-            client.call(stream_obj.operation_name)
+            client.check_access(stream_obj.operation_name)
         except WorkdaySOAPFaultError as e:
             # Check for specific authorization error message
             err_lower = str(e).lower()
