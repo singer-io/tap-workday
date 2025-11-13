@@ -144,14 +144,20 @@ class Client:
             f"{self.config['tenant']}/{self.service}/{self.version}?wsdl"
         )
 
-    def check_access(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+    def _execute_operation(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """
-        Check if the client can successfully connect to the Workday service.
+        Execute a SOAP operation with error handling.
         """
         try:
             return getattr(self._client.service, operation_name)(*args, **kwargs)
         except Exception as exc:
             SOAPErrorHandler.handle_error(operation_name, exc)
+
+    def check_access(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Check access permissions for a Workday service operation without retry logic.
+        """
+        return self._execute_operation(operation_name, *args, **kwargs)
 
     @backoff.on_exception(
         wait_gen=backoff.expo,
@@ -160,10 +166,7 @@ class Client:
         factor=DefaultValues.BACKOFF_FACTOR.value,
     )
     def call(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
-        try:
-            return getattr(self._client.service, operation_name)(*args, **kwargs)
-        except Exception as exc:
-            SOAPErrorHandler.handle_error(operation_name, exc)
+        return self._execute_operation(operation_name, *args, **kwargs)
 
     def call_with_raw_response(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """
