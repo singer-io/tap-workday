@@ -156,6 +156,7 @@ class Client:
     def check_access(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """
         Check access permissions for a Workday service operation without retry logic.
+        Uses direct execution without backoff retries for discovery/access validation.
         """
         return self._execute_operation(operation_name, *args, **kwargs)
 
@@ -166,6 +167,10 @@ class Client:
         factor=DefaultValues.BACKOFF_FACTOR.value,
     )
     def call(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Execute a SOAP operation with retry logic for production data operations.
+        Uses the same core logic as check_access but with exponential backoff on failures.
+        """
         return self._execute_operation(operation_name, *args, **kwargs)
 
     def call_with_raw_response(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
@@ -177,7 +182,7 @@ class Client:
             binding = self._client.service._binding._operations[operation_name]
 
             envelope, http_headers = binding.create(
-                *args,
+                *args, 
                 _soapheaders=self._client.wsse.create_header() if self._client.wsse else None,
                 **kwargs
             )
