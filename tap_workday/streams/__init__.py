@@ -51,7 +51,7 @@ STREAMS = {
     "financial_management_journal_sources": JournalSources,
     "financial_management_journals": Journals,
     "financial_management_ledger_account_summaries": LedgerAccountSummaries,
-    # "financial_management_ledgers": Ledgers,
+    "financial_management_ledgers": Ledgers,
     "financial_management_organizations": FmOrganizations,
     "financial_management_position_budgets": PositionBudgets,
     "financial_management_program_hierarchies": ProgramHierarchies,

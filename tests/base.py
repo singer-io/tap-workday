@@ -31,9 +31,23 @@ class WorkdayBaseTest(BaseCase):
         return "platform.workday"
 
     @classmethod
+    def expected_stream_names(cls):
+        """The expected stream names for the tap."""
+        # Import here to avoid circular imports
+        from tap_workday.streams import STREAMS
+        return set(STREAMS.keys())
+
+    @classmethod
     def expected_metadata(cls):
         """The expected streams and metadata about the streams."""
         return {
+            "financial_management_ledgers": {
+                cls.PRIMARY_KEYS: {"key_value"},
+                cls.REPLICATION_METHOD: cls.FULL_TABLE,
+                cls.REPLICATION_KEYS: set(),
+                cls.OBEYS_START_DATE: False,
+                cls.API_LIMIT: 100,
+            },
             "get_organizations": {
                 cls.PRIMARY_KEYS: {"Organization_ID.value"},
                 cls.REPLICATION_METHOD: cls.FULL_TABLE,

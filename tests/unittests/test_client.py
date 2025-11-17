@@ -366,7 +366,3 @@ class TestClient(unittest.TestCase):
                 
                 # Should only be called once (no retries)
                 self.assertEqual(self.mock_zeep_client.service.test_operation.call_count, 1)
-
-
-if __name__ == '__main__':
-    unittest.main()

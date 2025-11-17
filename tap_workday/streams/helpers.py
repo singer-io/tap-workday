@@ -85,6 +85,18 @@ def pre_hook(data, typ, schema):
                     data[key] = normalize_ref_array(value)
                 else:
                     data[key] = {"ID": [], "Descriptor": None}
+            # Handle Ledger_Data array unwrapping
+            elif key == "Ledger_Data" and isinstance(value, list) and len(value) == 1:
+                unwrapped_data = value[0]
+                # Recursively process the unwrapped data
+                if isinstance(unwrapped_data, dict):
+                    for inner_key, inner_value in list(unwrapped_data.items()):
+                        if inner_key in ["Commitment_Ledger_Data", "Obligation_Ledger_Data"] and isinstance(inner_value, list) and len(inner_value) == 0:
+                            unwrapped_data[inner_key] = None
+                data[key] = unwrapped_data
+            # Handle empty array fields that should be null or objects in schema
+            elif key in ["Commitment_Ledger_Data", "Obligation_Ledger_Data"] and isinstance(value, list) and len(value) == 0:
+                data[key] = None
 
     return data
 
@@ -144,87 +156,136 @@ def safe_get_records(serialized: dict, data_key: str):
     return []
 
 
-def _workday_pagination_strategies(client, operation_name, page, updated_since):
-    """Try each pagination strategy in order of preference."""
-    def call_with_response_filter(page, updated_since):
-        response_filter = {"Page": page}
-        if updated_since:
-            response_filter["Updated_Since"] = updated_since
-        return client.call(operation_name, Response_Filter=response_filter)
+class WorkdayPaginator:
+    """Centralized pagination handler for Workday SOAP operations"""
 
-    def call_with_request_criteria(page, updated_since):
-        criteria = {"Page": page}
-        if updated_since:
-            criteria["Updated_Since"] = updated_since
-        return client.call(operation_name, Request_Criteria=criteria)
+    def __init__(self, client, operation_name):
+        self.client = client
+        self.operation_name = operation_name
 
-    def call_with_page_arg(page, updated_since):
-        # updated_since is ignored here as not all APIs support it in this form
-        return client.call(operation_name, page=page)
+    def _try_pagination_strategies(self, page, updated_since, custom_params=None):
+        """Try each pagination strategy in order of preference."""
+        def call_with_response_filter(page, updated_since):
+            response_filter = {"Page": page}
+            if updated_since:
+                response_filter["Updated_Since"] = updated_since
+            params = {"Response_Filter": response_filter}
+            if custom_params:
+                params.update(custom_params)
+            return self.client.call(self.operation_name, **params)
 
-    def call_without_pagination(page, updated_since):
-        return client.call(operation_name)
-    
-    def call_with_raw_response_fallback(page, updated_since):
-        """Fallback strategy using raw response handling for problematic operations."""
-        response_filter = {"Page": page}
-        if updated_since:
-            response_filter["Updated_Since"] = updated_since
-        if hasattr(client, 'call_with_raw_response'):
-            return client.call_with_raw_response(operation_name, Response_Filter=response_filter)
-        else:
-            return client.call(operation_name, Response_Filter=response_filter)
+        def call_with_request_criteria(page, updated_since):
+            criteria = {"Page": page}
+            if updated_since:
+                criteria["Updated_Since"] = updated_since
+            params = {"Request_Criteria": criteria}
+            if custom_params:
+                params.update(custom_params)
+            return self.client.call(self.operation_name, **params)
 
-    strategies = [
-        call_with_response_filter,
-        call_with_request_criteria,
-        call_with_page_arg,
-        call_without_pagination,
-        call_with_raw_response_fallback,
-    ]
+        def call_with_page_arg(page, updated_since):
+            # updated_since is ignored here as not all APIs support it in this form
+            params = {"page": page}
+            if custom_params:
+                params.update(custom_params)
+            return self.client.call(self.operation_name, **params)
 
-    for strategy in strategies:
-        try:
-            return strategy(page, updated_since)
-        except TypeError:
-            continue
-    raise RuntimeError(f"All pagination strategies failed for {operation_name}")
+        def call_without_pagination(page, updated_since):
+            params = custom_params or {}
+            return self.client.call(self.operation_name, **params)
+        
+        def call_with_request_reference_strategy(page, updated_since):
+            """Strategy for operations that require Request_Reference parameter."""
+            request_ref = {
+                "Get_Ledger_Account_Summaries": {"Ledger_Reference": []}
+            }.get(self.operation_name, {})
+            
+            params = {"Request_Reference": request_ref, "Response_Filter": {"Page": page}}
+            if updated_since:
+                params["Response_Filter"]["Updated_Since"] = updated_since
+            if custom_params:
+                params.update(custom_params)
+            return self.client.call(self.operation_name, **params)
+        
+        def call_with_raw_response_fallback(page, updated_since):
+            """Fallback strategy using raw response handling for problematic operations."""
+            response_filter = {"Page": page}
+            if updated_since:
+                response_filter["Updated_Since"] = updated_since
+            params = {"Response_Filter": response_filter}
+            if custom_params:
+                params.update(custom_params)
+            if hasattr(self.client, 'call_with_raw_response'):
+                return self.client.call_with_raw_response(self.operation_name, **params)
+            else:
+                return self.client.call(self.operation_name, **params)
+
+        strategies = [
+            call_with_response_filter,
+            call_with_request_criteria,
+            call_with_request_reference_strategy,
+            call_with_page_arg,
+            call_without_pagination,
+            call_with_raw_response_fallback,
+        ]
+
+        for strategy in strategies:
+            try:
+                return strategy(page, updated_since)
+            except TypeError:
+                continue
+        raise RuntimeError(f"All pagination strategies failed for {self.operation_name}")
+
+    def paginate_operation(self, data_key, updated_since=None, custom_params=None, max_pages=None):
+        """Handles pagination and returns all records for a Workday operation.
+        
+        Args:
+            data_key (str): The key to extract records from response.
+            updated_since (str, optional): Filter records updated since this RFC 3339 value.
+            custom_params (dict, optional): Additional parameters to pass to the operation.
+            max_pages (int, optional): Maximum number of pages to process. If None, process all pages.
+            
+        Returns:
+            list: All records retrieved from the operation.
+        """
+        all_records = []
+        page = 1
+        total_pages = 1
+
+        while page <= total_pages and (max_pages is None or page <= max_pages):
+            response = self._try_pagination_strategies(page, updated_since, custom_params)
+            serialized = serialize_object(response)
+            records = safe_get_records(serialized, data_key)
+            all_records.extend(records)
+
+            results = serialized.get("Response_Results", {})
+            # Defensive: handle missing, None values, or list format
+            if isinstance(results, list):
+                # Use first element if list is not empty, else empty dict
+                results = results[0] if results else {}
+
+            total_pages_val = results.get("Total_Pages")
+            page_val = results.get("Page")
+            try:
+                total_pages = int(total_pages_val) if total_pages_val is not None else 1
+            except (ValueError, TypeError):
+                total_pages = 1
+            try:
+                current_page = int(page_val) if page_val is not None else page
+            except (ValueError, TypeError):
+                current_page = page
+            page = current_page + 1
+
+            if page > total_pages:
+                break
+
+        return all_records
 
 
 def _workday_paginate(client, operation_name, data_key, updated_since):
     """Handles pagination and returns all records for a Workday operation."""
-    all_records = []
-    page = 1
-    total_pages = 1
-
-    while page <= total_pages:
-        response = _workday_pagination_strategies(client, operation_name, page, updated_since)
-        serialized = serialize_object(response)
-        records = safe_get_records(serialized, data_key)
-        all_records.extend(records)
-
-        results = serialized.get("Response_Results", {})
-        # Defensive: handle missing, None values, or list format
-        if isinstance(results, list):
-            # Use first element if list is not empty, else empty dict
-            results = results[0] if results else {}
-
-        total_pages_val = results.get("Total_Pages")
-        page_val = results.get("Page")
-        try:
-            total_pages = int(total_pages_val) if total_pages_val is not None else 1
-        except (ValueError, TypeError):
-            total_pages = 1
-        try:
-            current_page = int(page_val) if page_val is not None else page
-        except (ValueError, TypeError):
-            current_page = page
-        page = current_page + 1
-
-        if page > total_pages:
-            break
-
-    return all_records
+    paginator = WorkdayPaginator(client, operation_name)
+    return paginator.paginate_operation(data_key, updated_since)
 
 
 def _extract_key_value(record, wid_key):

@@ -126,11 +126,11 @@ class Client:
         session.verify = True
         transport = Transport(session=session, timeout=self.request_timeout)
         wsdl = self._build_wsdl_url()
-        
+
         # Configure ZEEP settings for more flexible XML parsing
         # This helps handle cases where element order differs from schema
         settings = Settings(strict=False, xml_huge_tree=True)
-        
+
         return ZeepClient(
             wsdl=wsdl,
             wsse=UsernameToken(self.config["username"], self.config["password"]),
@@ -144,6 +144,22 @@ class Client:
             f"{self.config['tenant']}/{self.service}/{self.version}?wsdl"
         )
 
+    def _execute_operation(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Execute a SOAP operation with error handling.
+        """
+        try:
+            return getattr(self._client.service, operation_name)(*args, **kwargs)
+        except Exception as exc:
+            SOAPErrorHandler.handle_error(operation_name, exc)
+
+    def check_access(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
+        """
+        Check access permissions for a Workday service operation without retry logic.
+        Uses direct execution without backoff retries for discovery/access validation.
+        """
+        return self._execute_operation(operation_name, *args, **kwargs)
+
     @backoff.on_exception(
         wait_gen=backoff.expo,
         exception=RETRYABLE_EXCEPTIONS,
@@ -151,10 +167,11 @@ class Client:
         factor=DefaultValues.BACKOFF_FACTOR.value,
     )
     def call(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
-        try:
-            return getattr(self._client.service, operation_name)(*args, **kwargs)
-        except Exception as exc:
-            SOAPErrorHandler.handle_error(operation_name, exc)
+        """
+        Execute a SOAP operation with retry logic for production data operations.
+        Uses the same core logic as check_access but with exponential backoff on failures.
+        """
+        return self._execute_operation(operation_name, *args, **kwargs)
 
     def call_with_raw_response(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """
@@ -178,4 +195,8 @@ class Client:
 
             return binding.process_reply(self._client, operation_name, response.content)
         except Exception as exc:
-            SOAPErrorHandler.handle_error(operation_name, exc)
+            try:
+                # Fallback to standard call - the raw XML approach has WSSE complications too
+                return getattr(self._client.service, operation_name)(*args, **kwargs)
+            except Exception as fallback_exc:
+                SOAPErrorHandler.handle_error(operation_name, fallback_exc)
