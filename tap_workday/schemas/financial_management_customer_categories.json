@@ -1,8 +1,5 @@
 {
-  "type": [
-    "object",
-    "null"
-  ],
+  "type": "object",
   "properties": {
     "key_value": {
       "type": [
