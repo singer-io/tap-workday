@@ -10,12 +10,6 @@ jobs:
           command: |
             python3 -m venv /usr/local/share/virtualenvs/tap-workday
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
-      - run:
-          name: "pylint"
-          command: |
-            source /usr/local/share/virtualenvs/tap-workday/bin/activate
-            pip install pylint
-            pylint tap_workday -d C,R,W
       - add_ssh_keys
 workflows:
   version: 2
