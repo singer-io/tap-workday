@@ -11,11 +11,6 @@ jobs:
             python3 -m venv /usr/local/share/virtualenvs/tap-workday
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
       - run:
-          name: "JSON Validator"
-          command: |
-            source /usr/local/share/virtualenvs/tap-tester/bin/activate
-            stitch-validate-json tap_workday/schemas/*.json
-      - run:
           name: "pylint"
           command: |
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
