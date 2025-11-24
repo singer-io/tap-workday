@@ -3,11 +3,6 @@ import sys
 
 import singer
 
-from tap_workday.client import Client
-from tap_workday.discover import discover
-from tap_workday.sync import sync
-from typing import Dict
-
 LOGGER = singer.get_logger()
 
 REQUIRED_CONFIG_KEYS = [
