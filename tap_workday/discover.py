@@ -33,9 +33,8 @@ def discover(config: Dict) -> Catalog:
 
         catalog.streams.append(
             CatalogEntry(
-                stream=stream_name,
+                stream=stream_id,
                 tap_stream_id=stream_name,
-                stream_id=stream_id,
                 key_properties=key_properties,
                 schema=schema,
                 metadata=mdata,
