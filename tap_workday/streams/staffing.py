@@ -9,6 +9,7 @@ class StaffingStream(WorkdayTableStream):
 
 class Organizations(StaffingStream):
     tap_stream_id = "staffing_organizations"
+    stream_id = "organizations"
     operation_name = "Get_Organizations"
     data_key = "Organization"
     wid_key = "Organization_Reference"

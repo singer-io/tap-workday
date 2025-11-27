@@ -12,6 +12,7 @@ class FinancialManagementStream(WorkdayTableStream):
 
 class CostCenters(FinancialManagementStream):
     tap_stream_id = "financial_management_cost_centers"
+    stream_id = "cost_centers"
     operation_name = "Get_Cost_Centers"
     data_key = "Cost_Center"
     wid_key = "Cost_Center_Reference"
@@ -19,6 +20,7 @@ class CostCenters(FinancialManagementStream):
 
 class Organizations(FinancialManagementStream):
     tap_stream_id = "financial_management_organizations"
+    stream_id = "organizations"
     operation_name = "Get_Organizations"
     data_key = "Organization"
     wid_key = "Organization_Reference"
@@ -26,6 +28,7 @@ class Organizations(FinancialManagementStream):
 
 class PositionBudgets(FinancialManagementStream):
     tap_stream_id = "financial_management_position_budgets"
+    stream_id = "position_budgets"
     operation_name = "Get_Position_Budgets"
     data_key = "Position_Budget"
     wid_key = "Position_Budget_Reference"
@@ -33,6 +36,7 @@ class PositionBudgets(FinancialManagementStream):
 
 class CustomerCategories(FinancialManagementStream):
     tap_stream_id = "financial_management_customer_categories"
+    stream_id = "customer_categories"
     operation_name = "Get_Customer_Categories"
     data_key = "Customer_Category"
     wid_key = "Customer_Category_Reference"
@@ -40,6 +44,7 @@ class CustomerCategories(FinancialManagementStream):
 
 class FundHierarchies(FinancialManagementStream):
     tap_stream_id = "financial_management_fund_hierarchies"
+    stream_id = "fund_hierarchies"
     operation_name = "Get_Fund_Hierarchies"
     data_key = "Fund_Hierarchy"
     wid_key = "Fund_Hierarchy_Reference"
@@ -47,6 +52,7 @@ class FundHierarchies(FinancialManagementStream):
 
 class FundTypes(FinancialManagementStream):
     tap_stream_id = "financial_management_fund_types"
+    stream_id = "fund_types"
     operation_name = "Get_Fund_Types"
     data_key = "Fund_Type"
     wid_key = "Fund_Type_Reference"
@@ -54,6 +60,7 @@ class FundTypes(FinancialManagementStream):
 
 class FundingSources(FinancialManagementStream):
     tap_stream_id = "financial_management_funding_sources"
+    stream_id = "funding_sources"
     operation_name = "Get_Funding_Sources"
     data_key = "Funding_Source"
     wid_key = "Funding_Source_Reference"
@@ -61,6 +68,7 @@ class FundingSources(FinancialManagementStream):
 
 class Funds(FinancialManagementStream):
     tap_stream_id = "financial_management_funds"
+    stream_id = "funds"
     operation_name = "Get_Funds"
     data_key = "Fund"
     wid_key = "Fund_Reference"
@@ -68,6 +76,7 @@ class Funds(FinancialManagementStream):
 
 class JournalSources(FinancialManagementStream):
     tap_stream_id = "financial_management_journal_sources"
+    stream_id = "journal_sources"
     operation_name = "Get_Journal_Sources"
     data_key = "Journal_Source"
     wid_key = "Journal_Source_Reference"
@@ -75,6 +84,7 @@ class JournalSources(FinancialManagementStream):
 
 class Journals(FinancialManagementStream):
     tap_stream_id = "financial_management_journals"
+    stream_id = "journals"
     operation_name = "Get_Journals"
     data_key = "Journal_Entry"
     wid_key = "Journal_Entry_Reference"
@@ -114,6 +124,7 @@ class Journals(FinancialManagementStream):
 
 class LedgerAccountSummaries(FinancialManagementStream):
     tap_stream_id = "financial_management_ledger_account_summaries"
+    stream_id = "ledger_account_summaries"
     operation_name = "Get_Ledger_Account_Summaries"
     data_key = "Ledger_Account_Summary"
     wid_key = "Ledger_Account_Summary_Reference"
@@ -121,6 +132,7 @@ class LedgerAccountSummaries(FinancialManagementStream):
 
 class Ledgers(FinancialManagementStream):
     tap_stream_id = "financial_management_ledgers"
+    stream_id = "ledgers"
     operation_name = "Get_Ledgers"
     data_key = "Ledger"
     wid_key = "Actuals_Ledger_Reference"
@@ -221,6 +233,7 @@ class Ledgers(FinancialManagementStream):
 
 class ProgramHierarchies(FinancialManagementStream):
     tap_stream_id = "financial_management_program_hierarchies"
+    stream_id = "program_hierarchies"
     operation_name = "Get_Program_Hierarchies"
     data_key = "Program_Hierarchy"
     wid_key = "Program_Hierarchy_Reference"
@@ -228,6 +241,7 @@ class ProgramHierarchies(FinancialManagementStream):
 
 class Programs(FinancialManagementStream):
     tap_stream_id = "financial_management_programs"
+    stream_id = "programs"
     operation_name = "Get_Programs"
     data_key = "Program"
     wid_key = "Program_Reference"
@@ -235,6 +249,7 @@ class Programs(FinancialManagementStream):
 
 class RevenueCategories(FinancialManagementStream):
     tap_stream_id = "financial_management_revenue_categories"
+    stream_id = "revenue_categories"
     operation_name = "Get_Revenue_Categories"
     data_key = "Revenue_Category"
     wid_key = "Revenue_Category_Reference"
@@ -242,6 +257,7 @@ class RevenueCategories(FinancialManagementStream):
 
 class RevenueCategoryHierarchies(FinancialManagementStream):
     tap_stream_id = "financial_management_revenue_category_hierarchies"
+    stream_id = "revenue_category_hierarchies"
     operation_name = "Get_Revenue_Category_Hierarchies"
     data_key = "Revenue_Category_Hierarchy"
     wid_key = "Revenue_Category_Hierarchy_Reference"
@@ -249,6 +265,7 @@ class RevenueCategoryHierarchies(FinancialManagementStream):
 
 class SpendCategoryHierarchies(FinancialManagementStream):
     tap_stream_id = "financial_management_spend_category_hierarchies"
+    stream_id = "spend_category_hierarchies"
     operation_name = "Get_Spend_Category_Hierarchies"
     data_key = "Spend_Category_Hierarchy"
     wid_key = "Spend_Category_Hierarchy_Reference"
@@ -256,6 +273,7 @@ class SpendCategoryHierarchies(FinancialManagementStream):
 
 class SupplierCategories(FinancialManagementStream):
     tap_stream_id = "financial_management_supplier_categories"
+    stream_id = "supplier_categories"
     operation_name = "Get_Supplier_Categories"
     data_key = "Supplier_Category"
     wid_key = "Supplier_Category_Reference"

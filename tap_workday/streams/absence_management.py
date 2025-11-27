@@ -9,6 +9,7 @@ class AbsenceManagementStream(WorkdayTableStream):
 
 class OverrideBalances(AbsenceManagementStream):
     tap_stream_id = "absence_management_override_balances"
+    stream_id = "override_balances"
     operation_name = "Get_Override_Balances"
     data_key = "Override_Balance"
     wid_key = "Override_Balance_Reference"
@@ -16,6 +17,7 @@ class OverrideBalances(AbsenceManagementStream):
 
 class AbsenceInputs(AbsenceManagementStream):
     tap_stream_id = "absence_management_absence_inputs"
+    stream_id = "absence_inputs"
     operation_name = "Get_Absence_Inputs"
     data_key = "Absence_Input"
     wid_key = "Absence_Input_Reference"

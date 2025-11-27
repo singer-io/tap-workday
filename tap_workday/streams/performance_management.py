@@ -9,6 +9,7 @@ class PerformanceManagementStream(WorkdayTableStream):
 
 class CertificationIssuers(PerformanceManagementStream):
     tap_stream_id = "performance_management_certification_issuers"
+    stream_id = "certification_issuers"
     operation_name = "Get_Certification_Issuers"
     data_key = "Certification_Issuer"
     wid_key = "Certification_Issuer_Reference"
@@ -16,6 +17,7 @@ class CertificationIssuers(PerformanceManagementStream):
 
 class Competencies(PerformanceManagementStream):
     tap_stream_id = "performance_management_competencies"
+    stream_id = "competencies"
     operation_name = "Get_Competencies"
     data_key = "Competency"
     wid_key = "Competency_Reference"
@@ -23,6 +25,7 @@ class Competencies(PerformanceManagementStream):
 
 class CompetencyCategories(PerformanceManagementStream):
     tap_stream_id = "performance_management_competency_categories"
+    stream_id = "competency_categories"
     operation_name = "Get_Competency_Categories"
     data_key = "Competency_Category"
     wid_key = "Competency_Category_Reference"
@@ -30,6 +33,7 @@ class CompetencyCategories(PerformanceManagementStream):
 
 class Degrees(PerformanceManagementStream):
     tap_stream_id = "performance_management_degrees"
+    stream_id = "degrees"
     operation_name = "Get_Degrees"
     data_key = "Degree"
     wid_key = "Degree_Reference"
