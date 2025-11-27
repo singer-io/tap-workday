@@ -3,6 +3,7 @@ from singer import metadata
 from singer.catalog import Catalog, CatalogEntry, Schema
 
 from tap_workday.schema import get_schemas
+from tap_workday.streams import STREAMS
 from typing import Dict
 
 LOGGER = singer.get_logger()
@@ -27,10 +28,14 @@ def discover(config: Dict) -> Catalog:
 
         key_properties = metadata.to_map(mdata).get((), {}).get("table-key-properties")
 
+        stream_obj = STREAMS.get(stream_name)
+        stream_id = getattr(stream_obj, "stream_id", None) if stream_obj else None
+
         catalog.streams.append(
             CatalogEntry(
                 stream=stream_name,
                 tap_stream_id=stream_name,
+                stream_id=stream_id,
                 key_properties=key_properties,
                 schema=schema,
                 metadata=mdata,
