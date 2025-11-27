@@ -9,31 +9,31 @@
     },
     "Job_Profile_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -48,45 +48,45 @@
     },
     "Job_Profile_Data": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "Job_Code": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Effective_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "Job_Profile_Basic_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Inactive": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Job_Title": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Include_Job_Code_in_Name": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Job_Profile_Private_Title": {
@@ -96,14 +96,14 @@
             },
             "Job_Profile_Summary": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Job_Description": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Additional_Job_Description": {
@@ -113,43 +113,43 @@
             },
             "Work_Shift_Required": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Public_Job": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Management_Level_Reference": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -174,42 +174,42 @@
             },
             "Job_Family_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "Job_Family_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
                           "type": [
-                            "object",
-                            "null"
+                            "null",
+                            "object"
                           ],
                           "properties": {
                             "_value_1": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             },
                             "type": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             }
                           }
@@ -232,42 +232,42 @@
             },
             "Company_Insider_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "Company_Insider_Type_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
                           "type": [
-                            "object",
-                            "null"
+                            "null",
+                            "object"
                           ],
                           "properties": {
                             "_value_1": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             },
                             "type": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             }
                           }
@@ -295,37 +295,37 @@
             },
             "Critical_Job": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Difficulty_to_Fill_Reference": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -340,8 +340,8 @@
             },
             "Restrict_to_Country_Reference": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
@@ -357,42 +357,42 @@
         },
         "Job_Classification_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "Job_Classifications_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
                       "type": [
-                        "object",
-                        "null"
+                        "null",
+                        "object"
                       ],
                       "properties": {
                         "_value_1": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -415,42 +415,42 @@
         },
         "Job_Profile_Pay_Rate_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "Country_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
                       "type": [
-                        "object",
-                        "null"
+                        "null",
+                        "object"
                       ],
                       "properties": {
                         "_value_1": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -465,31 +465,31 @@
               },
               "Pay_Rate_Type_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
                       "type": [
-                        "object",
-                        "null"
+                        "null",
+                        "object"
                       ],
                       "properties": {
                         "_value_1": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -512,42 +512,42 @@
         },
         "Job_Profile_Exempt_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "Location_Context_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
                       "type": [
-                        "object",
-                        "null"
+                        "null",
+                        "object"
                       ],
                       "properties": {
                         "_value_1": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "parent_id": {
@@ -572,8 +572,8 @@
               },
               "Job_Exempt": {
                 "type": [
-                  "boolean",
-                  "null"
+                  "null",
+                  "boolean"
                 ]
               },
               "Delete": {
@@ -586,42 +586,42 @@
         },
         "Workers_Compensation_Code_Replacement_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "Workers_Compensation_Code_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
                       "type": [
-                        "object",
-                        "null"
+                        "null",
+                        "object"
                       ],
                       "properties": {
                         "_value_1": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -639,8 +639,8 @@
         },
         "Qualification_Replacement_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Responsibility_Qualification_Replacement": {
@@ -650,48 +650,48 @@
             },
             "Work_Experience_Qualification_Replacement": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Work_Experience_Qualification_Replacement_Data": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "Worker_Experience_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -706,31 +706,31 @@
                       },
                       "Work_Experience_Rating_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -745,8 +745,8 @@
                       },
                       "Required": {
                         "type": [
-                          "boolean",
-                          "null"
+                          "null",
+                          "boolean"
                         ]
                       }
                     }
@@ -761,48 +761,48 @@
             },
             "Education_Qualification_Replacement": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Education_Qualification_Replacement_Data": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "Degree_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -817,31 +817,31 @@
                       },
                       "Field_Of_Study_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -856,8 +856,8 @@
                       },
                       "Required": {
                         "type": [
-                          "boolean",
-                          "null"
+                          "null",
+                          "boolean"
                         ]
                       }
                     }
@@ -872,48 +872,48 @@
             },
             "Language_Qualification_Replacement": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Language_Qualification_Replacement_Data": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "Language_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -928,42 +928,42 @@
                       },
                       "Language_Ability_Profile_Data": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
                           "type": [
-                            "object",
-                            "null"
+                            "null",
+                            "object"
                           ],
                           "properties": {
                             "Language_Ability_Type_Reference": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "ID": {
                                   "type": [
-                                    "array",
-                                    "null"
+                                    "null",
+                                    "array"
                                   ],
                                   "items": {
                                     "type": [
-                                      "object",
-                                      "null"
+                                      "null",
+                                      "object"
                                     ],
                                     "properties": {
                                       "_value_1": {
                                         "type": [
-                                          "string",
-                                          "null"
+                                          "null",
+                                          "string"
                                         ]
                                       },
                                       "type": {
                                         "type": [
-                                          "string",
-                                          "null"
+                                          "null",
+                                          "string"
                                         ]
                                       }
                                     }
@@ -978,31 +978,31 @@
                             },
                             "Language_Proficiency_Reference": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "ID": {
                                   "type": [
-                                    "array",
-                                    "null"
+                                    "null",
+                                    "array"
                                   ],
                                   "items": {
                                     "type": [
-                                      "object",
-                                      "null"
+                                      "null",
+                                      "object"
                                     ],
                                     "properties": {
                                       "_value_1": {
                                         "type": [
-                                          "string",
-                                          "null"
+                                          "null",
+                                          "string"
                                         ]
                                       },
                                       "type": {
                                         "type": [
-                                          "string",
-                                          "null"
+                                          "null",
+                                          "string"
                                         ]
                                       }
                                     }
@@ -1020,8 +1020,8 @@
                       },
                       "Required": {
                         "type": [
-                          "boolean",
-                          "null"
+                          "null",
+                          "boolean"
                         ]
                       }
                     }
@@ -1036,48 +1036,48 @@
             },
             "Competency_Qualification_Replacement": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Competency_Qualification_Replacement_Data": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "Competency_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -1092,31 +1092,31 @@
                       },
                       "Proficiency_Rating_Reference": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "ID": {
                             "type": [
-                              "array",
-                              "null"
+                              "null",
+                              "array"
                             ],
                             "items": {
                               "type": [
-                                "object",
-                                "null"
+                                "null",
+                                "object"
                               ],
                               "properties": {
                                 "_value_1": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 },
                                 "type": {
                                   "type": [
-                                    "string",
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -1131,8 +1131,8 @@
                       },
                       "Required": {
                         "type": [
-                          "boolean",
-                          "null"
+                          "null",
+                          "boolean"
                         ]
                       }
                     }
@@ -1164,8 +1164,8 @@
         },
         "Integration_Field_Override_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [

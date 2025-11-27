@@ -9,86 +9,110 @@
     },
     "Location_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "_value_1": {
-                "type": "string"
+                "type": [
+                  "null",
+                  "string"
+                ]
               },
               "type": {
-                "type": "string"
+                "type": [
+                  "null",
+                  "string"
+                ]
               }
             }
           }
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Location_Data": {
-      "type": "object",
+      "type": [
+        "null",
+        "object"
+      ],
       "properties": {
         "Location_ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Effective_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "Location_Name": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Location_Usage_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "null",
+                    "object"
+                  ],
                   "properties": {
                     "_value_1": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "type": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -96,33 +120,45 @@
         },
         "Location_Type_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "null",
+                    "object"
+                  ],
                   "properties": {
                     "_value_1": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "type": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -130,33 +166,45 @@
         },
         "Location_Attribute_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "null",
+                    "object"
+                  ],
                   "properties": {
                     "_value_1": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "type": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -164,372 +212,465 @@
         },
         "Superior_Location_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Inactive": {
           "type": [
-            "boolean",
-            "null"
+            "null",
+            "boolean"
           ]
         },
         "Allow_Duplicate_Coordinates": {
           "type": [
-            "boolean",
-            "null"
+            "null",
+            "boolean"
           ]
         },
         "Latitude": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Longitude": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Altitude": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Time_Profile_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Locale_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Display_Language_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Time_Zone_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Default_Currency_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "External_Name": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Default_Job_Posting_Location_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Local_Minimum_Wage_Authority_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Trade_Name": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Worksite_ID_Code": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Global_Location_Number": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Location_Identifier": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Default_Ship-To_Location_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Associate_Deliver-To_Location_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "null",
+                    "object"
+                  ],
                   "properties": {
                     "_value_1": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "type": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -537,94 +678,112 @@
         },
         "Instructional_Site_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Academic_Unit_Reference": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "null",
+                      "object"
+                    ],
                     "properties": {
                       "_value_1": {
-                        "type": "string"
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "type": {
-                        "type": "string"
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       }
                     }
                   }
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
             },
             "Instructional_Site_Data_Capacity": {
               "type": [
-                "number",
-                "null"
+                "null",
+                "number"
               ]
             },
             "Off-Site": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             },
             "Instructional_Use_Only": {
               "type": [
-                "boolean",
-                "null"
+                "null",
+                "boolean"
               ]
             }
           }
         },
         "Student_Housing_Assignment_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Academic_Unit_Reference": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
-                    "type": "object",
+                    "type": [
+                      "null",
+                      "object"
+                    ],
                     "properties": {
                       "_value_1": {
-                        "type": "string"
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       },
                       "type": {
-                        "type": "string"
+                        "type": [
+                          "null",
+                          "string"
+                        ]
                       }
                     }
                   }
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -633,127 +792,145 @@
         },
         "Location_Training_Room_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Link": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Capacity": {
               "type": [
-                "number",
-                "null"
+                "null",
+                "number"
               ]
             },
             "Directions": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Equipment": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Reservation_Details": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Video_Conference_Details": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             },
             "Additional_Details": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Contact_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "Address_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Country_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Last_Modified": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ],
                     "format": "date-time"
                   },
                   "Address_Line_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "_value_1": {
-                          "type": "string"
+                          "type": [
+                            "null",
+                            "string"
+                          ]
                         },
                         "Type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Descriptor": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -761,40 +938,49 @@
                   },
                   "Municipality": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Country_City_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "parent_id": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             },
                             "parent_type": {
                               "type": [
-                                "string",
-                                "null"
+                                "null",
+                                "string"
                               ]
                             }
                           }
@@ -802,33 +988,39 @@
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Submunicipality_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "_value_1": {
-                          "type": "string"
+                          "type": [
+                            "null",
+                            "string"
+                          ]
                         },
                         "Type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Address_Component_Name": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -836,62 +1028,77 @@
                   },
                   "Country_Region_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Country_Region_Descriptor": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Subregion_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "_value_1": {
-                          "type": "string"
+                          "type": [
+                            "null",
+                            "string"
+                          ]
                         },
                         "Type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Descriptor": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -899,59 +1106,74 @@
                   },
                   "Postal_Code": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Usage_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Type_Data": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "Primary": {
                                 "type": [
-                                  "boolean",
-                                  "null"
+                                  "null",
+                                  "boolean"
                                 ]
                               },
                               "Type_Reference": {
                                 "type": [
-                                  "object",
-                                  "null"
+                                  "null",
+                                  "object"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "array",
-                                      "null"
+                                      "null",
+                                      "array"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "null",
+                                        "object"
+                                      ],
                                       "properties": {
                                         "_value_1": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         },
                                         "type": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         }
                                       }
                                     }
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "string",
-                                      "null"
+                                      "null",
+                                      "string"
                                     ]
                                   }
                                 }
@@ -961,33 +1183,45 @@
                         },
                         "Use_For_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -995,33 +1229,45 @@
                         },
                         "Use_For_Tenanted_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1029,14 +1275,14 @@
                         },
                         "Comments": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Public": {
                           "type": [
-                            "boolean",
-                            "null"
+                            "null",
+                            "boolean"
                           ]
                         }
                       }
@@ -1044,51 +1290,60 @@
                   },
                   "Number_of_Days": {
                     "type": [
-                      "number",
-                      "null"
+                      "null",
+                      "number"
                     ]
                   },
                   "Municipality_Local": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Address_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Address_ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1096,91 +1351,109 @@
             },
             "Phone_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Country_ISO_Code": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "International_Phone_Code": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Area_Code": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Phone_Number": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Phone_Extension": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Usage_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Type_Data": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "Primary": {
                                 "type": [
-                                  "boolean",
-                                  "null"
+                                  "null",
+                                  "boolean"
                                 ]
                               },
                               "Type_Reference": {
                                 "type": [
-                                  "object",
-                                  "null"
+                                  "null",
+                                  "object"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "array",
-                                      "null"
+                                      "null",
+                                      "array"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "null",
+                                        "object"
+                                      ],
                                       "properties": {
                                         "_value_1": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         },
                                         "type": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         }
                                       }
                                     }
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "string",
-                                      "null"
+                                      "null",
+                                      "string"
                                     ]
                                   }
                                 }
@@ -1190,33 +1463,45 @@
                         },
                         "Use_For_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1224,33 +1509,45 @@
                         },
                         "Use_For_Tenanted_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1258,14 +1555,14 @@
                         },
                         "Comments": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Public": {
                           "type": [
-                            "boolean",
-                            "null"
+                            "null",
+                            "boolean"
                           ]
                         }
                       }
@@ -1273,39 +1570,48 @@
                   },
                   "Phone_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1313,73 +1619,91 @@
             },
             "Email_Address_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Email_Address": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Email_Comment": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Usage_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Type_Data": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "Primary": {
                                 "type": [
-                                  "boolean",
-                                  "null"
+                                  "null",
+                                  "boolean"
                                 ]
                               },
                               "Type_Reference": {
                                 "type": [
-                                  "object",
-                                  "null"
+                                  "null",
+                                  "object"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "array",
-                                      "null"
+                                      "null",
+                                      "array"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "null",
+                                        "object"
+                                      ],
                                       "properties": {
                                         "_value_1": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         },
                                         "type": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         }
                                       }
                                     }
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "string",
-                                      "null"
+                                      "null",
+                                      "string"
                                     ]
                                   }
                                 }
@@ -1389,33 +1713,45 @@
                         },
                         "Use_For_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1423,33 +1759,45 @@
                         },
                         "Use_For_Tenanted_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1457,14 +1805,14 @@
                         },
                         "Comments": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Public": {
                           "type": [
-                            "boolean",
-                            "null"
+                            "null",
+                            "boolean"
                           ]
                         }
                       }
@@ -1472,39 +1820,48 @@
                   },
                   "Email_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1512,104 +1869,131 @@
             },
             "Instant_Messenger_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Instant_Messenger_Address": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Instant_Messenger_Type_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Instant_Messenger_Comment": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Usage_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Type_Data": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "Primary": {
                                 "type": [
-                                  "boolean",
-                                  "null"
+                                  "null",
+                                  "boolean"
                                 ]
                               },
                               "Type_Reference": {
                                 "type": [
-                                  "object",
-                                  "null"
+                                  "null",
+                                  "object"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "array",
-                                      "null"
+                                      "null",
+                                      "array"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "null",
+                                        "object"
+                                      ],
                                       "properties": {
                                         "_value_1": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         },
                                         "type": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         }
                                       }
                                     }
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "string",
-                                      "null"
+                                      "null",
+                                      "string"
                                     ]
                                   }
                                 }
@@ -1619,33 +2003,45 @@
                         },
                         "Use_For_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1653,33 +2049,45 @@
                         },
                         "Use_For_Tenanted_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1687,14 +2095,14 @@
                         },
                         "Comments": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Public": {
                           "type": [
-                            "boolean",
-                            "null"
+                            "null",
+                            "boolean"
                           ]
                         }
                       }
@@ -1702,39 +2110,48 @@
                   },
                   "Instant_Messenger_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1742,73 +2159,91 @@
             },
             "Web_Address_Data": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Web_Address": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Web_Address_Comment": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "Usage_Data": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Type_Data": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "Primary": {
                                 "type": [
-                                  "boolean",
-                                  "null"
+                                  "null",
+                                  "boolean"
                                 ]
                               },
                               "Type_Reference": {
                                 "type": [
-                                  "object",
-                                  "null"
+                                  "null",
+                                  "object"
                                 ],
                                 "properties": {
                                   "ID": {
                                     "type": [
-                                      "array",
-                                      "null"
+                                      "null",
+                                      "array"
                                     ],
                                     "items": {
-                                      "type": "object",
+                                      "type": [
+                                        "null",
+                                        "object"
+                                      ],
                                       "properties": {
                                         "_value_1": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         },
                                         "type": {
-                                          "type": "string"
+                                          "type": [
+                                            "null",
+                                            "string"
+                                          ]
                                         }
                                       }
                                     }
                                   },
                                   "Descriptor": {
                                     "type": [
-                                      "string",
-                                      "null"
+                                      "null",
+                                      "string"
                                     ]
                                   }
                                 }
@@ -1818,33 +2253,45 @@
                         },
                         "Use_For_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1852,33 +2299,45 @@
                         },
                         "Use_For_Tenanted_Reference": {
                           "type": [
-                            "array",
-                            "null"
+                            "null",
+                            "array"
                           ],
                           "items": {
-                            "type": "object",
+                            "type": [
+                              "null",
+                              "object"
+                            ],
                             "properties": {
                               "ID": {
                                 "type": [
-                                  "array",
-                                  "null"
+                                  "null",
+                                  "array"
                                 ],
                                 "items": {
-                                  "type": "object",
+                                  "type": [
+                                    "null",
+                                    "object"
+                                  ],
                                   "properties": {
                                     "_value_1": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     },
                                     "type": {
-                                      "type": "string"
+                                      "type": [
+                                        "null",
+                                        "string"
+                                      ]
                                     }
                                   }
                                 }
                               },
                               "Descriptor": {
                                 "type": [
-                                  "string",
-                                  "null"
+                                  "null",
+                                  "string"
                                 ]
                               }
                             }
@@ -1886,14 +2345,14 @@
                         },
                         "Comments": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "Public": {
                           "type": [
-                            "boolean",
-                            "null"
+                            "null",
+                            "boolean"
                           ]
                         }
                       }
@@ -1901,39 +2360,48 @@
                   },
                   "Web_Address_Reference": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "ID": {
                         "type": [
-                          "array",
-                          "null"
+                          "null",
+                          "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "_value_1": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             },
                             "type": {
-                              "type": "string"
+                              "type": [
+                                "null",
+                                "string"
+                              ]
                             }
                           }
                         }
                       },
                       "Descriptor": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1943,25 +2411,31 @@
         },
         "Integration_ID_Data": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "System_ID": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -1971,33 +2445,45 @@
         },
         "Location_Hierarchy_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
-                  "type": "object",
+                  "type": [
+                    "null",
+                    "object"
+                  ],
                   "properties": {
                     "_value_1": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     },
                     "type": {
-                      "type": "string"
+                      "type": [
+                        "null",
+                        "string"
+                      ]
                     }
                   }
                 }
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -2005,42 +2491,54 @@
         },
         "Integration_Field_Override_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "Field_Reference": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "ID": {
                     "type": [
-                      "array",
-                      "null"
+                      "null",
+                      "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "_value_1": {
-                          "type": "string"
+                          "type": [
+                            "null",
+                            "string"
+                          ]
                         },
                         "type": {
-                          "type": "string"
+                          "type": [
+                            "null",
+                            "string"
+                          ]
                         },
                         "parent_id": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "parent_type": {
                           "type": [
-                            "string",
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -2048,16 +2546,16 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
               },
               "Value": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }

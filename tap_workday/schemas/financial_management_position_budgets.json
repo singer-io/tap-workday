@@ -19,7 +19,10 @@
             "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "type": {
                 "type": [
@@ -68,7 +71,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -105,7 +111,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -142,7 +151,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -185,7 +197,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -222,7 +237,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -259,7 +277,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -308,7 +329,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "type": {
                     "type": [
@@ -345,7 +369,10 @@
             "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "Line_Order": {
                 "type": [
@@ -365,7 +392,10 @@
                       "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "type": {
                           "type": [
@@ -402,7 +432,10 @@
                       "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "type": {
                           "type": [
@@ -439,7 +472,10 @@
                       "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "type": {
                           "type": [
@@ -488,7 +524,10 @@
                       "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "type": {
                           "type": [

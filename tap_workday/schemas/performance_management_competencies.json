@@ -9,31 +9,31 @@
     },
     "Competency_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -48,71 +48,71 @@
     },
     "Competency_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Competency_ID": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Competency_Name": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Competency_Description": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Description_Applies_to_All_Levels": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Competency_Category_Reference": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -128,42 +128,42 @@
           },
           "Proficiency_Rating_Behavior_Data": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Proficiency_Rating_Reference": {
                   "type": [
-                    "object",
-                    "null"
+                    "null",
+                    "object"
                   ],
                   "properties": {
                     "ID": {
                       "type": [
-                        "array",
-                        "null"
+                        "null",
+                        "array"
                       ],
                       "items": {
                         "type": [
-                          "object",
-                          "null"
+                          "null",
+                          "object"
                         ],
                         "properties": {
                           "_value_1": {
                             "type": [
-                              "string",
-                              "null"
+                              "null",
+                              "string"
                             ]
                           },
                           "type": {
                             "type": [
-                              "string",
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -178,8 +178,8 @@
                 },
                 "Rating_Behavior": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -187,44 +187,44 @@
           },
           "Inactive": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Effective_Date": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ],
             "format": "date-time"
           },
           "Proficiency_Rating_Scale_Reference": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
                   "type": [
-                    "object",
-                    "null"
+                    "null",
+                    "object"
                   ],
                   "properties": {
                     "_value_1": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "type": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     }
                   }
@@ -239,14 +239,14 @@
           },
           "Behaviors_Apply_to_All_Levels": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Used_For_Talent_Matrix": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           }
         }

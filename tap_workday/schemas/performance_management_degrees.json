@@ -9,31 +9,31 @@
     },
     "Degree_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -48,44 +48,44 @@
     },
     "Degree_Data": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Name": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Rating_Value": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Description": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Inactive": {
           "type": [
-            "boolean",
-            "null"
+            "null",
+            "boolean"
           ]
         },
         "Restricted_to_Countries_Reference": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [

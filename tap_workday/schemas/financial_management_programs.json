@@ -19,7 +19,10 @@
             "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "type": {
                 "type": [
@@ -92,7 +95,10 @@
                 "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "Worktag_Type_Reference": {
                     "type": [
@@ -106,7 +112,10 @@
                           "array"
                         ],
                         "items": {
-                          "type": "object",
+                          "type": [
+                            "null",
+                            "object"
+                          ],
                           "properties": {
                             "type": {
                               "type": [
@@ -167,7 +176,10 @@
                               "array"
                             ],
                             "items": {
-                              "type": "object",
+                              "type": [
+                                "null",
+                                "object"
+                              ],
                               "properties": {
                                 "type": {
                                   "type": [
@@ -218,7 +230,10 @@
                       "array"
                     ],
                     "items": {
-                      "type": "object",
+                      "type": [
+                        "null",
+                        "object"
+                      ],
                       "properties": {
                         "Delete_Allowed_Value": {
                           "type": [
@@ -238,7 +253,10 @@
                                 "array"
                               ],
                               "items": {
-                                "type": "object",
+                                "type": [
+                                  "null",
+                                  "object"
+                                ],
                                 "properties": {
                                   "type": {
                                     "type": [

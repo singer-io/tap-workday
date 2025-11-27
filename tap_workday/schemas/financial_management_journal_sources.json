@@ -9,31 +9,31 @@
     },
     "Journal_Source_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -41,69 +41,69 @@
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Journal_Source_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Journal_Source_ID": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Journal_Source_Name": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Source_For_Accounting_Journal": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Process_Award_Costs": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Source_For_Ad_Hoc_Bank_Transaction": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Enable_Suspense_Processing_for_Web_Service": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           },
           "Suspense_Threshold_Percent": {
             "type": [
-              "number",
-              "null"
+              "null",
+              "number"
             ]
           },
           "Source_For_Workday_Operational_Journal": {
             "type": [
-              "boolean",
-              "null"
+              "null",
+              "boolean"
             ]
           }
         }

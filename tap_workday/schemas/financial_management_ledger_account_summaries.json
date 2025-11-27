@@ -9,43 +9,43 @@
     },
     "Ledger_Account_Summary_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "parent_id": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "parent_type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -53,80 +53,80 @@
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Ledger_Account_Summary_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Ledger_Account_Summary_ID": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Effective_Date": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Ledger_Account_Summary_Name": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Account_Set_Reference": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
                   "type": [
-                    "object",
-                    "null"
+                    "null",
+                    "object"
                   ],
                   "properties": {
                     "_value_1": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "type": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "parent_id": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "parent_type": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     }
                   }
@@ -134,51 +134,51 @@
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
           },
           "Hierarchy_Level_Reference": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "ID": {
                 "type": [
-                  "array",
-                  "null"
+                  "null",
+                  "array"
                 ],
                 "items": {
                   "type": [
-                    "object",
-                    "null"
+                    "null",
+                    "object"
                   ],
                   "properties": {
                     "_value_1": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "type": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "parent_id": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     },
                     "parent_type": {
                       "type": [
-                        "string",
-                        "null"
+                        "null",
+                        "string"
                       ]
                     }
                   }
@@ -186,56 +186,56 @@
               },
               "Descriptor": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
           },
           "Ledger_Account_Summary_Reference": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_id": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -243,8 +243,8 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -252,48 +252,48 @@
           },
           "Included_Ledger_Account_Reference": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_id": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -301,8 +301,8 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -310,31 +310,31 @@
           },
           "Included_Ledger_Account_Range_Data": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "Start_Account": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 },
                 "End_Account": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -345,59 +345,59 @@
     },
     "All_Ledger_Account_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Ledger_Account_Included_Reference": {
             "type": [
-              "array",
-              "null"
+              "null",
+              "array"
             ],
             "items": {
               "type": [
-                "object",
-                "null"
+                "null",
+                "object"
               ],
               "properties": {
                 "ID": {
                   "type": [
-                    "array",
-                    "null"
+                    "null",
+                    "array"
                   ],
                   "items": {
                     "type": [
-                      "object",
-                      "null"
+                      "null",
+                      "object"
                     ],
                     "properties": {
                       "_value_1": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_id": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       },
                       "parent_type": {
                         "type": [
-                          "string",
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
@@ -405,8 +405,8 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "string",
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -414,8 +414,8 @@
           },
           "Other_Fields": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {}
           }

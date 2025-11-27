@@ -9,31 +9,31 @@
     },
     "Override_Balance_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -41,57 +41,57 @@
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Override_Balance_Data": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Batch_ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Worker_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "_value_1": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "type": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -99,39 +99,39 @@
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Position_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "_value_1": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "type": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -139,39 +139,39 @@
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Time_Off_Plan_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
                 "type": [
-                  "object",
-                  "null"
+                  "null",
+                  "object"
                 ],
                 "properties": {
                   "_value_1": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   },
                   "type": {
                     "type": [
-                      "string",
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -179,46 +179,46 @@
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Override_Balance_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "Override_Balance_Units": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Override_Balance_Units_Data": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "Units": {
                 "type": [
-                  "number",
-                  "null"
+                  "null",
+                  "number"
                 ]
               },
               "Unit_Type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -226,8 +226,8 @@
         },
         "Comments": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }

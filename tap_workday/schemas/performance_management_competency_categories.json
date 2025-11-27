@@ -9,31 +9,31 @@
     },
     "Competency_Category_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -48,37 +48,37 @@
     },
     "Competency_Category_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Name": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Code": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Description": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Usage_Count": {
             "type": [
-              "number",
-              "null"
+              "null",
+              "number"
             ]
           }
         }

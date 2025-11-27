@@ -9,1352 +9,1739 @@
     },
     "Absence_Input_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
-            "type": "object",
+            "type": [
+              "null",
+              "object"
+            ],
             "properties": {
               "_value_1": {
-                "type": "string"
+                "type": [
+                  "null",
+                  "string"
+                ]
               },
               "type": {
-                "type": "string"
+                "type": [
+                  "null",
+                  "string"
+                ]
               }
             }
           }
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Absence_Input_Data": {
-      "type": "object",
+      "type": [
+        "null",
+        "object"
+      ],
       "properties": {
         "Absence_Input_ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Batch_ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Worker_Reference": {
-          "type": "object",
+          "type": [
+            "null",
+            "object"
+          ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Position_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Absence_Component_Reference": {
-          "type": "object",
+          "type": [
+            "null",
+            "object"
+          ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Start_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "End_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "Reference_Date": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ],
           "format": "date-time"
         },
         "Hours": {
           "type": [
-            "number",
-            "null"
+            "null",
+            "number"
           ]
         },
         "Adjustment": {
           "type": [
-            "boolean",
-            "null"
+            "null",
+            "boolean"
           ]
         },
         "Allocation_Pool_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Appropriation_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Business_Unit_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Cost_Center_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_01_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_02_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_03_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_04_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_05_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_06_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_07_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_08_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_09_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Organization_10_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_01_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_02_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_03_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_04_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_05_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_06_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_07_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_08_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_09_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_10_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_11_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_12_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_13_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_14_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Custom_Worktag_15_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Fund_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Gift_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Grant_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Job_Profile_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Location_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Program_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Region_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Project_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Project_Task_Reference": {
           "type": [
-            "object",
-            "null"
+            "null",
+            "object"
           ],
           "properties": {
             "ID": {
               "type": [
-                "array",
-                "null"
+                "null",
+                "array"
               ],
               "items": {
-                "type": "object",
+                "type": [
+                  "null",
+                  "object"
+                ],
                 "properties": {
                   "_value_1": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   },
                   "type": {
-                    "type": "string"
+                    "type": [
+                      "null",
+                      "string"
+                    ]
                   }
                 }
               }
             },
             "Descriptor": {
               "type": [
-                "string",
-                "null"
+                "null",
+                "string"
               ]
             }
           }
         },
         "Comment": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }

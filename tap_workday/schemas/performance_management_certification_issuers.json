@@ -9,31 +9,31 @@
     },
     "Certification_Issuer_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -48,20 +48,20 @@
     },
     "Certification_Issuer_Data": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Issuer_Name": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         },
         "Issuer_Description": {
@@ -71,8 +71,8 @@
         },
         "Inactive": {
           "type": [
-            "boolean",
-            "null"
+            "null",
+            "boolean"
           ]
         }
       }

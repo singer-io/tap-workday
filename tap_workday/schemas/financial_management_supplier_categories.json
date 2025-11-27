@@ -9,31 +9,31 @@
     },
     "Supplier_Category_Reference": {
       "type": [
-        "object",
-        "null"
+        "null",
+        "object"
       ],
       "properties": {
         "ID": {
           "type": [
-            "array",
-            "null"
+            "null",
+            "array"
           ],
           "items": {
             "type": [
-              "object",
-              "null"
+              "null",
+              "object"
             ],
             "properties": {
               "_value_1": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               },
               "type": {
                 "type": [
-                  "string",
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }
@@ -41,33 +41,33 @@
         },
         "Descriptor": {
           "type": [
-            "string",
-            "null"
+            "null",
+            "string"
           ]
         }
       }
     },
     "Supplier_Category_Data": {
       "type": [
-        "array",
-        "null"
+        "null",
+        "array"
       ],
       "items": {
         "type": [
-          "object",
-          "null"
+          "null",
+          "object"
         ],
         "properties": {
           "Supplier_Category_ID": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           },
           "Supplier_Category_Name": {
             "type": [
-              "string",
-              "null"
+              "null",
+              "string"
             ]
           }
         }
