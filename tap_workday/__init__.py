@@ -19,6 +19,10 @@ def main():
     """
     Run the tap
     """
+    parsed_args = singer.utils.parse_args(REQUIRED_CONFIG_KEYS)
+    state = {}
+    if parsed_args.state:
+        state = parsed_args.state
     LOGGER.info(f"Starting tap-workday with required config keys: {REQUIRED_CONFIG_KEYS}")
 
 
