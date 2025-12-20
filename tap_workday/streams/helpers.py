@@ -358,7 +358,7 @@ def emit_full_table(stream, records):
         pre_hook=pre_hook,
     )
 
-    with metrics.record_counter(stream.tap_stream_id) as counter:
+    with metrics.record_counter(endpoint=stream.tap_stream_id, log_interval=300) as counter:
         for record in records:
             transformed = transformer.transform(record, stream.schema, stream.metadata)
             write_record(stream.tap_stream_id, transformed)
