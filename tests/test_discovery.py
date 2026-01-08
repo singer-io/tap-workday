@@ -1,8 +1,6 @@
 """Test tap discovery mode and metadata."""
-
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.discovery_test import DiscoveryTest
-
-from .base import WorkdayBaseTest
 
 
 class WorkdayDiscoveryTest(DiscoveryTest, WorkdayBaseTest):

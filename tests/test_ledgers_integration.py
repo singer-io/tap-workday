@@ -1,13 +1,11 @@
 """
 Integration tests for Ledgers stream using tap-tester framework.
 """
-
+from base import WorkdayBaseTest
+from tap_tester import runner
 from tap_tester.base_suite_tests.all_fields_test import AllFieldsTest
 from tap_tester.base_suite_tests.automatic_fields_test import AutomaticFieldsTest
 from tap_tester.base_suite_tests.discovery_test import DiscoveryTest
-from tap_tester import runner
-
-from .base import WorkdayBaseTest
 
 
 class WorkdayLedgersDiscoveryTest(DiscoveryTest, WorkdayBaseTest):

@@ -1,6 +1,5 @@
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.all_fields_test import AllFieldsTest
-
-from .base import WorkdayBaseTest
 
 KNOWN_MISSING_FIELDS = {}
 

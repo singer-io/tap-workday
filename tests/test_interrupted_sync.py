@@ -1,7 +1,6 @@
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.interrupted_sync_test import \
     InterruptedSyncTest
-
-from .base import WorkdayBaseTest
 
 
 class WorkdayInterruptedSyncTest(WorkdayBaseTest):

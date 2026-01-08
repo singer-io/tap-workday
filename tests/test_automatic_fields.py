@@ -1,10 +1,8 @@
 """Test that with no fields selected for a stream automatic fields are still
 replicated."""
-
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.automatic_fields_test import \
     MinimumSelectionTest
-
-from .base import WorkdayBaseTest
 
 
 class WorkdayAutomaticFields(MinimumSelectionTest, WorkdayBaseTest):
