@@ -62,9 +62,11 @@ class WorkdayBaseTest(BaseCase):
         """Authentication information for the test account."""
         credentials_dict = {}
         creds = {
-            "client_id": "TAP_WORKDAY_CLIENT_ID",
-            "client_secret": "TAP_WORKDAY_CLIENT_SECRET",
-            "refresh_token": "TAP_WORKDAY_REFRESH_TOKEN",
+            "username": "TAP_WORKDAY_USERNAME",
+            "password": "TAP_WORKDAY_PASSWORD",
+            "tenant": "TAP_WORKDAY_TENANT",
+            "hostname": "TAP_WORKDAY_HOSTNAME",
+            "start_date": "TAP_WORKDAY_START_DATE"
         }
 
         for cred in creds:
