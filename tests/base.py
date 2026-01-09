@@ -84,20 +84,19 @@ class WorkdayBaseTest(BaseCase):
         return {stream: stream_metadata.copy() for stream in streams}
 
     @staticmethod
-    def get_credentials():
+    def get_credentials(cred_set="first"):
         """Authentication information for the test account."""
+        suffix = "FIRST" if cred_set == "first" else "SECOND"
+        
+        cred_keys = ["username", "password", "tenant", "hostname"]
         credentials_dict = {}
-        creds = {
-            "username": "TAP_WORKDAY_USERNAME",
-            "password": "TAP_WORKDAY_PASSWORD",
-            "tenant": "TAP_WORKDAY_TENANT",
-            "hostname": "TAP_WORKDAY_HOSTNAME"
-        }
-
-        for cred in creds:
-            credentials_dict[cred] = os.getenv(creds[cred])
-
+        
+        for key in cred_keys:
+            env_var = f"TAP_WORKDAY_{key.upper()}_{suffix}"
+            credentials_dict[key] = os.getenv(env_var)
+        
         return credentials_dict
+
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
