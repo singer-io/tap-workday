@@ -11,14 +11,58 @@ from tap_tester.base_suite_tests.base_case import BaseCase
 from tap_tester.logger import LOGGER
 
 
-class WorkdayBaseTest(BaseCase):
-    """Setup expectations for test sub classes.
+# Stream groups for different test configurations
+ABSENCE_PERFORMANCE_STREAMS = [
+    # Absence Management
+    "absence_management_override_balances",
+    "absence_management_absence_inputs",
+    # Performance Management
+    "performance_management_certification_issuers",
+    "performance_management_competencies",
+    "performance_management_competency_categories",
+    "performance_management_degrees",
+]
 
-    Metadata describing streams. A bunch of shared methods that are used
-    in tap-tester tests. Shared tap-specific methods (as needed).
+FINANCIAL_HR_STAFFING_STREAMS = [
+    # Human Resources
+    "human_resources_job_categories",
+    "human_resources_job_family_groups",
+    "human_resources_job_profiles",
+    "human_resources_locations",
+    "human_resources_organizations",
+    # Financial Management
+    "financial_management_cost_centers",
+    "financial_management_customer_categories",
+    "financial_management_fund_hierarchies",
+    "financial_management_fund_types",
+    "financial_management_funding_sources",
+    "financial_management_funds",
+    "financial_management_journal_sources",
+    "financial_management_journals",
+    "financial_management_ledger_account_summaries",
+    "financial_management_ledgers",
+    "financial_management_organizations",
+    "financial_management_position_budgets",
+    "financial_management_program_hierarchies",
+    "financial_management_programs",
+    "financial_management_revenue_categories",
+    "financial_management_revenue_category_hierarchies",
+    "financial_management_spend_category_hierarchies",
+    "financial_management_supplier_categories",
+    # Staffing
+    "staffing_organizations",
+]
+
+
+class WorkdayBaseTest(BaseCase):
+    """Base test class for Workday tap integration tests.
+    
+    Supports different stream groups via the stream_group class attribute.
+    Override stream_group in subclasses to use different sets of streams.
     """
 
     start_date = "2019-01-01T00:00:00Z"
+    stream_group = ABSENCE_PERFORMANCE_STREAMS  # Default stream group
 
     @staticmethod
     def tap_name():
@@ -33,7 +77,6 @@ class WorkdayBaseTest(BaseCase):
     @classmethod
     def expected_metadata(cls):
         """The expected streams and metadata about the streams."""
-        # All streams have the same metadata pattern
         stream_metadata = {
             cls.PRIMARY_KEYS: {"key_value"},
             cls.REPLICATION_METHOD: cls.FULL_TABLE,
@@ -42,61 +85,17 @@ class WorkdayBaseTest(BaseCase):
             cls.API_LIMIT: 100,
         }
         
-        # All streams from the tap
-        streams = [
-            # Human Resources
-            "human_resources_job_categories",
-            "human_resources_job_family_groups",
-            "human_resources_job_profiles",
-            "human_resources_locations",
-            "human_resources_organizations",
-            # Financial Management
-            "financial_management_cost_centers",
-            "financial_management_customer_categories",
-            "financial_management_fund_hierarchies",
-            "financial_management_fund_types",
-            "financial_management_funding_sources",
-            "financial_management_funds",
-            "financial_management_journal_sources",
-            "financial_management_journals",
-            "financial_management_ledger_account_summaries",
-            "financial_management_ledgers",
-            "financial_management_organizations",
-            "financial_management_position_budgets",
-            "financial_management_program_hierarchies",
-            "financial_management_programs",
-            "financial_management_revenue_categories",
-            "financial_management_revenue_category_hierarchies",
-            "financial_management_spend_category_hierarchies",
-            "financial_management_supplier_categories",
-            # Staffing
-            "staffing_organizations",
-            # Absence Management
-            "absence_management_override_balances",
-            "absence_management_absence_inputs",
-            # Performance Management
-            "performance_management_certification_issuers",
-            "performance_management_competencies",
-            "performance_management_competency_categories",
-            "performance_management_degrees",
-        ]
-        
-        return {stream: stream_metadata.copy() for stream in streams}
+        return {stream: stream_metadata.copy() for stream in cls.stream_group}
 
     @staticmethod
-    def get_credentials(cred_set="first"):
+    def get_credentials():
         """Authentication information for the test account."""
-        suffix = "FIRST" if cred_set == "first" else "SECOND"
-        
-        cred_keys = ["username", "password", "tenant", "hostname"]
-        credentials_dict = {}
-        
-        for key in cred_keys:
-            env_var = f"TAP_WORKDAY_{key.upper()}_{suffix}"
-            credentials_dict[key] = os.getenv(env_var)
-        
-        return credentials_dict
-
+        return {
+            "username": os.getenv("TAP_WORKDAY_USERNAME"),
+            "password": os.getenv("TAP_WORKDAY_PASSWORD"),
+            "tenant": os.getenv("TAP_WORKDAY_TENANT"),
+            "hostname": os.getenv("TAP_WORKDAY_HOSTNAME"),
+        }
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
@@ -106,3 +105,18 @@ class WorkdayBaseTest(BaseCase):
 
         return_value["start_date"] = self.start_date
         return return_value
+
+
+class WorkdayBaseTestFinancialManagement(WorkdayBaseTest):
+    """Base test class for financial management, HR, and staffing streams."""
+    stream_group = FINANCIAL_HR_STAFFING_STREAMS
+
+    @staticmethod
+    def get_credentials():
+        """Authentication information for the financial management test account."""
+        return {
+            "username": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME"),
+            "password": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_PASSWORD"),
+            "tenant": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT"),
+            "hostname": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME"),
+        }

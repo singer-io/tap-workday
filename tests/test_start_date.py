@@ -1,10 +1,9 @@
-from base import WorkdayBaseTest
+from base import WorkdayBaseTest, WorkdayBaseTestFinancialManagement
 from tap_tester.base_suite_tests.start_date_test import StartDateTest
 
 
-class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
-    """Instantiate start date according to the desired data set and run the
-    test."""
+class WorkdayStartDateBase(StartDateTest):
+    """Instantiate start date according to the desired data set and run the test."""
 
     @staticmethod
     def name():
@@ -21,3 +20,14 @@ class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
     @property
     def start_date_2(self):
         return "2017-01-25T00:00:00Z"
+
+
+# Test classes for different stream groups
+class WorkdayStartDateTest(WorkdayStartDateBase, WorkdayBaseTest):
+    """Start date test for absence/performance streams."""
+    pass
+
+
+class WorkdayStartDateTestFinancialManagement(WorkdayStartDateBase, WorkdayBaseTestFinancialManagement):
+    """Start date test for financial/HR/staffing streams."""
+    pass

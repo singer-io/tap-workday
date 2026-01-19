@@ -1,10 +1,9 @@
-from base import WorkdayBaseTest
+from base import WorkdayBaseTest, WorkdayBaseTestFinancialManagement
 from tap_tester.base_suite_tests.bookmark_test import BookmarkTest
 
 
-class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
-    """Test tap sets a bookmark and respects it for the next sync of a
-    stream."""
+class WorkdayBookMarkBase(BookmarkTest):
+    """Test tap sets a bookmark and respects it for the next sync of a stream."""
 
     bookmark_format = "%Y-%m-%dT%H:%M:%S.%fZ"
     initial_bookmarks = {"bookmarks": {}}
@@ -16,3 +15,14 @@ class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
     def streams_to_test(self):
         streams_to_exclude = {}
         return self.expected_stream_names().difference(streams_to_exclude)
+
+
+# Test classes for different stream groups
+class WorkdayBookMarkTest(WorkdayBookMarkBase, WorkdayBaseTest):
+    """Bookmark test for absence/performance streams."""
+    pass
+
+
+class WorkdayBookMarkTestFinancialManagement(WorkdayBookMarkBase, WorkdayBaseTestFinancialManagement):
+    """Bookmark test for financial/HR/staffing streams."""
+    pass

@@ -1,11 +1,9 @@
-from base import WorkdayBaseTest
+from base import WorkdayBaseTest, WorkdayBaseTestFinancialManagement
 from tap_tester.base_suite_tests.pagination_test import PaginationTest
 
 
-class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
-    """
-    Ensure tap can replicate multiple pages of data for streams that use pagination.
-    """
+class WorkdayPaginationBase(PaginationTest):
+    """Ensure tap can replicate multiple pages of data for streams that use pagination."""
 
     @staticmethod
     def name():
@@ -14,3 +12,14 @@ class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
     def streams_to_test(self):
         streams_to_exclude = {}
         return self.expected_stream_names().difference(streams_to_exclude)
+
+
+# Test classes for different stream groups
+class WorkdayPaginationTest(WorkdayPaginationBase, WorkdayBaseTest):
+    """Pagination test for absence/performance streams."""
+    pass
+
+
+class WorkdayPaginationTestFinancialManagement(WorkdayPaginationBase, WorkdayBaseTestFinancialManagement):
+    """Pagination test for financial/HR/staffing streams."""
+    pass
