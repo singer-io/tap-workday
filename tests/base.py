@@ -90,12 +90,18 @@ class WorkdayBaseTest(BaseCase):
     @staticmethod
     def get_credentials():
         """Authentication information for the test account."""
-        return {
-            "username": os.getenv("TAP_WORKDAY_USERNAME"),
-            "password": os.getenv("TAP_WORKDAY_PASSWORD"),
-            "tenant": os.getenv("TAP_WORKDAY_TENANT"),
-            "hostname": os.getenv("TAP_WORKDAY_HOSTNAME"),
+        credentials_dict = {}
+        creds = {
+            "username": "TAP_WORKDAY_USERNAME",
+            "password": "TAP_WORKDAY_PASSWORD",
+            "tenant": "TAP_WORKDAY_TENANT",
+            "hostname": "TAP_WORKDAY_HOSTNAME",
         }
+
+        for cred in creds:
+            credentials_dict[cred] = os.getenv(creds[cred])
+
+        return credentials_dict
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
@@ -114,9 +120,15 @@ class WorkdayBaseTestFinancialManagement(WorkdayBaseTest):
     @staticmethod
     def get_credentials():
         """Authentication information for the financial management test account."""
-        return {
-            "username": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME"),
-            "password": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_PASSWORD"),
-            "tenant": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT"),
-            "hostname": os.getenv("TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME"),
+        credentials_dict = {}
+        creds = {
+            "username": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME",
+            "password": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_PASSWORD",
+            "tenant": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT",
+            "hostname": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME",
         }
+
+        for cred in creds:
+            credentials_dict[cred] = os.getenv(creds[cred])
+
+        return credentials_dict
