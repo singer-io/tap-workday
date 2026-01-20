@@ -1,8 +1,8 @@
-from base import WorkdayBaseTest, WorkdayBaseTestFinancialManagement
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.interrupted_sync_test import InterruptedSyncTest
 
 
-class WorkdayInterruptedSyncBase(InterruptedSyncTest):
+class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
     """Test tap sets a bookmark and respects it for the next sync of a stream."""
 
     @staticmethod
@@ -14,14 +14,3 @@ class WorkdayInterruptedSyncBase(InterruptedSyncTest):
 
     def manipulate_state(self):
         return {"currently_syncing": "prospects", "bookmarks": {}}
-
-
-# Test classes for different stream groups
-class WorkdayInterruptedSyncTest(WorkdayInterruptedSyncBase, WorkdayBaseTest):
-    """Interrupted sync test for absence/performance streams."""
-    pass
-
-
-class WorkdayInterruptedSyncTestFinancialManagement(WorkdayInterruptedSyncBase, WorkdayBaseTestFinancialManagement):
-    """Interrupted sync test for financial/HR/staffing streams."""
-    pass

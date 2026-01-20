@@ -12,6 +12,8 @@ from tap_tester.logger import LOGGER
 
 
 # Stream groups for different test configurations
+# Note: These are logical groupings for reference, but in practice both
+# sets of credentials have access to all streams
 ABSENCE_PERFORMANCE_STREAMS = [
     # Absence Management
     "absence_management_override_balances",
@@ -53,6 +55,9 @@ FINANCIAL_HR_STAFFING_STREAMS = [
     "staffing_organizations",
 ]
 
+# All streams available - credentials have access to all streams
+ALL_STREAMS = ABSENCE_PERFORMANCE_STREAMS + FINANCIAL_HR_STAFFING_STREAMS
+
 
 class WorkdayBaseTest(BaseCase):
     """Base test class for Workday tap integration tests.
@@ -62,7 +67,7 @@ class WorkdayBaseTest(BaseCase):
     """
 
     start_date = "2019-01-01T00:00:00Z"
-    stream_group = ABSENCE_PERFORMANCE_STREAMS  # Default stream group
+    stream_group = ALL_STREAMS  # Credentials have access to all streams
 
     @staticmethod
     def tap_name():
@@ -114,8 +119,11 @@ class WorkdayBaseTest(BaseCase):
 
 
 class WorkdayBaseTestFinancialManagement(WorkdayBaseTest):
-    """Base test class for financial management, HR, and staffing streams."""
-    stream_group = FINANCIAL_HR_STAFFING_STREAMS
+    """Base test class using financial management credentials.
+    
+    Note: Both sets of credentials have access to all streams, so this class
+    uses the same stream_group but with different credentials.
+    """
 
     @staticmethod
     def get_credentials():

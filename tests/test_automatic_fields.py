@@ -1,11 +1,11 @@
 """Test that with no fields selected for a stream automatic fields are still
 replicated."""
-from base import WorkdayBaseTest, WorkdayBaseTestFinancialManagement
+from base import WorkdayBaseTest
 from tap_tester import runner
 from tap_tester.base_suite_tests.automatic_fields_test import MinimumSelectionTest
 
 
-class WorkdayAutomaticFieldsBase(MinimumSelectionTest):
+class WorkdayAutomaticFields(MinimumSelectionTest, WorkdayBaseTest):
     """Base class for automatic fields tests."""
 
     @staticmethod
@@ -42,13 +42,3 @@ class WorkdayAutomaticFieldsBase(MinimumSelectionTest):
             MinimumSelectionTest.actual_field = runner.examine_target_output_for_fields()
             MinimumSelectionTest.synced_messages = runner.get_records_from_target_output()
 
-
-# Test classes for different stream groups
-class WorkdayAutomaticFields(WorkdayAutomaticFieldsBase, WorkdayBaseTest):
-    """Automatic fields test for absence/performance streams."""
-    pass
-
-
-class WorkdayAutomaticFieldsFinancialManagement(WorkdayAutomaticFieldsBase, WorkdayBaseTestFinancialManagement):
-    """Automatic fields test for financial/HR/staffing streams."""
-    pass
