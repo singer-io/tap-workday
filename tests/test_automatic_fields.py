@@ -1,7 +1,7 @@
 """Test that with no fields selected for a stream automatic fields are still
 replicated."""
 from base import WorkdayBaseTest
-from tap_tester import runner
+from tap_tester import connections, runner
 from tap_tester.base_suite_tests.automatic_fields_test import MinimumSelectionTest
 
 
@@ -25,7 +25,7 @@ class WorkdayAutomaticFields(MinimumSelectionTest, WorkdayBaseTest):
 
         if not cached_variables:
             # Establish connection
-            conn_id = self.create_connection()
+            conn_id = connections.ensure_connection(self)
 
             # run check mode
             found_catalogs = self.run_and_verify_check_mode(conn_id)
