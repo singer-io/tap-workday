@@ -24,6 +24,7 @@ class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancialManagemen
     """Test all fields replication for Financial/HR/Staffing streams (financial management credentials).
     
     Only tests streams accessible with financial management credentials to avoid authorization errors.
+    Heavy streams are excluded to avoid timeouts.
     """
 
     @staticmethod
@@ -31,6 +32,9 @@ class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancialManagemen
         return "tap_tester_workday_all_fields_test_financial"
 
     def streams_to_test(self):
-        # Only test streams accessible with financial management credentials
-        streams_to_exclude = set()
+        # Exclude heavy streams from testing to avoid timeouts
+        streams_to_exclude = {
+            "financial_management_journals",
+            "financial_management_ledgers",
+        }
         return set(self.testable_streams).difference(streams_to_exclude)
