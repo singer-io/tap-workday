@@ -21,16 +21,15 @@ jobs:
           name: "pylint"
           command: |
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
-            pip install pylint
+            uv pip install pylint
             pylint tap_workday -d C,R,W
       - add_ssh_keys
       - run:
           name: "Unit Tests"
           command: |
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
-            pip install nose coverage
-            nosetests --with-coverage --cover-erase --cover-package=tap_workday --cover-html-dir=htmlcov tests/unittests
-            coverage html
+            uv pip install pytest pytest-cov
+            pytest tests/unittests --cov=tap_workday --cov-report=html:htmlcov
       - store_test_results:
           path: test_output/report.xml
       - store_artifacts:
