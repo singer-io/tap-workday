@@ -4,25 +4,33 @@ from tap_tester.base_suite_tests.all_fields_test import AllFieldsTest
 KNOWN_MISSING_FIELDS = {}
 
 
-class WorkdayAllFieldsBase(AllFieldsTest):
-    """Ensure running the tap with all streams and fields selected results in
-    the replication of all fields."""
+class WorkdayAllFieldsStandard(AllFieldsTest, WorkdayBaseTest):
+    """Test all fields replication for Absence/Performance streams (standard credentials).
+    
+    Only tests streams accessible with standard credentials to avoid authorization errors.
+    """
 
     @staticmethod
     def name():
-        return "tap_tester_workday_all_fields_test"
+        return "tap_tester_workday_all_fields_test_standard"
 
     def streams_to_test(self):
-        streams_to_exclude = {}
-        return self.expected_stream_names().difference(streams_to_exclude)
+        # Only test streams accessible with standard credentials
+        streams_to_exclude = set()
+        return set(self.testable_streams).difference(streams_to_exclude)
 
 
-# Test classes for different stream groups
-class WorkdayAllFields(WorkdayAllFieldsBase, WorkdayBaseTest):
-    """All fields test for absence/performance streams."""
-    pass
+class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancialManagement):
+    """Test all fields replication for Financial/HR/Staffing streams (financial management credentials).
+    
+    Only tests streams accessible with financial management credentials to avoid authorization errors.
+    """
 
+    @staticmethod
+    def name():
+        return "tap_tester_workday_all_fields_test_financial"
 
-class WorkdayAllFieldsFinancialManagement(WorkdayAllFieldsBase, WorkdayBaseTestFinancialManagement):
-    """All fields test for financial/HR/staffing streams."""
-    pass
+    def streams_to_test(self):
+        # Only test streams accessible with financial management credentials
+        streams_to_exclude = set()
+        return set(self.testable_streams).difference(streams_to_exclude)
