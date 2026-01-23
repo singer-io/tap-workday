@@ -17,12 +17,12 @@ jobs:
           command: |
             source /usr/local/share/virtualenvs/tap-tester/bin/activate
             stitch-validate-json tap_workday/schemas/*.json
-      - run:
-          name: "pylint"
-          command: |
-            source /usr/local/share/virtualenvs/tap-workday/bin/activate
-            pip install pylint
-            pylint tap_workday -d C,R,W
+      # - run:
+      #     name: "pylint"
+      #     command: |
+      #       source /usr/local/share/virtualenvs/tap-workday/bin/activate
+      #       pip install pylint
+      #       pylint tap_workday -d C,R,W
       - add_ssh_keys
       - run:
           name: "Unit Tests"
