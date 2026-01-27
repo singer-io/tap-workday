@@ -1,19 +1,19 @@
 import unittest
+
 from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.start_date_test import StartDateTest
 
 
-@unittest.skip("Skipping test")
+@unittest.skip("Skipped")
 class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
-    """Instantiate start date according to the desired data set and run the test."""
+    """Test start date functionality."""
 
     @staticmethod
     def name():
         return "tap_tester_workday_start_date_test"
 
     def streams_to_test(self):
-        streams_to_exclude = {}
-        return self.expected_stream_names().difference(streams_to_exclude)
+        return self.expected_stream_names()
 
     @property
     def start_date_1(self):

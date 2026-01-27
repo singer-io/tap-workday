@@ -1,40 +1,31 @@
-import copy
 import os
-import unittest
-from datetime import datetime as dt
-from datetime import timedelta
-
-import dateutil.parser
-import pytz
-from tap_tester import connections, menagerie, runner
 from tap_tester.base_suite_tests.base_case import BaseCase
-from tap_tester.logger import LOGGER
 
 
-# Stream groups for different test configurations
-# CRITICAL: These streams require DIFFERENT credentials due to Workday permissions
-# Standard credentials (TAP_WORKDAY_*) can access Absence/Performance streams
-# Financial Management credentials (TAP_WORKDAY_FINANCIAL_MANAGEMENT_*) can access Financial/HR/Staffing streams
+# Standard credentials: HR/Staffing/Absence/Performance streams
+# Financial credentials: Financial streams only
 
-ABSENCE_PERFORMANCE_STREAMS = [
-    # Absence Management - requires standard credentials
+HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [
+    # Human Resources
+    "human_resources_job_categories",
+    "human_resources_job_family_groups",
+    "human_resources_job_profiles",
+    "human_resources_locations",
+    "human_resources_organizations",
+    # Staffing
+    "staffing_organizations",
+    # Absence Management
     "absence_management_override_balances",
     "absence_management_absence_inputs",
-    # Performance Management - requires standard credentials
+    # Performance Management
     "performance_management_certification_issuers",
     "performance_management_competencies",
     "performance_management_competency_categories",
     "performance_management_degrees",
 ]
 
-FINANCIAL_HR_STAFFING_STREAMS = [
-    # Human Resources - requires financial management credentials
-    "human_resources_job_categories",
-    "human_resources_job_family_groups",
-    "human_resources_job_profiles",
-    "human_resources_locations",
-    "human_resources_organizations",
-    # Financial Management - requires financial management credentials
+FINANCIAL_STREAMS = [
+    # Financial Management
     "financial_management_cost_centers",
     "financial_management_customer_categories",
     "financial_management_fund_hierarchies",
@@ -53,40 +44,28 @@ FINANCIAL_HR_STAFFING_STREAMS = [
     "financial_management_revenue_category_hierarchies",
     "financial_management_spend_category_hierarchies",
     "financial_management_supplier_categories",
-    # Staffing - requires financial management credentials
-    "staffing_organizations",
 ]
 
-# All streams available
-ALL_STREAMS = ABSENCE_PERFORMANCE_STREAMS + FINANCIAL_HR_STAFFING_STREAMS
+ALL_STREAMS = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS + FINANCIAL_STREAMS
 
 
 class WorkdayBaseTest(BaseCase):
-    """Base test class for Workday tap integration tests using STANDARD credentials.
-    
-    This class uses standard Workday credentials (TAP_WORKDAY_*).
-    During discovery, ALL streams are returned by the tap.
-    However, only Absence/Performance streams are selected for syncing
-    because standard credentials lack permissions for Financial/HR/Staffing streams.
-    """
+    """Base test for Workday using standard credentials (TAP_WORKDAY_*)."""
 
-    start_date = "2019-01-01T00:00:00Z"
-    stream_group = ALL_STREAMS  # Discovery returns all streams
-    testable_streams = ABSENCE_PERFORMANCE_STREAMS  # But only these can be synced with standard creds
+    start_date = "2020-01-01T00:00:00Z"
+    stream_group = ALL_STREAMS
+    testable_streams = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS
 
     @staticmethod
     def tap_name():
-        """The name of the tap."""
         return "tap-workday"
 
     @staticmethod
     def get_type():
-        """The name of the tap."""
         return "platform.workday"
 
     @classmethod
     def expected_metadata(cls):
-        """The expected streams and metadata about the streams."""
         stream_metadata = {
             cls.PRIMARY_KEYS: {"key_value"},
             cls.REPLICATION_METHOD: cls.FULL_TABLE,
@@ -94,12 +73,10 @@ class WorkdayBaseTest(BaseCase):
             cls.OBEYS_START_DATE: False,
             cls.API_LIMIT: 100,
         }
-        
         return {stream: stream_metadata.copy() for stream in cls.stream_group}
 
     @staticmethod
     def get_credentials():
-        """Authentication information for the test account."""
         credentials_dict = {}
         creds = {
             "username": "TAP_WORKDAY_USERNAME",
@@ -107,37 +84,26 @@ class WorkdayBaseTest(BaseCase):
             "tenant": "TAP_WORKDAY_TENANT",
             "hostname": "TAP_WORKDAY_HOSTNAME",
         }
-
         for cred in creds:
             credentials_dict[cred] = os.getenv(creds[cred])
-
         return credentials_dict
 
     def get_properties(self, original: bool = True):
-        """Configuration of properties required for the tap."""
         return_value = {"start_date": "2022-07-01T00:00:00Z"}
         if original:
             return return_value
-
         return_value["start_date"] = self.start_date
         return return_value
 
 
-class WorkdayBaseTestFinancialManagement(WorkdayBaseTest):
-    """Base test class using FINANCIAL MANAGEMENT credentials.
-    
-    This class uses Financial Management credentials (TAP_WORKDAY_FINANCIAL_MANAGEMENT_*).
-    During discovery, ALL streams are returned by the tap.
-    However, only Financial/HR/Staffing streams are selected for syncing
-    because these are the streams this credential set can access.
-    """
+class WorkdayBaseTestFinancial(WorkdayBaseTest):
+    """Base test using financial credentials (TAP_WORKDAY_FINANCIAL_MANAGEMENT_*)."""
 
-    stream_group = ALL_STREAMS  # Discovery returns all streams
-    testable_streams = FINANCIAL_HR_STAFFING_STREAMS  # But only these can be synced with financial creds
+    stream_group = ALL_STREAMS
+    testable_streams = FINANCIAL_STREAMS
 
     @staticmethod
     def get_credentials():
-        """Authentication information for the financial management test account."""
         credentials_dict = {}
         creds = {
             "username": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME",
@@ -145,8 +111,6 @@ class WorkdayBaseTestFinancialManagement(WorkdayBaseTest):
             "tenant": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT",
             "hostname": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME",
         }
-
         for cred in creds:
             credentials_dict[cred] = os.getenv(creds[cred])
-
         return credentials_dict
