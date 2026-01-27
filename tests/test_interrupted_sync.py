@@ -1,12 +1,15 @@
 import unittest
 
-from base import WorkdayBaseTest
-from tap_tester.base_suite_tests.interrupted_sync_test import InterruptedSyncTest
+from tap_tester.base_suite_tests.interrupted_sync_test import \
+    InterruptedSyncTest
+
+from .base import WorkdayBaseTest
 
 
 @unittest.skip("Skipped")
 class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
-    """Test interrupted sync functionality."""
+    """Test tap sets a bookmark and respects it for the next sync of a
+    stream."""
 
     @staticmethod
     def name():
