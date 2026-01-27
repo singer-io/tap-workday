@@ -2,7 +2,7 @@ import unittest
 
 from tap_tester.base_suite_tests.pagination_test import PaginationTest
 
-from .base import WorkdayBaseTest
+from base import WorkdayBaseTest
 
 
 @unittest.skip("Skipped")

@@ -2,7 +2,7 @@ import unittest
 
 from tap_tester.base_suite_tests.bookmark_test import BookmarkTest
 
-from .base import WorkdayBaseTest
+from base import WorkdayBaseTest
 
 
 @unittest.skip("Skipped")
