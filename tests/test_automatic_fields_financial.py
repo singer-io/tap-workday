@@ -1,20 +1,20 @@
 """
-Test all fields for Financial Management streams.
+Test automatic fields (minimum selection) for Financial Management streams.
 
-NOTE: Separate file required because AllFieldsTest uses class-level caching. Multiple test
-classes in one file would share cached variables, causing the second class to incorrectly
-reuse the first class's data (wrong streams/credentials). Separate files ensure isolated execution.
+NOTE: Separate file required because MinimumSelectionTest uses class-level caching. Multiple
+test classes in one file would share cached variables, causing catalog selection conflicts
+where streams aren't properly selected (wrong streams/credentials). Separate files ensure isolated execution.
 """
 from base import WorkdayBaseTestFinancial
-from tap_tester.base_suite_tests.all_fields_test import AllFieldsTest
+from tap_tester.base_suite_tests.automatic_fields_test import MinimumSelectionTest
 
 
-class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancial):
-    """Test all fields for Financial streams. Heavy streams excluded for performance."""
+class WorkdayAutomaticFieldsFinancial(MinimumSelectionTest, WorkdayBaseTestFinancial):
+    """Test automatic fields for Financial streams. Heavy streams excluded for performance."""
 
     @staticmethod
     def name():
-        return "tap_tester_workday_all_fields_test_financial"
+        return "tap_tester_workday_automatic_fields_test_financial"
 
     def streams_to_test(self):
         streams_to_exclude = {
