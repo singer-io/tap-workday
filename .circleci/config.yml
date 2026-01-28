@@ -6,13 +6,43 @@ jobs:
     steps:
       - checkout
       - run:
-          name: 'Setup virtual env'
+          name: "Setup virtual env"
           command: |
             uv venv --python 3.12 /usr/local/share/virtualenvs/tap-workday
             source /usr/local/share/virtualenvs/tap-workday/bin/activate
-            uv pip install -U 'pip==22.2.2' 'setuptools==65.3.0'
+            uv pip install -U setuptools
             uv pip install .[dev]
+      - run:
+          name: "JSON Validator"
+          command: |
+            source /usr/local/share/virtualenvs/tap-tester/bin/activate
+            stitch-validate-json tap_workday/schemas/*.json
+      - run:
+          name: "pylint"
+          command: |
+            source /usr/local/share/virtualenvs/tap-workday/bin/activate
+            uv pip install pylint
+            pylint tap_workday -d C,R,W
       - add_ssh_keys
+      - run:
+          name: "Unit Tests"
+          command: |
+            source /usr/local/share/virtualenvs/tap-workday/bin/activate
+            uv pip install pytest pytest-cov
+            pytest tests/unittests --cov=tap_workday --cov-report=html:htmlcov
+      - store_test_results:
+          path: test_output/report.xml
+      - store_artifacts:
+          path: htmlcov
+      - run:
+          name: "Integration Tests"
+          command: |
+            source /usr/local/share/virtualenvs/tap-tester/bin/activate
+            uv pip install --upgrade awscli
+            aws s3 cp s3://com-stitchdata-dev-deployment-assets/environments/tap-tester/tap_tester_sandbox dev_env.sh
+            source dev_env.sh
+            unset USE_STITCH_BACKEND
+            run-test --tap=tap-workday tests
 
 
 workflows:

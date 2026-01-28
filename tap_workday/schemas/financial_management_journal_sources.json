@@ -1,0 +1,116 @@
+{
+  "type": [
+    "object",
+    "null"
+  ],
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Journal_Source_Reference": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "type": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Journal_Source_Data": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "Journal_Source_ID": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Journal_Source_Name": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Source_For_Accounting_Journal": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "Process_Award_Costs": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "Source_For_Ad_Hoc_Bank_Transaction": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "Enable_Suspense_Processing_for_Web_Service": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "Suspense_Threshold_Percent": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "Source_For_Workday_Operational_Journal": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

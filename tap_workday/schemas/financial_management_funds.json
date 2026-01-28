@@ -1,0 +1,117 @@
+{
+  "type": "object",
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Fund_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "_value_1": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Fund_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "Fund_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Fund_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Include_Fund_ID_in_Name": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Fund_Type_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Fund_is_Inactive": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        }
+      }
+    }
+  }
+}

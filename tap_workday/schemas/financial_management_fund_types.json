@@ -1,0 +1,154 @@
+{
+  "type": "object",
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Fund_Type_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "_value_1": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Fund_Type_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "Fund_Type_ID": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Fund_Type_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Include_Fund_Type_ID_in_Name": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Inactive": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Fund_Restriction_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Funded_By_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

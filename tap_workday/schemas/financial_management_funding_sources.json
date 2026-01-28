@@ -1,0 +1,353 @@
+{
+  "type": "object",
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Funding_Source_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "_value_1": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Funding_Source_Data": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "Funding_Source_Name": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Company_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Additional_Company_or_Company_Hierarchy_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Funding_Source_Description": {
+          "type": [
+            "null",
+            "string"
+          ]
+        },
+        "Funding_Source_Begin_Date": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date-time"
+        },
+        "Funding_Source_End_Date": {
+          "type": [
+            "null",
+            "string"
+          ],
+          "format": "date-time"
+        },
+        "On_Hold": {
+          "type": [
+            "null",
+            "boolean"
+          ]
+        },
+        "Funding_Source_Funding_Amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Funding_Source_Estimate_Facilities_and_Administration_Rate": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Spend_Restriction_Reference": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "ID": {
+              "type": [
+                "null",
+                "array"
+              ],
+              "items": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  },
+                  "_value_1": {
+                    "type": [
+                      "null",
+                      "string"
+                    ]
+                  }
+                }
+              }
+            },
+            "Descriptor": {
+              "type": [
+                "null",
+                "string"
+              ]
+            }
+          }
+        },
+        "Funding_Source_Cost_Share_Percentage": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Maximum_Contribution": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Funding_Source_Taggable_Data": {
+          "type": [
+            "null",
+            "object"
+          ],
+          "properties": {
+            "Accounting_Worktag_Type_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "_value_1": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            },
+            "Worktag_Reference": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "properties": {
+                "ID": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "_value_1": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "parent_id": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      },
+                      "parent_type": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Descriptor": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "Funding_Amount_for_Direct_Costs": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Allocated_to_Direct_Costs": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Available_Balance_for_Direct_Costs": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Allocated_to_Indirect_Costs": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Actual_Facilities_and_Administration_Rate": {
+          "type": [
+            "null",
+            "number"
+          ]
+        },
+        "Total_Allocated_Amount": {
+          "type": [
+            "null",
+            "number"
+          ]
+        }
+      }
+    }
+  }
+}
