@@ -58,6 +58,7 @@ class WorkdayBaseTest(BaseCase):
 
     @staticmethod
     def tap_name():
+        """The name of the tap."""
         return "tap-workday"
 
     @staticmethod
@@ -66,6 +67,7 @@ class WorkdayBaseTest(BaseCase):
 
     @classmethod
     def expected_metadata(cls):
+        """The expected streams and metadata about the streams."""
         stream_metadata = {
             cls.PRIMARY_KEYS: {"key_value"},
             cls.REPLICATION_METHOD: cls.FULL_TABLE,
@@ -77,6 +79,7 @@ class WorkdayBaseTest(BaseCase):
 
     @staticmethod
     def get_credentials():
+        """Authentication information for the test account."""
         credentials_dict = {}
         creds = {
             "username": "TAP_WORKDAY_USERNAME",
@@ -89,6 +92,7 @@ class WorkdayBaseTest(BaseCase):
         return credentials_dict
 
     def get_properties(self, original: bool = True):
+        """Configuration of properties required for the tap."""
         return_value = {"start_date": "2022-07-01T00:00:00Z"}
         if original:
             return return_value
@@ -104,6 +108,7 @@ class WorkdayBaseTestFinancial(WorkdayBaseTest):
 
     @staticmethod
     def get_credentials():
+        """Authentication information for the test account."""
         credentials_dict = {}
         creds = {
             "username": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME",

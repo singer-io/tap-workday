@@ -1,11 +1,8 @@
-import unittest
-
 from tap_tester.base_suite_tests.bookmark_test import BookmarkTest
 
 from base import WorkdayBaseTest
 
 
-@unittest.skip("Skipped")
 class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
     """Test tap sets a bookmark and respects it for the next sync of a
     stream."""

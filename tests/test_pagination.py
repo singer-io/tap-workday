@@ -1,11 +1,8 @@
-import unittest
-
 from tap_tester.base_suite_tests.pagination_test import PaginationTest
 
 from base import WorkdayBaseTest
 
 
-@unittest.skip("Skipped")
 class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
     """
     Ensure tap can replicate multiple pages of data for streams that use pagination.
