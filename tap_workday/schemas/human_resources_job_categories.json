@@ -1,0 +1,89 @@
+{
+  "type": "object",
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Job_Category_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Job_Category_Data": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "properties": {
+          "Job_Category_ID": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Job_Category_Name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Job_Category_Description": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Inactive": {
+            "type": [
+              "null",
+              "boolean"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
