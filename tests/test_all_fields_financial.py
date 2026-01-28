@@ -28,15 +28,6 @@ class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancial):
             "financial_management_funds",
             "financial_management_position_budgets",
             "financial_management_program_hierarchies",
-            "financial_management_programs",
-            # Streams with intermittent authentication errors
-            "financial_management_customer_categories",
-            "financial_management_journal_sources",
-            "financial_management_ledger_account_summaries",
-            "financial_management_organizations",
-            "financial_management_revenue_categories",
-            "financial_management_revenue_category_hierarchies",
-            "financial_management_spend_category_hierarchies",
-            "financial_management_supplier_categories",
+            "financial_management_programs"
         }
         return set(self.testable_streams).difference(streams_to_exclude)
