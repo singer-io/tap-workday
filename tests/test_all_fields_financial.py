@@ -18,9 +18,6 @@ class WorkdayAllFieldsFinancial(AllFieldsTest, WorkdayBaseTestFinancial):
 
     def streams_to_test(self):
         streams_to_exclude = {
-            # Heavy streams excluded for performance
-            "financial_management_journals",
-            "financial_management_ledgers",
             # Streams with no data in test account
             "financial_management_fund_hierarchies",
             "financial_management_fund_types",
