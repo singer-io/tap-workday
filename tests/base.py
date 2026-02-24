@@ -1,52 +1,11 @@
 import os
 from tap_tester.base_suite_tests.base_case import BaseCase
 
+from tap_workday.streams import STREAMS
 
-# Standard credentials: HR/Staffing/Absence/Performance streams
-# Financial credentials: Financial streams only
-
-HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [
-    # Human Resources
-    "human_resources_job_categories",
-    "human_resources_job_family_groups",
-    "human_resources_job_profiles",
-    "human_resources_locations",
-    "human_resources_organizations",
-    # Staffing
-    "staffing_organizations",
-    # Absence Management
-    "absence_management_override_balances",
-    "absence_management_absence_inputs",
-    # Performance Management
-    "performance_management_certification_issuers",
-    "performance_management_competencies",
-    "performance_management_competency_categories",
-    "performance_management_degrees",
-]
-
-FINANCIAL_STREAMS = [
-    # Financial Management
-    "financial_management_cost_centers",
-    "financial_management_customer_categories",
-    "financial_management_fund_hierarchies",
-    "financial_management_fund_types",
-    "financial_management_funding_sources",
-    "financial_management_funds",
-    "financial_management_journal_sources",
-    "financial_management_journals",
-    "financial_management_ledger_account_summaries",
-    "financial_management_ledgers",
-    "financial_management_organizations",
-    "financial_management_position_budgets",
-    "financial_management_program_hierarchies",
-    "financial_management_programs",
-    "financial_management_revenue_categories",
-    "financial_management_revenue_category_hierarchies",
-    "financial_management_spend_category_hierarchies",
-    "financial_management_supplier_categories",
-]
-
-ALL_STREAMS = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS + FINANCIAL_STREAMS
+ALL_STREAMS = sorted(STREAMS.keys())
+FINANCIAL_STREAMS = [s for s in ALL_STREAMS if s.startswith("financial_management_")]
+HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FINANCIAL_STREAMS]
 
 
 class WorkdayBaseTest(BaseCase):
