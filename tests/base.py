@@ -1,4 +1,9 @@
 import os
+import sys
+
+# Ensure tap_workday is importable even when not installed as a package
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
+
 from tap_tester.base_suite_tests.base_case import BaseCase
 
 from tap_workday.streams import STREAMS
