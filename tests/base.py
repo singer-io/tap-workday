@@ -1,14 +1,14 @@
+import glob
 import os
-import sys
-
-# Ensure tap_workday is importable even when not installed as a package
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
 
 from tap_tester.base_suite_tests.base_case import BaseCase
 
-from tap_workday.streams import STREAMS
 
-ALL_STREAMS = sorted(STREAMS.keys())
+_SCHEMA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tap_workday", "schemas")
+ALL_STREAMS = sorted(
+    os.path.splitext(os.path.basename(f))[0]
+    for f in glob.glob(os.path.join(_SCHEMA_DIR, "*.json"))
+)
 FINANCIAL_STREAMS = [s for s in ALL_STREAMS if s.startswith("financial_management_")]
 HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FINANCIAL_STREAMS]
 
