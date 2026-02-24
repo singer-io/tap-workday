@@ -1,6 +1,6 @@
 from tap_tester.base_suite_tests.pagination_test import PaginationTest
 
-from .base import WorkdayBaseTest
+from base import WorkdayBaseTest
 
 
 class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
