@@ -13,7 +13,6 @@ setup(
         "requests==2.32.5",
         "backoff==2.2.1",
         "zeep==4.3.1",
-        "parameterized==0.9.0",
     ],
     entry_points="""
           [console_scripts]
