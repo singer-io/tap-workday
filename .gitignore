@@ -230,6 +230,12 @@ csx/
 ecf/
 rcf/
 
+# Virtualenn
+venv/
+
+# Temporary
+tmp/
+
 # Windows Store app package directories and files
 AppPackages/
 BundleArtifacts/
