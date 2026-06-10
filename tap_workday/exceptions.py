@@ -44,3 +44,9 @@ class WorkdayBackoffError(WorkdaySOAPError):
     """Raised for retryable/backoff conditions."""
 
     pass
+
+
+class WorkdayForbiddenError(WorkdaySOAPError):
+    """Raised when credentials lack permission to access a resource (authorization failure)."""
+
+    pass

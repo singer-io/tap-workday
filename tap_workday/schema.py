@@ -5,8 +5,7 @@ from typing import Dict, Tuple
 import singer
 from singer import metadata
 
-from tap_workday.client import Client
-from tap_workday.exceptions import WorkdaySOAPFaultError, WORKDAY_AUTH_ERROR_PATTERNS
+
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
@@ -43,38 +42,13 @@ def load_schema_references() -> Dict:
 
 def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata) -> Dict:
     """
-    Check if stream is authorized by making a test API call.
-    """
-    if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
-        try:
-            client = Client(config, service=stream_obj.service_name)
-            
-            # Check if stream has custom check_access method, otherwise use generic client check_access
-            if hasattr(stream_obj, 'check_access') and callable(getattr(stream_obj, 'check_access')):
-                stream_obj.check_access(client)
-            else:
-                client.check_access(stream_obj.operation_name)
-        except WorkdaySOAPFaultError as e:
-            # Check for specific authorization error message
-            err_lower = str(e).lower()
-            matched_pattern = next(
-                (p for p in WORKDAY_AUTH_ERROR_PATTERNS if p.lower() in err_lower),
-                None
-            )
-            if matched_pattern:
-                LOGGER.warning(
-                    f"Authorization failure for stream: {stream_name}, "
-                    f"service={getattr(stream_obj, 'service_name', 'unknown')}, "
-                    f"operation={getattr(stream_obj, 'operation_name', 'unknown')}. "
-                    f"Error: '{matched_pattern}'. "
-                    "The Workday API user likely lacks required permissions for this operation. "
-                    "Update Workday domain/security group access and re-run."
-                )
-            else:
-                LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
-        except Exception as e:
-            LOGGER.error(f"Error testing authorization for stream {stream_name}: {e}")
+    Placeholder for stream authorization metadata enrichment.
 
+    Access checking (403 / authorization failures) is now handled exclusively by
+    _apply_access_checks() in discover.py, which runs after get_schemas().
+    This function is retained for backward compatibility and potential future
+    metadata enrichment.
+    """
     return mdata
 
 

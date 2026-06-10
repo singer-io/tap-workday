@@ -15,6 +15,7 @@ from singer import (
 )
 
 from tap_workday.client import Client, DefaultValues
+from tap_workday.exceptions import WORKDAY_AUTH_ERROR_PATTERNS, WorkdayForbiddenError, WorkdaySOAPFaultError
 from tap_workday.streams.helpers import call_workday_operation, emit_full_table
 
 LOGGER = get_logger()
@@ -45,11 +46,12 @@ class BaseStream(ABC):
     def __init__(self, client=None, catalog=None) -> None:
         self.client = client
         self.catalog = catalog
-        self.schema = catalog.schema.to_dict()
-        self.metadata = metadata.to_map(catalog.metadata)
+        self.schema = catalog.schema.to_dict() if catalog else {}
+        self.metadata = metadata.to_map(catalog.metadata) if catalog else {}
         self.child_to_sync = []
         self.params = {}
         self.data_payload = {}
+        self.page_size = self.client.config.get("page_size", self.page_size) if client else self.page_size
 
     @property
     @abstractmethod
@@ -79,6 +81,16 @@ class BaseStream(ABC):
     def is_selected(self):
         """Check if the stream is selected in the catalog."""
         return metadata.get(self.metadata, (), "selected")
+
+    def check_access(self) -> bool:
+        """Check if this stream is accessible with the current credentials.
+
+        Child streams always return True since their accessibility is determined
+        by their parent stream. Override in subclasses for specific access checks.
+        """
+        if self.parent:
+            return True
+        return True
 
     @abstractmethod
     def sync(
@@ -360,6 +372,24 @@ class WorkdayTableStream(FullTableStream):
         """Client for WorkdayTableStream."""
         cfg = self.client.config
         return Client(cfg, service=self.service_name, version=self.version)
+
+    def check_access(self) -> bool:
+        """Check if this stream's Workday operation is accessible with the current credentials.
+
+        Child streams always return True since their accessibility is determined by their parent.
+        Raises WorkdayForbiddenError if credentials lack permission for this stream.
+        """
+        if self.parent:
+            return True
+        client = self.get_client()
+        try:
+            client.check_access(self.operation_name)
+        except WorkdaySOAPFaultError as exc:
+            err_lower = str(exc).lower()
+            if any(p.lower() in err_lower for p in WORKDAY_AUTH_ERROR_PATTERNS):
+                raise WorkdayForbiddenError(str(exc)) from exc
+            raise
+        return True
 
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""

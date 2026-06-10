@@ -6,7 +6,6 @@ import singer
 from tap_workday.client import Client
 from tap_workday.discover import discover
 from tap_workday.sync import sync
-from typing import Dict
 
 LOGGER = singer.get_logger()
 
@@ -19,12 +18,12 @@ REQUIRED_CONFIG_KEYS = [
 ]
 
 
-def do_discover(config: Dict):
+def do_discover(client):
     """
     Discover and emit the catalog to stdout
     """
     LOGGER.info("Starting discover")
-    catalog = discover(config)
+    catalog = discover(client)
     json.dump(catalog.to_dict(), sys.stdout, indent=2)
     LOGGER.info("Finished discover")
 
@@ -41,7 +40,7 @@ def main():
 
     client = Client(parsed_args.config)
     if parsed_args.discover:
-        do_discover(parsed_args.config)
+        do_discover(client)
     elif parsed_args.catalog:
         sync(
             client=client,

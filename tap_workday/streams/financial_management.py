@@ -125,12 +125,15 @@ class Ledgers(FinancialManagementStream):
     data_key = "Ledger"
     wid_key = "Actuals_Ledger_Reference"
 
-    @classmethod
-    def check_access(cls, client):
+    def check_access(self) -> bool:
+        """Custom check_access for Get_Ledgers operation that requires Request_Reference.
+
+        Uses a real ledger ID extracted from journals (1 page only) to verify API accessibility.
+        Raises WorkdayForbiddenError if credentials lack permission for this stream.
         """
-        Custom check_access for Get_Ledgers operation that requires Request_Reference.
-        Uses a real ledger ID extracted from journals (1 page only) to verify API accessibility without retry logic.
-        """
+        from tap_workday.exceptions import WORKDAY_AUTH_ERROR_PATTERNS, WorkdayForbiddenError, WorkdaySOAPFaultError
+
+        client = self.get_client()
         # Get a real ledger ID from journals for access testing (limit to 1 page)
         try:
             ledger_ids = Journals.extract_ledger_ids_from_journals_api(client, max_pages=1)
@@ -138,7 +141,7 @@ class Ledgers(FinancialManagementStream):
         except Exception as exc:
             LOGGER.warning(f"Failed to extract ledger ID for access check: {exc}")
             ledger_id = "TEST_LEDGER"
-        
+
         dummy_params = {
             'Request_Reference': {
                 'Actuals_Ledger_Reference': {
@@ -147,12 +150,18 @@ class Ledgers(FinancialManagementStream):
             },
             'Response_Filter': {'Page': 1, 'Count': 1}  # Minimal page size for testing
         }
-        
+
         try:
-            result = client.check_access(cls.operation_name, **dummy_params)
-            return result
+            client.check_access(self.operation_name, **dummy_params)
+            return True
+        except WorkdaySOAPFaultError as exc:
+            err_lower = str(exc).lower()
+            if any(p.lower() in err_lower for p in WORKDAY_AUTH_ERROR_PATTERNS):
+                raise WorkdayForbiddenError(str(exc)) from exc
+            LOGGER.info(f"Access check for {self.operation_name}: {exc}")
+            raise
         except Exception as exc:
-            LOGGER.info(f"Access check for {cls.operation_name}: {exc}")
+            LOGGER.info(f"Access check for {self.operation_name}: {exc}")
             raise
 
     def sync(self, state, transformer, parent_obj=None):
