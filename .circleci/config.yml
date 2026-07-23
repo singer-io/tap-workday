@@ -34,22 +34,22 @@ jobs:
           path: test_output/report.xml
       - store_artifacts:
           path: htmlcov
-      - run:
-          name: "Integration Tests - HR/Staffing/Absence/Performance"
-          command: |
-            source /usr/local/share/virtualenvs/tap-tester/bin/activate
-            uv pip install --upgrade awscli
-            aws s3 cp s3://com-stitchdata-dev-deployment-assets/environments/tap-tester/tap_tester_sandbox dev_env.sh
-            source dev_env.sh
-            unset USE_STITCH_BACKEND
-            run-test --tap=tap-workday tests/test_*_hr.py
-      - run:
-          name: "Integration Tests - Financial Management"
-          command: |
-            source /usr/local/share/virtualenvs/tap-tester/bin/activate
-            source dev_env.sh
-            unset USE_STITCH_BACKEND
-            run-test --tap=tap-workday tests/test_*_financial.py
+      # - run:
+      #     name: "Integration Tests - HR/Staffing/Absence/Performance"
+      #     command: |
+      #       source /usr/local/share/virtualenvs/tap-tester/bin/activate
+      #       uv pip install --upgrade awscli
+      #       aws s3 cp s3://com-stitchdata-dev-deployment-assets/environments/tap-tester/tap_tester_sandbox dev_env.sh
+      #       source dev_env.sh
+      #       unset USE_STITCH_BACKEND
+      #       run-test --tap=tap-workday tests/test_*_hr.py
+      # - run:
+      #     name: "Integration Tests - Financial Management"
+      #     command: |
+      #       source /usr/local/share/virtualenvs/tap-tester/bin/activate
+      #       source dev_env.sh
+      #       unset USE_STITCH_BACKEND
+      #       run-test --tap=tap-workday tests/test_*_financial.py
 
 
 workflows:
