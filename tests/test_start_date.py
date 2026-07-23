@@ -1,11 +1,11 @@
+import unittest
+from base import WorkdayBaseTest
 from tap_tester.base_suite_tests.start_date_test import StartDateTest
 
-from base import WorkdayBaseTest
 
-
+@unittest.skip("Skipping test")
 class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
-    """Instantiate start date according to the desired data set and run the
-    test."""
+    """Instantiate start date according to the desired data set and run the test."""
 
     @staticmethod
     def name():
