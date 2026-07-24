@@ -110,7 +110,7 @@ def get_schemas(config: Dict):
                     mdata, ("properties", field_name), "inclusion", "automatic"
                 )
 
-        mdata = check_stream_authorization(config, stream_name, stream_obj, mdata)
+        # mdata = check_stream_authorization(config, stream_name, stream_obj, mdata)
         parent_tap_stream_id = getattr(stream_obj, "parent", None)
         if parent_tap_stream_id:
             mdata = metadata.write(mdata, (), 'parent-tap-stream-id', parent_tap_stream_id)
