@@ -41,7 +41,8 @@
         },
         "Descriptor": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         }
       }
@@ -120,7 +121,8 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -171,7 +173,8 @@
                     },
                     "Descriptor": {
                       "type": [
-                        "null"
+                        "null",
+                        "string"
                       ]
                     }
                   }
@@ -232,7 +235,8 @@
               },
               "Descriptor": {
                 "type": [
-                  "null"
+                  "null",
+                  "string"
                 ]
               }
             }

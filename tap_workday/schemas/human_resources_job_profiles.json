@@ -41,7 +41,8 @@
         },
         "Descriptor": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         }
       }
@@ -91,7 +92,8 @@
             },
             "Job_Profile_Private_Title": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Job_Profile_Summary": {
@@ -108,7 +110,8 @@
             },
             "Additional_Job_Description": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Work_Shift_Required": {
@@ -157,19 +160,22 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
             },
             "Job_Category_Reference": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Job_Level_Reference": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Job_Family_Data": {
@@ -217,14 +223,16 @@
                       },
                       "Descriptor": {
                         "type": [
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Delete": {
                     "type": [
-                      "null"
+                      "null",
+                      "boolean"
                     ]
                   }
                 }
@@ -275,14 +283,16 @@
                       },
                       "Descriptor": {
                         "type": [
-                          "null"
+                          "null",
+                          "string"
                         ]
                       }
                     }
                   },
                   "Delete": {
                     "type": [
-                      "null"
+                      "null",
+                      "boolean"
                     ]
                   }
                 }
@@ -290,7 +300,8 @@
             },
             "Referral_Payment_Plan_Reference": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Critical_Job": {
@@ -333,7 +344,8 @@
                 },
                 "Descriptor": {
                   "type": [
-                    "null"
+                    "null",
+                    "string"
                   ]
                 }
               }
@@ -400,14 +412,16 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
               },
               "Delete": {
                 "type": [
-                  "null"
+                  "null",
+                  "boolean"
                 ]
               }
             }
@@ -458,7 +472,8 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -497,14 +512,16 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
               },
               "Delete": {
                 "type": [
-                  "null"
+                  "null",
+                  "boolean"
                 ]
               }
             }
@@ -552,12 +569,14 @@
                         },
                         "parent_id": {
                           "type": [
-                            "null"
+                            "null",
+                            "string"
                           ]
                         },
                         "parent_type": {
                           "type": [
-                            "null"
+                            "null",
+                            "string"
                           ]
                         }
                       }
@@ -565,7 +584,8 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -578,7 +598,8 @@
               },
               "Delete": {
                 "type": [
-                  "null"
+                  "null",
+                  "boolean"
                 ]
               }
             }
@@ -629,7 +650,8 @@
                   },
                   "Descriptor": {
                     "type": [
-                      "null"
+                      "null",
+                      "string"
                     ]
                   }
                 }
@@ -645,7 +667,8 @@
           "properties": {
             "Responsibility_Qualification_Replacement": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Work_Experience_Qualification_Replacement": {
@@ -699,7 +722,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -738,7 +762,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -754,7 +779,8 @@
                 },
                 "Delete": {
                   "type": [
-                    "null"
+                    "null",
+                    "boolean"
                   ]
                 }
               }
@@ -810,7 +836,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -849,7 +876,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -865,7 +893,8 @@
                 },
                 "Delete": {
                   "type": [
-                    "null"
+                    "null",
+                    "boolean"
                   ]
                 }
               }
@@ -921,7 +950,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -971,7 +1001,8 @@
                                 },
                                 "Descriptor": {
                                   "type": [
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -1010,7 +1041,8 @@
                                 },
                                 "Descriptor": {
                                   "type": [
-                                    "null"
+                                    "null",
+                                    "string"
                                   ]
                                 }
                               }
@@ -1029,7 +1061,8 @@
                 },
                 "Delete": {
                   "type": [
-                    "null"
+                    "null",
+                    "boolean"
                   ]
                 }
               }
@@ -1085,7 +1118,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -1124,7 +1158,8 @@
                           },
                           "Descriptor": {
                             "type": [
-                              "null"
+                              "null",
+                              "string"
                             ]
                           }
                         }
@@ -1140,24 +1175,28 @@
                 },
                 "Delete": {
                   "type": [
-                    "null"
+                    "null",
+                    "boolean"
                   ]
                 }
               }
             },
             "Certification_Qualification_Replacement": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Training_Qualification_Replacement": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             },
             "Skill_Qualification_Replacement": {
               "type": [
-                "null"
+                "null",
+                "string"
               ]
             }
           }
@@ -1179,17 +1218,20 @@
         },
         "Job_Profile_Compensation_Data": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         },
         "Unions_Data": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         },
         "Work-Study_Data": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         }
       }
