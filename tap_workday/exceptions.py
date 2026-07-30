@@ -4,11 +4,21 @@ Centralized exception definitions for Workday SOAP API operations.
 
 from zeep.exceptions import Fault, TransportError, XMLSyntaxError
 
+# Patterns that indicate a SOAP-level authorization failure (credentials valid but lack permissions)
 WORKDAY_AUTH_ERROR_PATTERNS = [
     'Processing error occurred. The task submitted is not authorized.',
     'not authorized',
     'authorization failed',
-    'insufficient permissions'
+    'insufficient permissions',
+]
+
+# Patterns that indicate an HTTP-level authentication failure (invalid/expired credentials)
+WORKDAY_AUTHN_ERROR_PATTERNS = [
+    'http status 401',
+    'authentication failed',
+    'invalid credentials',
+    'invalid username',
+    'invalid password',
 ]
 
 
@@ -42,5 +52,11 @@ class WorkdaySOAPUnexpectedError(WorkdaySOAPError):
 
 class WorkdayBackoffError(WorkdaySOAPError):
     """Raised for retryable/backoff conditions."""
+
+    pass
+
+
+class WorkdayForbiddenError(WorkdaySOAPError):
+    """Raised when credentials lack access to all discoverable streams."""
 
     pass

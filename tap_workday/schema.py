@@ -6,7 +6,13 @@ import singer
 from singer import metadata
 
 from tap_workday.client import Client
-from tap_workday.exceptions import WorkdaySOAPFaultError, WORKDAY_AUTH_ERROR_PATTERNS
+from tap_workday.exceptions import (
+    WorkdayForbiddenError,
+    WorkdaySOAPFaultError,
+    WorkdaySOAPTransportError,
+    WORKDAY_AUTH_ERROR_PATTERNS,
+    WORKDAY_AUTHN_ERROR_PATTERNS,
+)
 from tap_workday.streams import STREAMS
 
 LOGGER = singer.get_logger()
@@ -41,41 +47,70 @@ def load_schema_references() -> Dict:
     return refs
 
 
-def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata) -> Dict:
+def check_stream_authorization(config: Dict, stream_name: str, stream_obj) -> bool:
     """
     Check if stream is authorized by making a test API call.
-    """
-    if config and hasattr(stream_obj, 'service_name') and hasattr(stream_obj, 'operation_name'):
-        try:
-            client = Client(config, service=stream_obj.service_name)
-            
-            # Check if stream has custom check_access method, otherwise use generic client check_access
-            if hasattr(stream_obj, 'check_access') and callable(getattr(stream_obj, 'check_access')):
-                stream_obj.check_access(client)
-            else:
-                client.check_access(stream_obj.operation_name)
-        except WorkdaySOAPFaultError as e:
-            # Check for specific authorization error message
-            err_lower = str(e).lower()
-            matched_pattern = next(
-                (p for p in WORKDAY_AUTH_ERROR_PATTERNS if p.lower() in err_lower),
-                None
-            )
-            if matched_pattern:
-                LOGGER.warning(
-                    f"Authorization failure for stream: {stream_name}, "
-                    f"service={getattr(stream_obj, 'service_name', 'unknown')}, "
-                    f"operation={getattr(stream_obj, 'operation_name', 'unknown')}. "
-                    f"Error: '{matched_pattern}'. "
-                    "The Workday API user likely lacks required permissions for this operation. "
-                    "Update Workday domain/security group access and re-run."
-                )
-            else:
-                LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
-        except Exception as e:
-            LOGGER.error(f"Error testing authorization for stream {stream_name}: {e}")
+    Returns True if accessible, False if the stream should be excluded from the catalog.
 
-    return mdata
+    Distinguishes two failure types:
+    - Authentication failure: invalid/expired credentials (HTTP 401). Logged as 'authentication'.
+    - Authorization failure: valid credentials but insufficient permissions (SOAP auth fault).
+      Logged as 'authorization'.
+    """
+    if not config or not hasattr(stream_obj, 'service_name') or not hasattr(stream_obj, 'operation_name'):
+        return True
+
+    try:
+        client = Client(config, service=stream_obj.service_name)
+
+        # Use stream's custom check_access method if present, else fall back to client
+        if hasattr(stream_obj, 'check_access') and callable(getattr(stream_obj, 'check_access')):
+            stream_obj.check_access(client)
+        else:
+            client.check_access(stream_obj.operation_name)
+        return True
+    except WorkdaySOAPFaultError as e:
+        err_lower = str(e).lower()
+        matched_pattern = next(
+            (p for p in WORKDAY_AUTH_ERROR_PATTERNS if p.lower() in err_lower),
+            None
+        )
+        if matched_pattern:
+            LOGGER.warning(
+                "Authorization failure for stream '%s' (service=%s, operation=%s): "
+                "credentials lack the required permissions - '%s'. "
+                "Update the Workday domain/security group access and re-run.",
+                stream_name,
+                getattr(stream_obj, 'service_name', 'unknown'),
+                getattr(stream_obj, 'operation_name', 'unknown'),
+                matched_pattern,
+            )
+            return False
+        LOGGER.error("SOAP fault for stream '%s': %s", stream_name, e)
+        return True
+    except WorkdaySOAPTransportError as e:
+        err_lower = str(e).lower()
+        # status_code may be 0 when raised via SOAPErrorHandler; rely on the message string.
+        status_code = getattr(e, 'status_code', 0)
+        is_authn_failure = (
+            status_code == 401
+            or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS)
+        )
+        if is_authn_failure:
+            LOGGER.warning(
+                "Authentication failure for stream '%s' (service=%s, operation=%s): "
+                "invalid or expired credentials. "
+                "Verify the username and password in the tap config.",
+                stream_name,
+                getattr(stream_obj, 'service_name', 'unknown'),
+                getattr(stream_obj, 'operation_name', 'unknown'),
+            )
+            return False
+        LOGGER.error("Transport error for stream '%s': %s", stream_name, e)
+        return True
+    except Exception as e:
+        LOGGER.error("Unexpected error testing access for stream '%s': %s", stream_name, e)
+        return True
 
 
 def get_schemas(config: Dict):
@@ -90,6 +125,9 @@ def get_schemas(config: Dict):
         schema_path = get_abs_path("schemas/{}.json".format(stream_name))
         with open(schema_path) as file:
             schema = json.load(file)
+
+        if not check_stream_authorization(config, stream_name, stream_obj):
+            continue
 
         schemas[stream_name] = schema
         schema = singer.resolve_schema_references(schema, refs)
@@ -110,12 +148,18 @@ def get_schemas(config: Dict):
                     mdata, ("properties", field_name), "inclusion", "automatic"
                 )
 
-        # mdata = check_stream_authorization(config, stream_name, stream_obj, mdata)
         parent_tap_stream_id = getattr(stream_obj, "parent", None)
         if parent_tap_stream_id:
             mdata = metadata.write(mdata, (), 'parent-tap-stream-id', parent_tap_stream_id)
 
         mdata = metadata.to_list(mdata)
         field_metadata[stream_name] = mdata
+
+    if config and not schemas:
+        raise WorkdayForbiddenError(
+            "HTTP-error-code: 403, Error: The account credentials supplied do not have "
+            "'read' access to any of the streams supported by the tap. "
+            "Data collection cannot be initiated due to lack of permissions."
+        )
 
     return schemas, field_metadata
