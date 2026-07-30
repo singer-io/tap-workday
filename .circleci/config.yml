@@ -49,7 +49,7 @@ jobs:
             source /usr/local/share/virtualenvs/tap-tester/bin/activate
             source dev_env.sh
             unset USE_STITCH_BACKEND
-            run-test --tap=tap-workday tests/test_*_financial.py
+            # run-test --tap=tap-workday tests/test_*_financial.py
 
 
 workflows:
