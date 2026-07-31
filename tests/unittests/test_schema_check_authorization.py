@@ -104,6 +104,33 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
         )
 
     @patch('tap_workday.schema.Client')
+    def test_returns_false_on_authentication_soap_fault(self, mock_client_class):
+        """SOAP fault 'invalid username or password' is an authentication failure, not authorization."""
+        mock_client = Mock(spec=Client)
+        mock_client_class.return_value = mock_client
+
+        class MockStream:
+            service_name = "Human_Resources"
+            operation_name = "Get_Workers"
+
+        mock_client.check_access.side_effect = WorkdaySOAPFaultError(
+            "SOAP Fault in 'Get_Workers': invalid username or password"
+        )
+
+        with self.assertLogs(level='WARNING') as cm:
+            result = check_stream_authorization(self.config, "test_stream", MockStream)
+
+        self.assertFalse(result)
+        self.assertTrue(
+            any('authentication' in msg.lower() for msg in cm.output),
+            "Expected 'authentication' in log output",
+        )
+        self.assertFalse(
+            any('authorization' in msg.lower() for msg in cm.output),
+            "Authentication log should not mention 'authorization'",
+        )
+
+    @patch('tap_workday.schema.Client')
     def test_returns_true_on_non_auth_fault(self, mock_client_class):
         """Test that check_stream_authorization returns True for non-auth SOAP faults."""
         mock_client = Mock(spec=Client)

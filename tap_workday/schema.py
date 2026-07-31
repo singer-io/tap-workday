@@ -71,19 +71,30 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj) -> bo
         return True
     except WorkdaySOAPFaultError as e:
         err_lower = str(e).lower()
+        # Authentication failure (invalid credentials) delivered as a SOAP fault
+        if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+            LOGGER.warning(
+                "Stream '%s' excluded from catalog \u2014 authentication failure "
+                "(service=%s, operation=%s): invalid or expired credentials. "
+                "Verify the username and password in the tap config.",
+                stream_name,
+                getattr(stream_obj, 'service_name', 'unknown'),
+                getattr(stream_obj, 'operation_name', 'unknown'),
+            )
+            return False
+        # Authorization failure (valid credentials, insufficient permissions)
         matched_pattern = next(
             (p for p in WORKDAY_AUTH_ERROR_PATTERNS if p.lower() in err_lower),
             None
         )
         if matched_pattern:
             LOGGER.warning(
-                "Authorization failure for stream '%s' (service=%s, operation=%s): "
-                "credentials lack the required permissions - '%s'. "
-                "Update the Workday domain/security group access and re-run.",
+                "Stream '%s' excluded from catalog — authorization failure "
+                "(service=%s, operation=%s): credentials lack the required permissions. "
+                "Grant access via the Workday domain/security group settings and re-run discovery.",
                 stream_name,
                 getattr(stream_obj, 'service_name', 'unknown'),
                 getattr(stream_obj, 'operation_name', 'unknown'),
-                matched_pattern,
             )
             return False
         LOGGER.error("SOAP fault for stream '%s': %s", stream_name, e)
@@ -98,8 +109,8 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj) -> bo
         )
         if is_authn_failure:
             LOGGER.warning(
-                "Authentication failure for stream '%s' (service=%s, operation=%s): "
-                "invalid or expired credentials. "
+                "Stream '%s' excluded from catalog — authentication failure "
+                "(service=%s, operation=%s): invalid or expired credentials. "
                 "Verify the username and password in the tap config.",
                 stream_name,
                 getattr(stream_obj, 'service_name', 'unknown'),
@@ -113,12 +124,57 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj) -> bo
         return True
 
 
+def check_authentication(config: Dict) -> bool:
+    """
+    Validate credentials with a single lightweight SOAP call before stream discovery.
+
+    Returns True if credentials are valid (or config is absent).
+    Returns False only on authentication failure (HTTP 401 / invalid credentials).
+    SOAP authorization faults are treated as valid credentials — the probe operation
+    may simply be unauthorized for this user.
+    """
+    if not config:
+        return True
+
+    try:
+        client = Client(config, service="Human_Resources")
+        client.check_access("Get_Workers")
+        return True
+    except WorkdaySOAPTransportError as e:
+        err_lower = str(e).lower()
+        status_code = getattr(e, 'status_code', 0)
+        if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+            return False
+        return True  # non-401 transport error, don't block discovery
+    except WorkdaySOAPFaultError as e:
+        err_lower = str(e).lower()
+        if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+            return False  # authentication failure expressed as a SOAP fault
+        return True  # authorization failure only; credentials are valid
+    except Exception:
+        return True  # unexpected error, don't block discovery
+
+
 def get_schemas(config: Dict):
     """
-    Load the schema references, prepare metadata for each streams and return schema and metadata for the catalog.
+    Load the schema references, prepare metadata for each stream and return schema and
+    metadata for the catalog.
+
+    Steps:
+      1. Validate credentials upfront (authentication check).
+      2. For each stream, verify authorization individually.
+      3. Include only streams that pass both checks.
+      4. Return empty dicts (no exception) when auth fails or no streams are authorized.
     """
     schemas = {}
     field_metadata = {}
+
+    if config and not check_authentication(config):
+        LOGGER.warning(
+            "Authentication failure: invalid or expired credentials. "
+            "Catalog generation skipped - verify the username and password in the tap config."
+        )
+        return schemas, field_metadata
 
     refs = load_schema_references()
     for stream_name, stream_obj in STREAMS.items():
@@ -156,10 +212,9 @@ def get_schemas(config: Dict):
         field_metadata[stream_name] = mdata
 
     if config and not schemas:
-        raise WorkdayForbiddenError(
-            "HTTP-error-code: 403, Error: The account credentials supplied do not have "
-            "'read' access to any of the streams supported by the tap. "
-            "Data collection cannot be initiated due to lack of permissions."
+        LOGGER.warning(
+            "No authorized streams found. The catalog will be empty. "
+            "Verify that the tap credentials have 'read' access to at least one stream."
         )
 
     return schemas, field_metadata
