@@ -7,8 +7,6 @@ from singer import metadata
 
 from tap_workday.client import Client
 from tap_workday.exceptions import (
-    WorkdayAuthenticationError,
-    WorkdayForbiddenError,
     WorkdaySOAPFaultError,
     WorkdaySOAPTransportError,
     WORKDAY_AUTH_ERROR_PATTERNS,
@@ -100,37 +98,6 @@ def check_stream_authorization(
         return True, "unexpected_error", str(e)
 
 
-def check_authentication(config: Dict) -> bool:
-    """
-    Validate credentials with a single lightweight SOAP call before stream discovery.
-
-    Returns True if credentials are valid (or config is absent).
-    Returns False only on authentication failure (HTTP 401 / invalid credentials).
-    SOAP authorization faults are treated as valid credentials — the probe operation
-    may simply be unauthorized for this user.
-    """
-    if not config:
-        return True
-
-    try:
-        client = Client(config, service="Human_Resources")
-        client.check_access("Get_Workers")
-        return True
-    except WorkdaySOAPTransportError as e:
-        err_lower = str(e).lower()
-        status_code = getattr(e, 'status_code', 0)
-        if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-            return False
-        return True  # non-401 transport error, don't block discovery
-    except WorkdaySOAPFaultError as e:
-        err_lower = str(e).lower()
-        if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-            return False  # authentication failure expressed as a SOAP fault
-        return True  # authorization failure only; credentials are valid
-    except Exception:
-        return True  # unexpected error, don't block discovery
-
-
 def get_schemas(config: Dict):
     """
     Load the schema references, prepare metadata for each stream and return schema and
@@ -144,16 +111,6 @@ def get_schemas(config: Dict):
     """
     schemas = {}
     field_metadata = {}
-
-    if config and not check_authentication(config):
-        LOGGER.critical(
-            "Authentication failure: invalid or expired credentials. "
-            "Verify the username and password in the tap config."
-        )
-        raise WorkdayAuthenticationError(
-            "Authentication failure: invalid or expired credentials. "
-            "Verify the username and password in the tap config."
-        )
 
     refs = load_schema_references()
 
