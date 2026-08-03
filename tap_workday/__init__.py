@@ -3,7 +3,7 @@ import sys
 
 import singer
 
-from tap_workday.client import Client
+from tap_workday.client import Client, check_credentials
 from tap_workday.discover import discover
 from tap_workday.sync import sync
 from typing import Dict
@@ -38,6 +38,8 @@ def main():
     state = {}
     if parsed_args.state:
         state = parsed_args.state
+
+    check_credentials(parsed_args.config)
 
     client = Client(parsed_args.config)
     if parsed_args.discover:

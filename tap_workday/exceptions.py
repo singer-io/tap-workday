@@ -50,6 +50,12 @@ class WorkdaySOAPUnexpectedError(WorkdaySOAPError):
     pass
 
 
+class WorkdayAuthenticationError(WorkdaySOAPError):
+    """Raised when Workday credentials are invalid (HTTP 401 or authentication fault)."""
+
+    pass
+
+
 class WorkdayBackoffError(WorkdaySOAPError):
     """Raised for retryable/backoff conditions."""
 

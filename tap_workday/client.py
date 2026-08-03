@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import Any, Mapping
+from xml.sax.saxutils import escape as xml_escape
 
 import backoff
 import requests
@@ -12,11 +13,13 @@ from zeep.wsse.username import UsernameToken
 from zeep import Settings
 
 from tap_workday.exceptions import (
+    WorkdayAuthenticationError,
     WorkdayBackoffError,
     WorkdaySOAPFaultError,
     WorkdaySOAPTransportError,
     WorkdaySOAPUnexpectedError,
     WorkdaySOAPXMLSyntaxError,
+    WORKDAY_AUTHN_ERROR_PATTERNS,
 )
 
 LOGGER = get_logger()
@@ -200,3 +203,107 @@ class Client:
                 return getattr(self._client.service, operation_name)(*args, **kwargs)
             except Exception as fallback_exc:
                 SOAPErrorHandler.handle_error(operation_name, fallback_exc)
+
+
+def check_credentials(config: Mapping[str, Any]) -> None:
+    """
+    Validate Workday credentials.
+
+    Makes a minimal raw SOAP/HTTP request with a WS-Security UsernameToken header.
+    Authentication is evaluated at the HTTP transport level, making this check
+    completely independent of stream-level permissions:
+
+    - HTTP 401 Unauthorized          → invalid credentials → raises WorkdayAuthenticationError
+    - SOAP body containing auth-error patterns → raises WorkdayAuthenticationError
+    - HTTP 200 / 500 SOAP fault (authorization) → credentials are valid → returns normally
+
+    Raises:
+        WorkdayAuthenticationError: If the credentials are rejected by Workday.
+    """
+    tenant = config["tenant"]
+    hostname = config["hostname"]
+    username = config["username"]
+    version = DefaultValues.VERSION.value
+    timeout = float(config.get("request_timeout", DefaultValues.REQUEST_TIMEOUT.value))
+
+    LOGGER.info(
+        "Checking credentials for user '%s' on tenant '%s'...",
+        username, tenant
+    )
+
+    # Escape XML special characters to prevent injection
+    safe_username = xml_escape(username)
+    safe_password = xml_escape(config["password"])
+
+    url = f"https://{hostname}/ccx/service/{tenant}/Human_Resources/{version}"
+
+    soap_envelope = (
+        '<?xml version="1.0" encoding="UTF-8"?>'
+        '<soapenv:Envelope'
+        ' xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"'
+        ' xmlns:bsvc="urn:com.workday/bsvc">'
+        '<soapenv:Header>'
+        '<wsse:Security'
+        ' xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/'
+        'oasis-200401-wss-wssecurity-secext-1.0.xsd">'
+        '<wsse:UsernameToken>'
+        f'<wsse:Username>{safe_username}</wsse:Username>'
+        f'<wsse:Password>{safe_password}</wsse:Password>'
+        '</wsse:UsernameToken>'
+        '</wsse:Security>'
+        '</soapenv:Header>'
+        '<soapenv:Body>'
+        f'<bsvc:Get_Workers_Request bsvc:version="{version}">'
+        '<bsvc:Response_Filter>'
+        '<bsvc:Page>1</bsvc:Page>'
+        '<bsvc:Count>1</bsvc:Count>'
+        '</bsvc:Response_Filter>'
+        '</bsvc:Get_Workers_Request>'
+        '</soapenv:Body>'
+        '</soapenv:Envelope>'
+    )
+
+    try:
+        response = requests.post(
+            url,
+            data=soap_envelope.encode("utf-8"),
+            headers={
+                "Content-Type": "text/xml; charset=utf-8",
+                "SOAPAction": "",
+            },
+            timeout=timeout,
+            verify=True,
+        )
+    except (ConnectionError, Timeout) as exc:
+        LOGGER.error(
+            "Connection error while checking credentials for tenant '%s': %s",
+            tenant, exc
+        )
+        raise
+
+    def _raise_auth_error(detail: str) -> None:
+        LOGGER.critical(
+            "Authentication failed for user '%s' on tenant '%s': %s",
+            username, tenant, detail
+        )
+        raise WorkdayAuthenticationError(
+            f"Authentication failed for user '{username}' on tenant '{tenant}'. "
+            "Please verify your username and password."
+        )
+
+    if response.status_code == 401:
+        _raise_auth_error("HTTP 401 Unauthorized")
+
+    # Also check SOAP body for authentication-level error patterns.
+    # Some Workday environments return 200/500 with an auth fault in the body.
+    response_lower = response.text.lower()
+    if any(pattern in response_lower for pattern in WORKDAY_AUTHN_ERROR_PATTERNS):
+        _raise_auth_error(response.text[:300])
+
+    # HTTP 200 (success) or 500 with an authorization SOAP fault both confirm
+    # that the credentials were accepted.  Stream-level permission errors are not
+    # treated as credential failures.
+    LOGGER.info(
+        "Credentials validated successfully for user '%s' on tenant '%s'.",
+        username, tenant
+    )
