@@ -11,7 +11,7 @@ Covers:
 import unittest
 from unittest.mock import Mock, patch
 
-from tap_workday.client import Client, check_credentials
+from tap_workday.client import Client
 from tap_workday.exceptions import WorkdayAuthenticationError, WorkdaySOAPFaultError, WorkdaySOAPTransportError
 from tap_workday.schema import get_schemas
 from tap_workday.streams import STREAMS
@@ -37,89 +37,85 @@ class TestCheckCredentials(unittest.TestCase):
     def setUp(self):
         self.config = dict(CONFIG)
 
+    def _make_client(self):
+        """Create a Client instance without triggering __init__ network calls."""
+        client = object.__new__(Client)
+        client.config = self.config
+        return client
+
     def test_no_config_skips_the_network_call(self):
         """No config skips the network call without raising."""
-        check_credentials(None)  # Should not raise
+        client = object.__new__(Client)
+        client.config = None
+        client.check_credentials()  # Should not raise
 
     @patch('tap_workday.client.Client')
     def test_does_not_raise_on_successful_probe(self, mock_client_class):
         """Successful SOAP call confirms credentials are valid; no exception raised."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
+        mock_probe = mock_client_class.return_value
 
-        check_credentials(self.config)  # Should not raise
+        client = self._make_client()
+        client.check_credentials()
 
         mock_client_class.assert_called_once_with(self.config, service="Human_Resources")
-        mock_client.check_access.assert_called_once_with("Get_Workers")
+        mock_probe.check_access.assert_called_once_with("Get_Workers")
 
     @patch('tap_workday.client.Client')
     def test_raises_on_transport_401_by_status_code(self, mock_client_class):
         """HTTP 401 (via status_code) raises WorkdayAuthenticationError."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = WorkdaySOAPTransportError(
+        mock_client_class.return_value.check_access.side_effect = WorkdaySOAPTransportError(
             "Transport error: Server returned HTTP status 401 (Unauthorized)",
             status_code=401,
         )
 
         with self.assertRaises(WorkdayAuthenticationError):
-            check_credentials(self.config)
+            self._make_client().check_credentials()
 
     @patch('tap_workday.client.Client')
     def test_raises_on_transport_401_by_message(self, mock_client_class):
         """HTTP 401 embedded in message (SOAPErrorHandler path, status_code=0) raises."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = WorkdaySOAPTransportError(
+        mock_client_class.return_value.check_access.side_effect = WorkdaySOAPTransportError(
             "Transport error: Server returned HTTP status 401 (Unauthorized)",
             status_code=0,
         )
 
         with self.assertRaises(WorkdayAuthenticationError):
-            check_credentials(self.config)
+            self._make_client().check_credentials()
 
     @patch('tap_workday.client.Client')
     def test_does_not_raise_on_authorization_soap_fault(self, mock_client_class):
         """SOAP authorization fault = valid credentials; probe operation just not permitted."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = WorkdaySOAPFaultError(
+        mock_client_class.return_value.check_access.side_effect = WorkdaySOAPFaultError(
             "Processing error occurred. The task submitted is not authorized."
         )
 
-        check_credentials(self.config)  # Should not raise
+        self._make_client().check_credentials()  # Should not raise
 
     @patch('tap_workday.client.Client')
     def test_raises_on_authentication_soap_fault(self, mock_client_class):
         """SOAP fault with 'invalid username or password' raises WorkdayAuthenticationError."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = WorkdaySOAPFaultError(
+        mock_client_class.return_value.check_access.side_effect = WorkdaySOAPFaultError(
             "SOAP Fault in 'Get_Workers': invalid username or password"
         )
 
         with self.assertRaises(WorkdayAuthenticationError):
-            check_credentials(self.config)
+            self._make_client().check_credentials()
 
     @patch('tap_workday.client.Client')
     def test_does_not_raise_on_non_401_transport_error(self, mock_client_class):
         """Non-401 transport errors (503, timeout) do not block discovery."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = WorkdaySOAPTransportError(
+        mock_client_class.return_value.check_access.side_effect = WorkdaySOAPTransportError(
             "Transport error: Connection timed out", status_code=503
         )
 
-        check_credentials(self.config)  # Should not raise
+        self._make_client().check_credentials()  # Should not raise
 
     @patch('tap_workday.client.Client')
     def test_does_not_raise_on_unexpected_exception(self, mock_client_class):
         """Unexpected probe errors do not block discovery."""
-        mock_client = Mock(spec=Client)
-        mock_client_class.return_value = mock_client
-        mock_client.check_access.side_effect = RuntimeError("Unexpected!")
+        mock_client_class.return_value.check_access.side_effect = RuntimeError("Unexpected!")
 
-        check_credentials(self.config)  # Should not raise
+        self._make_client().check_credentials()  # Should not raise
 
 
 # ---------------------------------------------------------------------------

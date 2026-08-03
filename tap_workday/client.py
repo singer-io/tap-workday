@@ -162,6 +162,47 @@ class Client:
         """
         return self._execute_operation(operation_name, *args, **kwargs)
 
+    def check_credentials(self) -> None:
+        """
+        Validate credentials with a lightweight SOAP call before discovery or sync.
+
+        Raises WorkdayAuthenticationError (with CRITICAL log) on invalid/expired credentials.
+        Non-authentication errors (authorization faults, non-401 transport issues) are
+        silently ignored so they do not block discovery.
+        """
+        if not self.config:
+            return
+
+        try:
+            probe = Client(self.config, service="Human_Resources")
+            probe.check_access("Get_Workers")
+        except WorkdaySOAPTransportError as e:
+            err_lower = str(e).lower()
+            status_code = getattr(e, 'status_code', 0)
+            if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+                LOGGER.critical(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                )
+                raise WorkdayAuthenticationError(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                ) from e
+        except WorkdaySOAPFaultError as e:
+            err_lower = str(e).lower()
+            if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+                LOGGER.critical(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                )
+                raise WorkdayAuthenticationError(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                ) from e
+            # Authorization fault only — credentials are valid, do not block discovery
+        except Exception:
+            pass  # Unexpected errors do not block discovery
+
     @backoff.on_exception(
         wait_gen=backoff.expo,
         exception=RETRYABLE_EXCEPTIONS,
@@ -202,45 +243,3 @@ class Client:
                 return getattr(self._client.service, operation_name)(*args, **kwargs)
             except Exception as fallback_exc:
                 SOAPErrorHandler.handle_error(operation_name, fallback_exc)
-
-
-def check_credentials(config: Dict) -> None:
-    """
-    Validate credentials with a lightweight SOAP call before discovery or sync.
-
-    Raises WorkdayAuthenticationError (with CRITICAL log) on invalid/expired credentials.
-    Non-authentication errors (authorization faults, non-401 transport issues) are
-    silently ignored so they do not block discovery.
-    """
-    if not config:
-        return
-
-    try:
-        client = Client(config, service="Human_Resources")
-        client.check_access("Get_Workers")
-    except WorkdaySOAPTransportError as e:
-        err_lower = str(e).lower()
-        status_code = getattr(e, 'status_code', 0)
-        if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-            LOGGER.critical(
-                "Authentication failure: invalid or expired credentials. "
-                "Verify the username and password in the tap config."
-            )
-            raise WorkdayAuthenticationError(
-                "Authentication failure: invalid or expired credentials. "
-                "Verify the username and password in the tap config."
-            ) from e
-    except WorkdaySOAPFaultError as e:
-        err_lower = str(e).lower()
-        if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-            LOGGER.critical(
-                "Authentication failure: invalid or expired credentials. "
-                "Verify the username and password in the tap config."
-            )
-            raise WorkdayAuthenticationError(
-                "Authentication failure: invalid or expired credentials. "
-                "Verify the username and password in the tap config."
-            ) from e
-        # Authorization fault only — credentials are valid, do not block discovery
-    except Exception:
-        pass  # Unexpected errors do not block discovery
