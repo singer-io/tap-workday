@@ -13,8 +13,12 @@ setup(
         "requests==2.34.2",
         "backoff==2.2.1",
         "zeep==4.3.3",
-        "parameterized==0.9.0",
     ],
+    extras_require={
+        "dev": [
+            "parameterized==0.9.0",
+        ]
+    },
     entry_points="""
           [console_scripts]
           tap-workday=tap_workday:main
