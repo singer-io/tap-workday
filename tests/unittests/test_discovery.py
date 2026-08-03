@@ -111,11 +111,12 @@ class TestCheckCredentials(unittest.TestCase):
         self._make_client().check_credentials()  # Should not raise
 
     @patch('tap_workday.client.Client')
-    def test_does_not_raise_on_unexpected_exception(self, mock_client_class):
-        """Unexpected probe errors do not block discovery."""
+    def test_raises_on_unexpected_exception(self, mock_client_class):
+        """Unexpected probe errors are raised after being logged."""
         mock_client_class.return_value.check_access.side_effect = RuntimeError("Unexpected!")
 
-        self._make_client().check_credentials()  # Should not raise
+        with self.assertRaises(RuntimeError):
+            self._make_client().check_credentials()
 
 
 # ---------------------------------------------------------------------------
@@ -177,24 +178,19 @@ class TestGetSchemasAuthorization(unittest.TestCase):
 # ---------------------------------------------------------------------------
 
 class TestGetSchemasAllUnauthorized(unittest.TestCase):
-    """get_schemas returns an empty catalog (no exception) when no streams are authorized."""
+    """get_schemas raises RuntimeError when no streams are authorized."""
 
     @patch('tap_workday.schema.check_stream_authorization', return_value=(False, "authorization", "credentials lack the required permissions"))
-    def test_returns_empty_catalog_no_exception(self, mock_check):
-        """Empty dicts are returned; no exception is raised."""
-        schemas, field_metadata = get_schemas(config=CONFIG)
-
-        self.assertEqual(schemas, {})
-        self.assertEqual(field_metadata, {})
-
-    @patch('tap_workday.schema.check_stream_authorization', return_value=(False, "authorization", "credentials lack the required permissions"))
-    def test_logs_no_authorized_streams_warning(self, mock_check):
-        """A warning is logged when the catalog ends up empty after authorization checks."""
-        with self.assertLogs(level='WARNING') as cm:
+    def test_raises_when_all_streams_excluded(self, mock_check):
+        """RuntimeError is raised when every stream fails the access check."""
+        with self.assertRaises(RuntimeError):
             get_schemas(config=CONFIG)
 
-        self.assertTrue(
-            any('no authorized streams' in msg.lower() for msg in cm.output),
-            "Expected 'no authorized streams' in log output",
-        )
+    @patch('tap_workday.schema.check_stream_authorization', return_value=(False, "authorization", "credentials lack the required permissions"))
+    def test_error_message_mentions_no_authorized_streams(self, mock_check):
+        """The RuntimeError message indicates no authorized streams were found."""
+        with self.assertRaises(RuntimeError) as ctx:
+            get_schemas(config=CONFIG)
+
+        self.assertIn('no authorized streams', str(ctx.exception).lower())
 
