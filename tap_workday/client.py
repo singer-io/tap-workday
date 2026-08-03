@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import Any, Mapping
+from typing import Any, Dict, Mapping
 
 import backoff
 import requests
@@ -12,11 +12,13 @@ from zeep.wsse.username import UsernameToken
 from zeep import Settings
 
 from tap_workday.exceptions import (
+    WorkdayAuthenticationError,
     WorkdayBackoffError,
     WorkdaySOAPFaultError,
     WorkdaySOAPTransportError,
     WorkdaySOAPUnexpectedError,
     WorkdaySOAPXMLSyntaxError,
+    WORKDAY_AUTHN_ERROR_PATTERNS,
 )
 
 LOGGER = get_logger()
@@ -159,6 +161,39 @@ class Client:
         Uses direct execution without backoff retries for discovery/access validation.
         """
         return self._execute_operation(operation_name, *args, **kwargs)
+
+    def check_credentials(self) -> None:
+        """
+        Validate credentials with a lightweight SOAP call before discovery or sync.
+
+        Raises WorkdayAuthenticationError (with CRITICAL log) on invalid/expired credentials.
+        Non-authentication errors (authorization faults, non-401 transport issues) are
+        silently ignored so they do not block discovery.
+        """
+        if not self.config:
+            return
+
+        try:
+            probe = Client(self.config, service="Human_Resources")
+            probe.check_access("Get_Workers")
+        except WorkdaySOAPTransportError as e:
+            err_lower = str(e).lower()
+            status_code = getattr(e, 'status_code', 0)
+            if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+                raise WorkdayAuthenticationError(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                ) from e
+        except WorkdaySOAPFaultError as e:
+            err_lower = str(e).lower()
+            if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
+                raise WorkdayAuthenticationError(
+                    "Authentication failure: invalid or expired credentials. "
+                    "Verify the username and password in the tap config."
+                ) from e
+        except Exception as e:
+            LOGGER.error("Unexpected error during credential check: %s", str(e))
+            raise
 
     @backoff.on_exception(
         wait_gen=backoff.expo,
