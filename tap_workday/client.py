@@ -180,10 +180,6 @@ class Client:
             err_lower = str(e).lower()
             status_code = getattr(e, 'status_code', 0)
             if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-                LOGGER.critical(
-                    "Authentication failure: invalid or expired credentials. "
-                    "Verify the username and password in the tap config."
-                )
                 raise WorkdayAuthenticationError(
                     "Authentication failure: invalid or expired credentials. "
                     "Verify the username and password in the tap config."
@@ -191,17 +187,14 @@ class Client:
         except WorkdaySOAPFaultError as e:
             err_lower = str(e).lower()
             if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
-                LOGGER.critical(
-                    "Authentication failure: invalid or expired credentials. "
-                    "Verify the username and password in the tap config."
-                )
                 raise WorkdayAuthenticationError(
                     "Authentication failure: invalid or expired credentials. "
                     "Verify the username and password in the tap config."
                 ) from e
             # Authorization fault only — credentials are valid, do not block discovery
-        except Exception:
-            pass  # Unexpected errors do not block discovery
+        except Exception as e:
+            LOGGER.error("Unexpected error during credential check: %s", str(e))
+            raise
 
     @backoff.on_exception(
         wait_gen=backoff.expo,
