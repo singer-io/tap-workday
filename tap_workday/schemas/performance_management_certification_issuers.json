@@ -41,7 +41,8 @@
         },
         "Descriptor": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         }
       }
@@ -66,7 +67,8 @@
         },
         "Issuer_Description": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         },
         "Inactive": {

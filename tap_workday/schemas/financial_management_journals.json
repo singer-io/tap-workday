@@ -384,7 +384,12 @@
               "null",
               "array"
             ],
-            "items": {}
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
           },
           "Transaction_Date": {
             "type": [
@@ -467,7 +472,12 @@
               "null",
               "array"
             ],
-            "items": {}
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
           },
           "Total_Ledger_Debits": {
             "type": [
@@ -821,7 +831,12 @@
                     "null",
                     "array"
                   ],
-                  "items": {}
+                  "items": {
+                    "type": [
+                      "null",
+                      "object"
+                    ]
+                  }
                 },
                 "Journal_Line_Number": {
                   "type": [
@@ -837,7 +852,12 @@
               "null",
               "array"
             ],
-            "items": {}
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
           }
         }
       }

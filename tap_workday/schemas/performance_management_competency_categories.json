@@ -41,7 +41,8 @@
         },
         "Descriptor": {
           "type": [
-            "null"
+            "null",
+            "string"
           ]
         }
       }
