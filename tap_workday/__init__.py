@@ -40,7 +40,7 @@ def main():
         state = parsed_args.state
 
     client = Client(parsed_args.config)
-    client.check_credentials()
+    # client.check_credentials()
 
     if parsed_args.discover:
         do_discover(parsed_args.config)
