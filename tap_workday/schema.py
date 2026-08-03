@@ -183,7 +183,7 @@ def get_schemas(config: Dict):
 
     if config and not schemas:
         raise RuntimeError(
-            "No authorized streams found — discovery cannot complete. "
+            "No authorized streams found — discovery cannot complete. \n"
             "Verify that the tap credentials have 'read' access to at least one stream."
         )
 
