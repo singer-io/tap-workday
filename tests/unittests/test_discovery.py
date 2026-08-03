@@ -12,7 +12,7 @@ import unittest
 from unittest.mock import Mock, patch
 
 from tap_workday.client import Client
-from tap_workday.exceptions import WorkdaySOAPFaultError, WorkdaySOAPTransportError
+from tap_workday.exceptions import WorkdayAuthenticationError, WorkdaySOAPFaultError, WorkdaySOAPTransportError
 from tap_workday.schema import check_authentication, get_schemas
 from tap_workday.streams import STREAMS
 
@@ -141,13 +141,12 @@ class TestGetSchemasAuthentication(unittest.TestCase):
 
     @patch('tap_workday.schema.check_authentication', return_value=False)
     @patch('tap_workday.schema.check_stream_authorization')
-    def test_authentication_failure_returns_empty_catalog(self, mock_stream_check, mock_auth):
-        """Auth failure returns ({}, {}) without checking any individual stream."""
-        with self.assertLogs(level='WARNING') as cm:
-            schemas, field_metadata = get_schemas(config=CONFIG)
+    def test_authentication_failure_raises_exception(self, mock_stream_check, mock_auth):
+        """Auth failure raises WorkdayAuthenticationError without checking any individual stream."""
+        with self.assertLogs(level='CRITICAL') as cm:
+            with self.assertRaises(WorkdayAuthenticationError):
+                get_schemas(config=CONFIG)
 
-        self.assertEqual(schemas, {})
-        self.assertEqual(field_metadata, {})
         mock_stream_check.assert_not_called()
         self.assertTrue(
             any('authentication failure' in msg.lower() for msg in cm.output),
@@ -156,14 +155,15 @@ class TestGetSchemasAuthentication(unittest.TestCase):
 
     @patch('tap_workday.schema.check_authentication', return_value=False)
     @patch('tap_workday.schema.check_stream_authorization')
-    def test_authentication_failure_logs_catalog_skipped(self, mock_stream_check, mock_auth):
-        """The authentication failure log mentions that catalog generation was skipped."""
-        with self.assertLogs(level='WARNING') as cm:
-            get_schemas(config=CONFIG)
+    def test_authentication_failure_logs_critical(self, mock_stream_check, mock_auth):
+        """Auth failure logs a CRITICAL message before raising."""
+        with self.assertLogs(level='CRITICAL') as cm:
+            with self.assertRaises(WorkdayAuthenticationError):
+                get_schemas(config=CONFIG)
 
         self.assertTrue(
-            any('catalog generation skipped' in msg.lower() for msg in cm.output),
-            "Expected 'catalog generation skipped' in log output",
+            any('authentication failure' in msg.lower() for msg in cm.output),
+            "Expected 'authentication failure' in CRITICAL log output",
         )
 
     @patch('tap_workday.schema.check_authentication')
@@ -186,7 +186,7 @@ class TestGetSchemasAuthorization(unittest.TestCase):
     @patch('tap_workday.schema.check_stream_authorization')
     def test_unauthorized_stream_excluded_from_catalog(self, mock_check, mock_auth):
         """A stream that fails the access check is absent from schemas and field_metadata."""
-        mock_check.side_effect = lambda cfg, name, obj: name != _EXCLUDED
+        mock_check.side_effect = lambda cfg, name, obj: (True, None, None) if name != _EXCLUDED else (False, "authorization", "credentials lack the required permissions")
 
         schemas, field_metadata = get_schemas(config=CONFIG)
 
@@ -197,7 +197,7 @@ class TestGetSchemasAuthorization(unittest.TestCase):
     @patch('tap_workday.schema.check_stream_authorization')
     def test_authorized_streams_remain_in_catalog(self, mock_check, mock_auth):
         """Streams that pass the access check appear in the catalog."""
-        mock_check.side_effect = lambda cfg, name, obj: name != _EXCLUDED
+        mock_check.side_effect = lambda cfg, name, obj: (True, None, None) if name != _EXCLUDED else (False, "authorization", "credentials lack the required permissions")
 
         schemas, field_metadata = get_schemas(config=CONFIG)
 
@@ -213,7 +213,7 @@ class TestGetSchemasAuthorization(unittest.TestCase):
             'human_resources_locations',
             'performance_management_degrees',
         }
-        mock_check.side_effect = lambda cfg, name, obj: name not in excluded
+        mock_check.side_effect = lambda cfg, name, obj: (True, None, None) if name not in excluded else (False, "authorization", "credentials lack the required permissions")
 
         schemas, field_metadata = get_schemas(config=CONFIG)
 
@@ -226,7 +226,7 @@ class TestGetSchemasAuthorization(unittest.TestCase):
     @patch('tap_workday.schema.check_stream_authorization')
     def test_only_passing_stream_in_catalog(self, mock_check, mock_auth):
         """Only the single passing stream appears in the catalog."""
-        mock_check.side_effect = lambda cfg, name, obj: name == _PRESENT
+        mock_check.side_effect = lambda cfg, name, obj: (True, None, None) if name == _PRESENT else (False, "authorization", "credentials lack the required permissions")
 
         schemas, _ = get_schemas(config=CONFIG)
 
@@ -241,7 +241,7 @@ class TestGetSchemasAllUnauthorized(unittest.TestCase):
     """get_schemas returns an empty catalog (no exception) when no streams are authorized."""
 
     @patch('tap_workday.schema.check_authentication', return_value=True)
-    @patch('tap_workday.schema.check_stream_authorization', return_value=False)
+    @patch('tap_workday.schema.check_stream_authorization', return_value=(False, "authorization", "credentials lack the required permissions"))
     def test_returns_empty_catalog_no_exception(self, mock_check, mock_auth):
         """Empty dicts are returned; no exception is raised."""
         schemas, field_metadata = get_schemas(config=CONFIG)
@@ -250,7 +250,7 @@ class TestGetSchemasAllUnauthorized(unittest.TestCase):
         self.assertEqual(field_metadata, {})
 
     @patch('tap_workday.schema.check_authentication', return_value=True)
-    @patch('tap_workday.schema.check_stream_authorization', return_value=False)
+    @patch('tap_workday.schema.check_stream_authorization', return_value=(False, "authorization", "credentials lack the required permissions"))
     def test_logs_no_authorized_streams_warning(self, mock_check, mock_auth):
         """A warning is logged when the catalog ends up empty after authorization checks."""
         with self.assertLogs(level='WARNING') as cm:

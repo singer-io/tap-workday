@@ -35,7 +35,7 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
         mock_client_class.assert_called_once_with(self.config, service=Ledgers.service_name)
         mock_ledgers_check_access.assert_called_once_with(mock_client)
         mock_client.check_access.assert_not_called()
-        self.assertTrue(result)
+        self.assertTrue(result[0])
 
     @patch('tap_workday.schema.Client')
     def test_uses_client_check_access_for_streams_without_custom_method(self, mock_client_class):
@@ -51,7 +51,7 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
 
         mock_client_class.assert_called_once_with(self.config, service=MockStream.service_name)
         mock_client.check_access.assert_called_once_with(MockStream.operation_name)
-        self.assertTrue(result)
+        self.assertTrue(result[0])
 
     @patch('tap_workday.schema.Client')
     def test_handles_missing_config(self, mock_client_class):
@@ -63,7 +63,7 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
         result = check_stream_authorization(None, "test_stream", MockStream)
 
         mock_client_class.assert_not_called()
-        self.assertTrue(result)
+        self.assertTrue(result[0])
 
     @patch('tap_workday.schema.Client')
     def test_handles_stream_without_required_attributes(self, mock_client_class):
@@ -74,7 +74,7 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
         result = check_stream_authorization(self.config, "test_stream", MockStream)
 
         mock_client_class.assert_not_called()
-        self.assertTrue(result)
+        self.assertTrue(result[0])
 
     @patch('tap_workday.schema.Client')
     def test_returns_false_on_auth_fault(self, mock_client_class):
@@ -90,18 +90,11 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
             'Processing error occurred. The task submitted is not authorized.'
         )
 
-        with self.assertLogs(level='WARNING') as cm:
-            result = check_stream_authorization(self.config, "test_stream", MockStream)
+        authorized, category, detail = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertFalse(result)
-        self.assertTrue(
-            any('authorization' in msg.lower() for msg in cm.output),
-            "Expected 'authorization' in log output",
-        )
-        self.assertFalse(
-            any('authentication' in msg.lower() for msg in cm.output),
-            "Authorization log should not mention 'authentication'",
-        )
+        self.assertFalse(authorized)
+        self.assertEqual(category, "authorization")
+        self.assertNotEqual(category, "authentication")
 
     @patch('tap_workday.schema.Client')
     def test_returns_false_on_authentication_soap_fault(self, mock_client_class):
@@ -117,18 +110,11 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
             "SOAP Fault in 'Get_Workers': invalid username or password"
         )
 
-        with self.assertLogs(level='WARNING') as cm:
-            result = check_stream_authorization(self.config, "test_stream", MockStream)
+        authorized, category, detail = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertFalse(result)
-        self.assertTrue(
-            any('authentication' in msg.lower() for msg in cm.output),
-            "Expected 'authentication' in log output",
-        )
-        self.assertFalse(
-            any('authorization' in msg.lower() for msg in cm.output),
-            "Authentication log should not mention 'authorization'",
-        )
+        self.assertFalse(authorized)
+        self.assertEqual(category, "authentication")
+        self.assertNotEqual(category, "authorization")
 
     @patch('tap_workday.schema.Client')
     def test_returns_true_on_non_auth_fault(self, mock_client_class):
@@ -144,7 +130,7 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
 
         result = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertTrue(result)
+        self.assertTrue(result[0])
 
     @patch('tap_workday.schema.Client')
     def test_returns_false_on_transport_authentication_failure_by_status_code(self, mock_client_class):
@@ -161,18 +147,11 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
             status_code=401,
         )
 
-        with self.assertLogs(level='WARNING') as cm:
-            result = check_stream_authorization(self.config, "test_stream", MockStream)
+        authorized, category, detail = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertFalse(result)
-        self.assertTrue(
-            any('authentication' in msg.lower() for msg in cm.output),
-            "Expected 'authentication' in log output",
-        )
-        self.assertFalse(
-            any('authorization' in msg.lower() for msg in cm.output),
-            "Authentication log should not mention 'authorization'",
-        )
+        self.assertFalse(authorized)
+        self.assertEqual(category, "authentication")
+        self.assertNotEqual(category, "authorization")
 
     @patch('tap_workday.schema.Client')
     def test_returns_false_on_transport_authentication_failure_by_message(self, mock_client_class):
@@ -191,11 +170,10 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
             status_code=0,
         )
 
-        with self.assertLogs(level='WARNING') as cm:
-            result = check_stream_authorization(self.config, "test_stream", MockStream)
+        authorized, category, _ = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertFalse(result)
-        self.assertTrue(any('authentication' in msg.lower() for msg in cm.output))
+        self.assertFalse(authorized)
+        self.assertEqual(category, "authentication")
 
     @patch('tap_workday.schema.Client')
     def test_returns_true_on_non_auth_transport_error(self, mock_client_class):
@@ -214,4 +192,4 @@ class TestSchemaCheckStreamAuthorization(unittest.TestCase):
 
         result = check_stream_authorization(self.config, "test_stream", MockStream)
 
-        self.assertTrue(result)
+        self.assertTrue(result[0])
