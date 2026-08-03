@@ -191,7 +191,6 @@ class Client:
                     "Authentication failure: invalid or expired credentials. "
                     "Verify the username and password in the tap config."
                 ) from e
-            # Authorization fault only — credentials are valid, do not block discovery
         except Exception as e:
             LOGGER.error("Unexpected error during credential check: %s", str(e))
             raise
