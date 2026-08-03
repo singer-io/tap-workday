@@ -161,15 +161,16 @@ def get_schemas(config: Dict):
         streams_str = ", ".join(stream_names)
         if category == "authentication":
             LOGGER.warning(
-                "%d stream(s) excluded from catalog — authentication failure: %s. "
-                "Affected streams: [%s]. Verify the username and password in the tap config.",
+                "%d stream(s) excluded from catalog — authentication failure: %s.\n"
+                "Affected streams: [%s].\n"
+                "Verify the username and password in the tap config.",
                 len(stream_names), detail, streams_str,
             )
         elif category == "authorization":
             LOGGER.warning(
-                "%d stream(s) excluded from catalog — authorization failure: %s. "
-                "Affected streams: [%s]. Grant access via the Workday domain/security group "
-                "settings and re-run discovery.",
+                "%d stream(s) excluded from catalog — authorization failure: %s.\n"
+                "Affected streams: [%s].\n"
+                "Grant access via the Workday domain/security group settings and re-run discovery.",
                 len(stream_names), detail, streams_str,
             )
 
@@ -181,8 +182,8 @@ def get_schemas(config: Dict):
         )
 
     if config and not schemas:
-        LOGGER.warning(
-            "No authorized streams found. The catalog will be empty. "
+        raise RuntimeError(
+            "No authorized streams found — discovery cannot complete. "
             "Verify that the tap credentials have 'read' access to at least one stream."
         )
 
