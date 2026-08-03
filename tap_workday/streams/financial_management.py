@@ -85,7 +85,7 @@ class Journals(FinancialManagementStream):
         from tap_workday.streams.helpers import WorkdayPaginator
         
         page_info = f"(max {max_pages} pages)" if max_pages else ""
-        LOGGER.info(f"Extracting Ledger_Reference_IDs from journal entries {page_info}...")
+        LOGGER.debug(f"Extracting Ledger_Reference_IDs from journal entries {page_info}...")
         ledger_ids = set()
         
         paginator = WorkdayPaginator(client, "Get_Journals")
@@ -108,7 +108,7 @@ class Journals(FinancialManagementStream):
                             id_entry.get("_value_1")):
                             ledger_ids.add(id_entry["_value_1"])
 
-        LOGGER.info(f"Extracted {len(ledger_ids)} unique Ledger_Reference_IDs")
+        LOGGER.debug(f"Extracted {len(ledger_ids)} unique Ledger_Reference_IDs")
         return ledger_ids
 
 
