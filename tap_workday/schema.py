@@ -71,7 +71,7 @@ def check_stream_authorization(config: Dict, stream_name: str, stream_obj, mdata
                     "Update Workday domain/security group access and re-run."
                 )
             else:
-                LOGGER.error(f"SOAP fault for stream {stream_name}: {e}")
+                LOGGER.warning(f"SOAP fault for stream '{stream_name}': {e}")
         except Exception as e:
             LOGGER.error(f"Error testing authorization for stream {stream_name}: {e}")
 
