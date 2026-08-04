@@ -1,0 +1,866 @@
+{
+  "type": [
+    "null",
+    "object"
+  ],
+  "properties": {
+    "key_value": {
+      "type": [
+        "null",
+        "string"
+      ]
+    },
+    "Journal_Entry_Reference": {
+      "type": [
+        "null",
+        "object"
+      ],
+      "properties": {
+        "ID": {
+          "type": [
+            "null",
+            "array"
+          ],
+          "items": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "_value_1": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "type": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          }
+        },
+        "Descriptor": {
+          "type": [
+            "null",
+            "string"
+          ]
+        }
+      }
+    },
+    "Journal_Entry_Data": {
+      "type": [
+        "null",
+        "array"
+      ],
+      "items": {
+        "type": [
+          "null",
+          "object"
+        ],
+        "properties": {
+          "Journal_Entry_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Journal_Number": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "Journal_Sequence_Number": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Journal_Status_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Company_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Currency_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Book_Code_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Ledger_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Display_Account_Set_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Ledger_Period_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Accounting_Date": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "Journal_Source_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Balancing_Worktag_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Optional_Balancing_Worktags_Reference": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
+          },
+          "Transaction_Date": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Operational_Transaction_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Record_Quantity": {
+            "type": [
+              "null",
+              "boolean"
+            ]
+          },
+          "Memo": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "External_Reference_ID": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Document_Link": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Originated_By_Reference": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "properties": {
+              "ID": {
+                "type": [
+                  "null",
+                  "array"
+                ],
+                "items": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "_value_1": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    },
+                    "type": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                }
+              },
+              "Descriptor": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              }
+            }
+          },
+          "Approved_by_Reference": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
+          },
+          "Total_Ledger_Debits": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "Total_Ledger_Credits": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "Cancel_Reversed_By_Journal_Entry_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Cancel_Reverses_Journal_Entry_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Functional_Reversed_By_Journal_Entry_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Functional_Reverses_Journal_Entry_Reference": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "Creation_Date": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "Last_Updated_Date": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "Journal_Entry_Line_Data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ],
+              "properties": {
+                "Line_Order": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Line_Company_Reference": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "ID": {
+                      "type": [
+                        "null",
+                        "array"
+                      ],
+                      "items": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "properties": {
+                          "_value_1": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "type": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "Descriptor": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                },
+                "Ledger_Account_Reference": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "ID": {
+                      "type": [
+                        "null",
+                        "array"
+                      ],
+                      "items": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "properties": {
+                          "_value_1": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "type": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "parent_id": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "parent_type": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "Descriptor": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                },
+                "Alternate_Ledger_Account_Reference": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Debit_Amount": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "Credit_Amount": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "Currency_Reference": {
+                  "type": [
+                    "null",
+                    "object"
+                  ],
+                  "properties": {
+                    "ID": {
+                      "type": [
+                        "null",
+                        "array"
+                      ],
+                      "items": {
+                        "type": [
+                          "null",
+                          "object"
+                        ],
+                        "properties": {
+                          "_value_1": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "type": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
+                      }
+                    },
+                    "Descriptor": {
+                      "type": [
+                        "null",
+                        "string"
+                      ]
+                    }
+                  }
+                },
+                "Currency_Rate": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "Ledger_Debit_Amount": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "Ledger_Credit_Amount": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                },
+                "Quantity": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Unit_of_Measure_Reference": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Quantity_2": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Unit_of_Measure_2_Reference": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Memo": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "External_Reference_ID": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Budget_Date": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Worktags_Reference": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": [
+                      "null",
+                      "object"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "type": [
+                          "null",
+                          "array"
+                        ],
+                        "items": {
+                          "type": [
+                            "null",
+                            "object"
+                          ],
+                          "properties": {
+                            "_value_1": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "parent_id": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "parent_type": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            }
+                          }
+                        }
+                      },
+                      "Descriptor": {
+                        "type": [
+                          "null",
+                          "string"
+                        ]
+                      }
+                    }
+                  }
+                },
+                "Balancing_Worktag_Affiliate_Reference": {
+                  "type": [
+                    "null",
+                    "string"
+                  ]
+                },
+                "Exclude_from_Spend_Report": {
+                  "type": [
+                    "null",
+                    "boolean"
+                  ]
+                },
+                "Tax_Detail_Data": {
+                  "type": [
+                    "null",
+                    "array"
+                  ],
+                  "items": {
+                    "type": [
+                      "null",
+                      "object"
+                    ]
+                  }
+                },
+                "Journal_Line_Number": {
+                  "type": [
+                    "null",
+                    "number"
+                  ]
+                }
+              }
+            }
+          },
+          "Attachment_Data": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": [
+                "null",
+                "object"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
