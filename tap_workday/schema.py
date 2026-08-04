@@ -47,7 +47,7 @@ def load_schema_references() -> Dict:
 
 
 def check_stream_authorization(
-    config: Dict, stream_name: str, stream_obj
+    config: Dict, stream_name: str, stream_obj, shared_client=None
 ) -> Tuple[bool, Optional[str], Optional[str]]:
     """
     Check if stream is authorized by making a test API call.
@@ -67,6 +67,10 @@ def check_stream_authorization(
 
     try:
         client = Client(config, service=stream_obj.service_name)
+        # Reuse the token manager from the main client so every stream shares the
+        # same cached access token instead of fetching a fresh one each time.
+        if shared_client is not None and shared_client._token_manager is not None:
+            client._token_manager = shared_client._token_manager
 
         # Use stream's custom check_access method if present, else fall back to client
         if hasattr(stream_obj, 'check_access') and callable(getattr(stream_obj, 'check_access')):
@@ -98,7 +102,7 @@ def check_stream_authorization(
         return True, "unexpected_error", str(e)
 
 
-def get_schemas(config: Dict):
+def get_schemas(config: Dict, client=None):
     """
     Load the schema references, prepare metadata for each stream and return schema and
     metadata for the catalog.
@@ -122,7 +126,7 @@ def get_schemas(config: Dict):
         with open(schema_path) as file:
             schema = json.load(file)
 
-        authorized, category, detail = check_stream_authorization(config, stream_name, stream_obj)
+        authorized, category, detail = check_stream_authorization(config, stream_name, stream_obj, shared_client=client)
 
         if not authorized:
             excluded_groups.setdefault((category, detail), []).append(stream_name)
