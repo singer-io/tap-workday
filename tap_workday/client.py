@@ -298,10 +298,16 @@ class Client:
                     return getattr(self._client.service, operation_name)(*args, **kwargs)
                 except WorkdayAuthenticationError as auth_exc:
                     LOGGER.warning(
-                        "OAuth token refresh failed for '%s': %s. "
-                        "Attempting WS-Security fallback.",
+                        "OAuth token refresh failed for '%s': %s.",
                         operation_name, auth_exc,
                     )
+                    if not self.config.get("enable_wssecurity_fallback", False):
+                        raise WorkdayAuthenticationError(
+                            f"OAuth token refresh failed for '{operation_name}' and "
+                            "WS-Security fallback is disabled "
+                            "(set 'enable_wssecurity_fallback: true' in config to enable it)."
+                        ) from auth_exc
+                    LOGGER.warning("Attempting WS-Security fallback for '%s'.", operation_name)
                     self._switch_to_wssecurity_fallback()  # raises if no u/p in config
                     try:
                         return getattr(self._client.service, operation_name)(*args, **kwargs)
@@ -348,15 +354,15 @@ class Client:
                 LOGGER.debug("OAuth 2.0 token acquired successfully; continuing in OAuth mode")
             except Exception as oauth_exc:
                 LOGGER.warning("OAuth authentication failed: %s", oauth_exc)
+                if not self.config.get("enable_wssecurity_fallback", False):
+                    raise WorkdayAuthenticationError(
+                        "OAuth authentication failed. WS-Security fallback is disabled "
+                        "(set 'enable_wssecurity_fallback: true' in config to enable it)."
+                    ) from oauth_exc
                 if not _has_wssecurity_config(self.config):
-                    LOGGER.error(
+                    raise WorkdayAuthenticationError(
                         "OAuth authentication failed and no username/password fallback "
                         "credentials are configured. Discovery/sync cannot continue."
-                    )
-                    raise WorkdayAuthenticationError(
-                        "OAuth authentication failed and username/password fallback "
-                        "credentials are not present in the tap config. "
-                        "Authentication cannot continue."
                     ) from oauth_exc
                 LOGGER.debug(
                     "username/password credentials found; attempting WS-Security fallback"
