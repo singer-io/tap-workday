@@ -144,7 +144,7 @@ Create a `config.json` file with your Workday credentials and settings:
 | `enable_wssecurity_fallback` | No | `false` | When `true`, falls back to username/password if OAuth fails |
 | `username` | No | — | ISU username — required only when `enable_wssecurity_fallback` is `true` |
 | `password` | No | — | ISU password — required only when `enable_wssecurity_fallback` is `true` |
-| `token_endpoint` | No | derived | Override the OAuth token URL (derived from `hostname`+`tenant` by default) |
+
 
 Optionally, you can also create a `state.json` file to track sync progress:
 

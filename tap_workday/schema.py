@@ -167,7 +167,7 @@ def get_schemas(config: Dict, client=None):
             LOGGER.warning(
                 "%d stream(s) excluded from catalog — authentication failure: %s.\n"
                 "Affected streams: [%s].\n"
-                "Verify the username and password in the tap config.",
+                "Verify the credentials (OAuth token or username/password) in the tap config.",
                 len(stream_names), detail, streams_str,
             )
         elif category == "authorization":

@@ -116,9 +116,6 @@ class WorkdayOAuthTokenManager:
     EXPIRY_BUFFER_SECS = 60  # refresh proactively 60 s before actual expiry
 
     def __init__(self, config: Mapping[str, Any]) -> None:
-        # token_endpoint is derived from hostname + tenant following Workday's
-        # standard OAuth 2.0 token URL pattern.  An explicit value in config
-        # overrides the derived URL (useful for sandbox / non-standard tenants).
         self._token_endpoint: str = config.get("token_endpoint") or (
             f"https://{config['hostname']}/ccx/oauth2/{config['tenant']}/token"
         )
