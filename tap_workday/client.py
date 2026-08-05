@@ -195,6 +195,8 @@ class Client:
         XMLSyntaxError,
     )
 
+    _FALLBACK_HINT = "set 'enable_wssecurity_fallback: true' in config to enable it"
+
     def __init__(
         self,
         config: Mapping[str, Any],
@@ -243,6 +245,11 @@ class Client:
             settings=settings,
         )
 
+    @property
+    def _wssecurity_fallback_enabled(self) -> bool:
+        """True when the config opts in to WS-Security username/password fallback."""
+        return bool(self.config.get("enable_wssecurity_fallback", False))
+
     def _build_wsdl_url(self) -> str:
         return (
             f"https://{self.config['hostname']}/ccx/service/"
@@ -277,7 +284,19 @@ class Client:
     def _execute_operation(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
         """Execute a SOAP operation with error handling and automatic auth fallback."""
         if self._auth_mode == _AUTH_MODE_OAUTH:
-            self._update_bearer_header()
+            try:
+                self._update_bearer_header()
+            except WorkdayAuthenticationError as auth_exc:
+                if not self._wssecurity_fallback_enabled:
+                    raise WorkdayAuthenticationError(
+                        f"OAuth token refresh failed for '{operation_name}' and "
+                        f"WS-Security fallback is disabled ({self._FALLBACK_HINT})."
+                    ) from auth_exc
+                LOGGER.warning(
+                    "OAuth token update failed for '%s': %s. Attempting WS-Security fallback.",
+                    operation_name, auth_exc,
+                )
+                self._switch_to_wssecurity_fallback()
         try:
             return getattr(self._client.service, operation_name)(*args, **kwargs)
         except TransportError as exc:
@@ -298,11 +317,10 @@ class Client:
                         "OAuth token refresh failed for '%s': %s.",
                         operation_name, auth_exc,
                     )
-                    if not self.config.get("enable_wssecurity_fallback", False):
+                    if not self._wssecurity_fallback_enabled:
                         raise WorkdayAuthenticationError(
                             f"OAuth token refresh failed for '{operation_name}' and "
-                            "WS-Security fallback is disabled "
-                            "(set 'enable_wssecurity_fallback: true' in config to enable it)."
+                            f"WS-Security fallback is disabled ({self._FALLBACK_HINT})."
                         ) from auth_exc
                     LOGGER.warning("Attempting WS-Security fallback for '%s'.", operation_name)
                     self._switch_to_wssecurity_fallback()  # raises if no u/p in config
@@ -351,10 +369,10 @@ class Client:
                 LOGGER.debug("OAuth 2.0 token acquired successfully; continuing in OAuth mode")
             except Exception as oauth_exc:
                 LOGGER.warning("OAuth authentication failed: %s", oauth_exc)
-                if not self.config.get("enable_wssecurity_fallback", False):
+                if not self._wssecurity_fallback_enabled:
                     raise WorkdayAuthenticationError(
-                        "OAuth authentication failed. WS-Security fallback is disabled "
-                        "(set 'enable_wssecurity_fallback: true' in config to enable it)."
+                        f"OAuth authentication failed. WS-Security fallback is disabled "
+                        f"({self._FALLBACK_HINT})."
                     ) from oauth_exc
                 if not _has_wssecurity_config(self.config):
                     raise WorkdayAuthenticationError(
