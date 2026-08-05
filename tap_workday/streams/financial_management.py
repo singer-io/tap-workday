@@ -79,37 +79,70 @@ class Journals(FinancialManagementStream):
     data_key = "Journal_Entry"
     wid_key = "Journal_Entry_Reference"
 
+    # Populated during sync() so Ledgers can reuse the IDs without a second API scan.
+    _cached_ledger_ids = None
+
     @staticmethod
-    def extract_ledger_ids_from_journals_api(client, max_pages=None):
-        """Extract unique ledger IDs from journal entries using minimal API calls."""
-        from tap_workday.streams.helpers import WorkdayPaginator
-        
-        page_info = f"(max {max_pages} pages)" if max_pages else ""
-        LOGGER.debug(f"Extracting Ledger_Reference_IDs from journal entries {page_info}...")
+    def _extract_ledger_ids_from_records(records):
+        """Extract unique Ledger_Reference_IDs from an already-fetched list of journal records."""
         ledger_ids = set()
-        
-        paginator = WorkdayPaginator(client, "Get_Journals")
-        records = paginator.paginate_operation("Journal_Entry", max_pages=max_pages)
-        
-        # Extract ledger IDs from records
         for record in records:
             journal_entry_data = record.get("Journal_Entry_Data", [])
             if isinstance(journal_entry_data, dict):
                 journal_entry_data = [journal_entry_data]
             elif not isinstance(journal_entry_data, list):
                 continue
-                
             for entry_data in journal_entry_data:
                 ledger_ref = entry_data.get("Ledger_Reference")
                 if ledger_ref and isinstance(ledger_ref.get("ID"), list):
                     for id_entry in ledger_ref["ID"]:
-                        if (isinstance(id_entry, dict) and 
-                            id_entry.get("type") == "Ledger_Reference_ID" and
-                            id_entry.get("_value_1")):
+                        if (isinstance(id_entry, dict) and
+                                id_entry.get("type") == "Ledger_Reference_ID" and
+                                id_entry.get("_value_1")):
                             ledger_ids.add(id_entry["_value_1"])
-
-        LOGGER.debug(f"Extracted {len(ledger_ids)} unique Ledger_Reference_IDs")
         return ledger_ids
+
+    @staticmethod
+    def extract_ledger_ids_from_journals_api(client, max_pages=None):
+        """Extract unique ledger IDs from journal entries using minimal API calls."""
+        from tap_workday.streams.helpers import WorkdayPaginator
+
+        page_info = f"(max {max_pages} pages)" if max_pages else ""
+        LOGGER.debug("Extracting Ledger_Reference_IDs from journal entries %s...", page_info)
+
+        paginator = WorkdayPaginator(client, "Get_Journals")
+        records = paginator.paginate_operation("Journal_Entry", max_pages=max_pages)
+
+        ledger_ids = Journals._extract_ledger_ids_from_records(records)
+        LOGGER.debug("Extracted %d unique Ledger_Reference_IDs", len(ledger_ids))
+        return ledger_ids
+
+    def sync(self, state, transformer, parent_obj=None):
+        """Sync journals and cache discovered ledger IDs to avoid a double API scan in Ledgers."""
+        from tap_workday.streams.helpers import call_workday_operation, emit_full_table
+
+        client = self.get_client()
+        updated_since = None
+        if hasattr(self, "get_bookmark"):
+            try:
+                updated_since = self.get_bookmark(state, self.tap_stream_id)
+            except Exception:
+                LOGGER.exception(
+                    "Exception retrieving bookmark for stream '%s'. Setting updated_since to None.",
+                    self.tap_stream_id,
+                )
+
+        records = call_workday_operation(
+            client, self.operation_name, self.data_key,
+            updated_since=updated_since, wid_key=self.wid_key,
+        )
+
+        # Cache ledger IDs while records are already in memory — Ledgers.sync() reads this
+        # cache and skips the redundant Get_Journals re-scan, halving API traffic.
+        Journals._cached_ledger_ids = Journals._extract_ledger_ids_from_records(records)
+        LOGGER.info("Cached %d unique ledger IDs from journals sync", len(Journals._cached_ledger_ids))
+
+        return emit_full_table(self, records)
 
 
 class LedgerAccountSummaries(FinancialManagementStream):
@@ -160,16 +193,26 @@ class Ledgers(FinancialManagementStream):
         from tap_workday.streams.helpers import emit_full_table
 
         client = self.get_client()
-        
+
         try:
-            discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(client)
+            if Journals._cached_ledger_ids is not None:
+                # Journals already ran in this sync — reuse the cached IDs to avoid
+                # a full second scan of Get_Journals (which can be 500+ pages).
+                discovered_ledger_ids = Journals._cached_ledger_ids
+                LOGGER.info(
+                    "Using %d cached ledger IDs from journals sync (skipping API re-scan)",
+                    len(discovered_ledger_ids),
+                )
+            else:
+                discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(client)
+
             if not discovered_ledger_ids:
                 LOGGER.warning("No Ledger_Reference_IDs found in Journals. No ledgers to sync.")
                 return emit_full_table(self, [])
 
-            LOGGER.info(f"Discovered {len(discovered_ledger_ids)} unique ledgers")
+            LOGGER.info("Discovered %d unique ledgers", len(discovered_ledger_ids))
         except Exception as exc:
-            LOGGER.error(f"Failed to discover ledger IDs from Journals: {exc}")
+            LOGGER.error("Failed to discover ledger IDs from Journals: %s", exc)
             return emit_full_table(self, [])
         
         # Get bookmark for incremental syncs (reuse base class logic)
