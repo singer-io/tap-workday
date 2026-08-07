@@ -15,5 +15,6 @@ class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
         return "tap_tester_workday_bookmark_test"
 
     def streams_to_test(self):
-        streams_to_exclude = {}
-        return self.expected_stream_names().difference(streams_to_exclude)
+        # All streams use FULL_TABLE replication (WorkdayTableStream → FullTableStream)
+        # and never write bookmarks to state. There are no incremental streams to test.
+        return set()
