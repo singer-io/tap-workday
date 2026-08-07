@@ -50,6 +50,9 @@ class WorkdayBaseTest(BaseCase):
             "password": "TAP_WORKDAY_PASSWORD",
             "tenant": "TAP_WORKDAY_TENANT",
             "hostname": "TAP_WORKDAY_HOSTNAME",
+            "client_id": "TAP_WORKDAY_CLIENT_ID",
+            "client_secret": "TAP_WORKDAY_CLIENT_SECRET",
+            "refresh_token": "TAP_WORKDAY_REFRESH_TOKEN",
         }
         for cred in creds:
             credentials_dict[cred] = os.getenv(creds[cred])
