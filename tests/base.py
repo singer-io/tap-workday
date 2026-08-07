@@ -16,7 +16,7 @@ HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FI
 class WorkdayBaseTest(BaseCase):
     """Base test for Workday using standard credentials (TAP_WORKDAY_*)."""
 
-    start_date = "2026-03-01T00:00:00Z"
+    start_date = "2026-04-01T00:00:00Z"
     stream_group = ALL_STREAMS
     testable_streams = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS
 
@@ -43,24 +43,19 @@ class WorkdayBaseTest(BaseCase):
 
     @staticmethod
     def get_credentials():
-        """Authentication information for the test account."""
-        credentials_dict = {}
+        """Authentication information for the test account (OAuth 2.0)."""
         creds = {
-            "username": "TAP_WORKDAY_USERNAME",
-            "password": "TAP_WORKDAY_PASSWORD",
-            "tenant": "TAP_WORKDAY_TENANT",
-            "hostname": "TAP_WORKDAY_HOSTNAME",
             "client_id": "TAP_WORKDAY_CLIENT_ID",
             "client_secret": "TAP_WORKDAY_CLIENT_SECRET",
             "refresh_token": "TAP_WORKDAY_REFRESH_TOKEN",
+            "tenant": "TAP_WORKDAY_TENANT",
+            "hostname": "TAP_WORKDAY_HOSTNAME",
         }
-        for cred in creds:
-            credentials_dict[cred] = os.getenv(creds[cred])
-        return credentials_dict
+        return {key: os.getenv(env_var) for key, env_var in creds.items()}
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
-        return_value = {"start_date": "2026-03-01T00:00:00Z"}
+        return_value = {"start_date": "2026-04-01T00:00:00Z"}
         if original:
             return return_value
         return_value["start_date"] = self.start_date
@@ -75,14 +70,12 @@ class WorkdayBaseTestFinancial(WorkdayBaseTest):
 
     @staticmethod
     def get_credentials():
-        """Authentication information for the test account."""
-        credentials_dict = {}
+        """Authentication information for the financial test account (OAuth 2.0)."""
         creds = {
-            "username": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_USERNAME",
-            "password": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_PASSWORD",
+            "client_id": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_CLIENT_ID",
+            "client_secret": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_CLIENT_SECRET",
+            "refresh_token": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_REFRESH_TOKEN",
             "tenant": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT",
             "hostname": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME",
         }
-        for cred in creds:
-            credentials_dict[cred] = os.getenv(creds[cred])
-        return credentials_dict
+        return {key: os.getenv(env_var) for key, env_var in creds.items()}
