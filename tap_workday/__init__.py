@@ -10,21 +10,25 @@ from typing import Dict
 
 LOGGER = singer.get_logger()
 
+OAUTH_CONFIG_FIELDS = ("client_id", "client_secret", "refresh_token")
+
+# OAuth 2.0 is the primary authentication mechanism; client_id, client_secret,
+# and refresh_token are always required.  username/password are optional and
+# used only as a fallback when OAuth authentication fails.
 REQUIRED_CONFIG_KEYS = [
     "tenant",
-    "username",
-    "password",
     "hostname",
     "start_date",
+    *OAUTH_CONFIG_FIELDS,
 ]
 
 
-def do_discover(config: Dict):
+def do_discover(config, client=None):
     """
     Discover and emit the catalog to stdout
     """
     LOGGER.info("Starting discover")
-    catalog = discover(config)
+    catalog = discover(config, client=client)
     json.dump(catalog.to_dict(), sys.stdout, indent=2)
     LOGGER.info("Finished discover")
 
@@ -43,7 +47,7 @@ def main():
     client.check_credentials()
 
     if parsed_args.discover:
-        do_discover(parsed_args.config)
+        do_discover(parsed_args.config, client)
     elif parsed_args.catalog:
         sync(
             client=client,
