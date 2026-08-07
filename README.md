@@ -108,14 +108,43 @@ Create a `config.json` file with your Workday credentials and settings:
 
 ```json
 {
-    "username": "user@talend_1",
-    "password": "TLND&01",
-    "tenant": "talend_1",
-    "hostname": "wd1-impl-services1.workday.com",
-    "start_date": "2019-01-01T00:00:00Z",
-    "user_agent": "tap-workday <api_user_email@your_company.com>"
+    "client_id": "Y2Q5YmU4...",
+    "client_secret": "bma39u1i...",
+    "refresh_token": "k2grvt6s...",
+    "tenant": "your_tenant",
+    "hostname": "wd2-impl-services1.workday.com",
+    "start_date": "2024-01-01T00:00:00Z"
 }
 ```
+
+**Optional:** to enable a WS-Security username/password fallback when OAuth fails:
+
+```json
+{
+    "client_id": "Y2Q5YmU4...",
+    "client_secret": "bma39u1i...",
+    "refresh_token": "k2grvt6s...",
+    "tenant": "your_tenant",
+    "hostname": "wd2-impl-services1.workday.com",
+    "start_date": "2024-01-01T00:00:00Z",
+    "enable_wssecurity_fallback": true,
+    "username": "user@your_tenant",
+    "password": "your_password"
+}
+```
+
+| Key | Required | Default | Description |
+|---|---|---|---|
+| `client_id` | Yes | — | OAuth 2.0 client ID |
+| `client_secret` | Yes | — | OAuth 2.0 client secret |
+| `refresh_token` | Yes | — | OAuth 2.0 refresh token |
+| `tenant` | Yes | — | Workday tenant name |
+| `hostname` | Yes | — | Workday API hostname |
+| `start_date` | Yes | — | Earliest date to sync (RFC 3339) |
+| `enable_wssecurity_fallback` | No | `false` | When `true`, falls back to username/password if OAuth fails |
+| `username` | No | — | ISU username — required only when `enable_wssecurity_fallback` is `true` |
+| `password` | No | — | ISU password — required only when `enable_wssecurity_fallback` is `true` |
+
 
 Optionally, you can also create a `state.json` file to track sync progress:
 

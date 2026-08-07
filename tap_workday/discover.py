@@ -8,11 +8,11 @@ from typing import Dict
 LOGGER = singer.get_logger()
 
 
-def discover(config: Dict) -> Catalog:
+def discover(config: Dict, client=None) -> Catalog:
     """
     Run the discovery mode, prepare the catalog file and return the catalog.
     """
-    schemas, field_metadata = get_schemas(config=config)
+    schemas, field_metadata = get_schemas(config=config, client=client)
     catalog = Catalog([])
 
     for stream_name, schema_dict in schemas.items():
