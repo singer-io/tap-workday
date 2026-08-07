@@ -16,7 +16,7 @@ HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FI
 class WorkdayBaseTest(BaseCase):
     """Base test for Workday using standard credentials (TAP_WORKDAY_*)."""
 
-    start_date = "2026-03-01T00:00:00Z"
+    start_date = "2026-04-01T00:00:00Z"
     stream_group = ALL_STREAMS
     testable_streams = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS
 
@@ -55,7 +55,7 @@ class WorkdayBaseTest(BaseCase):
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
-        return_value = {"start_date": "2026-03-01T00:00:00Z"}
+        return_value = {"start_date": "2026-04-01T00:00:00Z"}
         if original:
             return return_value
         return_value["start_date"] = self.start_date
