@@ -18,3 +18,11 @@ class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
         # All streams use FULL_TABLE replication (WorkdayTableStream → FullTableStream)
         # and never write bookmarks to state. There are no incremental streams to test.
         return set()
+
+    def setUp(self):
+        if not self.streams_to_test():
+            self.skipTest(
+                "No incremental streams to test: all streams use FULL_TABLE replication "
+                "and do not write bookmarks."
+            )
+        super().setUp()
