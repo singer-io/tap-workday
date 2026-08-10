@@ -426,17 +426,32 @@ class WorkdayTableStream(FullTableStream):
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream.
 
-        For streams with a non-empty ``replication_keys``:
-        1. Reads the last bookmark (falling back to ``start_date`` from config)
-           as ``Updated_From`` for the API filter.
-        2. After fetching, derives the new bookmark:
-           - If ``bookmark_field_path`` is set: uses the maximum value of that
-             field across all returned records so that the next run re-fetches
-             the boundary record (≥1 record overlap, preventing data gaps at
-             window edges).
-           - Otherwise: uses ``sync_start_time`` (no overlap guarantee, but
-             safe when no reliable last-modified field exists in the response).
-        3. Writes the new bookmark to Singer state.
+        INCREMENTAL BEHAVIOUR — why a run can correctly return 0 records
+        ─────────────────────────────────────────────────────────────────
+        Workday's date-range filter returns records whose *internal transaction
+        log entry* falls in the window [Updated_From, Updated_Through].
+
+          Run 1 (empty state):
+            updated_since  = start_date from config (e.g. 2019-01-01)
+            Updated_From   = 2019-01-01  →  returns all records since 2019
+            bookmark saved = sync_start_time (e.g. 2026-08-10T08:12Z)
+
+          Run 2 (state from Run 1):
+            updated_since  = 2026-08-10T08:12Z  ← bookmark, NOT start_date
+            Updated_From   = 2026-08-10T08:12Z  →  returns only records
+                             whose Workday transaction date ≥ 08:12Z
+            If no one edited Workday data since 08:12Z → 0 records is CORRECT.
+            bookmark saved = new sync_start_time (e.g. 2026-08-10T08:32Z)
+
+        0 records on Run 2 means "nothing changed in Workday since the last
+        sync" — it is not a bug or a missed-data situation.  The bookmark
+        advances each run so any future change is captured exactly once.
+
+        NO DATA IS EVER LOST:
+          • Records with transaction_date < Run-N bookmark  → already in Run N
+          • Records with transaction_date ≥ Run-N bookmark  → captured in Run N+1
+          • A record at the exact boundary timestamp        → appears in both
+                                                              (inclusive filter)
         """
         client = self.get_client()
         updated_since = None
@@ -444,6 +459,9 @@ class WorkdayTableStream(FullTableStream):
         if self.replication_keys:
             bookmark_key = self.replication_keys[0]
             start_date = self.client.config.get("start_date")
+            # get_bookmark returns the stored bookmark if one exists, otherwise
+            # falls back to start_date.  start_date is ONLY used on the very
+            # first run when state is empty — it is ignored on all subsequent runs.
             updated_since = get_bookmark(
                 state, self.tap_stream_id, bookmark_key, start_date
             )
@@ -456,6 +474,11 @@ class WorkdayTableStream(FullTableStream):
         count = emit_full_table(self, records)
         if self.replication_keys and sync_start_time:
             bookmark_key = self.replication_keys[0]
+            # bookmark_field_path allows using a record-level date field as the
+            # bookmark instead of sync_start_time.  Currently None for all
+            # streams because Last_Updated_DateTime is the *effective* date of
+            # a change (can be future-dated) and does not match the internal
+            # Workday transaction log timestamp the API filters on.
             if self.bookmark_field_path and records:
                 new_bookmark = (
                     _extract_max_date(records, self.bookmark_field_path)

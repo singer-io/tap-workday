@@ -28,12 +28,15 @@ class CostCenters(FinancialManagementStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # updated_since = bookmark from state (or start_date on first run).
+        # Run 2+ returns 0 records when nothing changed since the last sync —
+        # that is correct; it does NOT mean data was missed.
         if not updated_since:
             return {}
         return {
             "Request_Criteria": {
-                "Updated_From_Date": updated_since,
-                "Updated_To_Date": updated_through,
+                "Updated_From_Date": updated_since,    # bookmark / start_date
+                "Updated_To_Date": updated_through,    # sync_start_time
             }
         }
 
@@ -54,6 +57,7 @@ class Organizations(FinancialManagementStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # Same incremental filter logic — see CostCenters.build_filter_params.
         if not updated_since:
             return {}
         return {
@@ -126,6 +130,7 @@ class Journals(FinancialManagementStream):
     replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # Same incremental filter logic — see CostCenters.build_filter_params.
         if not updated_since:
             return {}
         return {
@@ -300,6 +305,7 @@ class RevenueCategories(FinancialManagementStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # Same incremental filter logic — see CostCenters.build_filter_params.
         if not updated_since:
             return {}
         return {

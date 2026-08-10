@@ -23,6 +23,7 @@ class Organizations(StaffingStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # Same incremental filter logic — see human_resources.Organizations.build_filter_params.
         if not updated_since:
             return {}
         return {

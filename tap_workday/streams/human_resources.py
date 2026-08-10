@@ -29,14 +29,17 @@ class Organizations(HumanResourcesStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # updated_since = bookmark from state (or start_date on first run).
+        # Run 2+ returns 0 records when nothing changed since the last sync —
+        # that is correct; it does NOT mean data was missed.
         if not updated_since:
             return {}
         return {
             "Request_Criteria": {
                 "Transaction_Log_Criteria": {
                     "Transaction_Date_Range_Data": {
-                        "Updated_From": updated_since,
-                        "Updated_Through": updated_through,
+                        "Updated_From": updated_since,    # bookmark / start_date
+                        "Updated_Through": updated_through,  # sync_start_time
                     }
                 }
             }
@@ -74,6 +77,7 @@ class JobProfiles(HumanResourcesStream):
     bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
+        # Same incremental filter logic — see Organizations.build_filter_params.
         if not updated_since:
             return {}
         return {
