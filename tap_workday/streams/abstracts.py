@@ -480,6 +480,9 @@ class WorkdayTableStream(FullTableStream):
             client, self.operation_name, self.data_key,
             custom_params=custom_params, wid_key=self.wid_key
         )
+        if self.replication_keys and sync_start_time:
+            for record in records:
+                record["updated_through"] = sync_start_time
         count = emit_full_table(self, records)
         if self.replication_keys and sync_start_time:
             bookmark_key = self.replication_keys[0]

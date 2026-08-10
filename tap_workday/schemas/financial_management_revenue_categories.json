@@ -10,6 +10,13 @@
         "string"
       ]
     },
+    "updated_through": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
     "Revenue_Category_Reference": {
       "type": [
         "object",
