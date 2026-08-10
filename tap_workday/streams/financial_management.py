@@ -17,6 +17,15 @@ class CostCenters(FinancialManagementStream):
     wid_key = "Cost_Center_Reference"
     replication_method = "INCREMENTAL"
     replication_keys = ["updated_through"]
+    # NOTE: Get_Cost_Centers responses contain no last-modified timestamp.
+    # Cost_Center_Data.Effective_Date is the organizational effective date
+    # (when the cost center version became active), not when the record was
+    # last modified.  The API is filtered via
+    # Cost_Center_Request_CriteriaType.Updated_From_Date (internal update
+    # tracking) which is not surfaced in the response payload.
+    # bookmark_field_path = None -> bookmark falls back to sync_start_time
+    # (no guaranteed record overlap across sync windows).
+    bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -36,6 +45,13 @@ class Organizations(FinancialManagementStream):
     wid_key = "Organization_Reference"
     replication_method = "INCREMENTAL"
     replication_keys = ["updated_through"]
+    # NOTE: Organization_Data.Last_Updated_DateTime is the EFFECTIVE date of
+    # the most recent change and may be future-dated.  Workday's
+    # Transaction_Log_Criteria.Updated_From operates on the internal
+    # transaction log timestamp, which is not in the response and can precede
+    # Last_Updated_DateTime significantly.  sync_start_time is the correct
+    # bookmark; see human_resources.Organizations for full explanation.
+    bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -274,6 +290,14 @@ class RevenueCategories(FinancialManagementStream):
     wid_key = "Revenue_Category_Reference"
     replication_method = "INCREMENTAL"
     replication_keys = ["updated_through"]
+    # NOTE: Get_Revenue_Categories responses contain no date/time fields
+    # whatsoever.  Revenue_Category_Data has only identifier, name, and
+    # classification fields.  The API is filtered via
+    # Revenue_Category_Request_CriteriaType.Updated_From_Date (internal
+    # update tracking) which is not exposed in the response payload.
+    # bookmark_field_path = None -> bookmark falls back to sync_start_time
+    # (no guaranteed record overlap across sync windows).
+    bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:

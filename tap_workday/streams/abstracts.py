@@ -1,6 +1,6 @@
 import json
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from typing import Any, Dict, Iterator, List, Tuple
 
 from singer import (
@@ -340,6 +340,42 @@ class ChildBaseStream(IncrementalStream):
         return self.bookmark_value
 
 
+def _extract_max_date(records, field_path):
+    """Return the maximum date value found in *records* by following *field_path*.
+
+    Traverses each record dict using the sequence of keys in *field_path*
+    (e.g. ``["Organization_Data", "Last_Updated_DateTime"]``) and returns the
+    lexicographically greatest ISO-8601 string found.  Handles both Python
+    ``datetime``/``date`` objects (returned by zeep before transformation) and
+    plain strings (already formatted by Singer's pre_hook).
+
+    Returns ``None`` when no usable date value is found in any record —
+    callers should fall back to ``sync_start_time`` in that case.
+    """
+    max_date = None
+    for record in records:
+        val = record
+        for key in field_path:
+            if not isinstance(val, dict):
+                val = None
+                break
+            val = val.get(key)
+        if val is None:
+            continue
+        if isinstance(val, datetime):
+            val_str = val.strftime("%Y-%m-%dT%H:%M:%SZ")
+        elif isinstance(val, date):
+            # plain date, no time component
+            val_str = val.strftime("%Y-%m-%dT00:00:00Z")
+        elif isinstance(val, str) and val:
+            val_str = val
+        else:
+            continue
+        if max_date is None or val_str > max_date:
+            max_date = val_str
+    return max_date
+
+
 class WorkdayTableStream(FullTableStream):
     """Base for simple Workday SOAP streams.
 
@@ -356,6 +392,13 @@ class WorkdayTableStream(FullTableStream):
       This value appears as ``valid-replication-keys`` in the Singer catalog and is
       also used as the Singer state bookmark key.
     - Override ``build_filter_params`` to return the correct ``Request_Criteria`` dict.
+    - Set ``bookmark_field_path`` to a list of dict keys that navigate to a
+      "last modified" timestamp in the returned records (e.g.
+      ``["Organization_Data", "Last_Updated_DateTime"]``).  The max of that
+      field across all records in the sync window is saved as the bookmark,
+      guaranteeing the boundary record is re-fetched on the next run
+      (≥1 record overlap).  Leave as ``None`` when no reliable last-modified
+      field exists in the response — the bookmark falls back to sync_start_time.
     """
 
     service_name: str = ""
@@ -363,6 +406,9 @@ class WorkdayTableStream(FullTableStream):
     data_key: str = ""
     wid_key: str = ""
     version: str = DefaultValues.VERSION.value
+    # Override with the key path to a "last modified" timestamp in response
+    # records (see class docstring).  None means fall back to sync_start_time.
+    bookmark_field_path: list = None
 
     def get_client(self):
         """Client for WorkdayTableStream."""
@@ -380,11 +426,17 @@ class WorkdayTableStream(FullTableStream):
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream.
 
-        For streams with a non-empty ``replication_keys``, reads the last bookmark
-        (falling back to ``start_date`` from config) as the incremental filter start,
-        calls ``build_filter_params`` to construct the correct API filter, and writes
-        the bookmark after a successful sync.  ``replication_keys[0]`` is used as both
-        the Singer catalog ``valid-replication-keys`` entry and the state bookmark key.
+        For streams with a non-empty ``replication_keys``:
+        1. Reads the last bookmark (falling back to ``start_date`` from config)
+           as ``Updated_From`` for the API filter.
+        2. After fetching, derives the new bookmark:
+           - If ``bookmark_field_path`` is set: uses the maximum value of that
+             field across all returned records so that the next run re-fetches
+             the boundary record (≥1 record overlap, preventing data gaps at
+             window edges).
+           - Otherwise: uses ``sync_start_time`` (no overlap guarantee, but
+             safe when no reliable last-modified field exists in the response).
+        3. Writes the new bookmark to Singer state.
         """
         client = self.get_client()
         updated_since = None
@@ -404,8 +456,13 @@ class WorkdayTableStream(FullTableStream):
         count = emit_full_table(self, records)
         if self.replication_keys and sync_start_time:
             bookmark_key = self.replication_keys[0]
-            state = write_bookmark(
-                state, self.tap_stream_id, bookmark_key, sync_start_time
-            )
+            if self.bookmark_field_path and records:
+                new_bookmark = (
+                    _extract_max_date(records, self.bookmark_field_path)
+                    or sync_start_time
+                )
+            else:
+                new_bookmark = sync_start_time
+            state = write_bookmark(state, self.tap_stream_id, bookmark_key, new_bookmark)
             write_state(state)
         return count

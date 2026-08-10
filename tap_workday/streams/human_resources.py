@@ -14,6 +14,19 @@ class Organizations(HumanResourcesStream):
     wid_key = "Organization_Reference"
     replication_method = "INCREMENTAL"
     replication_keys = ["updated_through"]
+    # NOTE: Organization_Data.Last_Updated_DateTime is the EFFECTIVE date of
+    # the most recent change — it can be future-dated (a HR user enters a
+    # change today that takes effect next month).  Workday's
+    # Transaction_Log_Criteria.Updated_From filter operates on the internal
+    # TRANSACTION LOG timestamp (when the change was entered/approved), which
+    # is NOT exposed in the response payload and may precede
+    # Last_Updated_DateTime by weeks or months.
+    # Using Last_Updated_DateTime as Updated_From therefore misses records
+    # that were entered well before their effective date.
+    # sync_start_time is the correct bookmark: every record whose transaction
+    # log entry falls in [Updated_From, sync_start_time] is captured, and the
+    # next run picks up from sync_start_time onward with no gaps.
+    bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -51,6 +64,14 @@ class JobProfiles(HumanResourcesStream):
     wid_key = "Job_Profile_Reference"
     replication_method = "INCREMENTAL"
     replication_keys = ["updated_through"]
+    # NOTE: Get_Job_Profiles responses contain no last-modified timestamp.
+    # Job_Profile_Data.Effective_Date is the date the profile became effective
+    # (e.g. 2015-01-01), not when it was last transacted/modified.  The API
+    # is filtered via Transaction_Log_Criteria_Data which tracks internal
+    # transaction log entries not exposed in the response payload.
+    # bookmark_field_path = None -> bookmark falls back to sync_start_time
+    # (no guaranteed record overlap across sync windows).
+    bookmark_field_path = None
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
