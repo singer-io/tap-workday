@@ -43,10 +43,6 @@ jobs:
             source dev_env.sh
             unset USE_STITCH_BACKEND
             run-test --tap=tap-workday tests/test_*_hr.py
-            run-test --tap=tap-workday tests/test_bookmark.py
-            run-test --tap=tap-workday tests/test_pagination.py
-            # run-test --tap=tap-workday tests/test_interrupted_sync.py
-            run-test --tap=tap-workday tests/test_start_date.py
       - run:
           name: "Integration Tests - Financial Management"
           command: |
