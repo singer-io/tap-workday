@@ -13,7 +13,7 @@ class Organizations(HumanResourcesStream):
     data_key = "Organization"
     wid_key = "Organization_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -50,7 +50,7 @@ class JobProfiles(HumanResourcesStream):
     data_key = "Job_Profile"
     wid_key = "Job_Profile_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:

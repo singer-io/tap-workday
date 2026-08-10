@@ -16,7 +16,7 @@ class CostCenters(FinancialManagementStream):
     data_key = "Cost_Center"
     wid_key = "Cost_Center_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -35,7 +35,7 @@ class Organizations(FinancialManagementStream):
     data_key = "Organization"
     wid_key = "Organization_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -107,7 +107,7 @@ class Journals(FinancialManagementStream):
     data_key = "Journal_Entry"
     wid_key = "Journal_Entry_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:
@@ -273,7 +273,7 @@ class RevenueCategories(FinancialManagementStream):
     data_key = "Revenue_Category"
     wid_key = "Revenue_Category_Reference"
     replication_method = "INCREMENTAL"
-    BOOKMARK_KEY = "updated_through"
+    replication_keys = ["updated_through"]
 
     def build_filter_params(self, updated_since, updated_through=None):
         if not updated_since:

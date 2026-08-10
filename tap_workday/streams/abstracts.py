@@ -352,7 +352,9 @@ class WorkdayTableStream(FullTableStream):
 
     To enable incremental replication for a stream:
     - Set ``replication_method = "INCREMENTAL"``
-    - Set ``BOOKMARK_KEY`` to a non-None string (e.g. ``"updated_through"``).
+    - Set ``replication_keys = ["updated_through"]`` (or another bookmark key name).
+      This value appears as ``valid-replication-keys`` in the Singer catalog and is
+      also used as the Singer state bookmark key.
     - Override ``build_filter_params`` to return the correct ``Request_Criteria`` dict.
     """
 
@@ -361,9 +363,6 @@ class WorkdayTableStream(FullTableStream):
     data_key: str = ""
     wid_key: str = ""
     version: str = DefaultValues.VERSION.value
-    # Set to a non-None string in subclasses that support server-side date filtering.
-    # Used as the bookmark key in Singer state, e.g. "updated_through".
-    BOOKMARK_KEY: str = None
 
     def get_client(self):
         """Client for WorkdayTableStream."""
@@ -381,18 +380,20 @@ class WorkdayTableStream(FullTableStream):
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream.
 
-        For streams with ``BOOKMARK_KEY`` set, reads the last bookmark (falling back to
-        ``start_date`` from config) as the incremental filter start, calls
-        ``build_filter_params`` to construct the correct API filter, and writes the
-        bookmark after a successful sync.
+        For streams with a non-empty ``replication_keys``, reads the last bookmark
+        (falling back to ``start_date`` from config) as the incremental filter start,
+        calls ``build_filter_params`` to construct the correct API filter, and writes
+        the bookmark after a successful sync.  ``replication_keys[0]`` is used as both
+        the Singer catalog ``valid-replication-keys`` entry and the state bookmark key.
         """
         client = self.get_client()
         updated_since = None
         sync_start_time = None
-        if self.BOOKMARK_KEY:
+        if self.replication_keys:
+            bookmark_key = self.replication_keys[0]
             start_date = self.client.config.get("start_date")
             updated_since = get_bookmark(
-                state, self.tap_stream_id, self.BOOKMARK_KEY, start_date
+                state, self.tap_stream_id, bookmark_key, start_date
             )
             sync_start_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         custom_params = self.build_filter_params(updated_since, sync_start_time) or None
@@ -401,9 +402,10 @@ class WorkdayTableStream(FullTableStream):
             custom_params=custom_params, wid_key=self.wid_key
         )
         count = emit_full_table(self, records)
-        if self.BOOKMARK_KEY and sync_start_time:
+        if self.replication_keys and sync_start_time:
+            bookmark_key = self.replication_keys[0]
             state = write_bookmark(
-                state, self.tap_stream_id, self.BOOKMARK_KEY, sync_start_time
+                state, self.tap_stream_id, bookmark_key, sync_start_time
             )
             write_state(state)
         return count
