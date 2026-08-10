@@ -44,6 +44,7 @@ jobs:
             unset USE_STITCH_BACKEND
             run-test --tap=tap-workday tests/test_automatic_fields.py
             run-test --tap=tap-workday tests/test_discovery.py
+            run-test --tap=tap-workday tests/test_pagination.py
       - run:
           name: "Integration Tests - Financial Management"
           command: |
