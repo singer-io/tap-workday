@@ -3,6 +3,7 @@
 
 ## 0.2.0
   * Added OAuth 2.0 authentication support alongside existing username/password auth
+  * Incremental sync
   * Integration tests improvements [#32](https://github.com/singer-io/tap-workday/pull/32)
 
 ## 0.1.0
