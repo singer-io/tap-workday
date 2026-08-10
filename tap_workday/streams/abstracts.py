@@ -423,6 +423,15 @@ class WorkdayTableStream(FullTableStream):
         """
         return {}
 
+    def _get_sync_start_time(self):
+        """Return the current UTC time as an RFC 3339 string.
+
+        Isolated into its own method so unit tests can patch it without
+        replacing the entire datetime class (which would break isinstance
+        checks in _extract_max_date).
+        """
+        return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for WorkdayTableStream.
 
@@ -465,7 +474,7 @@ class WorkdayTableStream(FullTableStream):
             updated_since = get_bookmark(
                 state, self.tap_stream_id, bookmark_key, start_date
             )
-            sync_start_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+            sync_start_time = self._get_sync_start_time()
         custom_params = self.build_filter_params(updated_since, sync_start_time) or None
         records = call_workday_operation(
             client, self.operation_name, self.data_key,
