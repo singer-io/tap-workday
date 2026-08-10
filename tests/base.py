@@ -16,7 +16,7 @@ HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FI
 class WorkdayBaseTest(BaseCase):
     """Base test for Workday using standard credentials (TAP_WORKDAY_*)."""
 
-    start_date = "2026-04-01T00:00:00Z"
+    start_date = "2025-01-01T00:00:00Z"
     stream_group = ALL_STREAMS
     testable_streams = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS
 
@@ -39,7 +39,31 @@ class WorkdayBaseTest(BaseCase):
             cls.OBEYS_START_DATE: False,
             cls.API_LIMIT: 100,
         }
-        return {stream: stream_metadata.copy() for stream in cls.stream_group}
+    
+        incremental_streams = {
+            "human_resources_job_profiles",
+            "human_resources_organizations",
+            "financial_management_organizations",
+            "staffing_organizations",
+            "financial_management_journals",
+            "financial_management_cost_centers",
+            "financial_management_revenue_categories",
+        }
+    
+        expected_metadata = {
+            stream: stream_metadata.copy()
+            for stream in cls.stream_group
+        }
+
+        for stream in incremental_streams:
+            if stream in expected_metadata:
+                expected_metadata[stream].update({
+                    cls.REPLICATION_METHOD: cls.INCREMENTAL,
+                    cls.REPLICATION_KEYS: {"updated_through"},
+                    cls.OBEYS_START_DATE: True,
+                })
+
+        return expected_metadata
 
     @staticmethod
     def get_credentials():
@@ -55,7 +79,7 @@ class WorkdayBaseTest(BaseCase):
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
-        return_value = {"start_date": "2026-04-01T00:00:00Z"}
+        return_value = {"start_date": "2025-01-01T00:00:00Z"}
         if original:
             return return_value
         return_value["start_date"] = self.start_date
