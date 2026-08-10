@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from datetime import datetime, timezone
 from typing import Any, Dict, Iterator, List, Tuple
 
 from singer import (
@@ -348,6 +349,11 @@ class WorkdayTableStream(FullTableStream):
     - data_key: leaf key inside Response_Data (e.g., "Organization")
     - wid_key: reference field key for extracting key_value (e.g., "Absence_Input_Reference")
     - version (optional): default "v45.0"
+
+    To enable incremental replication for a stream:
+    - Set ``replication_method = "INCREMENTAL"``
+    - Set ``BOOKMARK_KEY`` to a non-None string (e.g. ``"updated_through"``).
+    - Override ``build_filter_params`` to return the correct ``Request_Criteria`` dict.
     """
 
     service_name: str = ""
@@ -355,28 +361,49 @@ class WorkdayTableStream(FullTableStream):
     data_key: str = ""
     wid_key: str = ""
     version: str = DefaultValues.VERSION.value
+    # Set to a non-None string in subclasses that support server-side date filtering.
+    # Used as the bookmark key in Singer state, e.g. "updated_through".
+    BOOKMARK_KEY: str = None
 
     def get_client(self):
         """Client for WorkdayTableStream."""
         cfg = self.client.config
         return Client(cfg, service=self.service_name, version=self.version)
 
+    def build_filter_params(self, updated_since, updated_through=None):
+        """Return stream-specific incremental filter params for the SOAP call.
+
+        Override in subclasses that support server-side date filtering.
+        The returned dict is merged into the SOAP call parameters.
+        """
+        return {}
+
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""
+        """Synchronize records for WorkdayTableStream.
+
+        For streams with ``BOOKMARK_KEY`` set, reads the last bookmark (falling back to
+        ``start_date`` from config) as the incremental filter start, calls
+        ``build_filter_params`` to construct the correct API filter, and writes the
+        bookmark after a successful sync.
+        """
         client = self.get_client()
-        # Try to get bookmark/state for incremental syncs
         updated_since = None
-        if hasattr(self, "get_bookmark"):
-            # Use the same logic as IncrementalStream
-            try:
-                updated_since = self.get_bookmark(state, self.tap_stream_id)
-            except Exception as exc:
-                LOGGER.exception(
-                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
-                    self.tap_stream_id
-                )
-                updated_since = None
+        sync_start_time = None
+        if self.BOOKMARK_KEY:
+            start_date = self.client.config.get("start_date")
+            updated_since = get_bookmark(
+                state, self.tap_stream_id, self.BOOKMARK_KEY, start_date
+            )
+            sync_start_time = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        custom_params = self.build_filter_params(updated_since, sync_start_time) or None
         records = call_workday_operation(
-            client, self.operation_name, self.data_key, updated_since=updated_since, wid_key=self.wid_key
+            client, self.operation_name, self.data_key,
+            custom_params=custom_params, wid_key=self.wid_key
         )
-        return emit_full_table(self, records)
+        count = emit_full_table(self, records)
+        if self.BOOKMARK_KEY and sync_start_time:
+            state = write_bookmark(
+                state, self.tap_stream_id, self.BOOKMARK_KEY, sync_start_time
+            )
+            write_state(state)
+        return count

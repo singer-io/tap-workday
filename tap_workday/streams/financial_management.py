@@ -15,6 +15,18 @@ class CostCenters(FinancialManagementStream):
     operation_name = "Get_Cost_Centers"
     data_key = "Cost_Center"
     wid_key = "Cost_Center_Reference"
+    replication_method = "INCREMENTAL"
+    BOOKMARK_KEY = "updated_through"
+
+    def build_filter_params(self, updated_since, updated_through=None):
+        if not updated_since:
+            return {}
+        return {
+            "Request_Criteria": {
+                "Updated_From_Date": updated_since,
+                "Updated_To_Date": updated_through,
+            }
+        }
 
 
 class Organizations(FinancialManagementStream):
@@ -22,6 +34,22 @@ class Organizations(FinancialManagementStream):
     operation_name = "Get_Organizations"
     data_key = "Organization"
     wid_key = "Organization_Reference"
+    replication_method = "INCREMENTAL"
+    BOOKMARK_KEY = "updated_through"
+
+    def build_filter_params(self, updated_since, updated_through=None):
+        if not updated_since:
+            return {}
+        return {
+            "Request_Criteria": {
+                "Transaction_Log_Criteria": {
+                    "Transaction_Date_Range_Data": {
+                        "Updated_From": updated_since,
+                        "Updated_Through": updated_through,
+                    }
+                }
+            }
+        }
 
 
 class PositionBudgets(FinancialManagementStream):
@@ -78,6 +106,18 @@ class Journals(FinancialManagementStream):
     operation_name = "Get_Journals"
     data_key = "Journal_Entry"
     wid_key = "Journal_Entry_Reference"
+    replication_method = "INCREMENTAL"
+    BOOKMARK_KEY = "updated_through"
+
+    def build_filter_params(self, updated_since, updated_through=None):
+        if not updated_since:
+            return {}
+        return {
+            "Request_Criteria": {
+                "Updated_From_Date": updated_since,
+                "Updated_To_Date": updated_through,
+            }
+        }
 
     @staticmethod
     def extract_ledger_ids_from_journals_api(client, max_pages=None):
@@ -172,18 +212,11 @@ class Ledgers(FinancialManagementStream):
             LOGGER.error(f"Failed to discover ledger IDs from Journals: {exc}")
             return emit_full_table(self, [])
         
-        # Get bookmark for incremental syncs (reuse base class logic)
-        updated_since = None
-        try:
-            updated_since = self.get_bookmark(state, self.tap_stream_id) if hasattr(self, "get_bookmark") else None
-        except Exception as exc:
-            LOGGER.exception("Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.", self.tap_stream_id)
-        
         # Retrieve data for each ledger ID
         all_records = []
         for ledger_ref_id in discovered_ledger_ids:
             try:
-                records = self._call_get_ledgers_with_reference_id(client, ledger_ref_id, updated_since)
+                records = self._call_get_ledgers_with_reference_id(client, ledger_ref_id)
                 all_records.extend(records)
                 LOGGER.info(f"Retrieved {len(records)} records for ledger: {ledger_ref_id}")
             except Exception as exc:
@@ -192,10 +225,14 @@ class Ledgers(FinancialManagementStream):
         LOGGER.info(f"Total records retrieved: {len(all_records)}")
         return emit_full_table(self, all_records)
     
-    def _call_get_ledgers_with_reference_id(self, client, ledger_reference_id, updated_since=None):
-        """Call Get_Ledgers operation using Ledger_Reference_ID."""
+    def _call_get_ledgers_with_reference_id(self, client, ledger_reference_id):
+        """Call Get_Ledgers operation using Ledger_Reference_ID.
+
+        Get_Ledgers_RequestType has no Request_Criteria member, so incremental
+        date filtering is not supported for this operation.
+        """
         from tap_workday.streams.helpers import WorkdayPaginator, _extract_key_value
-        
+
         custom_params = {
             'Request_Reference': {
                 'Actuals_Ledger_Reference': {
@@ -204,11 +241,8 @@ class Ledgers(FinancialManagementStream):
             }
         }
         
-        if updated_since:
-            custom_params['Request_Criteria'] = {'Updated_From': updated_since}
-        
         paginator = WorkdayPaginator(client, self.operation_name)
-        records = paginator.paginate_operation(self.data_key, updated_since, custom_params)
+        records = paginator.paginate_operation(self.data_key, custom_params=custom_params)
         
         # Add key_value to records
         for record in records:
@@ -238,6 +272,18 @@ class RevenueCategories(FinancialManagementStream):
     operation_name = "Get_Revenue_Categories"
     data_key = "Revenue_Category"
     wid_key = "Revenue_Category_Reference"
+    replication_method = "INCREMENTAL"
+    BOOKMARK_KEY = "updated_through"
+
+    def build_filter_params(self, updated_since, updated_through=None):
+        if not updated_since:
+            return {}
+        return {
+            "Request_Criteria": {
+                "Updated_From_Date": updated_since,
+                "Updated_To_Date": updated_through,
+            }
+        }
 
 
 class RevenueCategoryHierarchies(FinancialManagementStream):
