@@ -24,5 +24,7 @@ class WorkdayAllFields(AllFieldsTest, WorkdayBaseTest):
             "financial_management_position_budgets",
             "financial_management_program_hierarchies",
             "financial_management_programs",
+            "financial_management_cost_centers",
+            "financial_management_revenue_categories",
         }
         return set(self.testable_streams).difference(streams_to_exclude)
