@@ -12,6 +12,11 @@ class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
     def name():
         return "tap_tester_workday_pagination_test"
 
+    def get_properties(self, original: bool = True):
+        properties = super().get_properties(original)
+        properties["start_date"] = "2025-01-01T00:00:00Z"
+        return properties
+
     def streams_to_test(self):        
         streams_to_exclude = {
             # streams having <= 100 records
