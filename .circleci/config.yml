@@ -42,11 +42,12 @@ jobs:
             aws s3 cp s3://com-stitchdata-dev-deployment-assets/environments/tap-tester/tap_tester_sandbox dev_env.sh
             source dev_env.sh
             unset USE_STITCH_BACKEND
-            run-test --tap=tap-workday tests/test_start_date.py
             run-test --tap=tap-workday tests/test_all_fields.py
             run-test --tap=tap-workday tests/test_automatic_fields.py
+            run-test --tap=tap-workday tests/test_bookmark.py
             run-test --tap=tap-workday tests/test_discovery.py
             run-test --tap=tap-workday tests/test_pagination.py
+            run-test --tap=tap-workday tests/test_start_date.py
 
 
 workflows:
