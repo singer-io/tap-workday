@@ -14,6 +14,7 @@ class WorkdayPaginationTest(PaginationTest, WorkdayBaseTest):
 
     def streams_to_test(self):        
         streams_to_exclude = {
+            # streams having <= 100 records
             "absence_management_absence_inputs",
             "absence_management_override_balances",
             "financial_management_cost_centers",
