@@ -4,7 +4,7 @@ from tap_tester.base_suite_tests.interrupted_sync_test import \
 from base import WorkdayBaseTest
 
 
-class WorkdayInterruptedSyncTest(WorkdayBaseTest):
+class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
     """Test tap sets a bookmark and respects it for the next sync of a
     stream."""
 
@@ -13,7 +13,62 @@ class WorkdayInterruptedSyncTest(WorkdayBaseTest):
         return "tap_tester_workday_interrupted_sync_test"
 
     def streams_to_test(self):
-        return self.expected_stream_names()
+        streams_to_exclude = {
+            # full table 
+            "absence_management_absence_inputs",
+            "absence_management_override_balances",
+            "financial_management_customer_categories",
+            "financial_management_fund_hierarchies",
+            "financial_management_fund_types",
+            "financial_management_funding_sources",
+            "financial_management_funds",
+            "financial_management_journal_sources",
+            "financial_management_ledger_account_summaries",
+            "financial_management_ledgers",
+            "financial_management_position_budgets",
+            "financial_management_program_hierarchies",
+            "financial_management_programs",
+            "financial_management_revenue_category_hierarchies",
+            "financial_management_spend_category_hierarchies",
+            "financial_management_supplier_categories",
+            "human_resources_job_categories",
+            "human_resources_job_family_groups",
+            "human_resources_locations",
+            "performance_management_certification_issuers",
+            "performance_management_competencies",
+            "performance_management_competency_categories",
+            "performance_management_degrees"
+            # No data available for streams
+            "financial_management_cost_centers",
+            "financial_management_revenue_categories"
+        }
+        return self.expected_stream_names().difference(streams_to_exclude)
+
 
     def manipulate_state(self):
-        return {"currently_syncing": "prospects", "bookmarks": {}}
+        return {
+        "currently_syncing": "staffing_organizations",
+        "bookmarks": {
+            "human_resources_job_profiles": {
+                "updated_through": "2026-08-11T00:35:14Z"
+            },
+            "human_resources_organizations": {
+                "updated_through": "2026-08-11T00:35:48Z"
+            },
+            "financial_management_cost_centers": {
+                "updated_through": "2026-08-11T00:36:09Z"
+            },
+            "financial_management_journals": {
+                "updated_through": "2026-08-11T00:37:56Z"
+            },
+            "financial_management_organizations": {
+                "updated_through": "2026-08-11T00:42:22Z"
+            },
+            "financial_management_revenue_categories": {
+                "updated_through": "2026-08-11T00:43:22Z"
+            },
+            "staffing_organizations": {
+                "updated_through": "2026-08-11T00:44:21Z"
+            }
+        }
+        }
