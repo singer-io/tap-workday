@@ -9,8 +9,6 @@ ALL_STREAMS = sorted(
     os.path.splitext(os.path.basename(f))[0]
     for f in glob.glob(os.path.join(_SCHEMA_DIR, "*.json"))
 )
-FINANCIAL_STREAMS = [s for s in ALL_STREAMS if s.startswith("financial_management_")]
-HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS = [s for s in ALL_STREAMS if s not in FINANCIAL_STREAMS]
 
 
 class WorkdayBaseTest(BaseCase):
@@ -18,7 +16,7 @@ class WorkdayBaseTest(BaseCase):
 
     start_date = "2025-01-01T00:00:00Z"
     stream_group = ALL_STREAMS
-    testable_streams = HR_STAFFING_ABSENCE_PERFORMANCE_STREAMS
+    testable_streams = ALL_STREAMS
 
     @staticmethod
     def tap_name():
@@ -84,22 +82,3 @@ class WorkdayBaseTest(BaseCase):
             return return_value
         return_value["start_date"] = self.start_date
         return return_value
-
-
-class WorkdayBaseTestFinancial(WorkdayBaseTest):
-    """Base test using financial credentials (TAP_WORKDAY_FINANCIAL_MANAGEMENT_*)."""
-
-    stream_group = ALL_STREAMS
-    testable_streams = FINANCIAL_STREAMS
-
-    @staticmethod
-    def get_credentials():
-        """Authentication information for the financial test account (OAuth 2.0)."""
-        creds = {
-            "client_id": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_CLIENT_ID",
-            "client_secret": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_CLIENT_SECRET",
-            "refresh_token": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_REFRESH_TOKEN",
-            "tenant": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_TENANT",
-            "hostname": "TAP_WORKDAY_FINANCIAL_MANAGEMENT_HOSTNAME",
-        }
-        return {key: os.getenv(env_var) for key, env_var in creds.items()}
