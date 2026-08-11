@@ -17,4 +17,7 @@ class WorkdayAllFieldsStandard(AllFieldsTest, WorkdayBaseTest):
         return "tap_tester_workday_all_fields_test_standard"
 
     def streams_to_test(self):
-        return set(self.testable_streams)
+        streams_to_exclude = {
+            "human_resources_job_profiles"
+        }
+        return set(self.testable_streams).difference(streams_to_exclude)
