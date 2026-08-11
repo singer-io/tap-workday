@@ -77,8 +77,6 @@ class WorkdayBaseTest(BaseCase):
 
     def get_properties(self, original: bool = True):
         """Configuration of properties required for the tap."""
-        return_value = {"start_date": "2025-01-01T00:00:00Z"}
-        if original:
-            return return_value
-        return_value["start_date"] = self.start_date
-        return return_value
+        return {
+            "start_date": self.start_date
+        }
