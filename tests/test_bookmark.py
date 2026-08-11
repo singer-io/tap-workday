@@ -73,6 +73,7 @@ class WorkdayBookMarkTest(BookmarkTest, WorkdayBaseTest):
 
     def streams_to_test(self):
         streams_to_include = {
+            "financial_management_journals",
             "financial_management_organizations",
             "human_resources_job_profiles",
             "human_resources_organizations",
