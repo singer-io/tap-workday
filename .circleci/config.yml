@@ -46,6 +46,7 @@ jobs:
             run-test --tap=tap-workday tests/test_automatic_fields.py
             run-test --tap=tap-workday tests/test_bookmark.py
             run-test --tap=tap-workday tests/test_discovery.py
+            run-test --tap=tap-workday tests/test_interrupted_sync.py
             run-test --tap=tap-workday tests/test_pagination.py
             run-test --tap=tap-workday tests/test_start_date.py
 
