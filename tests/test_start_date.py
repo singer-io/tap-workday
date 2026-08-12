@@ -53,38 +53,51 @@ class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
 
     def test_replicated_records(self):
         """
-        Override the base test_replicated_records.
+        Override the base test_replicated_records because tap-workday's
+        replication key (updated_through) is the sync clock time, not a
+        Workday entity timestamp, which breaks the base class filter.
 
-        REASONING:
-        The base implementation filters sync 2 records down to those with
-        a replication key value <= max(replication_dates_1), in order to
-        exclude records that were newly created/modified between sync 1 and
-        sync 2 before comparing primary keys across syncs.
+        WHAT updated_through ACTUALLY IS
+        ----------------------------------
+        The tap stamps every emitted record with the wall-clock time of the
+        API request, not when the Workday entity was last modified.
 
-        For tap-workday, the replication key (`updated_through`) is NOT the
-        actual last-modified timestamp of the underlying Workday entity.
-        Instead, it is stamped by the tap with (approximately) the
-        wall-clock time at which that sync run executed. This means every
-        record emitted during sync 1 gets `updated_through` ~= sync 1's run
-        time, and every record emitted during sync 2 gets `updated_through`
-        ~= sync 2's run time (which is always later, since sync 2 runs
-        after sync 1 completes).
+        Example — the same job profile in two different sync runs:
+          key_value = '15baf9003ea943a9a62332bb48f5386c'
+          sync run at 10:39 AM → updated_through = '2026-08-11T10:39:06Z'
+          sync run at 11:01 AM → updated_through = '2026-08-11T11:01:08Z'
+        Same Workday record, different updated_through every run.
 
-        As a result, comparing `updated_through` from sync 2 against
-        `max(replication_dates_1)` always evaluates to False for every
-        sync 2 record (since sync 2's timestamps are inherently larger),
-        producing an empty `primary_keys_sync_2` set regardless of whether
-        the same records were actually replicated in both syncs. This
-        causes spurious test failures for streams that behave correctly.
+        WHY THE BASE CLASS FAILS
+        -------------------------
+        The base class assumes updated_through is a data timestamp and
+        filters sync-2 records to those where:
+            updated_through <= max(sync-1 updated_through values)
+        to exclude records created between the two syncs.
 
-        FIX:
-        Since the replication key cannot be used to distinguish "record
-        already present as of sync 1" from "record added after sync 1"
-        for this tap, we instead compare primary keys directly, without
-        filtering by replication key. This mirrors the approach already
-        used in the base class for streams that don't obey start date,
-        but we still enforce the record-count assertion for streams that
-        do obey start date.
+        With tap-workday that filter always produces an empty set:
+          sync-1 (start=2019) runs at T1 → all records get updated_through ≈ T1
+          sync-2 (start=2020) runs at T2 → all records get updated_through ≈ T2
+          T2 > T1 (sync-2 runs after sync-1 finishes)
+          filter: T2 <= T1 → False for every record → primary_keys_sync_2 = {}
+
+        The base then asserts:
+            assertSetEqual({sync-1 keys filtered by >= 2020-01-01}, {})
+        sync-1 keys pass the filter because their updated_through (T1, e.g.
+        '2026-08-11T10:00Z') is greater than '2020-01-01', so
+        primary_keys_sync_1 = all 14 keys. The assertion becomes:
+            assertSetEqual({14 keys}, {}) → FAILS spuriously.
+
+        WHAT THIS OVERRIDE DOES INSTEAD
+        ---------------------------------
+        Compare primary keys without filtering by updated_through:
+          - assertGreaterEqual(count_sync_1, count_sync_2)
+            e.g. 14 (start=2019) >= 10 (start=2020) ✓
+          - assert all sync-2 keys are a subset of sync-1 keys
+            e.g. the 10 records from the 2020 sync are all present in
+            the 14 records from the 2019 sync ✓
+        This correctly verifies that the earlier start date returns more
+        data, without relying on updated_through as a data timestamp.
         """
         for stream in self.streams_to_test():
             with self.subTest(stream=stream):
