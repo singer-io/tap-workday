@@ -10,12 +10,15 @@ LOGGER = singer.get_logger()
 
 def update_currently_syncing(state: Dict, stream_name: str) -> None:
     """
-    Update currently_syncing in state and write it
+    Update currently_syncing in state and write it.
+
+    Always emits a STATE message so the last stream's completion is
+    reflected in the final persisted state (otherwise the last emitted
+    STATE record would still show the stream as currently syncing).
     """
     if not stream_name and singer.get_currently_syncing(state):
-        # Clear in-memory marker without emitting another STATE message.
-        # This keeps output to a single STATE record containing currently_syncing.
         del state["currently_syncing"]
+        singer.write_state(state)
         return
 
     singer.set_currently_syncing(state, stream_name)

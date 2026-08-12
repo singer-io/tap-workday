@@ -92,7 +92,7 @@ class TestUpdateCurrentlySyncingWriteBehavior(unittest.TestCase):
     @patch("tap_workday.sync.singer.write_state")
     @patch("tap_workday.sync.singer.set_currently_syncing")
     @patch("tap_workday.sync.singer.get_currently_syncing", return_value="staffing_organizations")
-    def test_clear_does_not_write_state(
+    def test_clear_writes_state(
         self, _mock_get_currently_syncing, mock_set_currently_syncing, mock_write_state
     ):
         state = {"currently_syncing": "staffing_organizations", "bookmarks": {}}
@@ -101,7 +101,7 @@ class TestUpdateCurrentlySyncingWriteBehavior(unittest.TestCase):
 
         self.assertNotIn("currently_syncing", state)
         mock_set_currently_syncing.assert_not_called()
-        mock_write_state.assert_not_called()
+        mock_write_state.assert_called_once_with(state)
 
     @patch("tap_workday.sync.singer.write_state")
     @patch("tap_workday.sync.singer.set_currently_syncing")
