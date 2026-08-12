@@ -7,6 +7,13 @@
         "string"
       ]
     },
+    "updated_through": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
+    },
     "Cost_Center_Reference": {
       "type": [
         "null",

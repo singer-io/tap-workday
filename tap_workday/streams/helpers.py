@@ -163,56 +163,43 @@ class WorkdayPaginator:
         self.client = client
         self.operation_name = operation_name
 
-    def _try_pagination_strategies(self, page, updated_since, custom_params=None):
+    def _try_pagination_strategies(self, page, custom_params=None):
         """Try each pagination strategy in order of preference."""
-        def call_with_response_filter(page, updated_since):
-            response_filter = {"Page": page}
-            if updated_since:
-                response_filter["Updated_Since"] = updated_since
-            params = {"Response_Filter": response_filter}
+        def call_with_response_filter(page):
+            params = {"Response_Filter": {"Page": page}}
             if custom_params:
                 params.update(custom_params)
             return self.client.call(self.operation_name, **params)
 
-        def call_with_request_criteria(page, updated_since):
-            criteria = {"Page": page}
-            if updated_since:
-                criteria["Updated_Since"] = updated_since
-            params = {"Request_Criteria": criteria}
+        def call_with_request_criteria(page):
+            params = {"Request_Criteria": {"Page": page}}
             if custom_params:
                 params.update(custom_params)
             return self.client.call(self.operation_name, **params)
 
-        def call_with_page_arg(page, updated_since):
-            # updated_since is ignored here as not all APIs support it in this form
+        def call_with_page_arg(page):
             params = {"page": page}
             if custom_params:
                 params.update(custom_params)
             return self.client.call(self.operation_name, **params)
 
-        def call_without_pagination(page, updated_since):
+        def call_without_pagination(page):
             params = custom_params or {}
             return self.client.call(self.operation_name, **params)
-        
-        def call_with_request_reference_strategy(page, updated_since):
+
+        def call_with_request_reference_strategy(page):
             """Strategy for operations that require Request_Reference parameter."""
             request_ref = {
                 "Get_Ledger_Account_Summaries": {"Ledger_Reference": []}
             }.get(self.operation_name, {})
-            
             params = {"Request_Reference": request_ref, "Response_Filter": {"Page": page}}
-            if updated_since:
-                params["Response_Filter"]["Updated_Since"] = updated_since
             if custom_params:
                 params.update(custom_params)
             return self.client.call(self.operation_name, **params)
-        
-        def call_with_raw_response_fallback(page, updated_since):
+
+        def call_with_raw_response_fallback(page):
             """Fallback strategy using raw response handling for problematic operations."""
-            response_filter = {"Page": page}
-            if updated_since:
-                response_filter["Updated_Since"] = updated_since
-            params = {"Response_Filter": response_filter}
+            params = {"Response_Filter": {"Page": page}}
             if custom_params:
                 params.update(custom_params)
             if hasattr(self.client, 'call_with_raw_response'):
@@ -231,20 +218,20 @@ class WorkdayPaginator:
 
         for strategy in strategies:
             try:
-                return strategy(page, updated_since)
+                return strategy(page)
             except TypeError:
                 continue
         raise RuntimeError(f"All pagination strategies failed for {self.operation_name}")
 
-    def paginate_operation(self, data_key, updated_since=None, custom_params=None, max_pages=None):
+    def paginate_operation(self, data_key, custom_params=None, max_pages=None):
         """Handles pagination and returns all records for a Workday operation.
-        
+
         Args:
             data_key (str): The key to extract records from response.
-            updated_since (str, optional): Filter records updated since this RFC 3339 value.
-            custom_params (dict, optional): Additional parameters to pass to the operation.
+            custom_params (dict, optional): Additional parameters to pass to the operation,
+                including incremental filter criteria (e.g. ``Request_Criteria``).
             max_pages (int, optional): Maximum number of pages to process. If None, process all pages.
-            
+
         Returns:
             list: All records retrieved from the operation.
         """
@@ -253,7 +240,7 @@ class WorkdayPaginator:
         total_pages = 1
 
         while page <= total_pages and (max_pages is None or page <= max_pages):
-            response = self._try_pagination_strategies(page, updated_since, custom_params)
+            response = self._try_pagination_strategies(page, custom_params)
             serialized = serialize_object(response)
             records = safe_get_records(serialized, data_key)
             all_records.extend(records)
@@ -282,10 +269,10 @@ class WorkdayPaginator:
         return all_records
 
 
-def _workday_paginate(client, operation_name, data_key, updated_since):
+def _workday_paginate(client, operation_name, data_key, custom_params=None):
     """Handles pagination and returns all records for a Workday operation."""
     paginator = WorkdayPaginator(client, operation_name)
-    return paginator.paginate_operation(data_key, updated_since)
+    return paginator.paginate_operation(data_key, custom_params=custom_params)
 
 
 def _extract_key_value(record, wid_key):
@@ -317,7 +304,7 @@ def _extract_key_value(record, wid_key):
     return None
 
 
-def call_workday_operation(client, operation_name: str, data_key: str, updated_since=None, wid_key=None):
+def call_workday_operation(client, operation_name: str, data_key: str, wid_key=None, custom_params=None):
     """
     Call a Workday SOAP operation and retrieve all paginated records.
 
@@ -325,13 +312,14 @@ def call_workday_operation(client, operation_name: str, data_key: str, updated_s
         client: Workday SOAP client instance.
         operation_name (str): Name of the Workday operation to call.
         data_key (str): Key to extract records from the response.
-        updated_since (optional): Filter records updated since this RFC 3339 value.
         wid_key (str, optional): Key name for the reference field to extract key_value from.
+        custom_params (dict, optional): Additional parameters including incremental filter
+            criteria (e.g. ``Request_Criteria``) to forward to the SOAP call.
 
     Returns:
         list: All records retrieved from the operation under data_key.
     """
-    records = _workday_paginate(client, operation_name, data_key, updated_since)
+    records = _workday_paginate(client, operation_name, data_key, custom_params=custom_params)
     
     # Add key_value to each record if wid_key is provided
     if wid_key:

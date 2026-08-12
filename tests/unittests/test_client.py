@@ -512,3 +512,238 @@ class TestWorkdayOAuthTokenManager(unittest.TestCase):
         token = manager.get()
         self.assertEqual(token, 'refreshed_token')
         mock_post.assert_called_once()
+
+
+class TestRefreshTokenRotation(unittest.TestCase):
+    """Tests for Workday rotating refresh token persistence."""
+
+    def setUp(self):
+        self.config = {
+            'hostname': 'test.workday.com',
+            'tenant': 'test_tenant',
+            'client_id': 'test_client_id',
+            'client_secret': 'test_client_secret',
+            'refresh_token': 'R1',
+        }
+
+    @patch('tap_workday.client.requests.post')
+    def test_rotated_refresh_token_is_persisted_to_config_file(self, mock_post):
+        """When Workday returns a new refresh_token, it is written to the config file."""
+        import tempfile, os, json
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            'access_token': 'A1',
+            'refresh_token': 'R2',
+            'expires_in': 3600,
+        }
+        mock_post.return_value = mock_resp
+
+        # Write initial config to a temp file
+        tmp = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False)
+        json.dump(self.config, tmp)
+        tmp.close()
+
+        try:
+            manager = WorkdayOAuthTokenManager(dict(self.config), config_path=tmp.name)
+            token = manager.fetch()
+
+            self.assertEqual(token, 'A1')
+            # Verify in-memory state updated
+            self.assertEqual(manager._refresh_token, 'R2')
+            # Verify config file updated
+            with open(tmp.name) as f:
+                persisted = json.load(f)
+            self.assertEqual(persisted['refresh_token'], 'R2')
+        finally:
+            os.unlink(tmp.name)
+
+    @patch('tap_workday.client.requests.post')
+    def test_next_request_uses_rotated_refresh_token(self, mock_post):
+        """The second token request uses the rotated refresh_token R2, not the old R1."""
+        mock_resp_1 = Mock()
+        mock_resp_1.ok = True
+        mock_resp_1.status_code = 200
+        mock_resp_1.json.return_value = {
+            'access_token': 'A1',
+            'refresh_token': 'R2',
+            'expires_in': 3600,
+        }
+        mock_resp_2 = Mock()
+        mock_resp_2.ok = True
+        mock_resp_2.status_code = 200
+        mock_resp_2.json.return_value = {
+            'access_token': 'A2',
+            'refresh_token': 'R3',
+            'expires_in': 3600,
+        }
+        mock_post.side_effect = [mock_resp_1, mock_resp_2]
+
+        manager = WorkdayOAuthTokenManager(dict(self.config))
+        manager.fetch()
+
+        # Expire the cached token so get() triggers another fetch
+        manager._expires_at = 0.0
+        manager.fetch()
+
+        # Verify the second call used R2
+        second_call_data = mock_post.call_args_list[1][1]['data']
+        self.assertEqual(second_call_data['refresh_token'], 'R2')
+
+    @patch('tap_workday.client.requests.post')
+    def test_old_refresh_token_not_reused_after_rotation(self, mock_post):
+        """After rotation R1→R2, R1 is never sent again."""
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            'access_token': 'A1',
+            'refresh_token': 'R2',
+            'expires_in': 3600,
+        }
+        mock_post.return_value = mock_resp
+
+        manager = WorkdayOAuthTokenManager(dict(self.config))
+        manager.fetch()
+
+        # Force another fetch
+        manager._expires_at = 0.0
+        mock_resp2 = Mock()
+        mock_resp2.ok = True
+        mock_resp2.status_code = 200
+        mock_resp2.json.return_value = {
+            'access_token': 'A2',
+            'refresh_token': 'R3',
+            'expires_in': 3600,
+        }
+        mock_post.return_value = mock_resp2
+        manager.fetch()
+
+        # Check all calls — first used R1, second used R2, never R1 again
+        calls_data = [c[1]['data'] for c in mock_post.call_args_list]
+        self.assertEqual(calls_data[0]['refresh_token'], 'R1')
+        self.assertEqual(calls_data[1]['refresh_token'], 'R2')
+
+    @patch('tap_workday.client.requests.post')
+    def test_no_new_refresh_token_preserves_existing(self, mock_post):
+        """If the response has no refresh_token, the existing one is preserved."""
+        import tempfile, os, json
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            'access_token': 'A1',
+            'expires_in': 3600,
+            # No 'refresh_token' key
+        }
+        mock_post.return_value = mock_resp
+
+        tmp = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False)
+        json.dump(self.config, tmp)
+        tmp.close()
+
+        try:
+            manager = WorkdayOAuthTokenManager(dict(self.config), config_path=tmp.name)
+            manager.fetch()
+
+            # In-memory refresh token unchanged
+            self.assertEqual(manager._refresh_token, 'R1')
+            # Config file unchanged
+            with open(tmp.name) as f:
+                persisted = json.load(f)
+            self.assertEqual(persisted['refresh_token'], 'R1')
+        finally:
+            os.unlink(tmp.name)
+
+    @patch('tap_workday.client.requests.post')
+    def test_empty_refresh_token_preserves_existing(self, mock_post):
+        """If the response has an empty refresh_token, the existing one is preserved."""
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            'access_token': 'A1',
+            'refresh_token': '',
+            'expires_in': 3600,
+        }
+        mock_post.return_value = mock_resp
+
+        manager = WorkdayOAuthTokenManager(dict(self.config))
+        manager.fetch()
+
+        self.assertEqual(manager._refresh_token, 'R1')
+
+    @patch('tap_workday.client.requests.post')
+    def test_new_process_reads_persisted_rotated_token(self, mock_post):
+        """Simulates a new tap process reading the config after token rotation."""
+        import tempfile, os, json
+
+        # First process: fetch rotates R1 → R2
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {
+            'access_token': 'A1',
+            'refresh_token': 'R2',
+            'expires_in': 3600,
+        }
+        mock_post.return_value = mock_resp
+
+        tmp = tempfile.NamedTemporaryFile(mode='w', suffix='.json', delete=False)
+        json.dump(self.config, tmp)
+        tmp.close()
+
+        try:
+            manager1 = WorkdayOAuthTokenManager(dict(self.config), config_path=tmp.name)
+            manager1.fetch()
+
+            # Second process: reads config from disk (simulating a fresh tap start)
+            with open(tmp.name) as f:
+                new_config = json.load(f)
+
+            mock_resp2 = Mock()
+            mock_resp2.ok = True
+            mock_resp2.status_code = 200
+            mock_resp2.json.return_value = {
+                'access_token': 'A2',
+                'refresh_token': 'R3',
+                'expires_in': 3600,
+            }
+            mock_post.return_value = mock_resp2
+
+            manager2 = WorkdayOAuthTokenManager(new_config, config_path=tmp.name)
+            manager2.fetch()
+
+            # Verify the second process used R2
+            second_call_data = mock_post.call_args_list[1][1]['data']
+            self.assertEqual(second_call_data['refresh_token'], 'R2')
+
+            # Verify R3 is now persisted
+            with open(tmp.name) as f:
+                final = json.load(f)
+            self.assertEqual(final['refresh_token'], 'R3')
+        finally:
+            os.unlink(tmp.name)
+
+    @patch('tap_workday.client.requests.post')
+    def test_existing_oauth_behavior_still_works(self, mock_post):
+        """Basic OAuth fetch without rotation still works as before."""
+        mock_resp = Mock()
+        mock_resp.ok = True
+        mock_resp.status_code = 200
+        mock_resp.json.return_value = {'access_token': 'token_value', 'expires_in': 3600}
+        mock_post.return_value = mock_resp
+
+        manager = WorkdayOAuthTokenManager(dict(self.config))
+        token = manager.fetch()
+
+        self.assertEqual(token, 'token_value')
+        self.assertTrue(manager.is_valid)
+        mock_post.assert_called_once_with(
+            'https://test.workday.com/ccx/oauth2/test_tenant/token',
+            auth=('test_client_id', 'test_client_secret'),
+            data={'grant_type': 'refresh_token', 'refresh_token': 'R1'},
+            timeout=30,
+            verify=True,
+        )
