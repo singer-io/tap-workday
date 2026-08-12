@@ -10,8 +10,6 @@ from typing import Dict
 
 LOGGER = singer.get_logger()
 
-OAUTH_CONFIG_FIELDS = ("client_id", "client_secret", "refresh_token")
-
 # OAuth 2.0 is the primary authentication mechanism; client_id, client_secret,
 # and refresh_token are always required.  username/password are optional and
 # used only as a fallback when OAuth authentication fails.
@@ -19,7 +17,9 @@ REQUIRED_CONFIG_KEYS = [
     "tenant",
     "hostname",
     "start_date",
-    *OAUTH_CONFIG_FIELDS,
+    "client_id",
+    "client_secret",
+    "refresh_token",
 ]
 
 

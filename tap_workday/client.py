@@ -31,7 +31,7 @@ _AUTH_MODE_WSSECURITY = "wssecurity"
 
 
 def _has_wssecurity_config(config: Mapping[str, Any]) -> bool:
-    """Return True when the config contains username/password for WS-Security fallback."""
+    """Returns True when the config contains username/password for WS-Security fallback."""
     return all(config.get(f) for f in ("username", "password"))
 
 
