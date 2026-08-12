@@ -43,7 +43,9 @@ def main():
     if parsed_args.state:
         state = parsed_args.state
 
-    client = Client(parsed_args.config)
+    # Pass config_path so the OAuth token manager can persist rotated refresh tokens
+    # back to the config file for subsequent tap processes to read.
+    client = Client(parsed_args.config, config_path=parsed_args.config_path)
     client.check_credentials()
 
     if parsed_args.discover:
