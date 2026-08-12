@@ -53,51 +53,75 @@ class WorkdayStartDateTest(StartDateTest, WorkdayBaseTest):
 
     def test_replicated_records(self):
         """
-        Override the base test_replicated_records because tap-workday's
-        replication key (updated_through) is the sync clock time, not a
-        Workday entity timestamp, which breaks the base class filter.
+        Override the base test because tap-workday uses updated_through as
+        the time this sync fetched the record, not the time the Workday
+        record was last modified.
 
-        WHAT updated_through ACTUALLY IS
-        ----------------------------------
-        The tap stamps every emitted record with the wall-clock time of the
-        API request, not when the Workday entity was last modified.
+        Example: the same job profile can appear in two runs with the same
+        primary key but different updated_through values:
 
-        Example — the same job profile in two different sync runs:
-          key_value = '15baf9003ea943a9a62332bb48f5386c'
-          sync run at 10:39 AM → updated_through = '2026-08-11T10:39:06Z'
-          sync run at 11:01 AM → updated_through = '2026-08-11T11:01:08Z'
-        Same Workday record, different updated_through every run.
+            key_value='15baf9003ea943a9a62332bb48f5386c'
+            sync-1 -> updated_through='2026-08-11T10:39:06Z'
+            sync-2 -> updated_through='2026-08-11T11:01:08Z'
 
-        WHY THE BASE CLASS FAILS
-        -------------------------
-        The base class assumes updated_through is a data timestamp and
-        filters sync-2 records to those where:
-            updated_through <= max(sync-1 updated_through values)
-        to exclude records created between the two syncs.
+        The base test assumes updated_through is a real last_modified field
+        and tries to remove records that may have appeared after sync-1.
 
-        With tap-workday that filter always produces an empty set:
-          sync-1 (start=2019) runs at T1 → all records get updated_through ≈ T1
-          sync-2 (start=2020) runs at T2 → all records get updated_through ≈ T2
-          T2 > T1 (sync-2 runs after sync-1 finishes)
-          filter: T2 <= T1 → False for every record → primary_keys_sync_2 = {}
+        Visual example of what the base test expects:
 
-        The base then asserts:
-            assertSetEqual({sync-1 keys filtered by >= 2020-01-01}, {})
-        sync-1 keys pass the filter because their updated_through (T1, e.g.
-        '2026-08-11T10:00Z') is greater than '2020-01-01', so
-        primary_keys_sync_1 = all 14 keys. The assertion becomes:
-            assertSetEqual({14 keys}, {}) → FAILS spuriously.
+            sync-1 finishes at 11:01
+            sync-2 finishes at 11:20
 
-        WHAT THIS OVERRIDE DOES INSTEAD
-        ---------------------------------
-        Compare primary keys without filtering by updated_through:
-          - assertGreaterEqual(count_sync_1, count_sync_2)
-            e.g. 14 (start=2019) >= 10 (start=2020) ✓
-          - assert all sync-2 keys are a subset of sync-1 keys
-            e.g. the 10 records from the 2020 sync are all present in
-            the 14 records from the 2019 sync ✓
-        This correctly verifies that the earlier start date returns more
-        data, without relying on updated_through as a data timestamp.
+            Ideal records if updated_through were last_modified:
+                sync-1: [A@2020-02-10, B@2020-05-01, C@2020-09-15, D@2021-01-10]
+                sync-2: [B@2020-05-01, C@2020-09-15, D@2021-01-10, E@2026-08-11T11:15]
+
+            Base filter:
+                keep sync-2 records where updated_through <= sync-1 finish boundary
+
+            Result in that ideal world:
+                keep [B, C, D]
+                drop [E]
+
+        That logic is fine only if updated_through means "when the business
+        record changed".
+
+        What tap-workday really outputs:
+
+            sync-1 records fetched around 11:01:
+                [A@11:01:08, B@11:01:08, C@11:01:08, D@11:01:08]
+
+            sync-2 records fetched around 11:20:
+                [B@11:20:15, C@11:20:15, D@11:20:15]
+
+            Base filter still says:
+                keep records where updated_through <= 11:01:08
+
+            Actual result:
+                B -> drop
+                C -> drop
+                D -> drop
+                filtered sync-2 = []
+
+            So the base comparison becomes:
+                expected from sync-1: [B, C, D]
+                filtered sync-2: []
+
+        The test fails even though the tap returned the correct records.
+        The failure comes from the wrong assumption about what
+        updated_through means.
+
+        This override avoids that bad filter. Instead it checks the real
+        behavior directly:
+
+            - sync-1 has at least as many records as sync-2
+            - every primary key from sync-2 is also present in sync-1
+
+        Example:
+            sync-1 keys = [A, B, C, D]
+            sync-2 keys = [B, C, D]
+
+        That is the correct start-date behavior for this tap.
         """
         for stream in self.streams_to_test():
             with self.subTest(stream=stream):
