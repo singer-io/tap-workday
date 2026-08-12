@@ -8,50 +8,81 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
     """
     Verify tap-workday can recover from an interrupted sync.
 
-    BACKGROUND: WHAT updated_through IS
-    -------------------------------------
-    tap-workday's replication key is called updated_through. It is NOT the
-    last-modified date of the Workday entity. The tap sets it to the
-    wall-clock time of the API call. The same record will have a different
-    updated_through in every sync run:
+    OVERVIEW
+    --------
+    The base class runs two syncs:
 
-      key_value = '15baf9003ea943a9a62332bb48f5386c'  (a job profile)
-      sync run at 10:39 AM → updated_through = '2026-08-11T10:39:06Z'
-      sync run at 11:01 AM → updated_through = '2026-08-11T11:01:08Z'
+      1. A first sync to create a real baseline state.
+      2. A resuming sync after we replace that state with a hand-made
+         interrupted state.
 
-    This affects several base-class assertions that assume updated_through
-    carries meaningful data — see overridden methods below.
+    The goal is to prove that the tap can resume from the interrupted
+    stream, continue the remaining streams in the right order, and finish
+    cleanly.
 
-    HOW THE TEST WORKS
-    -------------------
-    The base class runs two sync jobs:
-      1. First sync — a clean run to establish a real baseline state.
-      2. Resuming sync — state is replaced with a hand-crafted interrupted
-         state (from manipulate_state), then the tap is run again to verify
-         it picks up correctly.
-
-    The tap uses currently_syncing from state to know where it was
-    interrupted. On resume it processes: interrupted stream first → streams
-    with no bookmark (not yet started) → streams with a bookmark (already
-    completed). This logic lives in sync.py::_apply_interrupted_sync_resume.
-
-    ASSERTIONS THAT RUN UNCHANGED
+    WHAT MAKES tap-workday DIFFERENT
     --------------------------------
-    Two base-class tests run without any override and are sufficient to
-    confirm correct recovery:
+    tap-workday uses updated_through as the time this sync fetched the
+    record, not the time the Workday entity was last modified.
+
+    Example: the same record in two different syncs can have the same
+    primary key but different updated_through values:
+
+        key_value='15baf9003ea943a9a62332bb48f5386c'
+        first sync  -> updated_through='2026-08-11T10:39:06Z'
+        second sync -> updated_through='2026-08-11T11:01:08Z'
+
+    Because of that, any base-class assertion that treats updated_through
+    like a business timestamp becomes misleading for this tap.
+
+    HOW THE INTERRUPTED STATE IS BUILT
+    ----------------------------------
+    For this tap, we simulate an interruption with this state:
+
+        currently_syncing = human_resources_job_profiles
+        bookmarks = {
+            human_resources_job_profiles: updated_through=2020-01-01T00:00:00Z,
+            staffing_organizations: updated_through=2020-01-01T00:00:00Z,
+        }
+
+    That means:
+
+        interrupted stream:
+            [human_resources_job_profiles]
+
+        not yet started streams:
+            [human_resources_organizations,
+             financial_management_journals,
+             financial_management_organizations,
+             financial_management_revenue_categories]
+
+        already completed streams:
+            [staffing_organizations]
+
+    So the expected resume order is:
+
+        [human_resources_job_profiles,
+         human_resources_organizations,
+         financial_management_journals,
+         financial_management_organizations,
+         financial_management_revenue_categories,
+         staffing_organizations]
+
+    WHY THE TEST IS STILL VALID
+    ---------------------------
+    Two base-class tests still give real coverage and are enough to prove
+    interrupted-sync recovery works:
 
       test_all_streams_sync_records
-        Every stream returned >= 1 record in the resuming sync, so no
-        stream was silently skipped after the interruption.
+        Every selected stream returned records in the resuming sync, so no
+        remaining stream was skipped after the interruption.
 
       test_interrupted_sync_stream_order
-        The resuming sync processed streams in the correct order:
-        interrupted first, not-yet-started next, already-completed last.
-        This is the core correctness guarantee for interrupted-sync recovery.
+        Streams resumed in the correct order:
+        interrupted -> not yet started -> already completed.
 
-    Three base-class methods are overridden because they rely on
-    updated_through as a data timestamp, which does not apply here.
-    See each method's docstring for the exact reason.
+    The overridden methods below are only the methods whose logic depends on
+    updated_through being a true data timestamp.
     """
 
     @staticmethod
@@ -125,34 +156,55 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
 
     def manipulate_state(self):
         """
-        Override: return a state dict that simulates a sync interrupted
-        after the first stream had partially completed.
+        Override the required base method to return a state that looks like
+        a sync was interrupted part-way through.
 
-        The 6 selected streams are processed in this catalog order
-        (insertion order of STREAMS dict in tap_workday/streams/__init__.py):
-          1. human_resources_job_profiles     ← currently_syncing
-          2. human_resources_organizations    ← not yet started (no bookmark)
-          3. financial_management_journals    ← not yet started (no bookmark)
-          4. financial_management_organizations ← not yet started (no bookmark)
-          5. financial_management_revenue_categories ← not yet started (no bookmark)
-          6. staffing_organizations           ← already completed (has bookmark)
+        Visual stream groups:
+
+            interrupted now:
+                [human_resources_job_profiles]
+
+            not yet started:
+                [human_resources_organizations,
+                 financial_management_journals,
+                 financial_management_organizations,
+                 financial_management_revenue_categories]
+
+            already completed:
+                [staffing_organizations]
 
         Injected state:
-          {
-            "currently_syncing": "human_resources_job_profiles",
-            "bookmarks": {
-              "human_resources_job_profiles": {"updated_through": "2020-01-01T00:00:00Z"},
-              "staffing_organizations":        {"updated_through": "2020-01-01T00:00:00Z"}
+
+            {
+              "currently_syncing": "human_resources_job_profiles",
+              "bookmarks": {
+                "human_resources_job_profiles": {
+                  "updated_through": "2020-01-01T00:00:00Z"
+                },
+                "staffing_organizations": {
+                  "updated_through": "2020-01-01T00:00:00Z"
+                }
+              }
             }
-          }
 
-        On resume the tap must process them in order: stream 1 (interrupted)
-        → streams 2-5 (not yet started) → stream 6 (already done).
-        This is what test_interrupted_sync_stream_order asserts.
+        Why this shape is useful:
 
-        The bookmark value 2020-01-01 is inside the fixture data window
-        (2019–2020), so the tap issues a real filtered API call on resume
-        rather than fetching the full history.
+            - it gives us 1 interrupted stream to resume first
+            - 4 streams with no bookmark that must come next
+            - 1 bookmarked stream that must come last
+
+        So the resume order is easy to verify visually:
+
+            [human_resources_job_profiles] +
+            [human_resources_organizations,
+             financial_management_journals,
+             financial_management_organizations,
+             financial_management_revenue_categories] +
+            [staffing_organizations]
+
+        The bookmark value 2020-01-01 is inside the known fixture-data
+        window, so the tap resumes with a real incremental filter rather
+        than behaving like a full historical sync.
         """
         bookmark_value = "2020-01-01T00:00:00Z"
         return {
@@ -169,33 +221,41 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
 
     def test_syncs_were_successful(self):
         """
-        Override: remove the assertDictEqual(resuming_state, first_sync_state)
-        check that exists in the base class.
+        Override the base state-equality check because the bookmark values
+        are expected to change on every run even when recovery is correct.
 
-        WHY IT MUST BE REMOVED
-        -----------------------
-        The base assertion checks that the final state after the resuming
-        sync is identical to the state after the first sync — the idea being
-        that a successful recovery ends up in the same place as if there had
-        been no interruption.
+        What the base class thinks:
 
-        For tap-workday, updated_through is the API call time, so the two
-        states will always differ even when the tap behaved perfectly:
+            "If the tap resumes correctly, the final state after the resumed
+            run should be exactly equal to the final state from the normal
+            uninterrupted run."
 
-          first_sync  bookmarks: human_resources_job_profiles →
-                        updated_through: '2026-08-12T08:08:44Z'
-          resuming_sync bookmarks: human_resources_job_profiles →
-                        updated_through: '2026-08-12T08:23:30Z'
+        That idea is reasonable if bookmark values are stable business
+        timestamps.
 
-        The tap is working correctly — it just ran at a different clock time.
-        assertDictEqual would always fail here, so it is dropped.
+        Visual example:
 
-        WHAT IS KEPT
-        -------------
-        The two assertions that are both meaningful and reliable:
-          • first_sync_state has bookmarks  (the tap wrote state)
-          • resuming_sync_state has no currently_syncing  (the tap finished
-            cleanly and removed the interrupted-sync marker)
+            first sync final state:
+                human_resources_job_profiles -> updated_through=2026-08-12T08:08:44Z
+                human_resources_organizations -> updated_through=2026-08-12T08:08:57Z
+
+            resuming sync final state:
+                human_resources_job_profiles -> updated_through=2026-08-12T08:23:30Z
+                human_resources_organizations -> updated_through=2026-08-12T08:23:46Z
+
+        That would be true only if bookmark values were stable business
+        timestamps. Here they are fetch times, so both states are valid but
+        not equal:
+
+            first sync state != resuming sync state
+
+        What we keep instead:
+
+            - both states have bookmarks
+            - resuming state no longer has currently_syncing
+
+        Those are the two facts that really prove the tap wrote state and
+        finished the resumed run cleanly.
         """
         self.assertIsNotNone(self.first_sync_state.get('bookmarks'))
         self.assertIsNotNone(self.resuming_sync_state.get('bookmarks'))
@@ -203,59 +263,98 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
 
     def test_bookmarked_streams_start_date(self):
         """
-        Override: no-op — always passes trivially for tap-workday, so it
-        proves nothing and is skipped.
+        Override this base test because it would always pass for the wrong
+        reason.
 
-        WHAT THE BASE DOES
-        -------------------
-        For each stream in the manipulated state's bookmarks, it finds the
-        oldest record in the resuming sync and asserts:
-            oldest_record.updated_through >= bookmark_value - lookback
+        Base class idea:
+            "Look at the oldest record returned in the resuming sync. If its
+            updated_through is at or after the bookmark, then the tap must
+            have resumed from the right place."
 
-        The intent is to confirm the tap resumed from the bookmarked point,
-        not from the beginning.
+        Visual example with our injected bookmark:
 
-        WHY IT IS MEANINGLESS HERE
-        ---------------------------
-        The bookmark injected by manipulate_state is '2020-01-01T00:00:00Z'.
-        Every record in the resuming sync gets updated_through ≈ the sync
-        run time, e.g. '2026-08-12T08:23:30Z'.
+            bookmark in state:
+                human_resources_job_profiles -> updated_through=2020-01-01T00:00:00Z
 
-            '2026-08-12T08:23:30Z' >= '2020-01-01T00:00:00Z' → always True
+            records returned in resuming sync:
+                [J1@2026-08-12T08:23:30Z,
+                 J2@2026-08-12T08:23:30Z,
+                 J3@2026-08-12T08:23:30Z]
 
-        The assertion passes trivially regardless of whether the tap actually
-        respected the bookmark. It proves nothing, so it is removed.
+            oldest returned record = 2026-08-12T08:23:30Z
+
+            base check:
+                2026-08-12T08:23:30Z >= 2020-01-01T00:00:00Z -> True
+
+        What the base class thinks this means:
+
+            "The oldest resumed record is at or after the bookmark, so the
+            tap must have restarted from the bookmarked point."
+
+        The problem is that this will be True even if the tap resumed from
+        the wrong place, because every resuming-sync record gets stamped with
+        the time of the resuming run itself. So the assertion proves nothing.
+
+        That is why this method is intentionally left as a no-op.
         """
 
     def test_resuming_sync_records(self):
         """
-        Override: no-op — always fails spuriously for tap-workday.
+        Override this base test because its record comparison filter removes
+        every resuming-sync record for this tap.
 
-        WHAT THE BASE DOES
-        -------------------
-        For each incremental stream it checks that the set of records
-        replicated in the resuming sync matches the set from the first sync
-        starting from the bookmark. It does this by:
-          1. Keeping first-sync records where updated_through >= bookmark
-          2. Keeping resuming-sync records where
-             updated_through <= first_sync's final bookmark
-          3. Asserting (1) == (2)
+        Base class idea:
+            Compare the records after the bookmark from sync-1 with the
+            records returned by the resuming sync.
 
-        WHY IT ALWAYS FAILS HERE
-        -------------------------
-        Step 2 filters by:
-            updated_through <= first_sync_bookmark (e.g. '2026-08-12T08:08:44Z')
+        What the base class thinks:
 
-        Resuming-sync records have updated_through ≈ their run time, e.g.
-        '2026-08-12T08:23:30Z'. Since the resuming sync always runs after
-        the first sync:
-            '2026-08-12T08:23:30Z' <= '2026-08-12T08:08:44Z' → False
+            "If the tap resumes correctly, then the resumed records should
+            match the part of the first sync that comes after the bookmark."
 
-        Every resuming-sync record is filtered out → step (2) = empty list.
-        Step (1) is not empty (14 job profiles pass the >= bookmark filter).
-        The assertion: [14 records] == [] → always fails spuriously.
+        That idea is correct only if updated_through is a real business
+        timestamp.
 
-        The two unoverridden tests (test_all_streams_sync_records and
-        test_interrupted_sync_stream_order) together provide equivalent
-        coverage without depending on updated_through as a data timestamp.
+        Visual example:
+
+            injected bookmark:
+                human_resources_job_profiles -> 2020-01-01T00:00:00Z
+
+            first sync records:
+                [A@2026-08-12T08:08:44Z,
+                 B@2026-08-12T08:08:44Z,
+                 C@2026-08-12T08:08:44Z]
+
+            resuming sync records:
+                [A@2026-08-12T08:23:30Z,
+                 B@2026-08-12T08:23:30Z,
+                 C@2026-08-12T08:23:30Z]
+
+        The base keeps:
+
+            from first sync:
+                records where updated_through >= 2020-01-01T00:00:00Z
+                -> [A, B, C]
+
+            from resuming sync:
+                records where updated_through <= first_sync_bookmark
+                where first_sync_bookmark = 2026-08-12T08:08:44Z
+
+                A -> 08:23:30 <= 08:08:44 ? no
+                B -> 08:23:30 <= 08:08:44 ? no
+                C -> 08:23:30 <= 08:08:44 ? no
+
+                result -> []
+
+        So the base assertion becomes:
+
+            [A, B, C] == []
+
+        That fails even though the tap returned the right records. The only
+        problem is that updated_through in the resuming sync is the later
+        fetch time, not a business timestamp.
+
+        The remaining non-overridden tests still cover the important behavior:
+            - every selected stream resumed and returned records
+            - streams resumed in the correct order
         """
