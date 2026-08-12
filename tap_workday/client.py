@@ -1,3 +1,4 @@
+import json
 import time
 from enum import Enum
 from typing import Any, Dict, Mapping, Optional
@@ -115,13 +116,18 @@ class WorkdayOAuthTokenManager:
 
     EXPIRY_BUFFER_SECS = 60  # refresh proactively 60 s before actual expiry
 
-    def __init__(self, config: Mapping[str, Any]) -> None:
+    def __init__(self, config: Mapping[str, Any], config_path: Optional[str] = None) -> None:
         self._token_endpoint: str = config.get("token_endpoint") or (
             f"https://{config['hostname']}/ccx/oauth2/{config['tenant']}/token"
         )
         self._client_id: str = config["client_id"]
         self._client_secret: str = config["client_secret"]
         self._refresh_token: str = config["refresh_token"]
+        # Workday uses rotating single-use refresh tokens.  We keep a mutable
+        # reference to the config dict and its file path so that when Workday
+        # returns a new refresh_token we can persist it for the next tap process.
+        self._config = config
+        self._config_path: Optional[str] = config_path
         self._access_token: Optional[str] = None
         self._expires_at: float = 0.0
 
@@ -163,8 +169,31 @@ class WorkdayOAuthTokenManager:
         self._access_token = data["access_token"]
         expires_in = int(data.get("expires_in", 3600))
         self._expires_at = time.monotonic() + expires_in
+
+        # Workday rotates refresh tokens: each token response may contain a new
+        # refresh_token that invalidates the previous one.  Persist it immediately
+        # so the next tap process (which re-reads the config file) uses the valid token.
+        # If no new refresh_token is returned (or it's empty), keep the existing one.
+        new_refresh_token = data.get("refresh_token")
+        if new_refresh_token:
+            self._refresh_token = new_refresh_token
+            self._config["refresh_token"] = new_refresh_token
+            self._persist_config()
+
         LOGGER.debug("OAuth access token acquired (expires_in=%ds)", expires_in)
         return self._access_token
+
+    def _persist_config(self) -> None:
+        """Write the current config (including rotated refresh_token) back to disk."""
+        if not self._config_path:
+            LOGGER.debug("No config_path set; skipping refresh token persistence to disk")
+            return
+        try:
+            with open(self._config_path, "w") as f:
+                json.dump(self._config, f, indent=2)
+            LOGGER.debug("Persisted rotated refresh token to %s", self._config_path)
+        except OSError as exc:
+            LOGGER.warning("Failed to persist rotated refresh token: %s", exc)
 
     def get(self) -> str:
         """Return a valid access token, fetching a fresh one if expired or absent."""
@@ -202,6 +231,7 @@ class Client:
         config: Mapping[str, Any],
         service: str = DefaultValues.SERVICE.value,
         version: str = DefaultValues.VERSION.value,
+        config_path: Optional[str] = None,
     ) -> None:
         self.config = config
         self.service = service
@@ -213,7 +243,8 @@ class Client:
         # refresh_token are required config keys).  WS-Security username/password
         # is an optional fallback used only when OAuth authentication fails.
         self._auth_mode: str = _AUTH_MODE_OAUTH
-        self._token_manager: Optional[WorkdayOAuthTokenManager] = WorkdayOAuthTokenManager(config)
+        # config_path is forwarded so rotated refresh tokens can be persisted to disk
+        self._token_manager: Optional[WorkdayOAuthTokenManager] = WorkdayOAuthTokenManager(config, config_path=config_path)
         self._session: Optional[requests.Session] = None
         self._client = self._create_client()
 
