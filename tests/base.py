@@ -37,7 +37,7 @@ class WorkdayBaseTest(BaseCase):
             cls.OBEYS_START_DATE: False,
             cls.API_LIMIT: 100,
         }
-    
+
         incremental_streams = {
             "human_resources_job_profiles",
             "human_resources_organizations",
@@ -47,7 +47,7 @@ class WorkdayBaseTest(BaseCase):
             "financial_management_cost_centers",
             "financial_management_revenue_categories",
         }
-    
+
         expected_metadata = {
             stream: stream_metadata.copy()
             for stream in cls.stream_group
