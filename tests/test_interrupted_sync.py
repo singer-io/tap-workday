@@ -12,6 +12,11 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
     def name():
         return "tap_tester_workday_interrupted_sync_test"
 
+    def get_properties(self, original: bool = True):
+        properties = super().get_properties(original)
+        properties["start_date"] = "2019-01-01T00:00:00Z"
+        return properties
+
     def streams_to_test(self):
         streams_to_exclude = {
             # full table 
@@ -46,29 +51,24 @@ class WorkdayInterruptedSyncTest(InterruptedSyncTest, WorkdayBaseTest):
 
 
     def manipulate_state(self):
+        bookmark_value = "2020-01-01T00:00:00Z"
         return {
         "currently_syncing": "staffing_organizations",
-        "bookmarks": {
+        "bookmarks":{
             "human_resources_job_profiles": {
-                "updated_through": "2026-08-11T00:35:14Z"
+                "updated_through": bookmark_value
             },
             "human_resources_organizations": {
-                "updated_through": "2026-08-11T00:35:48Z"
-            },
-            "financial_management_cost_centers": {
-                "updated_through": "2026-08-11T00:36:09Z"
+                "updated_through": bookmark_value
             },
             "financial_management_journals": {
-                "updated_through": "2026-08-11T00:37:56Z"
+                "updated_through": bookmark_value
             },
             "financial_management_organizations": {
-                "updated_through": "2026-08-11T00:42:22Z"
-            },
-            "financial_management_revenue_categories": {
-                "updated_through": "2026-08-11T00:43:22Z"
+                "updated_through": bookmark_value
             },
             "staffing_organizations": {
-                "updated_through": "2026-08-11T00:44:21Z"
+                "updated_through": bookmark_value
             }
         }
         }
