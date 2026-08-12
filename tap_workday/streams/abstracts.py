@@ -15,7 +15,7 @@ from singer import (
     write_state,
 )
 
-from tap_workday.client import Client, DefaultValues
+from tap_workday.client import Client, DefaultValues, _AUTH_MODE_WSSECURITY
 from tap_workday.streams.helpers import call_workday_operation, emit_full_table
 
 LOGGER = get_logger()
@@ -411,9 +411,23 @@ class WorkdayTableStream(FullTableStream):
     bookmark_field_path: list = None
 
     def get_client(self):
-        """Client for WorkdayTableStream."""
+        """Client for WorkdayTableStream.
+
+        Reuses the parent client's auth mode and token manager so all per-stream
+        clients share the same cached access token and the same (possibly rotated)
+        refresh token.  Without this, each stream would construct an independent
+        WorkdayOAuthTokenManager from the original config, causing the first
+        stream's token rotation to invalidate every subsequent stream's token.
+        """
         cfg = self.client.config
-        return Client(cfg, service=self.service_name, version=self.version)
+        client = Client(cfg, service=self.service_name, version=self.version)
+        # Align auth state with the parent client (same pattern as schema.py).
+        client._auth_mode = self.client._auth_mode
+        client._token_manager = self.client._token_manager
+        if self.client._auth_mode == _AUTH_MODE_WSSECURITY:
+            # Rebuild the zeep client with UsernameToken wsse for this service.
+            client._client = client._create_client()
+        return client
 
     def build_filter_params(self, updated_since, updated_through=None):
         """Return stream-specific incremental filter params for the SOAP call.
