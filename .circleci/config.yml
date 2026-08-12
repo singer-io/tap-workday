@@ -35,7 +35,7 @@ jobs:
       - store_artifacts:
           path: htmlcov
       - run:
-          name: "Integration Tests - All Streams"
+          name: "Integration Tests"
           command: |
             source /usr/local/share/virtualenvs/tap-tester/bin/activate
             uv pip install --upgrade awscli
