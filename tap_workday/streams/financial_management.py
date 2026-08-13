@@ -248,19 +248,28 @@ class Ledgers(FinancialManagementStream):
         Note: Ledgers that exist but have no journal activity since start_date will not
         be discovered. This is acceptable as such ledgers are likely inactive.
         """
+        from datetime import datetime, timezone
         from tap_workday.streams.helpers import emit_full_table
 
         client = self.get_client()
         
         # Use start_date to filter journals (optimization, not incremental sync)
-        start_date = self.client.config.get("start_date")
+        # Access config from client.config (set during Client initialization)
+        start_date = client.config.get("start_date")
+        
+        if not start_date:
+            LOGGER.warning("No start_date in config. Using None (will fetch all journals).")
+        
+        # Workday API requires both Update From and To dates
+        # Use current time as end date to capture all journals from start_date to now
+        updated_through = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         
         LOGGER.info(f"Discovering ledger IDs from journal entries since {start_date}...")
         try:
             discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(
                 client, 
                 updated_since=start_date,
-                updated_through=None  # No end date for FULL_TABLE
+                updated_through=updated_through
             )
         except Exception as e:
             LOGGER.warning(f"Failed to discover ledger IDs from journals: {e}")

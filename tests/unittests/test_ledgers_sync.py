@@ -3,7 +3,7 @@ Unit tests for Ledgers stream sync method and associated functionality.
 """
 
 import unittest
-from unittest.mock import Mock, patch, MagicMock
+from unittest.mock import Mock, patch, MagicMock, ANY
 from tap_workday.streams.financial_management import Ledgers, Journals
 from tap_workday.client import Client
 
@@ -14,6 +14,7 @@ class TestLedgersSync(unittest.TestCase):
     def setUp(self):
         """Set up test fixtures."""
         self.mock_client = Mock(spec=Client)
+        self.mock_client.config = {"start_date": "2020-01-01T00:00:00Z"}
         
         # Create a properly mocked catalog
         mock_catalog = Mock()
@@ -59,11 +60,11 @@ class TestLedgersSync(unittest.TestCase):
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify ledger discovery was called with start_date (no end date for FULL_TABLE)
+        # Verify ledger discovery was called with start_date and current timestamp
         mock_extract_ledgers.assert_called_once_with(
             self.mock_client,
             updated_since="2020-01-01T00:00:00Z",
-            updated_through=None
+            updated_through=ANY  # Current timestamp, varies by run
         )
         
         # Verify get_ledgers was called for each discovered ledger ID
@@ -111,11 +112,11 @@ class TestLedgersSync(unittest.TestCase):
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify ledger discovery was called with start_date
+        # Verify ledger discovery was called with start_date and current timestamp
         mock_extract_ledgers.assert_called_once_with(
             self.mock_client,
             updated_since="2020-01-01T00:00:00Z",
-            updated_through=None
+            updated_through=ANY  # Current timestamp, varies by run
         )
         
         # Verify emit_full_table was called with empty records
@@ -217,11 +218,11 @@ class TestLedgersSync(unittest.TestCase):
 
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify extract_ledger_ids was called with start_date (no end date)
+        # Verify extract_ledger_ids was called with start_date and current timestamp
         mock_extract_ledgers.assert_called_once_with(
             self.mock_client,
             updated_since="2020-01-01T00:00:00Z",  # start_date from config
-            updated_through=None  # No end date for FULL_TABLE
+            updated_through=ANY  # Current timestamp for end date
         )
         
         mock_call_get_ledgers.assert_called_once_with(self.mock_client, "LEDGER_001")
