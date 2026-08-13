@@ -141,16 +141,34 @@ class Journals(FinancialManagementStream):
         }
 
     @staticmethod
-    def extract_ledger_ids_from_journals_api(client, max_pages=None):
-        """Extract unique ledger IDs from journal entries using minimal API calls."""
+    def extract_ledger_ids_from_journals_api(client, max_pages=None, updated_since=None, updated_through=None):
+        """Extract unique ledger IDs from journal entries using minimal API calls.
+        
+        Args:
+            client: Workday client instance
+            max_pages: Maximum pages to fetch (None = all pages)
+            updated_since: Start date for incremental filtering (None = all journals)
+            updated_through: End date for incremental filtering
+        """
         from tap_workday.streams.helpers import WorkdayPaginator
         
-        page_info = f"(max {max_pages} pages)" if max_pages else ""
-        LOGGER.debug(f"Extracting Ledger_Reference_IDs from journal entries {page_info}...")
+        page_info = f"(max {max_pages} pages)" if max_pages else "(all pages)"
+        date_info = f" since {updated_since}" if updated_since else " (all time)"
+        LOGGER.info(f"Extracting Ledger_Reference_IDs from journal entries {page_info}{date_info}...")
         ledger_ids = set()
         
+        # Build incremental filter params if date range provided
+        custom_params = None
+        if updated_since:
+            custom_params = {
+                "Request_Criteria": {
+                    "Updated_From_Date": updated_since,
+                    "Updated_To_Date": updated_through,
+                }
+            }
+        
         paginator = WorkdayPaginator(client, "Get_Journals")
-        records = paginator.paginate_operation("Journal_Entry", max_pages=max_pages)
+        records = paginator.paginate_operation("Journal_Entry", custom_params=custom_params, max_pages=max_pages)
         
         # Extract ledger IDs from records
         for record in records:
@@ -169,7 +187,7 @@ class Journals(FinancialManagementStream):
                             id_entry.get("_value_1")):
                             ledger_ids.add(id_entry["_value_1"])
 
-        LOGGER.debug(f"Extracted {len(ledger_ids)} unique Ledger_Reference_IDs")
+        LOGGER.info(f"Extracted {len(ledger_ids)} unique Ledger_Reference_IDs")
         return ledger_ids
 
 
@@ -185,6 +203,8 @@ class Ledgers(FinancialManagementStream):
     operation_name = "Get_Ledgers"
     data_key = "Ledger"
     wid_key = "Actuals_Ledger_Reference"
+    # FULL_TABLE: Get_Ledgers has no Request_Criteria for date filtering.
+    # Optimization: discover ledger IDs from journals since start_date to reduce API calls.
 
     @classmethod
     def check_access(cls, client):
@@ -192,14 +212,16 @@ class Ledgers(FinancialManagementStream):
         Custom check_access for Get_Ledgers operation that requires Request_Reference.
         Uses a real ledger ID extracted from journals (1 page only) to verify API accessibility without retry logic.
         """
-        # Get a real ledger ID from journals for access testing (limit to 1 page)
+        # Get a real ledger ID from journals for access testing (limit to 1 page, no date filtering)
         try:
-            ledger_ids = Journals.extract_ledger_ids_from_journals_api(client, max_pages=1)
+            ledger_ids = Journals.extract_ledger_ids_from_journals_api(
+                client, max_pages=1, updated_since=None, updated_through=None
+            )
             ledger_id = next(iter(ledger_ids)) if ledger_ids else "TEST_LEDGER"
         except Exception as exc:
             LOGGER.warning(f"Failed to extract ledger ID for access check: {exc}")
             ledger_id = "TEST_LEDGER"
-        
+
         dummy_params = {
             'Request_Reference': {
                 'Actuals_Ledger_Reference': {
@@ -208,7 +230,7 @@ class Ledgers(FinancialManagementStream):
             },
             'Response_Filter': {'Page': 1, 'Count': 1}  # Minimal page size for testing
         }
-        
+
         try:
             result = client.check_access(cls.operation_name, **dummy_params)
             return result
@@ -217,21 +239,47 @@ class Ledgers(FinancialManagementStream):
             raise
 
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for Ledgers with automatic ledger ID discovery from Journals."""
+        """Synchronize records for Ledgers with automatic ledger ID discovery from Journals.
+
+        FULL_TABLE stream with optimization: discovers ledger IDs from journals since
+        start_date (not bookmark) to reduce API calls. Always returns complete snapshot
+        of discovered ledgers.
+        
+        Note: Ledgers that exist but have no journal activity since start_date will not
+        be discovered. This is acceptable as such ledgers are likely inactive.
+        """
+        from datetime import datetime, timezone
         from tap_workday.streams.helpers import emit_full_table
 
         client = self.get_client()
         
+        # Use start_date to filter journals (optimization, not incremental sync)
+        # Access config from client.config (set during Client initialization)
+        start_date = client.config.get("start_date")
+        
+        if not start_date:
+            LOGGER.warning("No start_date in config. Using None (will fetch all journals).")
+        
+        # Workday API requires both Update From and To dates
+        # Use current time as end date to capture all journals from start_date to now
+        updated_through = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+        
+        LOGGER.info(f"Discovering ledger IDs from journal entries since {start_date}...")
         try:
-            discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(client)
-            if not discovered_ledger_ids:
-                LOGGER.warning("No Ledger_Reference_IDs found in Journals. No ledgers to sync.")
-                return emit_full_table(self, [])
-
-            LOGGER.info(f"Discovered {len(discovered_ledger_ids)} unique ledgers")
-        except Exception as exc:
-            LOGGER.error(f"Failed to discover ledger IDs from Journals: {exc}")
+            discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(
+                client, 
+                updated_since=start_date,
+                updated_through=updated_through
+            )
+        except Exception as e:
+            LOGGER.warning(f"Failed to discover ledger IDs from journals: {e}")
             return emit_full_table(self, [])
+        
+        if not discovered_ledger_ids:
+            LOGGER.info("No Ledger_Reference_IDs found in journals. Syncing 0 ledgers.")
+            return emit_full_table(self, [])
+
+        LOGGER.info(f"Discovered {len(discovered_ledger_ids)} unique ledgers from journals")
         
         # Retrieve data for each ledger ID
         all_records = []
@@ -242,10 +290,9 @@ class Ledgers(FinancialManagementStream):
                 LOGGER.info(f"Retrieved {len(records)} records for ledger: {ledger_ref_id}")
             except Exception as exc:
                 LOGGER.warning(f"Failed to retrieve data for ledger {ledger_ref_id}: {exc}")
-        
+
         LOGGER.info(f"Total records retrieved: {len(all_records)}")
         return emit_full_table(self, all_records)
-    
     def _call_get_ledgers_with_reference_id(self, client, ledger_reference_id):
         """Call Get_Ledgers operation using Ledger_Reference_ID.
 
@@ -261,10 +308,10 @@ class Ledgers(FinancialManagementStream):
                 }
             }
         }
-        
+
         paginator = WorkdayPaginator(client, self.operation_name)
         records = paginator.paginate_operation(self.data_key, custom_params=custom_params)
-        
+
         # Add key_value to records
         for record in records:
             key_value = _extract_key_value(record, self.wid_key)
