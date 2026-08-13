@@ -4,10 +4,13 @@ from decimal import Decimal
 from singer import (
     UNIX_SECONDS_INTEGER_DATETIME_PARSING,
     Transformer,
+    get_logger,
     metrics,
     write_record,
 )
 from zeep.helpers import serialize_object
+
+LOGGER = get_logger()
 
 
 def normalize_ref_object(value):
@@ -261,6 +264,11 @@ class WorkdayPaginator:
                 current_page = int(page_val) if page_val is not None else page
             except (ValueError, TypeError):
                 current_page = page
+
+            # Log progress for large datasets
+            if total_pages > 10 and (page % 10 == 0 or page == 1):
+                LOGGER.info(f"{self.operation_name}: Processing page {page}/{total_pages} ({len(all_records)} records so far)")
+
             page = current_page + 1
 
             if page > total_pages:
