@@ -44,6 +44,7 @@ class WorkdayBaseTest(BaseCase):
             "financial_management_organizations",
             "staffing_organizations",
             "financial_management_journals",
+            "financial_management_ledgers",
             "financial_management_cost_centers",
             "financial_management_revenue_categories",
         }
