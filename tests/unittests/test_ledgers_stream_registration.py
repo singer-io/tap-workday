@@ -48,7 +48,7 @@ class TestLedgersStreamRegistration(unittest.TestCase):
         self.assertTrue(issubclass(Ledgers, FinancialManagementStream))
         
         # Verify inherited attributes at class level (no instantiation needed)
-        self.assertEqual(Ledgers.replication_method, "INCREMENTAL")
+        self.assertEqual(Ledgers.replication_method, "FULL_TABLE")
         self.assertEqual(Ledgers.key_properties, ["key_value"])
         self.assertEqual(Ledgers.service_name, "Financial_Management")
 

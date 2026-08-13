@@ -331,13 +331,6 @@
           }
         }
       }
-    },
-    "updated_through": {
-      "type": [
-        "null",
-        "string"
-      ],
-      "format": "date-time"
     }
   }
 }

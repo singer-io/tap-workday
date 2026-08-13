@@ -203,8 +203,8 @@ class Ledgers(FinancialManagementStream):
     operation_name = "Get_Ledgers"
     data_key = "Ledger"
     wid_key = "Actuals_Ledger_Reference"
-    replication_method = "INCREMENTAL"
-    replication_keys = ["updated_through"]
+    # FULL_TABLE: Get_Ledgers has no Request_Criteria for date filtering.
+    # Optimization: discover ledger IDs from journals since start_date to reduce API calls.
 
     @classmethod
     def check_access(cls, client):
@@ -241,40 +241,36 @@ class Ledgers(FinancialManagementStream):
     def sync(self, state, transformer, parent_obj=None):
         """Synchronize records for Ledgers with automatic ledger ID discovery from Journals.
 
-        This stream is pseudo-incremental: it discovers ledger IDs from journals since
-        the last bookmark (or start_date on first run), then fetches full ledger data
-        for those discovered IDs. This significantly reduces API calls on subsequent runs
-        when journal activity is limited.
+        FULL_TABLE stream with optimization: discovers ledger IDs from journals since
+        start_date (not bookmark) to reduce API calls. Always returns complete snapshot
+        of discovered ledgers.
+        
+        Note: Ledgers that exist but have no journal activity since start_date will not
+        be discovered. This is acceptable as such ledgers are likely inactive.
         """
-        from singer import get_bookmark, write_bookmark, write_state
         from tap_workday.streams.helpers import emit_full_table
 
         client = self.get_client()
-
-        # Get incremental date range (same as Journals stream)
-        bookmark_key = self.replication_keys[0]
+        
+        # Use start_date to filter journals (optimization, not incremental sync)
         start_date = self.client.config.get("start_date")
-        updated_since = get_bookmark(state, self.tap_stream_id, bookmark_key, start_date)
-        sync_start_time = self._get_sync_start_time()
-
-        LOGGER.info(f"Discovering ledger IDs from journal entries since {updated_since}...")
+        
+        LOGGER.info(f"Discovering ledger IDs from journal entries since {start_date}...")
         try:
             discovered_ledger_ids = Journals.extract_ledger_ids_from_journals_api(
                 client, 
-                updated_since=updated_since,
-                updated_through=sync_start_time
+                updated_since=start_date,
+                updated_through=None  # No end date for FULL_TABLE
             )
-            if not discovered_ledger_ids:
-                LOGGER.info("No Ledger_Reference_IDs found in incremental journals. Syncing 0 ledgers.")
-                # Update bookmark even when no records found
-                state = write_bookmark(state, self.tap_stream_id, bookmark_key, sync_start_time)
-                write_state(state)
-                return emit_full_table(self, [])
-
-            LOGGER.info(f"Discovered {len(discovered_ledger_ids)} unique ledgers from incremental journals")
-        except Exception as exc:
-            LOGGER.error(f"Failed to discover ledger IDs from Journals: {exc}")
+        except Exception as e:
+            LOGGER.warning(f"Failed to discover ledger IDs from journals: {e}")
             return emit_full_table(self, [])
+        
+        if not discovered_ledger_ids:
+            LOGGER.info("No Ledger_Reference_IDs found in journals. Syncing 0 ledgers.")
+            return emit_full_table(self, [])
+
+        LOGGER.info(f"Discovered {len(discovered_ledger_ids)} unique ledgers from journals")
         
         # Retrieve data for each ledger ID
         all_records = []
@@ -287,17 +283,7 @@ class Ledgers(FinancialManagementStream):
                 LOGGER.warning(f"Failed to retrieve data for ledger {ledger_ref_id}: {exc}")
 
         LOGGER.info(f"Total records retrieved: {len(all_records)}")
-
-        # Add bookmark field to all records
-        for record in all_records:
-            record["updated_through"] = sync_start_time
-
-        # Write records and update bookmark
-        count = emit_full_table(self, all_records)
-        state = write_bookmark(state, self.tap_stream_id, bookmark_key, sync_start_time)
-        write_state(state)
-        return count
-
+        return emit_full_table(self, all_records)
     def _call_get_ledgers_with_reference_id(self, client, ledger_reference_id):
         """Call Get_Ledgers operation using Ledger_Reference_ID.
 
