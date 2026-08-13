@@ -6,7 +6,7 @@ from tap_workday.streams.human_resources import (
     Organizations as HROrgs, JobProfiles,
 )
 from tap_workday.streams.financial_management import (
-    Organizations as FMOrgs, Journals, CostCenters, RevenueCategories,
+    Organizations as FMOrgs, Journals, CostCenters, RevenueCategories, Ledgers,
 )
 from tap_workday.streams.staffing import Organizations as StaffingOrgs
 
@@ -177,12 +177,12 @@ class TestBuildFilterParams(unittest.TestCase):
 
 class TestStreamAttributes(unittest.TestCase):
 
-    INCREMENTAL = [HROrgs, JobProfiles, FMOrgs, Journals, CostCenters, RevenueCategories, StaffingOrgs]
+    INCREMENTAL = [HROrgs, JobProfiles, FMOrgs, Journals, CostCenters, RevenueCategories, StaffingOrgs, Ledgers]
 
-    def test_seven_incremental_streams(self):
+    def test_eight_incremental_streams(self):
         from tap_workday.streams import STREAMS
         inc = [k for k, v in STREAMS.items() if getattr(v, "replication_method", "") == "INCREMENTAL"]
-        self.assertEqual(len(inc), 7)
+        self.assertEqual(len(inc), 8)
 
     def test_all_incremental_have_updated_through_key(self):
         for cls in self.INCREMENTAL:

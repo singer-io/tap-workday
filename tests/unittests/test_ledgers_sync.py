@@ -22,22 +22,31 @@ class TestLedgersSync(unittest.TestCase):
         
         self.ledgers_stream = Ledgers(catalog=mock_catalog)
         self.ledgers_stream.client = Mock()
-        self.ledgers_stream.client.config = {}
+        self.ledgers_stream.client.config = {"start_date": "2020-01-01T00:00:00Z"}
         
         # Mock state and transformer
         self.state = {}
         self.transformer = Mock()
 
+    @patch('singer.write_state')
+    @patch('singer.write_bookmark')
+    @patch('singer.get_bookmark')
+    @patch('tap_workday.streams.abstracts.WorkdayTableStream._get_sync_start_time')
     @patch('tap_workday.streams.helpers.emit_full_table')
     @patch.object(Ledgers, '_call_get_ledgers_with_reference_id')
     @patch.object(Ledgers, 'get_client')
     @patch.object(Journals, 'extract_ledger_ids_from_journals_api')
-    def test_sync_successful_with_discovered_ledgers(self, mock_extract_ledgers, mock_get_client, 
-                                                   mock_call_get_ledgers, mock_emit_full_table):
+    def test_sync_successful_with_discovered_ledgers(self, mock_extract_ledgers, mock_get_client,
+                                                   mock_call_get_ledgers, mock_emit_full_table,
+                                                   mock_get_sync_start_time, mock_get_bookmark,
+                                                   mock_write_bookmark, mock_write_state):
         """Test successful sync with discovered ledger IDs."""
         # Setup mocks
         mock_get_client.return_value = self.mock_client
+        mock_get_bookmark.return_value = "2020-01-01T00:00:00Z"
+        mock_get_sync_start_time.return_value = "2026-08-13T10:00:00Z"
         mock_extract_ledgers.return_value = {"LEDGER_001", "LEDGER_002"}
+        mock_write_bookmark.return_value = self.state
         
         # Mock ledger data for each ID
         ledger_001_records = [{"key_value": "L001", "Ledger_Data": {"Actuals_Ledger_ID": "LEDGER_001"}}]
@@ -54,13 +63,17 @@ class TestLedgersSync(unittest.TestCase):
         
         mock_call_get_ledgers.side_effect = mock_get_ledgers_data
         
-        mock_emit_full_table.return_value = {"success": True}
+        mock_emit_full_table.return_value = 2
 
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify ledger discovery was called
-        mock_extract_ledgers.assert_called_once_with(self.mock_client)
+        # Verify ledger discovery was called with incremental parameters
+        mock_extract_ledgers.assert_called_once_with(
+            self.mock_client,
+            updated_since="2020-01-01T00:00:00Z",
+            updated_through="2026-08-13T10:00:00Z"
+        )
         
         # Verify get_ledgers was called for each discovered ledger ID
         self.assertEqual(mock_call_get_ledgers.call_count, 2)
@@ -91,30 +104,56 @@ class TestLedgersSync(unittest.TestCase):
         expected_key_values = {record["key_value"] for record in expected_records}
         self.assertEqual(actual_key_values, expected_key_values)
         
+        # Verify bookmark was written
+        mock_write_bookmark.assert_called_once_with(
+            self.state,
+            "financial_management_ledgers",
+            "updated_through",
+            "2026-08-13T10:00:00Z"
+        )
+        mock_write_state.assert_called_once()
+        
         # Verify result
-        self.assertEqual(result, {"success": True})
+        self.assertEqual(result, 2)
 
+    @patch('singer.write_state')
+    @patch('singer.write_bookmark')
+    @patch('singer.get_bookmark')
+    @patch('tap_workday.streams.abstracts.WorkdayTableStream._get_sync_start_time')
     @patch('tap_workday.streams.helpers.emit_full_table')
     @patch.object(Ledgers, 'get_client')
     @patch.object(Journals, 'extract_ledger_ids_from_journals_api')
-    def test_sync_no_ledgers_discovered(self, mock_extract_ledgers, mock_get_client, mock_emit_full_table):
+    def test_sync_no_ledgers_discovered(self, mock_extract_ledgers, mock_get_client, mock_emit_full_table,
+                                       mock_get_sync_start_time, mock_get_bookmark, mock_write_bookmark,
+                                       mock_write_state):
         """Test sync when no ledger IDs are discovered from journals."""
         # Setup mocks
         mock_get_client.return_value = self.mock_client
+        mock_get_bookmark.return_value = "2020-01-01T00:00:00Z"
+        mock_get_sync_start_time.return_value = "2026-08-13T10:00:00Z"
         mock_extract_ledgers.return_value = set()  # Empty set
-        mock_emit_full_table.return_value = {"success": True, "records": 0}
+        mock_emit_full_table.return_value = 0
+        mock_write_bookmark.return_value = self.state
 
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify ledger discovery was called
-        mock_extract_ledgers.assert_called_once_with(self.mock_client)
+        # Verify ledger discovery was called with incremental parameters
+        mock_extract_ledgers.assert_called_once_with(
+            self.mock_client,
+            updated_since="2020-01-01T00:00:00Z",
+            updated_through="2026-08-13T10:00:00Z"
+        )
         
         # Verify emit_full_table was called with empty records
         mock_emit_full_table.assert_called_once_with(self.ledgers_stream, [])
         
+        # Verify bookmark was still written
+        mock_write_bookmark.assert_called_once()
+        mock_write_state.assert_called_once()
+        
         # Verify result
-        self.assertEqual(result, {"success": True, "records": 0})
+        self.assertEqual(result, 0)
 
     @patch('tap_workday.streams.helpers.emit_full_table')
     @patch.object(Ledgers, 'get_client')
@@ -124,30 +163,39 @@ class TestLedgersSync(unittest.TestCase):
         # Setup mocks
         mock_get_client.return_value = self.mock_client
         mock_extract_ledgers.side_effect = Exception("Journal API failure")
-        mock_emit_full_table.return_value = {"success": True, "records": 0}
+        mock_emit_full_table.return_value = 0
 
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
-        # Verify ledger discovery was called
-        mock_extract_ledgers.assert_called_once_with(self.mock_client)
+        # Verify ledger discovery was attempted
+        mock_extract_ledgers.assert_called_once()
         
         # Verify emit_full_table was called with empty records due to discovery failure
         mock_emit_full_table.assert_called_once_with(self.ledgers_stream, [])
         
         # Verify result
-        self.assertEqual(result, {"success": True, "records": 0})
+        self.assertEqual(result, 0)
 
+    @patch('singer.write_state')
+    @patch('singer.write_bookmark')
+    @patch('singer.get_bookmark')
+    @patch('tap_workday.streams.abstracts.WorkdayTableStream._get_sync_start_time')
     @patch('tap_workday.streams.helpers.emit_full_table')
     @patch.object(Ledgers, '_call_get_ledgers_with_reference_id')
     @patch.object(Ledgers, 'get_client')
     @patch.object(Journals, 'extract_ledger_ids_from_journals_api')
-    def test_sync_partial_ledger_failure(self, mock_extract_ledgers, mock_get_client, 
-                                        mock_call_get_ledgers, mock_emit_full_table):
+    def test_sync_partial_ledger_failure(self, mock_extract_ledgers, mock_get_client,
+                                        mock_call_get_ledgers, mock_emit_full_table,
+                                        mock_get_sync_start_time, mock_get_bookmark,
+                                        mock_write_bookmark, mock_write_state):
         """Test sync when some ledger retrievals fail but others succeed."""
         # Setup mocks
         mock_get_client.return_value = self.mock_client
+        mock_get_bookmark.return_value = "2020-01-01T00:00:00Z"
+        mock_get_sync_start_time.return_value = "2026-08-13T10:00:00Z"
         mock_extract_ledgers.return_value = {"LEDGER_001", "LEDGER_002", "LEDGER_003"}
+        mock_write_bookmark.return_value = self.state
         
         # Mock success for first and third ledgers, failure for second
         ledger_001_records = [{"key_value": "L001", "Ledger_Data": {"Actuals_Ledger_ID": "LEDGER_001"}}]
@@ -166,7 +214,7 @@ class TestLedgersSync(unittest.TestCase):
         
         mock_call_get_ledgers.side_effect = mock_partial_failure
         
-        mock_emit_full_table.return_value = {"success": True}
+        mock_emit_full_table.return_value = 2
 
         # Call sync
         result = self.ledgers_stream.sync(self.state, self.transformer)
@@ -189,50 +237,64 @@ class TestLedgersSync(unittest.TestCase):
         expected_key_values = {"L001", "L003"}  # Only successful ledgers
         self.assertEqual(actual_key_values, expected_key_values)
         
+        # Verify bookmark was written
+        mock_write_bookmark.assert_called_once()
+        mock_write_state.assert_called_once()
+        
         # Verify result
-        self.assertEqual(result, {"success": True})
+        self.assertEqual(result, 2)
 
+    @patch('singer.write_state')
+    @patch('singer.write_bookmark')
+    @patch('singer.get_bookmark')
+    @patch('tap_workday.streams.abstracts.WorkdayTableStream._get_sync_start_time')
     @patch('tap_workday.streams.helpers.emit_full_table')
     @patch.object(Ledgers, '_call_get_ledgers_with_reference_id')
     @patch.object(Ledgers, 'get_client')
     @patch.object(Journals, 'extract_ledger_ids_from_journals_api')
-    def test_sync_full_table_no_incremental_filter(self, mock_extract_ledgers,
-                                                   mock_get_client, mock_call_get_ledgers,
-                                                   mock_emit_full_table):
-        """Ledgers has no Request_Criteria support; sync must call _call_get_ledgers_with_reference_id
-        with only (client, ledger_id) — no updated_since argument."""
+    def test_sync_incremental_bookmark_handling(self, mock_extract_ledgers,
+                                                mock_get_client, mock_call_get_ledgers,
+                                                mock_emit_full_table, mock_get_sync_start_time,
+                                                mock_get_bookmark, mock_write_bookmark,
+                                                mock_write_state):
+        """Ledgers is now INCREMENTAL; verify it reads and writes bookmarks correctly."""
         mock_get_client.return_value = self.mock_client
+        mock_get_bookmark.return_value = "2020-01-01T00:00:00Z"
+        mock_get_sync_start_time.return_value = "2026-08-13T10:00:00Z"
         mock_extract_ledgers.return_value = {"LEDGER_001"}
+        mock_write_bookmark.return_value = self.state
 
         ledger_records = [{"key_value": "L001", "Ledger_Data": {"Actuals_Ledger_ID": "LEDGER_001"}}]
         mock_call_get_ledgers.return_value = ledger_records
-        mock_emit_full_table.return_value = {"success": True}
+        mock_emit_full_table.return_value = 1
 
         result = self.ledgers_stream.sync(self.state, self.transformer)
 
+        # Verify get_bookmark was called
+        mock_get_bookmark.assert_called_once_with(
+            self.state,
+            "financial_management_ledgers",
+            "updated_through",
+            "2020-01-01T00:00:00Z"
+        )
+        
+        # Verify extract_ledger_ids was called with date range
+        mock_extract_ledgers.assert_called_once_with(
+            self.mock_client,
+            updated_since="2020-01-01T00:00:00Z",
+            updated_through="2026-08-13T10:00:00Z"
+        )
+        
+        # Verify write_bookmark was called
+        mock_write_bookmark.assert_called_once_with(
+            self.state,
+            "financial_management_ledgers",
+            "updated_through",
+            "2026-08-13T10:00:00Z"
+        )
+        
         mock_call_get_ledgers.assert_called_once_with(self.mock_client, "LEDGER_001")
-        self.assertEqual(result, {"success": True})
-
-    @patch('tap_workday.streams.helpers.emit_full_table')
-    @patch.object(Ledgers, '_call_get_ledgers_with_reference_id')
-    @patch.object(Ledgers, 'get_client')
-    @patch.object(Journals, 'extract_ledger_ids_from_journals_api')
-    def test_sync_bookmark_exception_handled(self, mock_extract_ledgers,
-                                             mock_get_client, mock_call_get_ledgers,
-                                             mock_emit_full_table):
-        """Ledgers.sync does not read bookmarks; verify it never calls get_bookmark."""
-        mock_get_client.return_value = self.mock_client
-        mock_extract_ledgers.return_value = {"LEDGER_001"}
-
-        ledger_records = [{"key_value": "L001", "Ledger_Data": {"Actuals_Ledger_ID": "LEDGER_001"}}]
-        mock_call_get_ledgers.return_value = ledger_records
-        mock_emit_full_table.return_value = {"success": True}
-
-        result = self.ledgers_stream.sync(self.state, self.transformer)
-
-        # Ledgers is FULL_TABLE; _call_get_ledgers_with_reference_id called with no updated_since
-        mock_call_get_ledgers.assert_called_once_with(self.mock_client, "LEDGER_001")
-        self.assertEqual(result, {"success": True})
+        self.assertEqual(result, 1)
 
     def test_ledgers_stream_attributes(self):
         """Test that Ledgers stream has the expected attributes."""
@@ -240,4 +302,5 @@ class TestLedgersSync(unittest.TestCase):
         self.assertEqual(Ledgers.operation_name, "Get_Ledgers")
         self.assertEqual(Ledgers.data_key, "Ledger")
         self.assertEqual(Ledgers.wid_key, "Actuals_Ledger_Reference")
-        self.assertEqual(Ledgers.replication_method, "FULL_TABLE")
+        self.assertEqual(Ledgers.replication_method, "INCREMENTAL")
+        self.assertEqual(Ledgers.replication_keys, ["updated_through"])
