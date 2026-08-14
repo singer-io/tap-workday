@@ -17,8 +17,6 @@ class WorkdayAllFields(AllFieldsTest, WorkdayBaseTest):
 
     def streams_to_test(self):
         streams_to_exclude = {
-            # Heavy streams excluded - cause CircleCI timeouts (context deadline exceeded >10m) due to large data volumes
-            "financial_management_ledgers",
             # Streams with no data in test account
             "financial_management_fund_hierarchies",
             "financial_management_fund_types",
