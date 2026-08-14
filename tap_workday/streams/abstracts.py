@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from datetime import date, datetime, timezone
 from typing import Any, Dict, Iterator, List, Tuple
 
 from singer import (
@@ -14,7 +15,7 @@ from singer import (
     write_state,
 )
 
-from tap_workday.client import Client, DefaultValues
+from tap_workday.client import Client, DefaultValues, _AUTH_MODE_WSSECURITY
 from tap_workday.streams.helpers import call_workday_operation, emit_full_table
 
 LOGGER = get_logger()
@@ -339,6 +340,42 @@ class ChildBaseStream(IncrementalStream):
         return self.bookmark_value
 
 
+def _extract_max_date(records, field_path):
+    """Return the maximum date value found in *records* by following *field_path*.
+
+    Traverses each record dict using the sequence of keys in *field_path*
+    (e.g. ``["Organization_Data", "Last_Updated_DateTime"]``) and returns the
+    lexicographically greatest ISO-8601 string found.  Handles both Python
+    ``datetime``/``date`` objects (returned by zeep before transformation) and
+    plain strings (already formatted by Singer's pre_hook).
+
+    Returns ``None`` when no usable date value is found in any record —
+    callers should fall back to ``sync_start_time`` in that case.
+    """
+    max_date = None
+    for record in records:
+        val = record
+        for key in field_path:
+            if not isinstance(val, dict):
+                val = None
+                break
+            val = val.get(key)
+        if val is None:
+            continue
+        if isinstance(val, datetime):
+            val_str = val.strftime("%Y-%m-%dT%H:%M:%SZ")
+        elif isinstance(val, date):
+            # plain date, no time component
+            val_str = val.strftime("%Y-%m-%dT00:00:00Z")
+        elif isinstance(val, str) and val:
+            val_str = val
+        else:
+            continue
+        if max_date is None or val_str > max_date:
+            max_date = val_str
+    return max_date
+
+
 class WorkdayTableStream(FullTableStream):
     """Base for simple Workday SOAP streams.
 
@@ -348,6 +385,20 @@ class WorkdayTableStream(FullTableStream):
     - data_key: leaf key inside Response_Data (e.g., "Organization")
     - wid_key: reference field key for extracting key_value (e.g., "Absence_Input_Reference")
     - version (optional): default "v45.0"
+
+    To enable incremental replication for a stream:
+    - Set ``replication_method = "INCREMENTAL"``
+    - Set ``replication_keys = ["updated_through"]`` (or another bookmark key name).
+      This value appears as ``valid-replication-keys`` in the Singer catalog and is
+      also used as the Singer state bookmark key.
+    - Override ``build_filter_params`` to return the correct ``Request_Criteria`` dict.
+    - Set ``bookmark_field_path`` to a list of dict keys that navigate to a
+      "last modified" timestamp in the returned records (e.g.
+      ``["Organization_Data", "Last_Updated_DateTime"]``).  The max of that
+      field across all records in the sync window is saved as the bookmark,
+      guaranteeing the boundary record is re-fetched on the next run
+      (≥1 record overlap).  Leave as ``None`` when no reliable last-modified
+      field exists in the response — the bookmark falls back to sync_start_time.
     """
 
     service_name: str = ""
@@ -355,28 +406,112 @@ class WorkdayTableStream(FullTableStream):
     data_key: str = ""
     wid_key: str = ""
     version: str = DefaultValues.VERSION.value
+    # Override with the key path to a "last modified" timestamp in response
+    # records (see class docstring).  None means fall back to sync_start_time.
+    bookmark_field_path: list = None
 
     def get_client(self):
-        """Client for WorkdayTableStream."""
+        """Client for WorkdayTableStream.
+
+        Reuses the parent client's auth mode and token manager so all per-stream
+        clients share the same cached access token and the same (possibly rotated)
+        refresh token.  Without this, each stream would construct an independent
+        WorkdayOAuthTokenManager from the original config, causing the first
+        stream's token rotation to invalidate every subsequent stream's token.
+        """
         cfg = self.client.config
-        return Client(cfg, service=self.service_name, version=self.version)
+        client = Client(cfg, service=self.service_name, version=self.version)
+        # Align auth state with the parent client (same pattern as schema.py).
+        client._auth_mode = self.client._auth_mode
+        client._token_manager = self.client._token_manager
+        if self.client._auth_mode == _AUTH_MODE_WSSECURITY:
+            # Rebuild the zeep client with UsernameToken wsse for this service.
+            client._client = client._create_client()
+        return client
+
+    def build_filter_params(self, updated_since, updated_through=None):
+        """Return stream-specific incremental filter params for the SOAP call.
+
+        Override in subclasses that support server-side date filtering.
+        The returned dict is merged into the SOAP call parameters.
+        """
+        return {}
+
+    def _get_sync_start_time(self):
+        """Return the current UTC time as an RFC 3339 string.
+
+        Isolated into its own method so unit tests can patch it without
+        replacing the entire datetime class (which would break isinstance
+        checks in _extract_max_date).
+        """
+        return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
     def sync(self, state, transformer, parent_obj=None):
-        """Synchronize records for WorkdayTableStream using centralized client, supporting incremental syncs."""
+        """Synchronize records for WorkdayTableStream.
+
+        INCREMENTAL BEHAVIOUR — why a run can correctly return 0 records
+        ─────────────────────────────────────────────────────────────────
+        Workday's date-range filter returns records whose *internal transaction
+        log entry* falls in the window [Updated_From, Updated_Through].
+
+          Run 1 (empty state):
+            updated_since  = start_date from config (e.g. 2019-01-01)
+            Updated_From   = 2019-01-01  →  returns all records since 2019
+            bookmark saved = sync_start_time (e.g. 2026-08-10T08:12Z)
+
+          Run 2 (state from Run 1):
+            updated_since  = 2026-08-10T08:12Z  ← bookmark, NOT start_date
+            Updated_From   = 2026-08-10T08:12Z  →  returns only records
+                             whose Workday transaction date ≥ 08:12Z
+            If no one edited Workday data since 08:12Z → 0 records is CORRECT.
+            bookmark saved = new sync_start_time (e.g. 2026-08-10T08:32Z)
+
+        0 records on Run 2 means "nothing changed in Workday since the last
+        sync" — it is not a bug or a missed-data situation.  The bookmark
+        advances each run so any future change is captured exactly once.
+
+        NO DATA IS EVER LOST:
+          • Records with transaction_date < Run-N bookmark  → already in Run N
+          • Records with transaction_date ≥ Run-N bookmark  → captured in Run N+1
+          • A record at the exact boundary timestamp        → appears in both
+                                                              (inclusive filter)
+        """
         client = self.get_client()
-        # Try to get bookmark/state for incremental syncs
         updated_since = None
-        if hasattr(self, "get_bookmark"):
-            # Use the same logic as IncrementalStream
-            try:
-                updated_since = self.get_bookmark(state, self.tap_stream_id)
-            except Exception as exc:
-                LOGGER.exception(
-                    "Exception occurred while retrieving bookmark for stream '%s'. Setting updated_since to None.",
-                    self.tap_stream_id
-                )
-                updated_since = None
+        sync_start_time = None
+        if self.replication_keys:
+            bookmark_key = self.replication_keys[0]
+            start_date = self.client.config.get("start_date")
+            # get_bookmark returns the stored bookmark if one exists, otherwise
+            # falls back to start_date.  start_date is ONLY used on the very
+            # first run when state is empty — it is ignored on all subsequent runs.
+            updated_since = get_bookmark(
+                state, self.tap_stream_id, bookmark_key, start_date
+            )
+            sync_start_time = self._get_sync_start_time()
+        custom_params = self.build_filter_params(updated_since, sync_start_time) or None
         records = call_workday_operation(
-            client, self.operation_name, self.data_key, updated_since=updated_since, wid_key=self.wid_key
+            client, self.operation_name, self.data_key,
+            custom_params=custom_params, wid_key=self.wid_key
         )
-        return emit_full_table(self, records)
+        if self.replication_keys and sync_start_time:
+            for record in records:
+                record["updated_through"] = sync_start_time
+        count = emit_full_table(self, records)
+        if self.replication_keys and sync_start_time:
+            bookmark_key = self.replication_keys[0]
+            # bookmark_field_path allows using a record-level date field as the
+            # bookmark instead of sync_start_time.  Currently None for all
+            # streams because Last_Updated_DateTime is the *effective* date of
+            # a change (can be future-dated) and does not match the internal
+            # Workday transaction log timestamp the API filters on.
+            if self.bookmark_field_path and records:
+                new_bookmark = (
+                    _extract_max_date(records, self.bookmark_field_path)
+                    or sync_start_time
+                )
+            else:
+                new_bookmark = sync_start_time
+            state = write_bookmark(state, self.tap_stream_id, bookmark_key, new_bookmark)
+            write_state(state)
+        return count

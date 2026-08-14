@@ -1,5 +1,7 @@
+import json
+import time
 from enum import Enum
-from typing import Any, Dict, Mapping
+from typing import Any, Dict, Mapping, Optional
 
 import backoff
 import requests
@@ -22,6 +24,15 @@ from tap_workday.exceptions import (
 )
 
 LOGGER = get_logger()
+
+# Auth mode sentinels
+_AUTH_MODE_OAUTH = "oauth"
+_AUTH_MODE_WSSECURITY = "wssecurity"
+
+
+def _has_wssecurity_config(config: Mapping[str, Any]) -> bool:
+    """Returns True when the config contains username/password for WS-Security fallback."""
+    return all(config.get(f) for f in ("username", "password"))
 
 
 class DefaultValues(Enum):
@@ -87,6 +98,110 @@ class SOAPErrorHandler:
         raise workday_exc_class(error_msg) from exc
 
 
+class WorkdayOAuthTokenManager:
+    """
+    Manages OAuth 2.0 access tokens for Workday SOAP requests.
+
+    Uses the refresh_token grant: exchanges client_id + client_secret + refresh_token
+    for a short-lived access_token that is sent as an HTTP ``Authorization: Bearer``
+    header on every SOAP request instead of a WS-Security UsernameToken.
+
+    Workday tenant pre-requisites (configured by a Workday administrator):
+      - An OAuth 2.0 API client registered in the Workday tenant.
+      - The client associated with an Integration System User (ISU) that has
+        the required security-domain permissions.
+      - A refresh token obtained via the Authorization Code flow and stored in
+        the tap config under the ``refresh_token`` key.
+    """
+
+    EXPIRY_BUFFER_SECS = 60  # refresh proactively 60 s before actual expiry
+
+    def __init__(self, config: Mapping[str, Any], config_path: Optional[str] = None) -> None:
+        self._token_endpoint: str = config.get("token_endpoint") or (
+            f"https://{config['hostname']}/ccx/oauth2/{config['tenant']}/token"
+        )
+        self._client_id: str = config["client_id"]
+        self._client_secret: str = config["client_secret"]
+        self._refresh_token: str = config["refresh_token"]
+        # Workday uses rotating single-use refresh tokens.  We keep a mutable
+        # reference to the config dict and its file path so that when Workday
+        # returns a new refresh_token we can persist it for the next tap process.
+        self._config = config
+        self._config_path: Optional[str] = config_path
+        self._access_token: Optional[str] = None
+        self._expires_at: float = 0.0
+
+    @property
+    def is_valid(self) -> bool:
+        """True when we hold a token that will not expire within the buffer window."""
+        return (
+            bool(self._access_token)
+            and time.monotonic() < self._expires_at - self.EXPIRY_BUFFER_SECS
+        )
+
+    def fetch(self) -> str:
+        """Force-fetch a new access token from the Workday token endpoint."""
+        LOGGER.debug("Requesting OAuth 2.0 access token from Workday token endpoint")
+        try:
+            resp = requests.post(
+                self._token_endpoint,
+                auth=(self._client_id, self._client_secret),
+                data={"grant_type": "refresh_token", "refresh_token": self._refresh_token},
+                timeout=30,
+                verify=True,
+            )
+        except requests.RequestException as exc:
+            raise WorkdayAuthenticationError(
+                f"OAuth token request failed (network error): {exc}"
+            ) from exc
+
+        if resp.status_code == 401:
+            raise WorkdayAuthenticationError(
+                "OAuth token request rejected (HTTP 401): "
+                "verify client_id, client_secret, and refresh_token in the tap config."
+            )
+        if not resp.ok:
+            raise WorkdayAuthenticationError(
+                f"OAuth token request failed (HTTP {resp.status_code}): {resp.text[:300]}"
+            )
+
+        data = resp.json()
+        self._access_token = data["access_token"]
+        expires_in = int(data.get("expires_in", 3600))
+        self._expires_at = time.monotonic() + expires_in
+
+        # Workday rotates refresh tokens: each token response may contain a new
+        # refresh_token that invalidates the previous one.  Persist it immediately
+        # so the next tap process (which re-reads the config file) uses the valid token.
+        # If no new refresh_token is returned (or it's empty), keep the existing one.
+        new_refresh_token = data.get("refresh_token")
+        if new_refresh_token:
+            self._refresh_token = new_refresh_token
+            self._config["refresh_token"] = new_refresh_token
+            self._persist_config()
+
+        LOGGER.debug("OAuth access token acquired (expires_in=%ds)", expires_in)
+        return self._access_token
+
+    def _persist_config(self) -> None:
+        """Write the current config (including rotated refresh_token) back to disk."""
+        if not self._config_path:
+            LOGGER.debug("No config_path set; skipping refresh token persistence to disk")
+            return
+        try:
+            with open(self._config_path, "w") as f:
+                json.dump(self._config, f, indent=2)
+            LOGGER.debug("Persisted rotated refresh token to %s", self._config_path)
+        except OSError as exc:
+            LOGGER.warning("Failed to persist rotated refresh token: %s", exc)
+
+    def get(self) -> str:
+        """Return a valid access token, fetching a fresh one if expired or absent."""
+        if not self.is_valid:
+            return self.fetch()
+        return self._access_token  # type: ignore[return-value]
+
+
 class Client:
     """Centralized SOAP client for Workday API calls"""
 
@@ -109,11 +224,14 @@ class Client:
         XMLSyntaxError,
     )
 
+    _FALLBACK_HINT = "set 'enable_wssecurity_fallback: true' in config to enable it"
+
     def __init__(
         self,
         config: Mapping[str, Any],
         service: str = DefaultValues.SERVICE.value,
         version: str = DefaultValues.VERSION.value,
+        config_path: Optional[str] = None,
     ) -> None:
         self.config = config
         self.service = service
@@ -121,24 +239,47 @@ class Client:
         self.request_timeout = float(
             config.get("request_timeout", DefaultValues.REQUEST_TIMEOUT.value)
         )
+        # OAuth 2.0 is always the primary auth mode (client_id, client_secret,
+        # refresh_token are required config keys).  WS-Security username/password
+        # is an optional fallback used only when OAuth authentication fails.
+        self._auth_mode: str = _AUTH_MODE_OAUTH
+        # config_path is forwarded so rotated refresh tokens can be persisted to disk
+        self._token_manager: Optional[WorkdayOAuthTokenManager] = WorkdayOAuthTokenManager(config, config_path=config_path)
+        self._session: Optional[requests.Session] = None
         self._client = self._create_client()
 
     def _create_client(self) -> ZeepClient:
         session = requests.Session()
         session.verify = True
+        self._session = session  # stored so _update_bearer_header can mutate it later
         transport = Transport(session=session, timeout=self.request_timeout)
         wsdl = self._build_wsdl_url()
-
-        # Configure ZEEP settings for more flexible XML parsing
-        # This helps handle cases where element order differs from schema
         settings = Settings(strict=False, xml_huge_tree=True)
+
+        if self._auth_mode == _AUTH_MODE_OAUTH:
+            # OAuth 2.0 Bearer token mode: do NOT fetch a token here.
+            # The token is acquired lazily on the first SOAP operation via
+            # _update_bearer_header(), or explicitly and up-front in
+            # check_credentials().  This allows check_credentials to own the
+            # error-handling / fallback logic without _create_client raising.
+            wsse = None
+            LOGGER.debug("SOAP client created in OAuth 2.0 Bearer token mode")
+        else:
+            # WS-Security UsernameToken mode: credentials embedded in every SOAP envelope.
+            wsse = UsernameToken(self.config["username"], self.config["password"])
+            LOGGER.debug("SOAP client created in WS-Security UsernameToken mode")
 
         return ZeepClient(
             wsdl=wsdl,
-            wsse=UsernameToken(self.config["username"], self.config["password"]),
+            wsse=wsse,
             transport=transport,
             settings=settings,
         )
+
+    @property
+    def _wssecurity_fallback_enabled(self) -> bool:
+        """True when the config opts in to WS-Security username/password fallback."""
+        return bool(self.config.get("enable_wssecurity_fallback", False))
 
     def _build_wsdl_url(self) -> str:
         return (
@@ -146,12 +287,81 @@ class Client:
             f"{self.config['tenant']}/{self.service}/{self.version}?wsdl"
         )
 
+    def _update_bearer_header(self) -> None:
+        """Ensure the session Authorization header holds a non-expired Bearer token."""
+        token = self._token_manager.get()  # type: ignore[union-attr]
+        self._session.headers["Authorization"] = f"Bearer {token}"  # type: ignore[union-attr]
+
+    def _switch_to_wssecurity_fallback(self) -> None:
+        """
+        Tear down OAuth mode and rebuild the SOAP client in WS-Security UsernameToken mode.
+
+        Called when OAuth token acquisition or refresh fails and username/password
+        credentials are present in the config as a fallback.
+
+        Raises WorkdayAuthenticationError if the required username/password fields
+        are absent from the config (no fallback available).
+        """
+        if not _has_wssecurity_config(self.config):
+            raise WorkdayAuthenticationError(
+                "OAuth authentication failed and no username/password fallback credentials "
+                "are present in the tap config. Authentication cannot continue."
+            )
+        LOGGER.debug("Switching authentication mode to WS-Security UsernameToken fallback")
+        self._auth_mode = _AUTH_MODE_WSSECURITY
+        self._token_manager = None
+        self._client = self._create_client()  # rebuild without Bearer token
+
     def _execute_operation(self, operation_name: str, *args: Any, **kwargs: Any) -> Any:
-        """
-        Execute a SOAP operation with error handling.
-        """
+        """Execute a SOAP operation with error handling and automatic auth fallback."""
+        if self._auth_mode == _AUTH_MODE_OAUTH:
+            try:
+                self._update_bearer_header()
+            except WorkdayAuthenticationError as auth_exc:
+                if not self._wssecurity_fallback_enabled:
+                    raise WorkdayAuthenticationError(
+                        f"OAuth token refresh failed for '{operation_name}' and "
+                        f"WS-Security fallback is disabled ({self._FALLBACK_HINT})."
+                    ) from auth_exc
+                LOGGER.warning(
+                    "OAuth token update failed for '%s': %s. Attempting WS-Security fallback.",
+                    operation_name, auth_exc,
+                )
+                self._switch_to_wssecurity_fallback()
         try:
             return getattr(self._client.service, operation_name)(*args, **kwargs)
+        except TransportError as exc:
+            # In OAuth mode a 401 usually means the access token expired mid-run.
+            # Attempt one token refresh, then fall back to WS-Security if that also fails.
+            if self._auth_mode == _AUTH_MODE_OAUTH and getattr(exc, "status_code", None) == 401:
+                LOGGER.debug(
+                    "Bearer token rejected (HTTP 401) for '%s'; attempting token refresh",
+                    operation_name,
+                )
+                try:
+                    self._token_manager.fetch()  # force-fetch, bypass is_valid
+                    self._update_bearer_header()
+                    LOGGER.debug("Token refreshed; retrying '%s'", operation_name)
+                    return getattr(self._client.service, operation_name)(*args, **kwargs)
+                except WorkdayAuthenticationError as auth_exc:
+                    LOGGER.warning(
+                        "OAuth token refresh failed for '%s': %s.",
+                        operation_name, auth_exc,
+                    )
+                    if not self._wssecurity_fallback_enabled:
+                        raise WorkdayAuthenticationError(
+                            f"OAuth token refresh failed for '{operation_name}' and "
+                            f"WS-Security fallback is disabled ({self._FALLBACK_HINT})."
+                        ) from auth_exc
+                    LOGGER.warning("Attempting WS-Security fallback for '%s'.", operation_name)
+                    self._switch_to_wssecurity_fallback()  # raises if no u/p in config
+                    try:
+                        return getattr(self._client.service, operation_name)(*args, **kwargs)
+                    except Exception as fallback_exc:
+                        SOAPErrorHandler.handle_error(operation_name, fallback_exc)
+                except Exception as retry_exc:
+                    SOAPErrorHandler.handle_error(operation_name, retry_exc)
+            SOAPErrorHandler.handle_error(operation_name, exc)
         except Exception as exc:
             SOAPErrorHandler.handle_error(operation_name, exc)
 
@@ -164,33 +374,75 @@ class Client:
 
     def check_credentials(self) -> None:
         """
-        Validate credentials with a lightweight SOAP call before discovery or sync.
+        Validate authentication before discovery or sync.
 
-        Raises WorkdayAuthenticationError (with CRITICAL log) on invalid/expired credentials.
-        Non-authentication errors (authorization faults, non-401 transport issues) are
-        silently ignored so they do not block discovery.
+        Flow:
+          1. If OAuth fields are present, attempt OAuth token acquisition first.
+             - Success  → continue in OAuth mode.
+             - Failure  → if username/password are present, log a warning and switch
+               to WS-Security UsernameToken fallback mode.
+             - Failure + no username/password → raise WorkdayAuthenticationError and stop.
+          2. Run a lightweight SOAP probe (Get_Workers) in whatever mode is now active
+             to confirm Workday accepts the credentials.
+
+        Raises WorkdayAuthenticationError when all available authentication paths fail.
+        Non-authentication SOAP errors (e.g. domain authorisation faults) are silently
+        ignored so they do not block discovery.
         """
         if not self.config:
             return
 
+        # ── Step 1: OAuth primary path ───────────────────────────────────────────────
+        if self._auth_mode == _AUTH_MODE_OAUTH:
+            try:
+                LOGGER.debug("Attempting OAuth 2.0 authentication")
+                self._token_manager.fetch()  # type: ignore[union-attr]
+                LOGGER.debug("OAuth 2.0 token acquired successfully; continuing in OAuth mode")
+            except Exception as oauth_exc:
+                LOGGER.warning("OAuth authentication failed: %s", oauth_exc)
+                if not self._wssecurity_fallback_enabled:
+                    raise WorkdayAuthenticationError(
+                        f"OAuth authentication failed. WS-Security fallback is disabled "
+                        f"({self._FALLBACK_HINT})."
+                    ) from oauth_exc
+                if not _has_wssecurity_config(self.config):
+                    raise WorkdayAuthenticationError(
+                        "OAuth authentication failed and no username/password fallback "
+                        "credentials are configured. Discovery/sync cannot continue."
+                    ) from oauth_exc
+                LOGGER.debug(
+                    "username/password credentials found; attempting WS-Security fallback"
+                )
+                self._switch_to_wssecurity_fallback()
+
+        # ── Step 2: SOAP probe (runs in whichever mode is now active) ────────────────
+        auth_label = (
+            "OAuth 2.0 Bearer token"
+            if self._auth_mode == _AUTH_MODE_OAUTH
+            else "username/password (WS-Security)"
+        )
+        LOGGER.debug("Validating %s with a lightweight SOAP probe", auth_label)
+
         try:
-            probe = Client(self.config, service="Human_Resources")
-            probe.check_access("Get_Workers")
+            self.check_access("Get_Workers")
+            LOGGER.debug("Authentication validated successfully using %s", auth_label)
         except WorkdaySOAPTransportError as e:
+            status_code = getattr(e, "status_code", 0)
             err_lower = str(e).lower()
-            status_code = getattr(e, 'status_code', 0)
             if status_code == 401 or any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
                 raise WorkdayAuthenticationError(
-                    "Authentication failure: invalid or expired credentials. "
-                    "Verify the username and password in the tap config."
+                    f"Authentication failure: {auth_label} rejected by Workday. "
+                    "Verify the credentials in the tap config."
                 ) from e
         except WorkdaySOAPFaultError as e:
             err_lower = str(e).lower()
             if any(p.lower() in err_lower for p in WORKDAY_AUTHN_ERROR_PATTERNS):
                 raise WorkdayAuthenticationError(
-                    "Authentication failure: invalid or expired credentials. "
-                    "Verify the username and password in the tap config."
+                    f"Authentication failure: {auth_label} rejected by Workday. "
+                    "Verify the credentials in the tap config."
                 ) from e
+        except WorkdayAuthenticationError:
+            raise
         except Exception as e:
             LOGGER.error("Unexpected error during credential check: %s", str(e))
             raise

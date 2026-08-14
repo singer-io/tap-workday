@@ -48,63 +48,41 @@ class TestLedgersCallGetLedgersWithReferenceId(unittest.TestCase):
 
         # Verify paginator was created correctly
         mock_paginator_class.assert_called_once_with(self.mock_client, "Get_Ledgers")
-        
-        # Verify paginate_operation was called with correct parameters
+
+        # Verify paginate_operation was called with data_key and custom_params keyword arg
         call_args = mock_paginator.paginate_operation.call_args
-        self.assertEqual(call_args[0][0], "Ledger")  # data_key
-        self.assertEqual(call_args[0][1], None)     # updated_since
-        
-        # Verify custom_params structure (third positional argument)
-        custom_params = call_args[0][2]
+        self.assertEqual(call_args[0][0], "Ledger")  # data_key positional
+        custom_params = call_args[1]['custom_params']
         expected_request_reference = {
             'Actuals_Ledger_Reference': {
                 'ID': [{'_value_1': self.test_ledger_id, 'type': 'Ledger_Reference_ID'}]
             }
         }
         self.assertEqual(custom_params['Request_Reference'], expected_request_reference)
+        # Get_Ledgers has no Request_Criteria member; must not be injected
         self.assertNotIn('Request_Criteria', custom_params)
-        
+
         # Verify key_value was extracted and added to records
         mock_extract_key_value.assert_called_once_with(mock_records[0], "Actuals_Ledger_Reference")
         self.assertEqual(result[0]["key_value"], "extracted_key_001")
 
     @patch('tap_workday.streams.helpers._extract_key_value')
     @patch('tap_workday.streams.helpers.WorkdayPaginator')
-    def test_call_get_ledgers_with_updated_since(self, mock_paginator_class, mock_extract_key_value):
-        """Test calling Get_Ledgers with updated_since parameter."""
-        # Mock paginator and records
+    def test_call_get_ledgers_no_request_criteria_injected(self, mock_paginator_class, mock_extract_key_value):
+        """Get_Ledgers has no Request_Criteria member; verify it is never injected."""
         mock_paginator = Mock()
         mock_paginator_class.return_value = mock_paginator
-        
-        mock_records = [
-            {
-                "Ledger_Data": {
-                    "Actuals_Ledger_ID": "TEST_LEDGER_001"
-                }
-            }
-        ]
-        mock_paginator.paginate_operation.return_value = mock_records
-        mock_extract_key_value.return_value = "extracted_key_001"
+        mock_paginator.paginate_operation.return_value = []
+        mock_extract_key_value.return_value = None
 
-        updated_since = "2023-01-01T00:00:00Z"
-        
-        # Call the method
-        result = self.ledgers_stream._call_get_ledgers_with_reference_id(
-            self.mock_client, self.test_ledger_id, updated_since
+        self.ledgers_stream._call_get_ledgers_with_reference_id(
+            self.mock_client, self.test_ledger_id
         )
 
-        # Verify paginate_operation was called with updated_since
         call_args = mock_paginator.paginate_operation.call_args
-        self.assertEqual(call_args[0][1], updated_since)  # updated_since
-        
-        # Verify custom_params includes Request_Criteria (third positional argument)
-        custom_params = call_args[0][2]
-        self.assertIn('Request_Criteria', custom_params)
-        self.assertEqual(custom_params['Request_Criteria'], {'Updated_From': updated_since})
-        
-        # Verify result
-        self.assertEqual(len(result), 1)
-        self.assertEqual(result[0]["key_value"], "extracted_key_001")
+        custom_params = call_args[1]['custom_params']
+        self.assertNotIn('Request_Criteria', custom_params)
+        self.assertIn('Request_Reference', custom_params)
 
     @patch('tap_workday.streams.helpers._extract_key_value')
     @patch('tap_workday.streams.helpers.WorkdayPaginator')
@@ -194,40 +172,37 @@ class TestLedgersCallGetLedgersWithReferenceId(unittest.TestCase):
     @patch('tap_workday.streams.helpers._extract_key_value')
     @patch('tap_workday.streams.helpers.WorkdayPaginator')
     def test_call_get_ledgers_custom_params_structure(self, mock_paginator_class, mock_extract_key_value):
-        """Test that custom_params structure is correctly formed."""
-        # Mock paginator
+        """Test that custom_params only contains Request_Reference (no Request_Criteria)."""
         mock_paginator = Mock()
         mock_paginator_class.return_value = mock_paginator
         mock_paginator.paginate_operation.return_value = []
 
         ledger_id = "SPECIFIC_LEDGER_ID"
-        updated_since = "2023-06-15T12:30:00Z"
-        
-        # Call the method
+
+        # Call the method — no updated_since, Get_Ledgers has no Request_Criteria
         self.ledgers_stream._call_get_ledgers_with_reference_id(
-            self.mock_client, ledger_id, updated_since
+            self.mock_client, ledger_id
         )
 
-        # Get the custom_params that were passed (third positional argument)
+        # custom_params is passed as keyword argument
         call_args = mock_paginator.paginate_operation.call_args
-        custom_params = call_args[0][2]
-        
+        custom_params = call_args[1]['custom_params']
+
         # Verify Request_Reference structure
         request_ref = custom_params['Request_Reference']
         self.assertIn('Actuals_Ledger_Reference', request_ref)
-        
+
         actuals_ledger_ref = request_ref['Actuals_Ledger_Reference']
         self.assertIn('ID', actuals_ledger_ref)
         self.assertIsInstance(actuals_ledger_ref['ID'], list)
         self.assertEqual(len(actuals_ledger_ref['ID']), 1)
-        
+
         id_entry = actuals_ledger_ref['ID'][0]
         self.assertEqual(id_entry['_value_1'], ledger_id)
         self.assertEqual(id_entry['type'], 'Ledger_Reference_ID')
-        
-        # Verify Request_Criteria structure
-        self.assertIn('Request_Criteria', custom_params)
-        self.assertEqual(custom_params['Request_Criteria'], {'Updated_From': updated_since})
+
+        # Get_Ledgers has no Request_Criteria member — must not be present
+        self.assertNotIn('Request_Criteria', custom_params)
 
     @patch('tap_workday.streams.helpers._extract_key_value')
     @patch('tap_workday.streams.helpers.WorkdayPaginator')

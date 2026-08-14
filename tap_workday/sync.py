@@ -10,12 +10,18 @@ LOGGER = singer.get_logger()
 
 def update_currently_syncing(state: Dict, stream_name: str) -> None:
     """
-    Update currently_syncing in state and write it
+    Update currently_syncing in state and write it.
+
+    Always emits a STATE message so the last stream's completion is
+    reflected in the final persisted state (otherwise the last emitted
+    STATE record would still show the stream as currently syncing).
     """
     if not stream_name and singer.get_currently_syncing(state):
         del state["currently_syncing"]
-    else:
-        singer.set_currently_syncing(state, stream_name)
+        singer.write_state(state)
+        return
+
+    singer.set_currently_syncing(state, stream_name)
     singer.write_state(state)
 
 
@@ -33,6 +39,29 @@ def write_schema(stream, client, streams_to_sync, catalog) -> None:
             stream.child_to_sync.append(child_obj)
 
 
+def _apply_interrupted_sync_resume(streams_to_sync, state):
+    """If currently_syncing exists in state, resume from that stream onward."""
+    current_stream = singer.get_currently_syncing(state)
+    if not current_stream:
+        return streams_to_sync
+
+    if current_stream not in streams_to_sync:
+        LOGGER.warning(
+            "currently_syncing stream '%s' is not selected; starting from first selected stream",
+            current_stream,
+        )
+        return streams_to_sync
+
+    resume_index = streams_to_sync.index(current_stream)
+    resumed_streams = streams_to_sync[resume_index:]
+    LOGGER.info(
+        "Resuming interrupted sync from stream '%s' (remaining_streams=%s)",
+        current_stream,
+        resumed_streams,
+    )
+    return resumed_streams
+
+
 def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
     """
     Sync selected streams from catalog
@@ -41,10 +70,8 @@ def sync(client: Client, config: Dict, catalog: singer.Catalog, state) -> None:
     streams_to_sync = []
     for stream in catalog.get_selected_streams(state):
         streams_to_sync.append(stream.stream)
+    streams_to_sync = _apply_interrupted_sync_resume(streams_to_sync, state)
     LOGGER.info("selected_streams: {}".format(streams_to_sync))
-
-    last_stream = singer.get_currently_syncing(state)
-    LOGGER.info("last/currently syncing stream: {}".format(last_stream))
 
     with singer.Transformer() as transformer:
         for stream_name in streams_to_sync:

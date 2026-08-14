@@ -56,7 +56,7 @@ class TestJournalsExtractLedgerIds(unittest.TestCase):
 
         # Verify paginator was created and called correctly
         mock_paginator_class.assert_called_once_with(self.mock_client, "Get_Journals")
-        mock_paginator.paginate_operation.assert_called_once_with("Journal_Entry", max_pages=None)
+        mock_paginator.paginate_operation.assert_called_once_with("Journal_Entry", custom_params=None, max_pages=None)
 
         # Verify extracted ledger IDs
         expected_ids = {"LEDGER_001", "LEDGER_002"}
@@ -74,8 +74,52 @@ class TestJournalsExtractLedgerIds(unittest.TestCase):
         result = Journals.extract_ledger_ids_from_journals_api(self.mock_client, max_pages=5)
 
         # Verify max_pages was passed correctly
-        mock_paginator.paginate_operation.assert_called_once_with("Journal_Entry", max_pages=5)
+        mock_paginator.paginate_operation.assert_called_once_with("Journal_Entry", custom_params=None, max_pages=5)
         self.assertEqual(result, set())
+
+    @patch('tap_workday.streams.helpers.WorkdayPaginator')
+    def test_extract_ledger_ids_with_date_filter(self, mock_paginator_class):
+        """Test extraction with incremental date filtering."""
+        # Mock paginator instance and records
+        mock_paginator = Mock()
+        mock_paginator_class.return_value = mock_paginator
+        
+        journal_records = [
+            {
+                "Journal_Entry_Data": {
+                    "Ledger_Reference": {
+                        "ID": [
+                            {
+                                "type": "Ledger_Reference_ID",
+                                "_value_1": "LEDGER_INCR_001"
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+        mock_paginator.paginate_operation.return_value = journal_records
+
+        # Call with date range
+        result = Journals.extract_ledger_ids_from_journals_api(
+            self.mock_client, 
+            updated_since="2020-01-01T00:00:00Z",
+            updated_through="2026-08-13T10:00:00Z"
+        )
+
+        # Verify custom_params includes Request_Criteria
+        expected_custom_params = {
+            "Request_Criteria": {
+                "Updated_From_Date": "2020-01-01T00:00:00Z",
+                "Updated_To_Date": "2026-08-13T10:00:00Z",
+            }
+        }
+        mock_paginator.paginate_operation.assert_called_once_with(
+            "Journal_Entry", 
+            custom_params=expected_custom_params, 
+            max_pages=None
+        )
+        self.assertEqual(result, {"LEDGER_INCR_001"})
 
     @patch('tap_workday.streams.helpers.WorkdayPaginator')
     def test_extract_ledger_ids_array_journal_entry_data(self, mock_paginator_class):

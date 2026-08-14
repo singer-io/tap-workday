@@ -28,7 +28,9 @@ class TestLedgersCheckAccess(unittest.TestCase):
         result = Ledgers.check_access(self.mock_client)
         
         # Verify the ledger ID extraction was called with max_pages=1
-        mock_extract_ledger_ids.assert_called_once_with(self.mock_client, max_pages=1)
+        mock_extract_ledger_ids.assert_called_once_with(
+            self.mock_client, max_pages=1, updated_since=None, updated_through=None
+        )
         
         # Verify the client.check_access was called once for ledgers
         self.mock_client.check_access.assert_called_once()
@@ -67,7 +69,9 @@ class TestLedgersCheckAccess(unittest.TestCase):
         result = Ledgers.check_access(self.mock_client)
         
         # Verify the ledger ID extraction was called with max_pages=1
-        mock_extract_ledger_ids.assert_called_once_with(self.mock_client, max_pages=1)
+        mock_extract_ledger_ids.assert_called_once_with(
+            self.mock_client, max_pages=1, updated_since=None, updated_through=None
+        )
         
         # Get the ledgers call args
         call_args = self.mock_client.check_access.call_args

@@ -1,14 +1,18 @@
 {
-  "type": [
-    "null",
-    "object"
-  ],
+  "type": "object",
   "properties": {
     "key_value": {
       "type": [
         "null",
         "string"
       ]
+    },
+    "updated_through": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "format": "date-time"
     },
     "Journal_Entry_Reference": {
       "type": [
@@ -105,8 +109,7 @@
             "type": [
               "null",
               "string"
-            ],
-            "format": "date-time"
+            ]
           },
           "Journal_Sequence_Number": {
             "type": [

@@ -13,6 +13,7 @@ from tap_workday.exceptions import (
     WORKDAY_AUTHN_ERROR_PATTERNS,
 )
 from tap_workday.streams import STREAMS
+from tap_workday.client import _AUTH_MODE_WSSECURITY
 
 LOGGER = singer.get_logger()
 
@@ -47,7 +48,7 @@ def load_schema_references() -> Dict:
 
 
 def check_stream_authorization(
-    config: Dict, stream_name: str, stream_obj
+    config: Dict, stream_name: str, stream_obj, shared_client=None
 ) -> Tuple[bool, Optional[str], Optional[str]]:
     """
     Check if stream is authorized by making a test API call.
@@ -67,6 +68,15 @@ def check_stream_authorization(
 
     try:
         client = Client(config, service=stream_obj.service_name)
+        # Align auth mode and token manager with the main client so per-stream
+        # checks don't re-trigger OAuth failures when the main client already
+        # switched to WS-Security fallback.
+        if shared_client is not None:
+            client._auth_mode = shared_client._auth_mode
+            client._token_manager = shared_client._token_manager
+            if shared_client._auth_mode == _AUTH_MODE_WSSECURITY:
+                # Rebuild the zeep SOAP client with UsernameToken wsse.
+                client._client = client._create_client()
 
         # Use stream's custom check_access method if present, else fall back to client
         if hasattr(stream_obj, 'check_access') and callable(getattr(stream_obj, 'check_access')):
@@ -98,7 +108,7 @@ def check_stream_authorization(
         return True, "unexpected_error", str(e)
 
 
-def get_schemas(config: Dict):
+def get_schemas(config: Dict, client=None):
     """
     Load the schema references, prepare metadata for each stream and return schema and
     metadata for the catalog.
@@ -122,7 +132,7 @@ def get_schemas(config: Dict):
         with open(schema_path) as file:
             schema = json.load(file)
 
-        authorized, category, detail = check_stream_authorization(config, stream_name, stream_obj)
+        authorized, category, detail = check_stream_authorization(config, stream_name, stream_obj, shared_client=client)
 
         if not authorized:
             excluded_groups.setdefault((category, detail), []).append(stream_name)
@@ -163,7 +173,7 @@ def get_schemas(config: Dict):
             LOGGER.warning(
                 "%d stream(s) excluded from catalog — authentication failure: %s.\n"
                 "Affected streams: [%s].\n"
-                "Verify the username and password in the tap config.",
+                "Verify the credentials (OAuth token or username/password) in the tap config.",
                 len(stream_names), detail, streams_str,
             )
         elif category == "authorization":
